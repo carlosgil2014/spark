@@ -54,64 +54,149 @@
 
 		public function actualizarEmpleado($datos){
 
-			$idEmpleado = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos['idempleado']))));
-			$nombres = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos['nombres']))));
-			$apellidop = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos['apellidop']))));
-			$apellidom = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos['apellidom']))));
-			$departamento = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos['departamento']))));
-			$puesto = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos['puesto']))));
-			$correo = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos['correo']))));
-			$telefono = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos['telefono']))));
-			$extension = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos['extension']))));
-			$contraseniacomp = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos['contraseniacomp']))));
-			$contraseniacorreo = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos['contraseniacorreo']))));
-			$fechacambio = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos['fechacambio']))));
-			$expiracion = date('Y-m-d', strtotime($fechacambio. ' + 90 days'));
-			$correoCorrecto = 0;
+			$idEmpleado = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos['id']))));
+			$correoAgencia = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos['correoAgencia']))));
+			$contraComp = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos['contraComp']))));
+			$contraCorreo = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos['contraCorreo']))));
+			$fchExpira = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos['fchExpira']))));
+			$fchCambio = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos['fchCambio']))));
+		
 
+			$expiracion = date('Y-m-d', strtotime($fchCambio. ' + 90 days'));
 			
 
-			if(filter_var($correo, FILTER_VALIDATE_EMAIL))
+
+			if(filter_var($correoAgencia, FILTER_VALIDATE_EMAIL))
 			{ //Comprobar si es valido el correo
 				$correoCorrecto = 1;
 			}
 
-			if(!empty($idEmpleado) && !empty($nombres) && !empty($apellidop) && !empty($contraseniacomp) && !empty($contraseniacorreo) && $correoCorrecto == 1)
-			{
-				$consulta = "UPDATE tblempleados e LEFT JOIN sistemas_tblempleados se ON e.id = se.idempleado SET e.nombre = '".$nombres."', e.apellidop = '".$apellidop."', e.apellidom = '".$apellidom."', e.iddepartamento = '".$departamento."', e.idpuesto = '".$puesto."', e.correo = '".$correo."', e.telefono = '".$telefono."', e.extension = '".$extension."', se.contraseniacomp = '".$contraseniacomp."',se. contraseniacorreo = '".$contraseniacorreo."', se.expiracion = '".$expiracion."', se.fechacambio = '".$fechacambio."' WHERE e.id = '".$idEmpleado."'";
+			if(!empty($idEmpleado) && !empty($correoAgencia) && !empty($contraComp) && !empty($contraCorreo) && !empty($fchCambio) && $correoCorrecto == 1)
+			{ 
+				$consulta = "UPDATE sistemas_tblempleados SET contraseniacomp='$contraComp' , contraseniacorreo='$contraCorreo' , fechacambio='$fchCambio' , expiracion='$fchExpira' , correoagencia='$correoAgencia' WHERE idempleado=$idEmpleado" ;
+				
 				if($this->conexion->query($consulta)){
-					return 1;
+					return "OK";
 				}
 	   			elseif (!$this->conexion->query($consulta)) {
 	   				return $this->conexion->errno . " : " . $this->conexion->error . "\n";
 	   			}
+   			
+   			}else{
+   			
+   				return "Algunos Campos no se llenaron";   			
    			}
-   			else{
-   				return 2;   			
-   			}
+
+
 		}
 
 		public function listarEmpleados($estado){
 
 			$estado = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($estado))));
-			$consulta = "SELECT empleados_id,CONCAT(empleados_nombres,' ',empleados_apellido_paterno,' ',empleados_apellido_materno) AS nombre ,empleados_correo,correoagencia,contraseniacomp,contraseniacorreo,expiracion, datediff(expiracion,curdate()) AS expira FROM spar_empleados RIGHT JOIN sistemas_tblempleados ON idempleado=empleados_id WHERE estado=1 AND empleados_id IS NOT NULL";
-				
+			
+			$consulta = "SELECT empleados_id,empleados_vigente,CONCAT(empleados_nombres,' ',empleados_apellido_paterno,' ',empleados_apellido_materno) AS nombre ,empleados_correo,correoagencia,contraseniacomp,contraseniacorreo,expiracion, datediff(expiracion,curdate()) AS expira FROM spar_empleados RIGHT JOIN sistemas_tblempleados ON idempleado=empleados_id WHERE empleados_vigente=$estado";
+
+			/*$consulta = "SELECT empleados_id,empleados_vigente,CONCAT(empleados_nombres,' ',empleados_apellido_paterno,' ',empleados_apellido_materno) AS nombre ,empleados_correo,correoagencia,contraseniacomp,contraseniacorreo,expiracion, datediff(expiracion,curdate()) AS expira FROM spar_empleados RIGHT JOIN sistemas_tblempleados ON idempleado=empleados_id WHERE estado=$estado AND  empleados_vigente=$estado AND empleados_id IS NOT NULL ORDER BY nombre ASC";
+			*/
+
 			$resultado = $this->conexion->query($consulta);
 			$datos = array();
-			while ($filaTmp = $resultado->fetch_assoc()) {
-				$datos[] = $filaTmp;
-
-			}
+			
 
 			if($resultado){
+
+				while ($filaTmp = $resultado->fetch_assoc()) {
+				$datos[] = $filaTmp;
+
+				}
+				
 				return $datos;
+
 			}
    			elseif (!$this->conexion->query($consulta)) {
 	   			return $this->conexion->errno . " : " . $this->conexion->error . "\n";
 
+	   			//echo $this->conexion->errno . " : " . $this->conexion->error . "\n";
 
    			}
 		}
+
+
+
+		public function listarEmpleadosVigentes(){
+
+			$consulta = "SELECT empleados_id AS id , CONCAT(empleados_nombres,' ',empleados_apellido_paterno,' ',empleados_apellido_materno) AS nombre FROM spar_empleados LEFT JOIN sistemas_tblempleados ON empleados_id=idempleado WHERE empleados_empresa='admon' AND empleados_vigente=1 AND idempleado IS NULL ORDER BY nombre ASC";
+				
+			$resultado = $this->conexion->query($consulta);
+			
+			$datos = array();
+			
+
+			if($resultado){
+
+				while ($filaTmp = $resultado->fetch_assoc()) {
+				$datos[] = $filaTmp;
+
+				}
+				
+				return $datos;
+
+			}
+   			elseif (!$this->conexion->query($consulta)) {
+	   			return $this->conexion->errno . " : " . $this->conexion->error . "\n";
+
+	   			//echo $this->conexion->errno . " : " . $this->conexion->error . "\n";
+
+   			}
+		}
+
+
+		public function agregarEmpleado($datos){
+
+			$idEmpleado = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos['id']))));
+			$correoAgencia = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos['correoAgencia']))));
+			$contraComp = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos['contraComp']))));
+			$contraCorreo = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos['contraCorreo']))));
+			$fchExpira = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos['fchExpira']))));
+			$fchCambio = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos['fchCambio']))));
+
+			$consulta = "INSERT INTO sistemas_tblempleados (idempleado,contraseniacomp,contraseniacorreo,fechacambio,expiracion,correoagencia,estado) VALUES ('$idEmpleado','$contraComp','$contraCorreo','$fchCambio','$fchExpira','$correoAgencia','1')";
+
+			$resultado = $this->conexion->query($consulta);
+
+			if($resultado){
+
+				return "OK";
+			}else{
+
+				//return "Fallo";
+				return $this->conexion->errno . " : " . $this->conexion->error . "\n";
+			}	
+
+
+			
+		}
+
+
+		public function bajaEmpleado($idEmpleado){
+
+			$idEmpleado = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($idEmpleado))));
+
+			$consulta = "UPDATE sistemas_tblempleados SET estado=0 WHERE idempleado=$idEmpleado";
+
+			$resultado = $this->conexion->query($consulta);
+
+			
+			if($resultado){
+
+				return "OK";
+			}
+
+			
+
+		}
+
+
 
 		public function datosEmpleado($idEmpleado){
 
@@ -144,57 +229,7 @@
    			}
 		}
 
-		public function datosCuenta(){
-
-			$consulta = "SELECT idcuenta,nombre FROM tblcuentas WHERE estado = 1";
-			$resultado = $this->conexion->query($consulta);
-			$datos = array();
-			while ($filaTmp = $resultado->fetch_assoc()) {
-				$datos[] = $filaTmp;
-			}
-
-			if($resultado){
-				return $datos;
-			}
-   			elseif (!$this->conexion->query($consulta)) {
-	   			return $this->conexion->errno . " : " . $this->conexion->error . "\n";
-   			}
-		}
-
-		public function datosDepartamento(){
-
-			$consulta = "SELECT iddepartamento,nombre FROM tbldepartamentos ORDER BY nombre";
-			$resultado = $this->conexion->query($consulta);
-			$datos = array();
-			while ($filaTmp = $resultado->fetch_assoc()) {
-				$datos[] = $filaTmp;
-			}
-
-			if($resultado){
-				return $datos;
-			}
-   			elseif (!$this->conexion->query($consulta)) {
-	   			return $this->conexion->errno . " : " . $this->conexion->error . "\n";
-   			}
-		}
-
-		public function datosPuesto(){
-
-			$consulta = "SELECT idpuesto,nombre FROM tblpuestos ORDER BY nombre";
-			$resultado = $this->conexion->query($consulta);
-			$datos = array();
-			while ($filaTmp = $resultado->fetch_assoc()) {
-				$datos[] = $filaTmp;
-			}
-
-			if($resultado){
-				return $datos;
-			}
-   			elseif (!$this->conexion->query($consulta)) {
-	   			return $this->conexion->errno . " : " . $this->conexion->error . "\n";
-   			}
-		}
-
+		
 		public function bajaActivarEmpleado($datos){
 			
 			$idEmpleado = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos['idempleado']))));
@@ -239,6 +274,7 @@
    			}
 		}
 
+		
 		public function __destruct() {
 				mysqli_close($this->conexion);
   		}

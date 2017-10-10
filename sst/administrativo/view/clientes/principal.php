@@ -99,7 +99,7 @@ if(!isset($_SESSION['spar_usuario']))
                       </div>
                     </div>
                   </div>
-                  <table id="tblClientes" class="table table-bordered table-striped">
+                  <table id="tblClientes" class="table table-bordered table-striped small">
                     <thead>
                     <tr>
                       <th>Razón Social</th>

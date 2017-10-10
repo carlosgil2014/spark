@@ -3,7 +3,7 @@
 // include_once($basedir.'/../db/conectadb.php');
 include_once("../../../model/sesion.php");
 include_once("../../../model/usuarios.php");
-include_once("../../model/bancos.php");
+include_once("../../model/regiones.php");
 
 class Controller {
 	
@@ -11,7 +11,7 @@ class Controller {
     {  
         $this->varSesion = new sesion();
         $this->varUsuario = new usuarios();
-        $this->varBanco = new bancos();
+        $this->varRegion = new regiones();
 
     } 
 	
@@ -25,9 +25,9 @@ class Controller {
 			switch($_GET["accion"])
 			{
 				case "index":
-					$bancos = $this->varBanco->listar();
+					$regiones = $this->varRegion->listar();
 					if(isset($_SESSION["spar_error"]) && $_SESSION["spar_error"] === "OK"){
-						$_SESSION["spar_error"] = "Banco guardado correctamente.";
+						$_SESSION["spar_error"] = "Region guardado correctamente.";
 						$clase = "success";
 					}
 					else
@@ -40,32 +40,32 @@ class Controller {
 					include_once("alta.php");
 					break;
 				case "modificar":
-					$banco = $this->varBanco->informacion($_GET["idBanco"]);
-					if(empty($banco))
+					$region = $this->varRegion->informacion($_GET["idRegion"]);
+					if(empty($region))
 						header("Location: index.php?accion=index");
 					else{
 						include_once("modificar.php");
 					}
 					break;
 				case "guardar":
-						$banco = $_POST["banco"];
-						$resultado = $this->varBanco->guardar($banco);
+						$region = $_POST["region"];
+						$resultado = $this->varRegion->guardar($region);
 						$_SESSION["spar_error"] = $resultado;
 						header("Location: index.php?accion=index");
 
 					break;
 
 				case "actualizar":
-						$idBanco = $_GET["idBanco"];
-						$banco = $_POST["banco"];
-						$resultado = $this->varBanco->actualizar($idBanco,$banco);
+						$idRegion = $_GET["idRegion"];
+						$region = $_POST["region"];
+						$resultado = $this->varRegion->actualizar($idRegion,$region);
 						$_SESSION["spar_error"] = $resultado;
 						header("Location: index.php?accion=index");
 					break;
 				
 				case "eliminar":
-						$idBanco = $_POST["idBanco"];
-						$resultado = $this->varBanco->eliminar($idBanco);
+						$idRegion = $_POST["idRegion"];
+						$resultado = $this->varRegion->eliminar($idRegion);
 						echo $resultado;
 						$_SESSION["spar_error"] = "Registro eliminado correctamente.";
 					break;

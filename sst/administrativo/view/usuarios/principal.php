@@ -100,13 +100,13 @@ if(!isset($_SESSION['spar_usuario']))
                       </div>
                     </div>
                   </div>
-                  <table id="tblUsuarios" class="table table-bordered table-striped">
+                  <table id="empleados" class="table table-bordered table-striped small">
                     <thead>
                     <tr>
                       <th>Nombre</th>
                       <th>Usuario</th>
                       <th>Correo</th>
-                      <th></th>
+                      <th>Editar</th>
                       <th>MRS</th>
                       <th>MCG</th>
                       <th>MCC</th>
@@ -249,6 +249,9 @@ if(!isset($_SESSION['spar_usuario']))
           </div>
         </div>
       </div>
+    </div>
+    <div id="modalUsuariosClientes" class="modal fade" role="dialog">
+      
     </div>
     <!-- Modal Actualizar Módulo -->
     <!-- jQuery 2.2.3 -->

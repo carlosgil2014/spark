@@ -11,12 +11,14 @@
 
    		public function listar(){
    			$datos = array();
-   			$consulta="SELECT d.idDirectorio,d.idCorreo,d.telefono,e.empleados_nombres,e.empleados_apellido_paterno,e.empleados_apellido_materno,d.idPuesto FROM tblDirectorio d INNER JOIN spar_empleados e on d.idUsuario=e.empleados_id";
+   			$consulta="SELECT d.idUsuario,d.region,d.idDirectorio as id ,d.telefono,d.telefonoSecundario,d.telefonoExtencion,d.telefonoAlterno,d.telefonoCasa,e.empleados_nombres,e.empleados_apellido_paterno,e.empleados_apellido_materno,p.puesto,e.empleados_correo,p.idPuesto,Rg.region FROM tblDirectorio d inner JOIN spar_empleados e ON d.idUsuario=e.empleados_id LEFT JOIN tblUsuarios u ON e.empleados_id=u.usuarios_empleados_id LEFT JOIN tblPuestos p on e.empleados_puesto=p.idPuesto LEFT JOIN tblEstados Es on e.empleados_estado=Es.idestado INNER JOIN tblRegiones Rg ON Es.region=Rg.idRegion where (e.empleados_empresa='admon' and e.empleados_vigente=1)";
    			$resultado = $this->conexion->query($consulta);
-			while ($filaTmp = $resultado->fetch_assoc()) {
-				$datos [] = $filaTmp;
-			}
+			
 			if($resultado){
+				//echo $consulta;
+				while ($filaTmp = $resultado->fetch_assoc()) {
+					$datos [] = $filaTmp;
+				}
 				return $datos;
 			}
    			elseif (!$this->conexion->query($consulta)) {
@@ -25,10 +27,10 @@
    		}
   		
    		   		
-//funcion para consultar la informacion
-   		public function informacion($idCategoria){
-			$idCategoria = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($idCategoria))));
-   			$consulta="SELECT idcategoria, categoria FROM tblCategorias WHERE idcategoria = '$idCategoria'";
+//funcion para$idinformacion
+   		public function informacion($id){
+			$id = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($id))));
+   			$consulta="SELECT d.telefonoAlterno,d.telefonoCasa,d.idDirectorio,e.empleados_numero_empleado,e.empleados_nombres,e.empleados_apellido_paterno,e.empleados_apellido_materno,e.empleados_correo,d.telefono,d.telefonoSecundario,d.telefonoExtencion,p.puesto,Es.nombre as nombreEstados,u.usuarios_foto,Rg.region FROM tblDirectorio d inner join tblUsuarios u ON d.idUsuario=u.usuarios_empleados_id LEFT JOIN spar_empleados e ON u.usuarios_empleados_id=e.empleados_id INNER JOIN tblPuestos p ON p.idPuesto=e.empleados_puesto INNER JOIN tblEstados Es ON e.empleados_estado=Es.idestado INNER JOIN tblRegiones Rg ON Es.region=Rg.idRegion where idDirectorio=$id";
    			$resultado = $this->conexion->query($consulta);
 			if($resultado){
 				return $resultado->fetch_assoc();
@@ -39,25 +41,39 @@
    		}
    		
 //funcion de hacer una consulta para guardar la informacion
-   		public function guardar($Categoria){
-			$Categoria = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($Categoria))));
+   		public function guardar($id,$telefono,$ext,$cel,$telCasa,$telAlterno,$region){
+			$id = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($id))));
+			$telefono = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($telefono))));
+			$ext = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($ext))));
+			$cel = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($cel))));
+			$telCasa = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($telCasa))));
+			$telAlterno = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($telAlterno))));
+			$region = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($region))));
+			$activo=1;
 			$errores = 0;
 			$errorResultado = "";
 			
-			if (empty($Categoria)) {
+			if (empty($id)) {
 				$errores ++;
-				$errorResultado .= "El campo Categoria no puede estar vacío. <br>";
-			}
-			
-			
+				$errorResultado .= "El campo usuario no puede estar vacío. <br>";
+				}
+				$resultado="";
 			if($errores === 0){
-				$consulta = "INSERT INTO tblCategorias(categoria) SELECT * FROM (SELECT '$Categoria' AS Categoria) AS tmp WHERE NOT EXISTS (SELECT categoria FROM tblCategorias WHERE categoria = '$Categoria') LIMIT 1; ";
-  				$resultado = $this->conexion -> query($consulta);
+					$consulta1 = "SELECT * FROM tblDirectorio WHERE idUsuario=$id";
+					$resultados=$this->conexion->query($consulta1); 
+					if ($resultados->num_rows==0) 
+					{ 
+					$consulta = "INSERT INTO tblDirectorio(idUsuario,telefono,telefonoSecundario,telefonoExtencion,telefonoAlterno,telefonoCasa,region,activo) SELECT * FROM (SELECT '$id' AS idUsuario, '$telefono' AS telefono, '$cel' AS telefonoSecundario, '$ext' AS telefonoExtencion, '$telAlterno' AS telefonoAlterno, '$telCasa' AS telefonoCasa, '$region' AS region, '$activo' AS activo) AS tmp WHERE NOT EXISTS (SELECT idUsuario FROM tblDirectorio WHERE idUsuario = '$id') LIMIT 1";
+						$resultado = $this->conexion->query($consulta);
+					}else{
+						$consulta = "UPDATE tblDirectorio SET telefono='$telefono',telefonoSecundario='$ext',telefonoExtencion='$cel',telefonoAlterno='$telAlterno',telefonoCasa='$telCasa',region=$region,activo=1 where idUsuario=$id";
+						$resultado = $this->conexion->query($consulta);
+					}
 				if($resultado){
 			  		if($this->conexion->affected_rows === 1)
 						return "OK";
 					else 
-						return "La Categoria ya existe. <br>";
+						return "errrrrorrr";
 				}
 				else{
 					return $this->conexion->errno . " : " . $this->conexion->error . "\n";
@@ -68,24 +84,27 @@
 			}
 		}
 //funcion para actualizar los registros
-		public function actualizar($idCategoria,$Categoria){
-			$idCategoria = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($idCategoria))));
-			$Categoria = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($Categoria))));
+		public function actualizar($id,$telefono,$ext,$cel,$telCasa,$telAlterno){
+			$id = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($id))));
+			$telefono = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($telefono))));
+			$ext = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($ext))));
+			$cel = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($cel))));
+			$telCasa = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($telCasa))));
+			$telAlterno = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($telAlterno))));
 			$errores = 0;
 			$errorResultado = "";
-			if (empty($Categoria)) {
+			if (empty($id)) {
 				$errores ++;
-				$errorResultado .= "El campo Categoria no puede estar vacío. <br>";
+				$errorResultado .= "El campo usuario no puede estar vacío. <br>";
 			}
 			if($errores === 0){
-				//$consulta = "UPDATE tblcomputadoras a_b SET a_b.Marca = '$computo' WHERE a_b.IdComputadoras = '$idComputadoras' AND 0 = (SELECT COUNT(*) FROM (SELECT * FROM (SELECT * FROM tblcomputadoras) AS a_b_2 WHERE a_b_2.Marca = '$computo' AND a_b_2.IdComputadoras != '$idComputadoras') AS count); ";
-				$consulta = "UPDATE tblCategorias SET categoria='$Categoria' where idcategoria = '$idCategoria'";
+				$consulta = "UPDATE tblDirectorio SET telefono='$telefono',telefonoSecundario='$cel',telefonoExtencion='$ext',telefonoAlterno='$telAlterno',telefonoCasa='$telCasa',activo=1 where idDirectorio=$id";
   				$resultado = $this->conexion -> query($consulta);
 				if($resultado){
 				  	if($this->conexion->affected_rows === 1)
 						return "OK";
 					else 
-						return "La Categoria ya existe o no se actualizó ningún dato. <br>";	
+						return "No se realizaron cambios. <br>";	
 				}
 				else{
 					echo $this->conexion->errno . " : " . $this->conexion->error . "\n";
@@ -96,26 +115,115 @@
 			}
 		}
 		
-//funcion eliminar los registros
-		public function eliminar($idCategoria){
-			$idCategoria = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($idCategoria))));
-			$consulta = "SELECT * FROM tblCategorias c inner join tblSubcategorias s on c.idCategoria =s.idCategoria where s.idCategoria=$idCategoria";
+
+   		public function eliminar($id){
+			$id = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($id))));
+			$consulta="UPDATE tblDirectorio SET activo=0 WHERE idDirectorio =$id";
+			echo $consulta;
 			$resultado = $this->conexion->query($consulta);
 			if($resultado){
-				if($this->conexion->affected_rows >= 1){
-						return "Categoria tiene una Subcategoria.";
-					}else{
-						$consulta1="DELETE FROM tblCategorias WHERE idCategoria = $idCategoria";
-						$resultado2 = $this->conexion->query($consulta1);
-						return "OK";
-						}
+				return "OK";
 			}
-   			else{
+   			elseif (!$this->conexion->query($consulta)) {
 	   			return $this->conexion->errno . " : " . $this->conexion->error . "\n";
    			}
    		}
 
-		public function __destruct() 
+
+
+   	public function buscarEmpleados(){
+        $errores = 0;
+        if($errores === 0){
+           $consulta = "SELECT Rg.region,e.empleados_id,CONCAT(e.empleados_nombres,' ',e.empleados_apellido_paterno,' ',e.empleados_apellido_materno) AS nombre,e.empleados_rfc,e.empleados_numero_empleado,Es.nombre as estadoNombre,Es.idestado as estadoNombres, dr.activo from spar_empleados e INNER JOIN tblEstados Es ON Es.idestado=e.empleados_estado INNER JOIN tblRegiones Rg ON Es.region=Rg.idRegion left join tblDirectorio dr ON e.empleados_id=dr.idUsuario where not exists (select * from tblDirectorio d where d.activo=1 and e.empleados_id = d.idUsuario) and e.empleados_vigente=1";
+           $resultado = $this->conexion->query($consulta);
+           if($resultado){
+              while ($filaTmp = $resultado->fetch_assoc()) {
+                 $datosEmpleados[] = $filaTmp;
+              }
+           }
+           else
+              echo $this->conexion->errno . " : " . $this->conexion->error . "\n";
+
+           return $datosEmpleados;
+        }
+        else
+           return $errorResultado;
+    }
+
+    public function verProveedor($id){
+    	$id = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($id))));
+        $errores = 0;
+        if($errores === 0){
+           $consulta = "SELECT p.rfc,p.razonSocial,p.apellidoPaterno,p.apellidoMaterno,p.nombreComercial,p.calle,p.noInterior,p.noInterior,p.noExterior,p.colonia,p.delegacion,p.estado,p.cp,p.telefonoContactoPrincipal,p.telefonoContactoSecundario,p.telefonoContactoOtro,p.tipoProveedor,p.noCuentaProveedor,p.clabeProveedor,p.nombreContacto FROM tblProveedores p WHERE idproveedor=$id";
+           $resultado = $this->conexion->query($consulta);
+           if($resultado){
+              while ($filaTmp = $resultado->fetch_assoc()) {
+                 $datosEmpleados = $filaTmp;
+              }
+           }
+           else
+              echo $this->conexion->errno . " : " . $this->conexion->error . "\n";
+
+           return $datosEmpleados;
+        }
+        else
+           return $errorResultado;
+    }
+
+    public function verCliente($id){
+    	$id = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($id))));
+        $errores = 0;
+        if($errores === 0){
+           $consulta = "SELECT c.tipo, c.rfc, c.razonSocial,c.nombres,c.apellidoPaterno,c.apellidoMaterno, c.nombreComercial, c.calle, c.noInterior, c.noExterior, c.colonia, c.delegacion, c.pais, c.estado, c.cp, c.nombreContacto, c.telefonoContactoPrincipal, c.telefonoContactoSecundario, c.telefonoContactoOtro FROM tblClientes c WHERE c.idclientes = $id";
+           $resultado = $this->conexion->query($consulta);
+           if($resultado){
+              while ($filaTmp = $resultado->fetch_assoc()) {
+                 $datosEmpleados = $filaTmp;
+              }
+           }
+           else
+              echo $this->conexion->errno . " : " . $this->conexion->error . "\n";
+
+           return $datosEmpleados;
+        }
+        else
+           return $errorResultado;
+    }
+
+    public function bajaDirectorio(){
+   			$datos = array();
+   			$consulta="SELECT s.empleados_id,s.empleados_numero_empleado,s.empleados_nombres,s.empleados_apellido_paterno,s.empleados_apellido_materno,s.empleados_correo,d.telefono,d.telefonoExtencion,d.telefonoSecundario,r.region,s.empleados_fecha_baja,DATEDIFF(CURDATE(),s.empleados_fecha_baja) as diasRestantes FROM spar_empleados s INNER JOIN tblDirectorio d ON d.idUsuario=s.empleados_id INNER JOIN tblEstados Es ON Es.idestado=d.region INNER JOIN tblRegiones r On r.idRegion=Es.region  WHERE s.empleados_vigente=0";
+   			$resultado = $this->conexion->query($consulta);
+			
+			if($resultado){
+				//echo $consulta;
+				while ($filaTmp = $resultado->fetch_assoc()) {
+					$datos [] = $filaTmp;
+				}
+				return $datos;
+			}
+   			elseif (!$this->conexion->query($consulta)) {
+	   			echo $this->conexion->errno . " : " . $this->conexion->error . "\n";
+   			}
+   	}
+    	/*public function listarRepresentante(){
+   			$datos = array();
+   			$consulta="SELECT idReprecentantes, reprecentante_nombres, reprecentante_apellido_paterno, reprecentante_apellido_materno, reprecentante_vigente, reprecentante_correo, reprecentate_empresa,Es.nombre,rg.region FROM tblReprecentantes r inner join tblEstados Es ON Es.idestado=r.reprecentante_estado inner join tblRegiones rg on rg.idRegion=Es.region";
+   			$resultado = $this->conexion->query($consulta);
+			
+			if($resultado){
+				//echo $consulta;
+				while ($filaTmp = $resultado->fetch_assoc()) {
+					$datos [] = $filaTmp;
+				}
+				return $datos;
+			}
+   			elseif (!$this->conexion->query($consulta)) {
+	   			echo $this->conexion->errno . " : " . $this->conexion->error . "\n";
+   			}
+   		}*/
+
+	public function __destruct() 
       	{
 				mysqli_close($this->conexion);
   	   	}	

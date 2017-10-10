@@ -87,32 +87,69 @@ if(!isset($_SESSION['spar_usuario']))
                                             </div>
                                         </div>
                                         <form data-toggle="validator" action="index.php?accion=actualizar&idUsuario=<?php echo $_GET['idUsuario'];?>" method="POST">
-                                          <div class="form-group col-md-2">
-                                              <label class="control-label">Usuario</label>
-                                              <input type="text" name="Datos[usuario]" class="form-control input-sm" value="<?php echo $usuario['usuario']?>" required=>
+                                          <div class="row">
+                                            <div class="form-group col-md-2">
+                                                <label class="control-label">Usuario</label>
+                                                <input type="text" name="Datos[usuario]" class="form-control input-sm" value="<?php echo $usuario['usuario']?>" required=>
+                                                <div class="help-block with-errors">&nbsp;</div>
+                                            </div>
+                                            <div class="form-group col-md-2">
+                                              <label class="control-label">Nueva Contraseña</label>
+                                              <input type="password" name="Datos[contrasena]" class="form-control input-sm" id="contrasena">
                                               <div class="help-block with-errors">&nbsp;</div>
+                                            </div>
+                                            <div class="form-group col-md-2">
+                                              <label class="control-label">Confirme contraseña</label>
+                                              <input type="password" name="Datos[contrasena1]" class="form-control input-sm" data-match="#contrasena" data-match-error="La contraseñas no coinciden">
+                                              <div class="help-block with-errors">&nbsp;</div>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                              <label class="control-label">Nombre(s)</label>
+                                              <input type="text" class="form-control input-sm" value="<?php echo $usuario['nombre'];?>" readonly>
+                                            </div>
+                                            <div class="form-group col-md-2">
+                                              <label class="control-label">Puesto</label>
+                                              <input type="text" class="form-control input-sm" value="<?php echo $usuario['puesto'];?>" readonly>
+                                            </div>
                                           </div>
-                                          <div class="form-group col-md-2">
-                                            <label class="control-label">Nueva Contraseña</label>
-                                            <input type="password" name="Datos[contrasena]" class="form-control input-sm" id="contrasena" required>
-                                            <div class="help-block with-errors">&nbsp;</div>
-                                          </div>
-                                          <div class="form-group col-md-2">
-                                            <label class="control-label">Confirme contraseña</label>
-                                            <input type="password" name="Datos[contrasena1]" class="form-control input-sm" data-match="#contrasena" data-match-error="La contraseñas no coinciden" required>
-                                            <div class="help-block with-errors">&nbsp;</div>
-                                          </div>
-                                          <div class="form-group col-md-3">
-                                            <label class="control-label">Nombre(s)</label>
-                                            <input type="text" class="form-control input-sm" value="<?php echo $usuario['nombre'];?>" readonly>
-                                          </div>
-                                          <div class="form-group col-md-2">
-                                            <label class="control-label">R.F.C.</label>
-                                            <input type="text" class="form-control input-sm" value="<?php echo $usuario['rfc'];?>" readonly>
-                                          </div>
-                                          <div class="form-group col-md-1">
-                                              <label class="control-label">&nbsp;</label>
-                                              <button class="btn btn-block btn-flat btn-sm btn-success" >Actualizar</button>
+                                          <table class="table small">
+                                          <?php
+                                          $columnas = 0;
+                                          $i = 0;
+                                          foreach($datosClientes as $cliente )                
+                                          { 
+                                            if($columnas == 0)
+                                            {
+                                          ?>
+                                            <tr>
+                                          <?php
+                                            }  
+                                            $razonSocial = substr($cliente["razonSocial"],0,20);
+                                            if(strlen($cliente["razonSocial"])>20)
+                                              $razonSocial .= "...";
+                                          ?>
+                                            <td class="<?php if(in_array($cliente["idclientes"],$usuariosClientes)){echo 'success';}else{echo 'danger';}?>" >
+                                              <div class="checkbox">
+                                                <label>
+                                                  <input type="checkbox" class="checkCliente" name="Datos[clientes][]" value="<?php echo $cliente['idclientes']?>" <?php if(in_array($cliente["idclientes"],$usuariosClientes)){echo 'checked';}?> /><?php echo $razonSocial." (".$cliente["nombreComercial"].")";?>
+                                                </label>
+                                              </div>
+                                            </td>
+                                          <?php    
+                                            $columnas++;
+                                            $i++;
+                                            if($columnas==5){
+                                              $columnas=0;
+                                          ?>
+                                            </tr>
+                                          <?php
+                                            }
+                                          }
+                                          ?>
+                                          </table>
+                                          <div class="form-group col-md-12">
+                                            <label class="control-label">&nbsp;</label>
+                                            <button class="btn btn-block btn-flat btn-sm btn-success" >Guardar</button>
                                           </div>
                                         </form>
                                     </div>

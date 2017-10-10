@@ -3,7 +3,7 @@
 // include_once($basedir.'/../db/conectadb.php');
 include_once("../../../model/sesion.php");
 include_once("../../../model/usuarios.php");
-include_once("../../model/proveedores.php");
+include_once("../../../model/proveedores.php");
 
 class Controller {
 	

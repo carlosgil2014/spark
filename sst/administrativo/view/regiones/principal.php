@@ -60,10 +60,11 @@ if(!isset($_SESSION['spar_usuario']))
           <?php 
             include_once("../../../view/includes/menuIzquierdo.php");
           ?>
+          <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
             <!-- <li class="header">Solicitudes</li> -->
             <li>
-              <a href="index.php?accion=alta"> 
+              <a style="cursor: pointer;" onclick="agregar();"> 
                 <i class="fa fa-plus"></i> <span>Agregar</span>
               </a>
             </li>
@@ -86,45 +87,41 @@ if(!isset($_SESSION['spar_usuario']))
               <!-- Horizontal Form -->
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Proveedores/Principal</h3>
+                  <h3 class="box-title">Regiones/Principal</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body table-responsive">
                   <?php if(!isset($_SESSION["spar_error"])){$estilo = "style='display:none;'";}else{$estilo = "";}?>
                   <div class="form-group" id="div_alert" <?php echo $estilo;?>>
                     <div class="col-md-4 col-md-offset-4">
-                      <div class="alert alert-success" >
+                      <div class="alert alert-<?php echo $clase;?>" >
                         <strong>¡Aviso!</strong> <a onclick="cerrar('div_alert')" href="#" class="pull-right"><i class="fa fa-close"></i></a>
                         <br><p id="p_alert"><?php if(isset($_SESSION["spar_error"]))echo $_SESSION["spar_error"];?></p>
                       </div>
                     </div>
                   </div>
-                  <table id="tblProveedores" class="table table-bordered table-striped small">
+                  <table id="tblRegiones" class="table table-bordered table-striped small">
                     <thead>
                     <tr>
-                      <th>Razón Social/Nombre</th>
-                      <th>Nombre Comercial</th>
-                      <th>Teléfono</th>
-                      <th>Banco</th>
-                      <th>Cuenta</th>
-                      <th>CLABE</th>
+                      <th>Regiones</th>
+                      <!-- <th></th> -->
                       <th></th>
                     </tr>
                     </thead>
                     <tbody>
                     <?php 
-                    foreach($proveedores as $proveedor){
+                    foreach($regiones as $region){
                     ?>
                     <tr>
-                      <td><?php echo $proveedor["razonSocial"]?></td>
-                      <td><?php echo $proveedor["nombreComercial"]?></td>
-                      <td><?php echo $proveedor["telefonoContactoPrincipal"]?></td>
-                      <td><?php echo $proveedor["bancoProveedor"]?></td>
-                      <td><?php echo $proveedor["noCuentaProveedor"]?></td>
-                      <td><?php echo $proveedor["clabeProveedor"]?></td>
+                      <td><?php echo $region["region"]?></td>
+                      <!--<td class = "text-center">
+                        <a style="cursor: pointer;" onclick="modificar('<?php echo $region['idRegion'];?>');">
+                          <i class="fa fa-pencil-square-o"></i>
+                        </a>
+                      </td> -->                      
                       <td class = "text-center">
-                        <a href="index.php?accion=modificar&idProveedor=<?php echo $proveedor['idproveedor'];?>">
-                          <i class="fa fa-search"></i>
+                        <a style="cursor: pointer;" onclick="eliminar('<?php echo $region['idRegion'];?>','<?php echo $region['region'];?>');">
+                          <i class="fa fa-trash-o text-red"></i>
                         </a>
                       </td>
                     </tr>
@@ -151,6 +148,27 @@ if(!isset($_SESSION['spar_usuario']))
       <!-- Add the sidebar's background. This div must be placed
            immediately after the control sidebar -->
       <div class="control-sidebar-bg"></div>
+      <div class="modal fade" id="modalRegion" role="dialog">              
+      </div>
+      <!-- Modal Eliminar -->
+      <div id="modalEliminar" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-sm">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Region/Eliminar</h4>
+            </div>
+            <div class="modal-body text-center">
+            ¿Eliminar el region <b id="regionEliminar"></b>?
+            </div>
+            <div class="modal-footer">
+              <button type="button" id="eliminar" class="btn btn-sm btn-danger" data-dismiss="modal">Continuar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal Eliminar -->
     </div>
     <!-- ./wrapper -->
 
@@ -167,7 +185,7 @@ if(!isset($_SESSION['spar_usuario']))
     <script src="../../../assets/js/app.min.js"></script>
     <!-- Funciones Generales -->
     <script src="../../../assets/js/funciones.js"></script>
-    <!-- Index Proveedores -->
-    <script src="../../js/V1/proveedores/index.js"></script>
+    <!-- Index Bancos -->
+    <script src="../../js/V1/regiones/index.js"></script>
   </body>
 </html>

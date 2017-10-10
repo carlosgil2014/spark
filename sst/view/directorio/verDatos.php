@@ -63,17 +63,17 @@
       <div class="form-group col-md-6">
         <label class="control-label">Región</label>
         <input type="text" name="puesto" class="form-control input-sm" data-error="Es un campo obligatorio" value="<?php
-         if($verDatos['region']=="CDMX")
-          echo "Centro";
+        if(!empty($verDatos['region']))
+            echo $verDatos['region'];
         else
-          $verDatos['region'];
+           echo "Asignar un Estado";
          ?>" readonly>
       </div>
       <div class="form-group col-md-6">
         <label class="control-label">Estado</label>
         <input type="text" name="mail" class="form-control input-sm" data-error="Es un campo obligatorio" value="<?php 
-        if(!empty($verDatos['estado']))
-            echo $verDatos['estado'];
+        if(!empty($verDatos['nombreEstados']))
+            echo $verDatos['nombreEstados'];
         else
            echo "Asignar estado al empledado";
          ?>" readonly>

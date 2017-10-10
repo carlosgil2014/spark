@@ -3,15 +3,16 @@
          header('Location: ../index.php');
     //Poner sesiones principales 
 
-if(isset($_GET["activo"])){
-  switch ($_GET["activo"]) {
+if(isset($_GET["estado"])){
+  switch ($_GET["estado"]) {
     case '1':
       $claseMexico = "active";
       $claseCentro = "";
       $clasePacfifico = "";
       $claseNorte = "";
       $claseSur = "";
-      $claseUbicacion = "";
+      $clasecliente = "";
+      $claseCliente = "";
       break;
     case '2':
       $claseMexico = "";
@@ -19,7 +20,8 @@ if(isset($_GET["activo"])){
       $clasePacfifico = "";
       $claseNorte = "";
       $claseSur = "";
-      $claseUbicacion = "";
+      $clasecliente = "";
+      $claseCliente = "";
       break;
     case '3':
       $claseMexico = "";
@@ -27,7 +29,8 @@ if(isset($_GET["activo"])){
       $clasePacfifico = "active";
       $claseNorte = "";
       $claseSur = "";
-      $claseUbicacion = "";
+      $clasecliente = "";
+      $claseCliente = "";
       break;
       case '4':      
       $claseMexico = "";
@@ -35,7 +38,8 @@ if(isset($_GET["activo"])){
       $clasePacfifico = "";
       $claseNorte = "active";
       $claseSur = "";
-      $claseUbicacion = "";
+      $clasecliente = "";
+      $claseCliente = "";
       break;
       case '5':
       $claseMexico = "";
@@ -43,7 +47,8 @@ if(isset($_GET["activo"])){
       $clasePacfifico = "";
       $claseNorte = "";
       $claseSur = "active";
-      $claseUbicacion = "";
+      $clasecliente = "";
+      $claseCliente = "";
       break;
 
       case '6':
@@ -52,9 +57,18 @@ if(isset($_GET["activo"])){
       $clasePacfifico = "";
       $claseNorte = "";
       $claseSur = "";
-      $claseUbicacion = "active";
-
+      $clasecliente = "active";
+      $claseCliente = "";
       break;
+
+      case '7':
+      $claseMexico = "";
+      $claseCentro = "";
+      $clasePacfifico = "";
+      $claseNorte = "";
+      $claseSur = "";
+      $clasecliente = "";
+      $claseCliente = "active";
     
     default:
       $claseMexico = "active";
@@ -62,7 +76,8 @@ if(isset($_GET["activo"])){
       $clasePacfifico = "";
       $claseNorte = "";
       $claseSur = "";
-      $claseUbicacion = "";
+      $clasecliente = "";
+      $claseCliente = "";
       break;
   }
 }
@@ -72,7 +87,8 @@ else{
       $clasePacfifico = "";
       $claseNorte = "";
       $claseSur = "";
-      $claseUbicacion = "";
+      $clasecliente = "";
+      $claseCliente = "";
 
 }
 
@@ -82,10 +98,11 @@ else{
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="shortcut icon" href="../../img/favicon.ico" type="image/x-icon" />
   <meta name="robots" content="noindex, nofollow">
   <meta name="description" content="Plantilla general para el desarrollo de los módulos del Sistema Spar Todopromo SST">
   <meta name="author" content="Maria de los Angeles Malagon, Salvador Luna, Victor Nava y Gerardo Medina">
-  <title>Modulo de Control de Recursos | Spar México</title>
+  <title>Sistema Spar Todopromo | Spar México</title>
   <!-- Indicadores para respuestas de la plantilla -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -114,11 +131,11 @@ else{
 
       <header class="main-header">
                <!-- Logo -->
-        <a href="../../../index.php?accion=index" class="logo">
+        <a href="../index.php?accion=login" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
-          <span class="logo-mini"><b>A | S</b></span>
+          <span class="logo-mini"><b>ST</b></span>
           <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg">Administrativo | Spar</span>
+          <span class="logo-lg">Spar Todopromo</span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <?php 
@@ -138,11 +155,17 @@ else{
 
 
       <!-- Barra de separación entre menus -->
-        <li class="header">Categorias</li>
+        <li class="header">Directorio</li>
       <!-- Fin de la barra de separación entre menus -->
             <li>
+              <a href="index.php?accion=buscarEmpleado"><i class="fa fa-user-plus"></i><span> Agregar</span>
+              </a>
+              <a href="index.php?accion=bajasDirectorio"><i class="fa fa-user-times"></i><span> Bajas del directorio</span>
+              </a>
+              <a href="#"><i class="fa fa-question-circle"></i><span> Ayuda</span>
+              </a>
               <a href="../../index.php?accion=index">
-                <i class="fa fa-arrow-left"></i> <span>Regresar</span>
+                <i class="fa fa-hand-o-left"></i> <span> Regresar</span>
               </a>
             </li>
                       </ul>
@@ -166,7 +189,7 @@ else{
               <!-- Horizontal Form -->
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Categorias/Principal</h3>
+                  <h2 class="box-title">Directorio Telefónico</h2>
                 </div>
                 <!-- /.box-header -->
                 <div id="respuesta"></div>
@@ -184,48 +207,72 @@ else{
                   </div>
                   <!--TABS-->
                   <div class="nav-tabs-custom">
-                     <ul class="nav nav-tabs">
-                    <li class="<?php echo $claseMexico;?>"><a href="#tab_1" data-toggle="tab" aria-expanded="false" > Oficinas Ciudad de Mexico</a></li>
-                    <li class="<?php echo $claseCentro;?>"><a href="#tab_2" data-toggle="tab" aria-expanded="false" > Region Centro</a></li>               
-                      <li class="<?php echo $clasePacfifico;?>"><a href="#tab_3" data-toggle="tab" aria-expanded="true">Region Pacifico</a></li>
-                      
-                      <li class="<?php echo $claseNorte;?>"><a href="#tab_4" data-toggle="tab" aria-expanded="false"> Region Norte</a></li>
-
-                      <li class="<?php echo $claseSur;?>"><a href="#tab_5" data-toggle="tab" aria-expanded="false"> Region Sur</a></li>
-                      <li class="<?php echo $claseUbicacion;?>"><a href="#tab_6" data-toggle="tab" aria-expanded="false"> Ubicacion</a></li>
-                    
-                    </ul>
+                    <ul class="nav nav-tabs">
+                    <li class="<?php echo $claseMexico;?>"><a href="#tab_1" data-toggle="tab" aria-expanded="false" > Spar México</a></li>
+                      <li class="<?php echo $claseProveedor;?>"><a href="#tab_2" data-toggle="tab" aria-expanded="false"> Proveedores</a></li>
+                      <li class="<?php echo $claseCliente;?>"><a href="#tab_3" data-toggle="tab" aria-expanded="false"> Cliente</a></li>
+                      <li class="<?php echo $claseRepresentante;?>"><a href="#tab_4" data-toggle="tab" aria-expanded="false"> Representantes</a></li>
                     </ul>
                     
                     <div class="tab-content">
-                      <div class="tab-pane <?php echo $claseMexico;?>" id="tab_1">
-                          
-                        <table id="tblclaseMexico" class="table table-bordered table-striped">
+
+                      <div class="tab-pane <?php echo $claseMexico;?>" id="tab_1">                          
+                        <table id="tblclaseMexico" class="table table-bordered table-striped small">
                           <thead>
-                            <th>Nombre   <a  class="btn btn-success" href="index.php?accion=buscarEmpleado&estado=mexico">Agregar</a></th>
-                            <th>Puesto</th>
+                            <th>Nombre</th>
                             <th>Correo</th>
-                            <th>Telefono</th>
-                            <th>Opciones</th>
+                            <th>Teléfono </th>
+                            <th>Extensión</th>
+                            <th>Región</th>
+                            <th></th>
+                            <th></th>
+                            <!--<th></th>-->
                           </thead>
+                                                
                           <tbody>
                           <?php 
                           foreach($directorios as $directorio){
-                          $btnEdit='<a class="btn btn-primary" data-toggle="modal" data-target="#update" onclick="modificar('.$directorio['idDirectorio'].')">Editar</a>';
-                          $btnEliminar='<a class="btn btn-danger" href="javascript:eliminarCategoria('.$directorio['idDirectorio'].');">Eliminar</a>';                       
-                          ?>                          
+                          ?>                         
                           <tr>
-                            <td><?php echo $directorio["empleados_nombres"]." ".$directorio['empleados_apellido_paterno']." ".$directorio['empleados_apellido_materno']?></td>
-                            <td><?php echo $directorio['idPuesto']?></td>
-                            <td><?php echo $directorio['idCorreo']?></td>
-                            <td><?php echo $directorio['telefono']?></td>
-                         <?php
-                         echo
-                          '<td>
-                          '.$btnEdit.'
-                          '.$btnEliminar.'
-                         </td>'
-                         ?>
+                            <td><?php echo  ucwords(strtolower($directorio["empleados_nombres"]." ".$directorio['empleados_apellido_paterno']." ".$directorio['empleados_apellido_materno']))?></td>
+                            <td><?php if(!$directorio['empleados_correo']){ echo 'sin correo'; } else{ echo $directorio['empleados_correo']; }?></td>
+                            <td><?php 
+                            if (!empty($directorio['telefono'])) { 
+                                echo $directorio['telefono'];   
+                             }elseif(!empty($directorio['telefonoSecundario'])){
+                                echo $directorio['telefonoSecundario'];
+                             }elseif(!empty($directorio['telefonoAlterno'])){
+                                echo $directorio['telefonoAlterno'];
+                             }elseif($directorio['telefonoCasa']){
+                                echo $directorio['telefonoCasa'];
+                             }else{
+                                echo "no hay telefonos";
+                             }
+                             
+                            ?></td>
+                            <td><?php echo $directorio['telefonoExtencion']; ?></td>
+                            <td><?php if ($directorio['region'] == 'CDMX') {
+                              echo 'Centro';
+                            }else{
+                             echo $directorio['region']; 
+                            }?>
+                             </td>
+                              <td class = "text-center">
+                              <a style="cursor: pointer;" onclick="ver('<?php echo $directorio['id'];?>');">
+                              <i class="fa fa-search"></i> 
+                              </a>
+                              </a>
+                            </td>
+                            <td class = "text-center">
+                              <a style="cursor: pointer;" onclick="modificar('<?php echo $directorio['id'];?>');">
+                              <i class="fa fa-edit"></i>
+                              </a> 
+                            </td>
+                            <!--<td>
+                              <a style="cursor: pointer;" onclick="eliminar('<?php //echo $directorio['id'];?>','<?php //echo $directorio['region'];?>');">
+                              <i class="fa fa-trash text-red"></i> 
+                              </a>
+                            </td>-->
                           </tr>
                           <?php
                           }
@@ -233,140 +280,129 @@ else{
                          </tbody>
                         </table>
                       </div>
-                      <!-- /.tab-pane -->
-                      <div class="tab-pane <?php echo $claseSubcategorias;?>" id="tab_2">
-                        <table id="tblSubcategorias" class="table table-bordered table-striped">
+                      <div class="tab-pane <?php echo $claseProveedor;?>" id="tab_2">                          
+                        <table id="tblclasecliente" class="table table-bordered table-striped small">
                           <thead>
-                            <th>Subcategoria  <a class="btn btn-success" data-toggle="modal" data-dismiss="modal" onclick="agregarSubCategoria()">Agregar</a></th>
-                            <th>Categoria</th>
-                            <th>Opciones</th>
+                            <th>Razón social</th>
+                            <th>RFC</th>
+                            <th>Nombre comercial</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
                           </thead>
+                                                
                           <tbody>
                           <?php 
-                          foreach($subcategorias as $subcategoria){
-                          $btnEdit='<a class="btn btn-primary" data-toggle="modal" data-target="#update" onclick="modificarSubCategoria('.$subcategoria['idSubcategoria'].')">Editar</a>';
-                          $btnEliminar='<a class="btn btn-danger" href="javascript:eliminarSubCategoria('.$subcategoria['idSubcategoria'].');">Eliminar</a>';                      
-                          ?>
-                      <tr>                   
-                              
-                          <td><?php echo $subcategoria["subcategoria"]?></td>
-                          <td><?php echo $subcategoria["categoria"]?></td>
-                           <?php
-                            echo
-                          '<td>
-                          '.$btnEdit.'
-                          '.$btnEliminar.'
-                         </td>'
-                         ?>                     
-                    </tr>
-                          <?php
-                          }
-                         ?>
-                         </tbody>
-                        </table>
-
-                      </div>
-                      <!-- /.tab-pane -->
-                      <div class="tab-pane <?php echo $claseProductos;?>" id="tab_3">
-                        <table id="tblProductos" class="table table-bordered table-striped">
-                          <thead>
-                            <th>Producto   <a class="btn btn-success" data-toggle="modal" data-dismiss="modal" onclick="agregarProducto()">Agregar</a></th>
-                            <th>Categoria</th>
-                            <th>Subcategoria</th>
-                            <th>Opciones</th>
-                          </thead>
-                          <tbody>
-                          <?php 
-                          foreach($productos as $producto){
-                          $btnEdit='<a class="btn btn-primary" data-toggle="modal" data-target="#update" onclick="modificarProducto('.$producto['idProducto'].')">Editar</a>';
-                          $btnEliminar='<a class="btn btn-danger" href="javascript:eliminarProducto('.$producto['idProducto'].');">Eliminar</a>';                       
-                          ?>
-                      <tr>                   
-                              
-                          <td><?php echo $producto["producto"]?></td>
-                          <td><?php echo $producto["categoria"]?></td>
-                          <td><?php echo $producto["subcategoria"]?></td>
-                          <?php
-                            echo
-                          '<td>
-                          '.$btnEdit.'
-                          '.$btnEliminar.'
-                         </td>'
-                         ?>  
-                    </tr>
-                          <?php
-                          }
-                         ?>
-                         </tbody>
-                        </table>
-
-                      <!-- /.tab-pane -->
-                    </div>
-                    <div class="tab-pane <?php echo $claseMarcas;?>" id="tab_4">
-                        <table id="tblMarcas" class="table table-bordered table-striped">
-                          <thead>
+                          foreach($proveedores as $proveedor){
+                          ?>                         
                           <tr>
-                            <th>Marca  <a  class="btn btn-success" data-toggle="modal" data-dismiss="modal" onclick="agregarMarca()">Agregar</a></th>
-                            <th>Opciones</th>
+                            <td><?php echo $proveedor["razonSocial"]?></td>
+                            <td><?php echo $proveedor['rfc'];?></td>
+                            <td><?php echo $proveedor['nombreComercial'];?></td>
+                            <td class = "text-center">
+                              <a style="cursor: pointer;" onclick="verProveedor('<?php echo $proveedor['idproveedor'];?>');">
+                              <i class="fa fa-search"></i> 
+                              </a>
+                            </td>
                           </tr>
-                          </thead>
-                          <tbody>
-                          <?php 
-                          foreach($marcas as $marca){
-                          $btnEdit='<a class="btn btn-primary" data-toggle="modal" data-target="#update" onclick="modificarMarca('.$marca['idmarca'].')">Editar</a>';
-                          $btnEliminar='<a class="btn btn-danger" href="javascript:eliminarMarca('.$marca['idmarca'].');">Eliminar</a>';                       
-                          ?>
-                      <tr>                   
-                              
-                          <td><?php echo $marca["marca"]?></td>
-                          <?php
-                            echo
-                          '<td>
-                          '.$btnEdit.'
-                          '.$btnEliminar.'
-                         </td>'
-                         ?>  
-                    </tr>
                           <?php
                           }
                          ?>
                          </tbody>
                         </table>
                       </div>
-                      <div class="tab-pane <?php echo $claseModelos;?>" id="tab_5">
-                        <table id="tblModelos" class="table table-bordered table-striped">
+                      <div class="tab-pane <?php echo $claseCliente;?>" id="tab_3">                          
+                        <table id="tblclaseCliente" class="table table-bordered table-striped small">
                           <thead>
-                            <tr>
-                            <th>Modelos   <a  class="btn btn-success" data-toggle="modal" data-dismiss="modal" onclick="agregarModelo()">Agregar</a></th>
-                            <th>Marca</th>
-                            <th>Opciones</th>
-                            </tr>
-                            <tbody>
-                              <?php 
-                          foreach($modelos as $modelo){
-                          $btnEdit='<a class="btn btn-primary" data-toggle="modal" data-target="#update" onclick="modificarModelo('.$modelo['idModelo'].')">Editar</a>';
-                          $btnEliminar='<a class="btn btn-danger" href="javascript:eliminarModelo('.$modelo['idModelo'].');">Eliminar</a>';                       
-                          ?>
-                      <tr>                   
-                              
-                          <td><?php echo $modelo["modelo"]?></td>
-                          <td><?php echo $modelo["marca"]?></td>
-                          <?php
-                            echo
-                          '<td>
-                          '.$btnEdit.'
-                          '.$btnEliminar.'
-                         </td>'
-                         ?>  
-                    </tr>
+                            <th>Razón social</th>
+                            <th>RFC</th>
+                            <th>Nombre comercial</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                          </thead>
+                                                
+                          <tbody>
+                          <?php 
+                          foreach($clientes as $cliente){
+                          ?>                         
+                          <tr>
+                            <td><?php echo strtolower($cliente["razonSocial"])?></td>
+                            <td><?php echo $cliente['rfc'];?></td>
+                            <td><?php echo $cliente['nombreComercial'];?></td>
+                              <td class = "text-center">
+                              <a style="cursor: pointer;" onclick="verCliente('<?php echo $cliente['idclientes'];?>');">
+                              <i class="fa fa-search"></i> 
+                              </a>
+                            </td>
+                          </tr>
                           <?php
                           }
                          ?>
-                            </tbody>
-                          </thead>
+                         </tbody>
                         </table>
                       </div>
-
+                      <div class="tab-pane <?php echo $claseProveedor;?>" id="tab_4">                          
+                        <table id="tblclaseMexico" class="table table-bordered table-striped small">
+                          <thead>
+                            <th>Nombre</th>
+                            <th>Correo</th>
+                            <th>Teléfono </th>
+                            <th>Región</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                          </thead>
+                                                
+                          <tbody>
+                          <?php 
+                          foreach($Representantes as $Representante){
+                          ?>                         
+                          <tr>
+                            <td><?php echo  ucwords(strtolower($Representante["reprecentante_nombres"]." ".$Representante['reprecentante_apellido_paterno']." ".$Representante['reprecentante_apellido_materno']))?></td>
+                            <td><?php if(!$Representante['reprecentante_correo']){ echo 'sin correo'; } else{ echo $Representante['reprecentante_correo']; }?></td>
+                            <td><?php 
+                            if (!empty($Representante['telefono'])) { 
+                                echo intval(preg_replace('/[^0-9]+/', '', $Representante['telefono']), 10);   
+                             }elseif(!empty($Representante['telefonoSecundario'])){
+                                echo intval(preg_replace('/[^0-9]+/', '', $Representante['telefonoSecundario']), 10);
+                             }elseif(!empty($Representante['telefonoAlterno'])){
+                                echo intval(preg_replace('/[^0-9]+/', '', $Representante['telefonoAlterno']), 10);
+                             }elseif($Representante['telefonoCasa']){
+                                echo intval(preg_replace('/[^0-9]+/', '', $Representante['telefonoCasa']), 10);
+                             }else{
+                                echo "no hay telefonos";
+                             }
+                             
+                            ?></td>
+                            <td><?php if ($Representante['region'] == 'CDMX') {
+                              echo 'Centro';
+                            }else{
+                             echo $Representante['region']; 
+                            }?>
+                             </td>
+                              <td class = "text-center">
+                              <a style="cursor: pointer;" onclick="ver('<?php echo $Representante['id'];?>');">
+                              <i class="fa fa-search"></i> 
+                              </a>
+                              </a>
+                            </td>
+                            <td class = "text-center">
+                              <a style="cursor: pointer;" onclick="modificar('<?php echo $Representante['id'];?>');">
+                              <i class="fa fa-edit"></i> 
+                            </td>
+                            <td></a>
+                              <a style="cursor: pointer;" onclick="eliminar('<?php echo $Representante['id'];?>','<?php echo $Representante['region'];?>');">
+                              <i class="fa fa-trash text-red"></i> 
+                              </a>
+                            </td>
+                          </tr>
+                          <?php
+                          }
+                         ?>
+                         </tbody>
+                        </table>
+                      </div>
                     <!-- /.tab-content -->
                   </div>
                   <!--/.Tabs-->
@@ -390,16 +426,12 @@ else{
       include_once("../../view/includes/footer.php");
       ?>
 
-            <div class="modal fade" id="agregarCategoria" role="dialog">
-            </div>
-            <div class="modal fade" id="agregarSubCategoria" role="dialog">
-            </div>
-            <div class="modal fade" id="agregarProducto" role="dialog">
+            <div class="modal fade" id="modalModificar" role="dialog">
             </div>
 
     <!-- Modal Eliminar -->
       <div id="modalEliminar" class="modal fade" role="dialog">
-        <div class="modal-dialog modal-sm">
+        <div class="modal-dialog modal-">
           <!-- Modal content-->
           <div class="modal-content">
             <div class="modal-header">
@@ -407,10 +439,11 @@ else{
               <h4 class="modal-title">Eliminar</h4>
             </div>
             <div class="modal-body text-center">
-            ¿Quieres eliminar <b id="categoriaEliminar"></b>?
+            ¿Quiere quitar a este empleado del directorio telefónico?<b id="categoriaEliminar"></b>
             </div>
             <div class="modal-footer">
-              <button type="button" id="eliminar" class="btn btn-sm btn-danger" data-dismiss="modal">Continuar</button>
+              <button type="button" id="eliminar" class="btn btn-sm btn-success" data-dismiss="modal">Si</button>
+              <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">No</button>
             </div>
           </div>
         </div>
@@ -427,6 +460,7 @@ else{
     <script src="../../assets/js/datatables/dataTables.bootstrap.min.js"></script>
     <!-- Bootstrap 3.3.6 -->
     <script src="../../assets/js/bootstrap/bootstrap.min.js"></script>
+    <script src="../../assets/js/input-mask/jquery.inputmask.js"></script>
     <!-- Validaciones -->
     <script src="../../assets/js/validacion/validacion.js"></script>   
     <!--Funciones Generales-->

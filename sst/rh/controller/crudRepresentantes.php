@@ -3,7 +3,7 @@
 // include_once($basedir.'/../db/conectadb.php');
 include_once("../../../model/sesion.php");
 include_once("../../../model/usuarios.php");
-include_once("../../model/bancos.php");
+include_once("../../model/representantes.php");
 
 class Controller {
 	
@@ -11,7 +11,7 @@ class Controller {
     {  
         $this->varSesion = new sesion();
         $this->varUsuario = new usuarios();
-        $this->varBanco = new bancos();
+        $this->varRepresentante = new representante();
 
     } 
 	
@@ -25,9 +25,9 @@ class Controller {
 			switch($_GET["accion"])
 			{
 				case "index":
-					$bancos = $this->varBanco->listar();
+					$representantes = $this->varRepresentante->listar();
 					if(isset($_SESSION["spar_error"]) && $_SESSION["spar_error"] === "OK"){
-						$_SESSION["spar_error"] = "Banco guardado correctamente.";
+						$_SESSION["spar_error"] = "Representante guardado correctamente.";
 						$clase = "success";
 					}
 					else
@@ -40,32 +40,32 @@ class Controller {
 					include_once("alta.php");
 					break;
 				case "modificar":
-					$banco = $this->varBanco->informacion($_GET["idBanco"]);
-					if(empty($banco))
+					$representante = $this->varRepresentante->informacion($_GET["idRepresentante"]);
+					if(empty($representante))
 						header("Location: index.php?accion=index");
 					else{
 						include_once("modificar.php");
 					}
 					break;
 				case "guardar":
-						$banco = $_POST["banco"];
-						$resultado = $this->varBanco->guardar($banco);
+						$representante = $_POST["reprecentante_nombres"];
+						$resultado = $this->varRepresentante->guardar($representante);
 						$_SESSION["spar_error"] = $resultado;
 						header("Location: index.php?accion=index");
 
 					break;
 
 				case "actualizar":
-						$idBanco = $_GET["idBanco"];
-						$banco = $_POST["banco"];
-						$resultado = $this->varBanco->actualizar($idBanco,$banco);
+						$idRepresentante = $_GET["idRepresentante"];
+						$reprecentante_nombres = $_POST["reprecentante_nombres"];
+						$resultado = $this->varRepresentante->actualizar($idRepresentante,$reprecentante_nombres);
 						$_SESSION["spar_error"] = $resultado;
 						header("Location: index.php?accion=index");
 					break;
 				
 				case "eliminar":
-						$idBanco = $_POST["idBanco"];
-						$resultado = $this->varBanco->eliminar($idBanco);
+						$idRepresentante = $_POST["idRepresentante"];
+						$resultado = $this->varRepresentante->eliminar($idRepresentante);
 						echo $resultado;
 						$_SESSION["spar_error"] = "Registro eliminado correctamente.";
 					break;

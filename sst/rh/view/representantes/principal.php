@@ -15,18 +15,18 @@ if(!isset($_SESSION['spar_usuario']))
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
-    <link rel="stylesheet" href="../../../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     <!-- DataTables -->
-    <link rel="stylesheet" href="../../../assets/css/datatables/dataTables.bootstrap.css">
+    <link rel="stylesheet" href="../../assets/css/datatables/dataTables.bootstrap.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="../../../assets/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="../../assets/css/AdminLTE.min.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
-    <link rel="stylesheet" href="../../../assets/css/_all-skins.min.css">
+    <link rel="stylesheet" href="../../assets/css/_all-skins.min.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -50,7 +50,7 @@ if(!isset($_SESSION['spar_usuario']))
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <?php 
-          include_once("../../../view/includes/datosUsuario.php");
+          include_once("../includes/datosUsuario.php");
         ?>
       </header>
       <!-- Left side column. contains the logo and sidebar -->
@@ -58,12 +58,13 @@ if(!isset($_SESSION['spar_usuario']))
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
           <?php 
-            include_once("../../../view/includes/menuIzquierdo.php");
+            include_once("../includes/menuIzquierdo.php");
           ?>
+          <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
             <!-- <li class="header">Solicitudes</li> -->
             <li>
-              <a href="index.php?accion=alta"> 
+              <a style="cursor: pointer;" onclick="agregar();"> 
                 <i class="fa fa-plus"></i> <span>Agregar</span>
               </a>
             </li>
@@ -86,45 +87,43 @@ if(!isset($_SESSION['spar_usuario']))
               <!-- Horizontal Form -->
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Proveedores/Principal</h3>
+                  <h3 class="box-title">Representante/Principal</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body table-responsive">
                   <?php if(!isset($_SESSION["spar_error"])){$estilo = "style='display:none;'";}else{$estilo = "";}?>
                   <div class="form-group" id="div_alert" <?php echo $estilo;?>>
                     <div class="col-md-4 col-md-offset-4">
-                      <div class="alert alert-success" >
+                      <div class="alert alert-<?php echo $clase;?>" >
                         <strong>¡Aviso!</strong> <a onclick="cerrar('div_alert')" href="#" class="pull-right"><i class="fa fa-close"></i></a>
                         <br><p id="p_alert"><?php if(isset($_SESSION["spar_error"]))echo $_SESSION["spar_error"];?></p>
                       </div>
                     </div>
                   </div>
-                  <table id="tblProveedores" class="table table-bordered table-striped small">
+                  <table id="tblRepresentantes" class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                      <th>Razón Social/Nombre</th>
-                      <th>Nombre Comercial</th>
-                      <th>Teléfono</th>
-                      <th>Banco</th>
-                      <th>Cuenta</th>
-                      <th>CLABE</th>
+                      <th>Representante</th>
+                      <th></th>
                       <th></th>
                     </tr>
                     </thead>
                     <tbody>
                     <?php 
-                    foreach($proveedores as $proveedor){
+                    foreach($representantes as $representante){
                     ?>
                     <tr>
-                      <td><?php echo $proveedor["razonSocial"]?></td>
-                      <td><?php echo $proveedor["nombreComercial"]?></td>
-                      <td><?php echo $proveedor["telefonoContactoPrincipal"]?></td>
-                      <td><?php echo $proveedor["bancoProveedor"]?></td>
-                      <td><?php echo $proveedor["noCuentaProveedor"]?></td>
-                      <td><?php echo $proveedor["clabeProveedor"]?></td>
+                      <td><?php echo $representante["reprecentante_nombres"]." ".$representante["reprecentante_apellido_paterno"]." ".$representante["reprecentante_apellido_materno"]?></td>
+                      <td><?php echo $representante["reprecentante_nombres"]?></td>
+                      <td><?php echo $representante["reprecentante_nombres"]?></td>
                       <td class = "text-center">
-                        <a href="index.php?accion=modificar&idProveedor=<?php echo $proveedor['idproveedor'];?>">
-                          <i class="fa fa-search"></i>
+                        <a style="cursor: pointer;" onclick="modificar('<?php echo $representante['idReprecentantes'];?>');">
+                          <i class="fa fa-pencil-square-o"></i>
+                        </a>
+                      </td>
+                      <td class = "text-center">
+                        <a style="cursor: pointer;" onclick="eliminar('<?php echo $representante['idReprecentantes'];?>','<?php echo $representante['nombre'];?>');">
+                          <i class="fa fa-trash-o text-red"></i>
                         </a>
                       </td>
                     </tr>
@@ -146,28 +145,51 @@ if(!isset($_SESSION['spar_usuario']))
       </div>
       <!-- /.content-wrapper -->
       <?php
-      include_once("../../../view/includes/footer.php");
+      include_once("../includes/footer.php");
       ?>
       <!-- Add the sidebar's background. This div must be placed
            immediately after the control sidebar -->
       <div class="control-sidebar-bg"></div>
+      <div class="modal fade" id="modalRepresentante" role="dialog">              
+      </div>
+      <!-- Modal Eliminar -->
+      <div id="modalEliminar" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-sm">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Representante/Eliminar</h4>
+            </div>
+            <div class="modal-body text-center">
+            ¿Eliminar el representante<b id="representanteEliminar"></b>?
+            </div>
+            <div class="modal-footer">
+              <button type="button" id="eliminar" class="btn btn-sm btn-danger" data-dismiss="modal">Continuar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal Eliminar -->
     </div>
     <!-- ./wrapper -->
 
     <!-- jQuery 2.2.3 -->
-    <script src="../../../assets/js/jquery/jquery-2.2.3.min.js"></script>
-    <!-- Bootstrap 3.3.6 -->
-    <script src="../../../assets/js/bootstrap/bootstrap.min.js"></script>
+    <script src="../../assets/js/jquery/jquery-2.2.3.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="../../assets/js/jquery/jquery-ui.js"></script>
     <!-- DataTables -->
-    <script src="../../../assets/js/datatables/jquery.dataTables.min.js"></script>
-    <script src="../../../assets/js/datatables/dataTables.bootstrap.min.js"></script>
+    <script src="../../assets/js/datatables/jquery.dataTables.min.js"></script>
+    <script src="../../assets/js/datatables/dataTables.bootstrap.min.js"></script>
+    <!-- Bootstrap 3.3.6 -->
+    <script src="../../assets/js/bootstrap/bootstrap.min.js"></script>
+    <script src="../../assets/js/input-mask/jquery.inputmask.js"></script>
     <!-- Validaciones -->
-    <script src="../../../assets/js/validacion/validacion.js"></script>
+    <script src="../../assets/js/validacion/validacion.js"></script>   
+    <!--Funciones Generales-->
+    <script src="../../assets/js/funciones.js"></script>
     <!-- AdminLTE App -->
-    <script src="../../../assets/js/app.min.js"></script>
-    <!-- Funciones Generales -->
-    <script src="../../../assets/js/funciones.js"></script>
-    <!-- Index Proveedores -->
-    <script src="../../js/V1/proveedores/index.js"></script>
+    <script src="../../assets/js/app.min.js"></script>
+    <script src="../../js/V1/directorio/index.js"></script>
   </body>
 </html>

@@ -108,7 +108,7 @@ if(!isset($_SESSION['spar_usuario']))
                                               <tr>
                                                   <th>Nombre</th>
                                                   <th>R.F.C.</th>
-                                                  <th>Gastos</th>
+                                                  <th>Continuar</th>
                                               </tr>
                                           </thead>
                                           <tbody>

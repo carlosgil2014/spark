@@ -12,7 +12,7 @@ class usuarios{
 	
 	public function datosUsuario($usuario){
 		$usuario = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($usuario))));
-		$consulta = "SELECT u.usuarios_id AS idUsuario, u.usuarios_usuario AS usuario, usuarios_foto AS foto, e.empleados_numero_empleado AS numEmpleado, e.empleados_correo AS correo, p.puesto, CONCAT(e.empleados_apellido_paterno,' ',e.empleados_apellido_materno,' ',e.empleados_nombres) AS nombre, e.empleados_rfc AS rfc, usuarios_mrs AS mrs, usuarios_mcg AS mcg, usuarios_ma AS ma, usuarios_mcc AS mcc, usuarios_mrh AS mrh, usuarios_ms AS ms FROM spartodo_spar_bd.spar_empleados e LEFT JOIN tblPuestos p ON e.empleados_puesto = p.idPuesto LEFT JOIN tblUsuarios u ON e.empleados_id = u.usuarios_empleados_id WHERE u.usuarios_usuario = '".$usuario."' ";
+		$consulta = "SELECT u.usuarios_id AS idUsuario, u.usuarios_empleados_id AS idEmpleado, u.usuarios_usuario AS usuario, usuarios_foto AS foto, e.empleados_numero_empleado AS numEmpleado, e.empleados_correo AS correo, p.puesto, CONCAT(e.empleados_nombres,' ',e.empleados_apellido_paterno,' ',e.empleados_apellido_materno) AS nombre, e.empleados_rfc AS rfc, usuarios_mrs AS mrs, usuarios_mcg AS mcg, usuarios_ma AS ma, usuarios_mcc AS mcc, usuarios_mrh AS mrh, usuarios_ms AS ms FROM spartodo_spar_bd.spar_empleados e LEFT JOIN tblPuestos p ON e.empleados_puesto = p.idPuesto LEFT JOIN tblUsuarios u ON e.empleados_id = u.usuarios_empleados_id WHERE u.usuarios_usuario = '".$usuario."' ";
 		$resultado = $this->conexion->query($consulta);
 		$datos = array();
 
@@ -39,9 +39,9 @@ class usuarios{
 		if(!empty($foto)){
 			list($ancho, $alto) = getimagesize($foto);
 			$foto = $this->conexion -> real_escape_string(trim(file_get_contents($foto)));
-			if ($ancho != $alto) {
+			if($ancho != 120 || $alto != 140) { //$ancho != $alto
 				$errores ++;
-				$errorResultado .= "La imagen debe de tener el mismo ancho y alto. <br>";
+				$errorResultado .= "Las dimensiones deben de ser 120 x 140. <br>";
 			}
 			$actualizarFoto = ", a_b.usuarios_foto = '$foto'";
 		}
@@ -147,6 +147,53 @@ class usuarios{
 			return $errorResultado;
 		}
 	}
+
+	public function buscarEmpleado($buscar)
+    {
+        $datosEmpleados = array();
+        $buscar = $this->conexion->real_escape_string(strip_tags(stripslashes(trim($buscar))));
+        $errores = 0;
+        $errorResultado = "";
+        if(empty($buscar)) {
+           $errores ++;
+           $errorResultado .= "El campo no puede estar vacío. <br>";
+        }
+        else{
+           if(strlen($buscar) < 3){
+              $errores ++;
+              $errorResultado .= "El campo debe contener mínimo 3 caracteres. <br>";
+           }
+        }
+        if($errores === 0){
+           $consulta = "SELECT empleados_id AS id, CONCAT( empleados_apellido_paterno, ' ',empleados_apellido_materno, ' ',empleados_nombres) AS nombre, empleados_rfc AS rfc FROM spartodo_spar_bd.spar_empleados e LEFT JOIN tblUsuarios u ON e.empleados_id = u.usuarios_empleados_id WHERE (CONCAT( empleados_apellido_paterno, ' ',empleados_apellido_materno, ' ',empleados_nombres) LIKE '%$buscar%' OR empleados_apellido_paterno LIKE '%$buscar%' OR empleados_apellido_materno LIKE '%$buscar%' OR empleados_nombres LIKE '%$buscar%' OR empleados_rfc LIKE '%$buscar%') AND u.usuarios_empleados_id IS NULL GROUP BY id";
+           $resultado = $this->conexion->query($consulta);
+           if($resultado){
+              while ($filaTmp = $resultado->fetch_assoc()) {
+                 $datosEmpleados[] = $filaTmp;
+              }
+           }
+           else
+              echo $this->conexion->errno . " : " . $this->conexion->error . "\n";
+
+           return $datosEmpleados;
+        }
+        else
+           return $errorResultado;
+    }
+
+      public function informEmpleado($idEmpleado){
+			$idEmpleado = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($idEmpleado))));
+   			$consulta="SELECT e.empleados_id,CONCAT(e.empleados_apellido_paterno,' ',e.empleados_apellido_materno,' ',e.empleados_nombres) AS nombre, e.empleados_correo,p.puesto,d.telefono,d.telefonoSecundario,d.telefonoExtencion,d.telefonoAlterno,d.telefonoCasa FROM spar_empleados e LEFT join tblPuestos p on e.empleados_puesto=p.idPuesto inner join tblDirectorio d ON d.idUsuario=e.empleados_id WHERE e.empleados_id = $idEmpleado";
+   			// echo $consulta;
+			$resultado = $this->conexion->query($consulta);
+			if($resultado){
+				return $resultado->fetch_assoc();
+			}
+   			elseif (!$this->conexion->query($consulta)) {
+	   			echo $this->conexion->errno . " : " . $this->conexion->error . "\n";
+   			}
+   		}
+
 
 	public function __destruct() {
 		mysqli_close($this->conexion);

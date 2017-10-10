@@ -49,10 +49,13 @@ class Controller {
 
 				case "alta":
 					if(isset($_GET["idEmpleado"])){
+						include_once("../../../model/clientes.php");
+        				$varCliente = new clientes();
+						$datosClientes = $varCliente->listar();
 						$usuario = $this->varUsuarioMA->informacionEmpleado($_GET["idEmpleado"]);
 						if(!is_array($usuario)){
 							$_SESSION["spar_error"] = $usuario;
-							header("Location:index.php");
+							// header("Location:index.php");
 						}
 						else{
 							include_once("alta.php");
@@ -66,8 +69,12 @@ class Controller {
 
 				case "modificar":
 					if(isset($_GET["idUsuario"])){
+						include_once("../../../model/clientes.php");
+        				$varCliente = new clientes();
 						$usuario = $this->varUsuarioMA->informacion($_GET["idUsuario"]);
-						if(!is_array($usuario)){
+						$datosClientes = $varCliente->listar();
+						$usuariosClientes = $this->varUsuarioMA->informacionUsuariosClientes($_GET["idUsuario"]);
+						if(!is_array($usuario) || !is_array($datosClientes) || !is_array($usuariosClientes)){
 							$_SESSION["spar_error"] = $usuario;
 						}
 						else{
@@ -87,11 +94,13 @@ class Controller {
 							$resultado = $this->varUsuarioMA -> guardar($_POST["Datos"], $_GET["idEmpleado"]);
 							if($resultado === "OK"){
 								$_SESSION["spar_error"] = "Usuario creado correctamente.";
+								header("Location: index.php?accion=index");
 							}
-							else
+							else{
 								$_SESSION["spar_error"] = $resultado;
+								header("Location: index.php?accion=alta&idEmpleado=".$_GET["idEmpleado"]);
+							}
 							// echo $_SESSION["spar_error"];
-							header("Location: index.php?accion=index");
 						}
 						else{
 							header("Location: index.php?accion=index");
