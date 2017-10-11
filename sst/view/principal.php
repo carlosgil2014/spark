@@ -112,7 +112,7 @@
         if($datosUsuario["ms"] == 1){
         ?>
         <li class="treeview">
-          <a href="../sistemas/view/index.php">
+          <a href="../sistemas/index.php?accion=index">
             <i class="fa fa-desktop"></i> <span> Módulo de Sistemas</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-right"></i>
@@ -146,6 +146,7 @@
         <?php 
         }
         ?>
+        </li>
         <!-- Barra de separación entre menus -->
         <li class="header"></li>
         <!-- Find e la barra de separación entre menus -->
@@ -174,7 +175,7 @@
             <li><a href="#"><i class="fa fa-home"></i></a></li>
           </ol>
           <section>
-            
+
           </section>
         <!-- ./col -->
 

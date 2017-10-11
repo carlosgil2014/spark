@@ -62,6 +62,7 @@ class Controller {
 						$_SESSION["spar_error"] = $resultado;
 						header("Location: index.php?accion=index");
 					break;
+				
 				case "eliminar":
 						$idBanco = $_POST["idBanco"];
 						$resultado = $this->varBanco->eliminar($idBanco);
