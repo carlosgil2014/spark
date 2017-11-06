@@ -1,6 +1,6 @@
 <?php
 if(!isset($_SESSION['spar_usuario']))
-    header('Location: ../index.html');
+    header('Location: ../index.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -99,7 +99,7 @@ if(!isset($_SESSION['spar_usuario']))
                       </div>
                     </div>
                   </div>
-                  <table id="tblProveedores" class="table table-bordered table-striped">
+                  <table id="tblProveedores" class="table table-bordered table-striped small">
                     <thead>
                     <tr>
                       <th>Razón Social/Nombre</th>

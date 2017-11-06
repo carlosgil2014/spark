@@ -1,4 +1,4 @@
-<!-- modal para agregar Subcategoria-->
+<!-- modal-->
 <div class="modal-dialog modal-sm" role="document">
   <div class="modal-content">
   <form id="formAgregar" method="POST" role="form" action="index.php?accion=guardar">
@@ -21,4 +21,4 @@
       </form>
   </div>
 </div>
-<!-- termino de modal Subcategoria -->  
+<!-- termino de modal  -->  

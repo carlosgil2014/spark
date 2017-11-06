@@ -12,7 +12,7 @@
 /// <param name="fecha">Fecha en formato dd/MM/yy (12/10/68)</param> 
 /// <returns>Regresa el RFC como cadena de caracteres</returns> 
 */ 
-CalcularRFC("SALVADOR","LUNA","COBOS","20091987");
+CalcularRFC("CARLOS ENRIQUE","GIL","CHONG","12071989");
 echo "<br>";
 CalcularRFC("VICTOR DANIEL","NAVA","MILAN","31081992");
 echo "<br>";
@@ -45,49 +45,50 @@ return 0;
 } 
 function CalcularRFC($nombre,$apellidoPaterno,$apellidoMaterno,$fecha) 
 { 
-/*Cambiamos todo a mayúsculas. 
-Quitamos los espacios al principio y final del nombre y apellidos*/ 
-$nombre =strtoupper(trim($nombre)); 
-$apellidoPaterno =strtoupper(trim($apellidoPaterno)); 
-$apellidoMaterno =strtoupper(trim($apellidoMaterno)); 
+	/*Cambiamos todo a mayúsculas. 
+	Quitamos los espacios al principio y final del nombre y apellidos*/ 
+	$nombre =strtoupper(trim($nombre)); 
+	$apellidoPaterno =strtoupper(trim($apellidoPaterno)); 
+	$apellidoMaterno =strtoupper(trim($apellidoMaterno)); 
 
-//RFC que se regresará 
-$rfc=""; 
+	//RFC que se regresará 
+	$rfc=""; 
 
-//Quitamos los artículos de los apellidos 
-$apellidoPaterno = QuitarArticulos($apellidoPaterno); 
-$apellidoMaterno = QuitarArticulos($apellidoMaterno); 
+	//Quitamos los artículos de los apellidos 
+	$apellidoPaterno = QuitarArticulos($apellidoPaterno); 
+	$apellidoMaterno = QuitarArticulos($apellidoMaterno); 
 
-//Agregamos el primer caracter del apellido paterno 
-$rfc = substr($apellidoPaterno,0, 1); 
+	//Agregamos el primer caracter del apellido paterno 
+	$rfc = substr($apellidoPaterno,0, 1); 
 
-//Buscamos y agregamos al rfc la primera vocal del primer apellido 
-$len_apellidoPaterno=strlen($apellidoPaterno); 
-for($x=1;$x<$len_apellidoPaterno;$x++) 
-{ 
-$c=substr($apellidoPaterno,$x,1); 
-if (EsVocal($c)) 
-{ 
-$rfc .= $c; 
-break; 
-} 
-} 
+	//Buscamos y agregamos al rfc la primera vocal del primer apellido 
+	$len_apellidoPaterno=strlen($apellidoPaterno); 
+	for($x=1;$x<$len_apellidoPaterno;$x++) 
+	{ 
+	$c=substr($apellidoPaterno,$x,1); 
+	if (EsVocal($c)) 
+	{ 
+	$rfc .= $c; 
+	break; 
+	} 
+	} 
 
-//Agregamos el primer caracter del apellido materno 
-$rfc .= substr($apellidoMaterno,0, 1); 
+	//Agregamos el primer caracter del apellido materno 
+	$rfc .= substr($apellidoMaterno,0, 1); 
 
-//Agregamos el primer caracter del primer nombre 
-$rfc .= substr($nombre,0, 1); 
+	//Agregamos el primer caracter del primer nombre 
+	$rfc .= substr($nombre,0, 1); 
 
-//agregamos la fecha yymmdd (por ejemplo: 680825, 25 de agosto de 1968 ) 
-$rfc .= substr($fecha,6, 2).substr($fecha,2, 2).substr($fecha,0, 2); 
+	//agregamos la fecha yymmdd (por ejemplo: 680825, 25 de agosto de 1968 ) 
+	$rfc .= substr($fecha,6, 2).substr($fecha,2, 2).substr($fecha,0, 2); 
 
-//Le agregamos la homoclave al rfc 
-CalcularHomoclave($apellidoPaterno." ".$apellidoMaterno." ".$nombre, $fecha,$rfc); 
-echo $rfc; 
-} 
-function CalcularHomoclave($nombreCompleto,$fecha, &$rfc) 
-{ 
+	//Le agregamos la homoclave al rfc 
+	CalcularHomoclave($apellidoPaterno." ".$apellidoMaterno." ".$nombre, $fecha,$rfc); 
+	echo $rfc; 
+}
+
+
+function CalcularHomoclave($nombreCompleto,$fecha, &$rfc){
 //Guardara el nombre en su correspondiente numérico 
 //agregamos un cero al inicio de la representación númerica del nombre 
 $nombreEnNumero="0"; 
@@ -221,7 +222,7 @@ if (isset($tablaRFC1[$c]))
 $nombreEnNumero.=$tablaRFC1[$c]; 
 else 
 $nombreEnNumero.="00"; 
-} 
+}
 //Calculamos la suma de la secuencia de números 
 //calculados anteriormente 
 //la formula es: 
@@ -277,7 +278,7 @@ $rfc .= "A";
 else 
 $rfc .= $sumaParcial; 
 } 
-} 
+}
 ?>
 
 

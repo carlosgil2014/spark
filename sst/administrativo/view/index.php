@@ -1,6 +1,6 @@
 <?php
 if(!isset($_SESSION['spar_usuario']))
-    header('Location: ../../view/index.php?accion=login');
+    header('Location: ../view/index.php?accion=login');
 ?>
 <!DOCTYPE html>
 <html>
@@ -70,7 +70,10 @@ if(!isset($_SESSION['spar_usuario']))
                 <li><a href="view/categorias/index.php?accion=index"><i class="fa fa-tags"></i> Categorias</a></li>
                 <li><a href="view/clientes/index.php?accion=index"><i class="fa fa-users"></i> Clientes</a></li>
                 <li><a href="view/proveedores/index.php?accion=index"><i class="fa fa-cubes"></i> Proveedores</a></li>
+                <li><a href="view/representantes/index.php?accion=index"><i class="fa fa-male"></i> Representantes</a></li>
+                <li><a href="view/mensajerias/index.php?accion=index"><i class="fa fa-truck"></i> Mensajerías</a></li>
                 <li><a href="view/usuarios/index.php?accion=index"><i class="fa fa-user"></i> Usuarios</a></li>
+                <li><a href="view/regiones/index.php?accion=index"><i class="fa fa-tree"></i> Regiones</a></li>
               </ul>
             </li>
             <!-- Barra de separación entre menus -->

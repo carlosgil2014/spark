@@ -100,7 +100,7 @@ if(!isset($_SESSION['spar_usuario']))
                       </div>
                     </div>
                   </div>
-                  <table id="tblBancos" class="table table-bordered table-striped">
+                  <table id="tblBancos" class="table table-bordered table-striped small">
                     <thead>
                     <tr>
                       <th>Banco</th>

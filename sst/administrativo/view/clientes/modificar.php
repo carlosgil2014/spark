@@ -152,7 +152,7 @@ if(!isset($_SESSION['spar_usuario']))
                               <input type="text" class="form-control input-sm" maxlength="60" name="Datos[nombreComercial]" value="<?php echo $cliente['nombreComercial'];?>">
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-3">
                               <label class="control-label">Calle</label>
                               <input type="text" class="form-control input-sm" maxlength="40" data-error="Es un campo obligatorio" name="Datos[calle]" value="<?php echo $cliente['calle'];?>" required>
                               <div class="help-block with-errors">&nbsp;</div>
@@ -168,31 +168,32 @@ if(!isset($_SESSION['spar_usuario']))
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
                             <div class="form-group col-md-4">
-                              <label class="control-label">Colonia</label>
-                              <input type="text" class="form-control input-sm" maxlength="40" data-error="Es un campo obligatorio" name="Datos[colonia]" value="<?php echo $cliente['colonia'];?>" required>
+                            <label class="control-label">Colonia</label>
+                            <select class="form-control input-sm selectpicker" tabindex="11" name="Datos[colonia]" data-error="Es un campo obligatorio" data-live-search="true" required="required" id="coloniasFisica">
+                              <?php 
+                                foreach ($codigoPostal['colonias'] as $colonias){
+                              ?>                            
+                                <option <?php if($cliente["colonia"] == $colonias["idcp"]){echo "selected";}?> value="<?php echo $colonias['idcp']?>"><?php echo $colonias['asentamiento']?></option>';
+                              <?php
+                                }
+                              ?>
+                            </select>
+                            <div class="help-block with-errors">&nbsp;</div>
+                          </div>
+                          <input type="hidden" name="Datos[idEstado]" value="<?php echo $cliente['estado']; ?>" id="idEstadoFisica">
+                          <div class="form-group col-md-4">
+                              <label class="control-label">Estado</label>
+                              <input type="text" id="estadoFisica" class="form-control input-sm" maxlength="40" data-error="Es un campo obligatorio" name="Datos[estado]" required value="<?php echo $codigoPostal['estado']; ?>" readonly>
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
                             <div class="form-group col-md-4">
                               <label class="control-label">Delegación/Municipio</label>
-                              <input type="text" class="form-control input-sm" maxlength="40" data-error="Es un campo obligatorio" name="Datos[delegacion]" value="<?php echo $cliente['delegacion'];?>" required>
+                              <input type="text" class="form-control input-sm" maxlength="40" data-error="Es un campo obligatorio" name="Datos[delegacion]" value="<?php echo $cliente['delegacion'];?>" required id="delegacionFisica" readonly>
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
-                            <div class="form-group col-md-4">
-                              <label class="control-label">Estado</label>
-                              <select class="form-control input-sm selectpicker" data-error="Es un campo obligatorio" data-live-search="true" name="Datos[estado]" required>
-                              <?php 
-                              foreach ($estados as $estado){
-                              ?>
-                                <option <?php if($estado["nombre"] == $cliente["estado"]) echo "selected";?>><?php echo $estado["nombre"]?></option>
-                              <?php
-                              }
-                              ?>
-                              </select>
-                              <div class="help-block with-errors">&nbsp;</div>
-                            </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-2">
                               <label class="control-label">C.P.</label>
-                              <input type="text" class="form-control input-sm" pattern="^[0-9]{5}" maxlength="5" data-error="Es un campo obligatorio" name="Datos[cp]" value="<?php echo $cliente['cp'];?>" required>
+                              <input type="text" class="form-control input-sm" tabindex="9" onchange="codigoPostales(this,'fisica')" pattern="^[0-9]{5}" maxlength="5" data-error="Es un campo obligatorio" name="Datos[cp]" value="<?php echo $cliente['cp'];?>" required id="codigoPostal">
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
                             <fieldset class="form-group col-md-12">
@@ -261,14 +262,27 @@ if(!isset($_SESSION['spar_usuario']))
                               <input type="text" class="form-control input-sm" maxlength="10" name="Datos[noExterior]" value="<?php echo $cliente['noExterior'];?>" >
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
-                            <div class="form-group col-md-4">
-                              <label class="control-label">Colonia</label>
-                              <input type="text" class="form-control input-sm" maxlength="40" data-error="Es un campo obligatorio" name="Datos[colonia]" value="<?php echo $cliente['colonia'];?>" required>
-                              <div class="help-block with-errors">&nbsp;</div>
+                            <input type="hidden" name="Datos[idEstado]" value="<?php echo $cliente['estado']; ?>" id="idEstadoMoral">
+                            <div class="form-group col-md-3">
+                                <label class="control-label">Estado</label>
+                                <input type="text" id="estadoMoral" class="form-control input-sm" maxlength="40" data-error="Es un campo obligatorio" name="Datos[estado]" required value="<?php echo $codigoPostal['estado']; ?>" readonly>
+                                <div class="help-block with-errors">&nbsp;</div>
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-3">
+                              <label class="control-label">Colonia</label>
+                              <select class="form-control input-sm selectpicker" tabindex="11" name="Datos[colonia]" data-error="Es un campo obligatorio" data-live-search="true" required="required" id="coloniasMoral">
+                                <?php 
+                                  foreach ($codigoPostal['colonias'] as $colonias){
+                                ?>                            
+                                  <option <?php if($cliente["colonia"] == $colonias["idcp"]){echo "selected";}?> value="<?php echo $colonias['idcp']?>"><?php echo $colonias['asentamiento']?></option>';
+                                <?php
+                                  }
+                                ?>
+                              </select>
+                            </div>
+                            <div class="form-group col-md-3">
                               <label class="control-label">Delegación/Municipio</label>
-                              <input type="text" class="form-control input-sm" maxlength="40" data-error="Es un campo obligatorio" name="Datos[delegacion]" value="<?php echo $cliente['delegacion'];?>" required>
+                              <input type="text" class="form-control input-sm" maxlength="40" data-error="Es un campo obligatorio" name="Datos[delegacion]" value="<?php echo $cliente['delegacion'];?>" required id="delegacionMoral" readonly>
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
                             <div class="form-group col-md-3">
@@ -284,22 +298,9 @@ if(!isset($_SESSION['spar_usuario']))
                               </select>
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
-                            <div class="form-group col-md-3">
-                              <label class="control-label">Estado</label>
-                              <select id="estados" class="form-control input-sm selectpicker" data-error="Es un campo obligatorio" data-live-search="true" name="Datos[estado]" required>
-                              <?php 
-                              foreach ($estados as $estado){
-                              ?>
-                                <option <?php if ($estado["nombre"] == $cliente["estado"]) echo "selected";?>><?php echo $estado["nombre"]?></option>
-                              <?php
-                              }
-                              ?>
-                              </select>
-                              <div class="help-block with-errors">&nbsp;</div>
-                            </div>
                             <div class="form-group col-md-2">
                               <label class="control-label">C.P.</label>
-                              <input type="text" class="form-control input-sm" pattern="^[0-9]{5}" maxlength="5" data-error="Es un campo obligatorio" name="Datos[cp]" value="<?php echo $cliente['cp'];?>" required>
+                              <input type="text" class="form-control input-sm" pattern="^[0-9]{5}" maxlength="5" tabindex="9" onchange="codigoPostales(this,'moral')" data-error="Es un campo obligatorio" name="Datos[cp]" value="<?php echo $cliente['cp'];?>" required>
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
                             <fieldset class="form-group col-md-12">

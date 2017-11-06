@@ -139,7 +139,7 @@ if(!isset($_SESSION['spar_usuario']))
             <li><a href="#"><i class="fa fa-indent"></i> Categorías de Compra</a></li>
             <li><a href="#"><i class="fa fa-usd"></i> Centro de Costos</a></li>
             <li><a href="#"><i class="fa fa-barcode"></i> Preventas</a></li>
-            <li><a href="#"><i class="fa fa fa-cogs"></i> Parámetros del Módulo</a></li>
+            <li><a href="view/parametros/index.php?accion=index"><i class="fa fa fa-cogs"></i> Parámetros del Módulo</a></li>
             <li>
               <a href="../index.php">
                 <i class="fa fa-hand-o-left"></i> <span>Regresar</span> 
