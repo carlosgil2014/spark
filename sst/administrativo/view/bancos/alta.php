@@ -8,7 +8,7 @@
       <div class="modal-body">
         <div class="row">
           <div class="form-group col-md-12">
-            <label class="control-label">Nombre</label>
+            <label class="control-label">Banco</label>
             <input type="text" name="banco" class="form-control input-sm" data-error="Es un campo obligatorio" required>
             <div class="help-block with-errors"></div>
           </div>

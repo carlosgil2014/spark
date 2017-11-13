@@ -1,9 +1,8 @@
 <?php
-// $basedir = realpath(__DIR__); se pondrán cuando esté todo el sistema corregido
-// include_once($basedir.'/../db/conectadb.php');
+include_once("../../../db/conectadb.php");
 include_once("../../../model/sesion.php");
 include_once("../../../model/usuarios.php");
-include_once("../../model/proveedores.php");
+include_once("../../../model/proveedores.php");
 
 class Controller {
 	
@@ -90,6 +89,10 @@ class Controller {
 					$vardiasCredito = new diasCredito();
 					$diasCredito = $vardiasCredito->listar();
 
+					require_once("../../model/representantes.php");
+					$varRepresentantes = new representantes();
+					$codigoPostal = $varRepresentantes->buscar($_GET["cp"]);
+
 					$proveedor = $this->varProveedor->informacion($_GET["idProveedor"]);
 					$metodosPagoProveedor =  $this->varProveedor->informacionMetodosPago($_GET["idProveedor"]);
 
@@ -138,6 +141,16 @@ class Controller {
 					}
 					else
 						echo "Error";
+					break;
+
+				case "buscarRfc":
+						$validarRfc = $this->varProveedor -> rfc($_GET["rfc"]);
+						if( !empty($validarRfc) ){
+							echo json_encode($validarRfc);
+						}else{
+							echo 'error';
+						}
+							
 					break;
 
 				default:

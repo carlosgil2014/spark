@@ -1,9 +1,10 @@
 <?php
-// $basedir = realpath(__DIR__); se pondrán cuando esté todo el sistema corregido
-// include_once($basedir.'/../db/conectadb.php');
+include_once("../../../db/conectadb.php");
 include_once("../../../model/sesion.php");
 include_once("../../../model/usuarios.php");
-include_once("../../model/bancos.php");
+include_once("../../../model/clientes.php");
+include_once("../../model/clientes.php"); //Funciones de usuarios del módulo compras
+include_once("../../model/unidades.php");
 
 class Controller {
 	
@@ -11,7 +12,9 @@ class Controller {
     {  
         $this->varSesion = new sesion();
         $this->varUsuario = new usuarios();
-        $this->varBanco = new bancos();
+        $this->varCliente = new clientes();
+        $this->varClienteCompras = new clientesCompras();
+        $this->varUnidad = new unidades();
 
     } 
 	
@@ -25,7 +28,6 @@ class Controller {
 			switch($_GET["accion"])
 			{
 				case "index":
-					// $bancos = $this->varBanco->listar();
 					if(isset($_SESSION["spar_error"]) && $_SESSION["spar_error"] === "OK"){
 						$_SESSION["spar_error"] = "Banco guardado correctamente.";
 						$clase = "success";
@@ -36,9 +38,18 @@ class Controller {
 					if(isset($_SESSION["spar_error"]))
 						unset($_SESSION["spar_error"]);
 					break;
+
 				case "alta":
+					$clientes = $this->varCliente->usuariosClientes($datosUsuario["idUsuario"]);
 					include_once("alta.php");
 					break;
+
+				case "rubrosCliente":
+					$rubros = $this->varClienteCompras->rubrosCliente($_GET["idCliente"]);
+					$unidades = $this->varUnidad->listar();
+					include_once("rubrosCliente.php");
+					break;
+
 				case "modificar":
 					$banco = $this->varBanco->informacion($_GET["idBanco"]);
 					if(empty($banco))

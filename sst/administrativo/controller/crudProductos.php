@@ -1,6 +1,5 @@
 <?php
-// $basedir = realpath(__DIR__); se pondrán cuando esté todo el sistema corregido
-// include_once($basedir.'/../db/conectadb.php');
+include_once('../../../db/conectadb.php');
 include_once("../../../model/sesion.php");
 include_once("../../../model/usuarios.php");
 include_once("../../model/productos.php");
@@ -45,6 +44,7 @@ class Controller {
 					$varSubcategoria= new subcategorias();
 					$subcategorias = $varSubcategoria->listar();
 					$productos = $this->varProductos->informacion($_GET["idProducto"]);
+					var_dump($subcategorias);
 					if(empty($productos))
 						header("Location: index.php?accion=index");
 					else{

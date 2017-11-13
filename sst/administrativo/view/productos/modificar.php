@@ -6,8 +6,10 @@
                           <h4 class="modal-title" id="myModalLabel"><b>Modificar Producto</b></h4>
                       </div>
                       <div class="modal-body">
-                          <form data-toggle="validator" method="POST" role="form" action="../productos/index.php?accion=actualizar&idSubcategoria=<?php echo $_GET['idSubcategoria'];?>">
+                          <form data-toggle="validator" method="POST" role="form" action="../productos/index.php?accion=actualizar">
+                            <input type="hidden" name="idSubcategoria" value="<?php echo $_GET['idSubcategoria'];?>">
                           <input type="hidden" name="idProducto" value="<?php echo $_GET['idProducto'];?>">
+                          <input type="hidden" name="idSubcategoria" value="<?php echo $subCategoria["id"];?>">
                             <div class="form-group">
                               <label class="control-label">Producto</label>
                               <input type="text" name="producto" class="form-control input-sm" data-error="Es un campo obligatorio" value="<?php echo $productos['producto'];?>" required>

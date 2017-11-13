@@ -52,10 +52,7 @@ if(isset($_SESSION['spar_usuario']))
                 if(isset($_SESSION["spar_error"]))
                 {
                 ?>
-                <div class="alert alert-danger">
-                  <strong>¡Aviso!</strong> 
-                  <br><?php echo $_SESSION["spar_error"];?>
-                </div>
+                <div class="alert alert-danger"><?php echo $_SESSION["spar_error"];?></div>
                 <?php 
                 unset($_SESSION["spar_error"]);
                 }

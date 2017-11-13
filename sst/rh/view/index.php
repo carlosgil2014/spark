@@ -156,6 +156,9 @@
             <li><a href="../controller/crudVacantes.php?accion=index"><i class="fa fa-user"></i>Solicitud-Vacantes</a></li>
             </ul>          
         </li>
+        <li class="treeview">
+          <li><a href="../view/representantes/index.php?accion=index"><i class="fa fa-user"></i>Representante</a></li>
+        </li>
 
         <!-- Barra de separación entre menus -->
         <li class="header"></li>

@@ -1,0 +1,1 @@
+[17-May-2017 17:23:01 America/Chicago] PHP Warning:  mysql_connect(): Access denied for user 'root'@'localhost' (using password: YES) in /home/spartodopromo/public_html/srs1/conexion.php on line 9

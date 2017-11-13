@@ -128,71 +128,71 @@ if(!isset($_SESSION['spar_usuario']))
                           <form data-toggle="validator" role="form" method="POST" action="index.php?accion=actualizar&idProveedor=<?php echo $_GET['idProveedor'];?>">
                             <div class="form-group col-md-3">
                               <label class="control-label">R.F.C.</label>
-                              <input type="text" class="form-control input-sm" pattern="^[A-Z0-9]{13}" maxlength="13" placeholder="EJEM910825KYU" data-error="Es un campo obligatorio de 13 caracteres" name="Datos[rfc]" value="<?php echo $proveedor['rfc'];?>" required>
+                              <input type="text" class="form-control input-sm" style="text-transform:uppercase;" onchange="validarRfc('fisica')" pattern="^[A-Z0-9]{13}" maxlength="13" placeholder="EJEM910825KYU" data-error="Es un campo obligatorio de 13 caracteres" name="Datos[rfc]" value="<?php echo $proveedor['rfc'];?>" required id="rfc">
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
                             <div class="form-group col-md-2">
                               <label class="control-label">Nombre(s)</label>
-                              <input type="text" class="form-control input-sm" maxlength="60" data-error="Es un campo obligatorio" name="Datos[nombres]" value="<?php echo $proveedor['nombres'];?>" required>
+                              <input type="text" class="form-control input-sm" maxlength="60" data-error="Es un campo obligatorio" name="Datos[nombres]" value="<?php echo $proveedor['nombres'];?>" required id="nombre">
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
                             <div class="form-group col-md-2">
                               <label class="control-label">Apellido Paterno</label>
-                              <input type="text" class="form-control input-sm" maxlength="60" data-error="Es un campo obligatorio" name="Datos[apellidoPaterno]" value="<?php echo $proveedor['apellidoPaterno'];?>" required>
+                              <input type="text" class="form-control input-sm" maxlength="60" data-error="Es un campo obligatorio" name="Datos[apellidoPaterno]" value="<?php echo $proveedor['apellidoPaterno'];?>" required id="apellidoPaterno">
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
                             <div class="form-group col-md-2">
                               <label class="control-label">Apellido Materno</label>
-                              <input type="text" class="form-control input-sm" maxlength="60" name="Datos[apellidoMaterno]" value="<?php echo $proveedor['apellidoMaterno'];?>">
+                              <input type="text" class="form-control input-sm" id="apellidoMaterno" maxlength="60" name="Datos[apellidoMaterno]" value="<?php echo $proveedor['apellidoMaterno'];?>">
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
-                            
                             <div class="form-group col-md-3">
                               <label class="control-label">Nombre Comercial</label>
-                              <input type="text" class="form-control input-sm" maxlength="60" name="Datos[nombreComercial]" value="<?php echo $proveedor['nombreComercial'];?>">
+                              <input type="text" class="form-control input-sm" maxlength="60" name="Datos[nombreComercial]" value="<?php echo $proveedor['nombreComercial'];?>" id="nombreComercial">
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-3">
                               <label class="control-label">Calle</label>
-                              <input type="text" class="form-control input-sm" maxlength="40" data-error="Es un campo obligatorio" name="Datos[calle]" value="<?php echo $proveedor['calle'];?>" required>
+                              <input type="text" class="form-control input-sm" maxlength="40" data-error="Es un campo obligatorio" name="Datos[calle]" value="<?php echo $proveedor['calle'];?>" required id="calle">
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
                             <div class="form-group col-md-2">
                               <label class="control-label">No. Interior</label>
-                              <input type="text" class="form-control input-sm" maxlength="10" data-error="Es un campo obligatorio" name="Datos[noInterior]" value="<?php echo $proveedor['noInterior'];?>" required>
+                              <input type="text" class="form-control input-sm" maxlength="10" data-error="Es un campo obligatorio" name="Datos[noInterior]" value="<?php echo $proveedor['noInterior'];?>" required id="numeroInterior">
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
                             <div class="form-group col-md-2">
                               <label class="control-label">No. Exterior</label>
-                              <input type="text" class="form-control input-sm" maxlength="10" name="Datos[noExterior]" value="<?php echo $proveedor['noExterior'];?>">
+                              <input type="text" class="form-control input-sm" maxlength="10" name="Datos[noExterior]" value="<?php echo $proveedor['noExterior'];?>" id="numeroExterior">
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
                             <div class="form-group col-md-4">
-                              <label class="control-label">Colonia</label>
-                              <input type="text" class="form-control input-sm" maxlength="40" data-error="Es un campo obligatorio" name="Datos[colonia]" value="<?php echo $proveedor['colonia'];?>" required>
+                            <label class="control-label">Colonia</label>
+                            <select class="form-control input-sm selectpicker" tabindex="11" name="Datos[colonia]" data-error="Es un campo obligatorio" data-live-search="true" required="required" id="coloniasFisica">
+                              <?php 
+                                foreach ($codigoPostal['colonias'] as $colonias){
+                              ?>                            
+                                <option <?php if($proveedor['colonia'] == $colonias["idcp"]){echo "selected";}?> value="<?php echo $colonias['idcp']?>"><?php echo $colonias['asentamiento']?></option>';
+                              <?php
+                                }
+                              ?>
+                            </select>
+                            <div class="help-block with-errors">&nbsp;</div>
+                          </div>
+                          <input type="hidden" name="Datos[idEstado]" value="<?php echo $cliente['estado']; ?>" id="idEstadoFisica">
+                          <div class="form-group col-md-4">
+                              <label class="control-label">Estado</label>
+                              <input type="text" id="estadoFisica" class="form-control input-sm" maxlength="40" data-error="Es un campo obligatorio" name="Datos[estado]" required value="<?php echo $codigoPostal['estado']; ?>" readonly>
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
                             <div class="form-group col-md-4">
                               <label class="control-label">Delegación/Municipio</label>
-                              <input type="text" class="form-control input-sm" maxlength="40" data-error="Es un campo obligatorio" name="Datos[delegacion]" value="<?php echo $proveedor['delegacion'];?>" required>
+                              <input type="text" class="form-control input-sm" maxlength="40" data-error="Es un campo obligatorio" name="Datos[delegacion]" value="<?php echo $proveedor['delegacion'];?>" required id="delegacionFisica" readonly>
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
-                            <div class="form-group col-md-4">
-                              <label class="control-label">Estado</label>
-                              <select class="form-control input-sm selectpicker" data-error="Es un campo obligatorio" data-live-search="true" name="Datos[estado]" required>
-                              <?php 
-                              foreach ($estados as $estado){
-                              ?>
-                                <option <?php if ($estado["nombre"] == $proveedor["estado"]) echo "selected";?>><?php echo $estado["nombre"]?></option>
-                              <?php
-                              }
-                              ?>
-                              </select>
-                              <div class="help-block with-errors">&nbsp;</div>
-                            </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-2">
                               <label class="control-label">C.P.</label>
-                              <input type="text" class="form-control input-sm" pattern="^[0-9]{5}" maxlength="5" data-error="Es un campo obligatorio" name="Datos[cp]" value="<?php echo $proveedor['cp'];?>" required>
+                              <input type="text" class="form-control input-sm" tabindex="9" onchange="codigoPostales(this,'fisica')"  maxlength="5" data-error="Es un campo obligatorio" name="Datos[cp]" value="<?php echo $proveedor['cp'];?>" required id="codigoPostal">
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
                             <fieldset class="form-group col-md-12">
@@ -200,22 +200,22 @@ if(!isset($_SESSION['spar_usuario']))
                             </fieldset>
                             <div class="form-group col-md-3">
                               <label class="control-label">Nombre</label>
-                              <input type="text" class="form-control input-sm" maxlength="40" data-error="Es un campo obligatorio" name="Datos[nombreContacto]" value="<?php echo $proveedor['nombreContacto'];?>" required>
+                              <input type="text" class="form-control input-sm" maxlength="40" data-error="Es un campo obligatorio" name="Datos[nombreContacto]" value="<?php echo $proveedor['nombreContacto'];?>" required id="nombreContacto">
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
                             <div class="form-group col-md-3">
                               <label class="control-label">Teléfono Principal</label>
-                              <input type="text" class="form-control input-sm" maxlength="16" data-error="Es un campo obligatorio" data-inputmask='"mask": "(99) 99-99-99-99"' data-mask name="Datos[telefonoContactoPrincipal]" value="<?php echo $proveedor['telefonoContactoPrincipal'];?>" required>
+                              <input type="text" class="form-control input-sm" maxlength="16" data-error="Es un campo obligatorio" data-inputmask='"mask": "(99) 99-99-99-99"' data-mask name="Datos[telefonoContactoPrincipal]" value="<?php echo $proveedor['telefonoContactoPrincipal'];?>" required id="telefonoPrincipal">
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
                             <div class="form-group col-md-3">
                               <label class="control-label">Teléfono Secundario</label>
-                              <input type="text" class="form-control input-sm" maxlength="16" data-inputmask='"mask": "(99) 99-99-99-99"' data-mask name="Datos[telefonoContactoSecundario]" value="<?php echo $proveedor['telefonoContactoSecundario'];?>"> 
+                              <input type="text" class="form-control input-sm" maxlength="16" data-inputmask='"mask": "(99) 99-99-99-99"' data-mask name="Datos[telefonoContactoSecundario]" value="<?php echo $proveedor['telefonoContactoSecundario'];?>" id="nombreSecundario"> 
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
                             <div class="form-group col-md-3">
                               <label class="control-label">Otro</label>
-                              <input type="text" class="form-control input-sm" maxlength="16" data-inputmask='"mask": "(99) 99-99-99-99"' data-mask>
+                              <input type="text" class="form-control input-sm" maxlength="16" data-inputmask='"mask": "(99) 99-99-99-99"' data-mask id="otro">
                               <div class="help-block with-errors" name="Datos[telefonoContactoOtro]" value="<?php echo $proveedor['telefonoContactoOtro'];?>">&nbsp;</div>
                             </div>
                             <fieldset class="form-group col-md-12">
@@ -304,7 +304,7 @@ if(!isset($_SESSION['spar_usuario']))
                           <form data-toggle="validator" role="form" method="POST" action="index.php?accion=actualizar&idProveedor=<?php echo $_GET['idProveedor'];?>">
                             <div class="form-group col-md-4">
                               <label class="control-label">R.F.C.</label>
-                              <input type="text" class="form-control input-sm" pattern="^[A-Z0-9]{12}" maxlength="12" placeholder="EJEM910825KY" data-error="Es un campo obligatorio de 12 caracteres" name="Datos[rfc]" value="<?php echo $proveedor['rfc'];?>" required>
+                              <input type="text" class="form-control input-sm" id="rfcMoral" pattern="^[A-Z0-9]{12}" style="text-transform:uppercase;" onchange="validarRfcMoral()" maxlength="12" placeholder="EJEM910825KY" data-error="Es un campo obligatorio de 12 caracteres" name="Datos[rfc]" value="<?php echo $proveedor['rfc'];?>" required>
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
                             <div class="form-group col-md-4">
@@ -332,14 +332,27 @@ if(!isset($_SESSION['spar_usuario']))
                               <input type="text" class="form-control input-sm" maxlength="10" name="Datos[noExterior]" value="<?php echo $proveedor['noExterior'];?>" >
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
-                            <div class="form-group col-md-4">
-                              <label class="control-label">Colonia</label>
-                              <input type="text" class="form-control input-sm" maxlength="40" data-error="Es un campo obligatorio" name="Datos[colonia]" value="<?php echo $proveedor['colonia'];?>" required>
-                              <div class="help-block with-errors">&nbsp;</div>
+                            <input type="hidden" name="Datos[idEstado]" value="<?php echo $cliente['estado']; ?>" id="idEstadoMoral">
+                            <div class="form-group col-md-3">
+                                <label class="control-label">Estado</label>
+                                <input type="text" id="estadoMoral" class="form-control input-sm" maxlength="40" data-error="Es un campo obligatorio" name="Datos[estado]" required value="<?php echo $codigoPostal['estado']; ?>" readonly>
+                                <div class="help-block with-errors">&nbsp;</div>
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-3">
+                              <label class="control-label">Colonia</label>
+                              <select class="form-control input-sm selectpicker" tabindex="11" name="Datos[colonia]" data-error="Es un campo obligatorio" data-live-search="true" required="required" id="coloniasMoral">
+                                <?php 
+                                  foreach ($codigoPostal['colonias'] as $colonias){
+                                ?>                            
+                                  <option <?php if($proveedor["colonia"] == $colonias["idcp"]){echo "selected";}?> value="<?php echo $colonias['idcp']?>"><?php echo $colonias['asentamiento']?></option>';
+                                <?php
+                                  }
+                                ?>
+                              </select>
+                            </div>
+                            <div class="form-group col-md-3">
                               <label class="control-label">Delegación/Municipio</label>
-                              <input type="text" class="form-control input-sm" maxlength="40" data-error="Es un campo obligatorio" name="Datos[delegacion]" value="<?php echo $proveedor['delegacion'];?>" required>
+                              <input type="text" class="form-control input-sm" maxlength="40" data-error="Es un campo obligatorio" name="Datos[delegacion]" value="<?php echo $proveedor['delegacion'];?>" required id="delegacionMoral" readonly>
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
                             <div class="form-group col-md-3">
@@ -355,22 +368,9 @@ if(!isset($_SESSION['spar_usuario']))
                               </select>
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
-                            <div class="form-group col-md-3">
-                              <label class="control-label">Estado</label>
-                              <select id="estados" class="form-control input-sm selectpicker" data-error="Es un campo obligatorio" data-live-search="true" name="Datos[estado]" required>
-                              <?php 
-                              foreach ($estados as $estado){
-                              ?>
-                                <option <?php if ($estado["nombre"] == $proveedor["estado"]) echo "selected";?>><?php echo $estado["nombre"]?></option>
-                              <?php
-                              }
-                              ?>
-                              </select>
-                              <div class="help-block with-errors">&nbsp;</div>
-                            </div>
                             <div class="form-group col-md-2">
                               <label class="control-label">C.P.</label>
-                              <input type="text" class="form-control input-sm" pattern="^[0-9]{5}" maxlength="5" data-error="Es un campo obligatorio" name="Datos[cp]" value="<?php echo $proveedor['cp'];?>" required>
+                              <input type="text" class="form-control input-sm"  maxlength="5" tabindex="9" onchange="codigoPostales(this,'moral')" data-error="Es un campo obligatorio" name="Datos[cp]" value="<?php echo $proveedor['cp'];?>" required>
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
                             <fieldset class="form-group col-md-12">
@@ -672,6 +672,43 @@ if(!isset($_SESSION['spar_usuario']))
       </div>
     </div>
     <!-- Modal Eliminar -->
+
+<div id="modalClienteEmpleado" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-sm">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Cliente/Empleado</h4>
+            </div>
+            <div class="modal-body text-center">
+            El RFC que ingreso ya existe como empleado spar, ¿Desea registrarlo como cliente?
+            </div>
+            <div class="modal-footer">
+              <a style="cursor: pointer;" class="btn btn-success btn-sm" data-dismiss="modal" id="siFisicas">Si</a>
+              <a style="cursor: pointer;" class="btn btn-danger btn-sm" data-dismiss="modal" id="noFisica">No</a>
+            </div>
+          </div>
+    </div>
+</div>
+
+<div id="modalRfcCliente" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-sm">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">RFC/Repetido</h4>
+            </div>
+            <div class="modal-body text-center">
+            El RFC que ingreso ya existe como cliente, verifique…
+            </div>
+            <div class="modal-footer">
+              <button style="cursor: pointer;" class="btn btn-success btn-sm" data-dismiss="modal" id="cerrar">Cerrar</button>
+            </div>
+          </div>
+    </div>
+</div>
 
     <!-- jQuery 2.2.3 -->
     <script src="../../../assets/js/jquery/jquery-2.2.3.min.js"></script>

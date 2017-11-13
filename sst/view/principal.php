@@ -72,11 +72,12 @@
 
         <li><a href="directorio/index.php?accion=index"><i class="fa fa-phone"></i> Directorio SPAR</a></li>
         <li><a href="#"><i class="fa fa-support"></i> Solicitud de Soporte</a></li>
+        <li><a href="../mensajeria/index.php?accion=index"><i class="fa  fa-truck"></i> Mensajería</a></li>
         <?php
         if($datosUsuario["mrs"] == 1){
         ?>
         <li class="treeview">
-          <a href="http://www.srs.spar-todopromo.mx">
+          <a href="../srs/index.php?accion=index">
             <i class="fa fa-users"></i> <span> Módulo Operativo</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-right"></i>
@@ -112,7 +113,7 @@
         if($datosUsuario["ms"] == 1){
         ?>
         <li class="treeview">
-          <a href="../sistemas/view/index.php">
+          <a href="../sistemas/index.php?accion=index">
             <i class="fa fa-desktop"></i> <span> Módulo de Sistemas</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-right"></i>
@@ -146,6 +147,7 @@
         <?php 
         }
         ?>
+        </li>
         <!-- Barra de separación entre menus -->
         <li class="header"></li>
         <!-- Find e la barra de separación entre menus -->
@@ -174,7 +176,7 @@
             <li><a href="#"><i class="fa fa-home"></i></a></li>
           </ol>
           <section>
-            
+
           </section>
         <!-- ./col -->
 

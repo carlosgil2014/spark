@@ -14,7 +14,7 @@
 
    		public function listar(){
    			$datos = array();
-   			$consulta="SELECT idclientes, razon_soc, CONCAT(rfc,rfc2,rfc3) AS rfc, clave_cliente AS nombreComercial FROM tblclientes";
+   			$consulta="SELECT c.idclientes,c.rfc,c.nombreComercial,c.calle,c.noInterior,c.noExterior,c.colonia,c.delegacion,c.estado,c.cp,c.telefonoContactoPrincipal as telPrincipal,c.telefonoContactoSecundario,c.telefonoContactoOtro FROM tblClientes c";
 			// echo $consulta;
 			$resultado = $this->conexion->query($consulta);
 			while ($filaTmp = $resultado->fetch_assoc()) {
