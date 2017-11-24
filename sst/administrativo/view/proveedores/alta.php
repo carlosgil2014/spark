@@ -1,6 +1,6 @@
 <?php
 if(!isset($_SESSION['spar_usuario']))
-    header('Location: ../index.html');
+    header('Location: ../index.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -120,73 +120,80 @@ if(!isset($_SESSION['spar_usuario']))
                       <div class="tab-content">
                         <!--DIV PARA RADIO BUTTON PERSONAFISICA-->
                         <div id="fisica" class="tab-pane active schedule-pane">
-                          <form data-toggle="validator" role="form" method="POST" action="index.php?accion=guardar">
+                          <form data-toggle="validator" id="personaFisica" role="form" method="POST" action="index.php?accion=guardar">
                             <div class="form-group col-md-3">
                               <label class="control-label">R.F.C.</label>
-                              <input type="text" class="form-control input-sm" pattern="^[A-Z0-9]{13}" maxlength="13" placeholder="EJEM910825KYU" data-error="Campo obligatorio de 13 caracteres" name="Datos[rfc]" data-toggle="tooltip" title="13 caracteres, Mayúsculas y sin guiones" required>
+                              <input type="text" class="form-control input-sm" tabindex="1" pattern="^[A-Z0-9]{13}" style="text-transform:uppercase;" onchange="validarRfc('fisica')" maxlength="13" placeholder="EJEM910825KYU" data-error="Campo obligatorio de 13 caracteres" name="Datos[rfc]" data-toggle="tooltip" title="13 caracteres, Mayúsculas y sin guiones" required id="rfc">
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
-                            <div class="form-group col-md-2">
+                            <div class="form-group col-md-3">
                               <label class="control-label">Nombre(s)</label>
-                              <input type="text" class="form-control input-sm" maxlength="60" data-error="Es un campo obligatorio" name="Datos[nombres]" required>
+                              <input type="text" class="form-control input-sm" tabindex="2" maxlength="60" data-error="Es un campo obligatorio" name="Datos[nombres]" required id="nombres">
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
-                            <div class="form-group col-md-2">
+                            <div class="form-group col-md-3">
                               <label class="control-label">Apellido Paterno</label>
-                              <input type="text" class="form-control input-sm" maxlength="60" data-error="Es un campo obligatorio" name="Datos[apellidoPaterno]" required>
+                              <input type="text" class="form-control input-sm" maxlength="60" tabindex="3" data-error="Es un campo obligatorio" name="Datos[apellidoPaterno]" required id="apellidosPaterno">
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
-                            <div class="form-group col-md-2">
+                            <div class="form-group col-md-3">
                               <label class="control-label">Apellido Materno</label>
-                              <input type="text" class="form-control input-sm" maxlength="60" name="Datos[apellidoMaterno]">
+                              <input type="text" class="form-control input-sm" maxlength="60" tabindex="4" name="Datos[apellidoMaterno]" id="apellidoMaterno">
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
                             <div class="form-group col-md-3">
                               <label class="control-label">Nombre Comercial</label>
-                              <input type="text" class="form-control input-sm" maxlength="60" name="Datos[nombreComercial]">
+                              <input type="text" class="form-control input-sm" maxlength="60" tabindex="5" name="Datos[nombreComercial]">
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
                             <div class="form-group col-md-4">
                               <label class="control-label">Calle</label>
-                              <input type="text" class="form-control input-sm" maxlength="40" data-error="Es un campo obligatorio" name="Datos[calle]" required>
+                              <input type="text" class="form-control input-sm" maxlength="40" tabindex="6" data-error="Es un campo obligatorio" name="Datos[calle]" required id="calle">
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
                             <div class="form-group col-md-2">
                               <label class="control-label">No. Interior</label>
-                              <input type="text" class="form-control input-sm" maxlength="10" data-error="Es un campo obligatorio" name="Datos[noInterior]" required>
+                              <input type="text" class="form-control input-sm" maxlength="10" tabindex="7" data-error="Es un campo obligatorio" name="Datos[noInterior]" required id="numeroInterior">
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
                             <div class="form-group col-md-2">
                               <label class="control-label">No. Exterior</label>
-                              <input type="text" class="form-control input-sm" maxlength="10" name="Datos[noExterior]">
+                              <input type="text" class="form-control input-sm" maxlength="10" tabindex="8" name="Datos[noExterior]" id="numeroExterior">
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-3">
                               <label class="control-label">Colonia</label>
-                              <input type="text" class="form-control input-sm" maxlength="40" data-error="Es un campo obligatorio" name="Datos[colonia]" required>
+                              <select class="form-control input-sm selectpicker" tabindex="10" name="Datos[colonia]" data-error="Es un campo obligatorio" data-live-search="true" required="required" id="colonias" required>
+                              </select>
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-3">
                               <label class="control-label">Delegación/Municipio</label>
-                              <input type="text" class="form-control input-sm" maxlength="40" data-error="Es un campo obligatorio" name="Datos[delegacion]" required>
+                              <input type="text" class="form-control input-sm"  maxlength="40" data-error="Es un campo obligatorio" name="Datos[delegacion]" required id="delegacion" readonly>
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
-                            <div class="form-group col-md-4">
+                            <input type="hidden" name="Datos[idEstado]" value="" id="idEstado">
+                            <div class="form-group col-md-2">
                               <label class="control-label">Estado</label>
-                              <select class="form-control input-sm selectpicker" data-error="Es un campo obligatorio" data-live-search="true" name="Datos[estado]" required>
+                              <input type="text" id="estado" class="form-control input-sm" maxlength="40" data-error="Es un campo obligatorio" name="Datos[estado]" required value="" readonly>
+                              <div class="help-block with-errors">&nbsp;</div>
+                            </div>
+                            <div class="form-group col-md-2">
+                              <label class="control-label">País</label>
+                              <select class="form-control input-sm selectpicker" data-error="Es un campo obligatorio" data-live-search="true" onchange="cargarEstados(this);"  name="Datos[pais]" required>
                               <?php 
-                              foreach ($estados as $estado){
+                              foreach ($paises as $pais){
                               ?>
-                                <option <?php if ($estado["nombre"] == "Ciudad de México") echo "selected";?>><?php echo $estado["nombre"]?></option>
+                                <option <?php if ($pais["nombre"] == "México") echo "selected";?>><?php echo $pais["nombre"]?></option>
                               <?php
                               }
                               ?>
                               </select>
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-2">
                               <label class="control-label">C.P.</label>
-                              <input type="text" class="form-control input-sm" pattern="^[0-9]{5}" maxlength="5" data-error="Es un campo obligatorio" name="Datos[cp]" required>
+                              <input type="text" class="form-control input-sm" tabindex="9" onchange="codigoPostales(this,'fisica')" pattern="^[0-9]{5}" maxlength="5" data-error="Es un campo obligatorio" name="Datos[cp]" required id="codigoPostal">
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
                             <fieldset class="form-group col-md-12">
@@ -194,22 +201,22 @@ if(!isset($_SESSION['spar_usuario']))
                             </fieldset>
                             <div class="form-group col-md-3">
                               <label class="control-label">Nombre</label>
-                              <input type="text" class="form-control input-sm" maxlength="40" data-error="Es un campo obligatorio" name="Datos[nombreContacto]" required>
+                              <input type="text" class="form-control input-sm" tabindex="11" maxlength="40" data-error="Es un campo obligatorio" name="Datos[nombreContacto]" required>
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
                             <div class="form-group col-md-3">
                               <label class="control-label">Teléfono Principal</label>
-                              <input type="text" class="form-control input-sm" maxlength="16" data-error="Es un campo obligatorio" data-inputmask='"mask": "(99) 99-99-99-99"' data-mask name="Datos[telefonoContactoPrincipal]" required>
+                              <input type="text" class="form-control input-sm" tabindex="12" maxlength="16" data-error="Es un campo obligatorio" data-inputmask='"mask": "(99) 99-99-99-99"' data-mask name="Datos[telefonoContactoPrincipal]" required>
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
                             <div class="form-group col-md-3">
                               <label class="control-label">Teléfono Secundario</label>
-                              <input type="text" class="form-control input-sm" maxlength="16" data-inputmask='"mask": "(99) 99-99-99-99"' data-mask name="Datos[telefonoContactoSecundario]">
+                              <input type="text" class="form-control input-sm" tabindex="13" maxlength="16" data-inputmask='"mask": "(99) 99-99-99-99"' data-mask name="Datos[telefonoContactoSecundario]">
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
                             <div class="form-group col-md-3">
                               <label class="control-label">Otro</label>
-                              <input type="text" class="form-control input-sm" maxlength="16" data-inputmask='"mask": "(99) 99-99-99-99"' data-mask>
+                              <input type="text" class="form-control input-sm" tabindex="14" maxlength="16" data-inputmask='"mask": "(99) 99-99-99-99"' data-mask>
                               <div class="help-block with-errors" name="Datos[telefonoContactoOtro]">&nbsp;</div>
                             </div>
                             <fieldset class="form-group col-md-12">
@@ -217,7 +224,7 @@ if(!isset($_SESSION['spar_usuario']))
                             </fieldset>
                             <div class="form-group col-md-4">
                               <label class="control-label">Tipo de Proveedor</label>
-                              <select class="form-control input-sm selectpicker" data-error="Es un campo obligatorio" name="Datos[tipoProveedor]" required>
+                              <select class="form-control input-sm selectpicker" tabindex="15" data-error="Es un campo obligatorio" name="Datos[tipoProveedor]" required>
                                 <option>Productos</option>
                                 <option>Servicios</option>
                               </select>
@@ -225,7 +232,7 @@ if(!isset($_SESSION['spar_usuario']))
                             </div>
                             <div class="form-group col-md-2">
                               <label class="control-label">Días de Crédito</label>
-                              <select class="form-control input-sm selectpicker" onchange="validarDias(this,'fisica');" data-error="Es un campo obligatorio" required>
+                              <select class="form-control input-sm selectpicker" tabindex="16" onchange="validarDias(this,'fisica');" data-error="Es un campo obligatorio" required>
                                <?php 
                                 foreach ($diasCredito as $diaCredito){
                                ?>
@@ -239,12 +246,12 @@ if(!isset($_SESSION['spar_usuario']))
                             </div>
                             <div class="form-group col-md-2">
                               <label class="control-label">&nbsp;</label>
-                              <input id="otro_fisica" type="number" class="form-control input-sm"  min="0" step="1" max="999" data-error="Es un campo obligatorio (1-999)" value="0" readonly="true" name="Datos[diasCredito]" required>
+                              <input id="otro_fisica" type="number" tabindex="17" class="form-control input-sm"  min="0" step="1" max="999" data-error="Es un campo obligatorio (1-999)" value="0" readonly="true" name="Datos[diasCredito]" required>
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
                             <div class="form-group col-md-4">
                               <label class="control-label">Método de Pago</label>
-                              <select id="metodoPago" class="form-control input-sm selectpicker" multiple="multiple" data-live-search="true" data-selected-text-format="count > 2" name="Datos[metodosPago][]" required>
+                              <select id="metodoPago" class="form-control input-sm selectpicker" multiple="multiple" data-live-search="true" tabindex="18" data-selected-text-format="count > 2" name="Datos[metodosPago][]" required>
                               <?php 
                               foreach ($metodosPago as $metodoPago){
                               ?>
@@ -260,7 +267,7 @@ if(!isset($_SESSION['spar_usuario']))
                             </fieldset>
                             <div class="form-group col-md-4">
                               <label class="control-label">Banco</label>
-                              <select class="form-control input-sm selectpicker" data-error="Es un campo obligatorio" name="Datos[bancoProveedor]" required>
+                              <select class="form-control input-sm selectpicker" tabindex="19" data-error="Es un campo obligatorio" name="Datos[bancoProveedor]" required>
                               <?php 
                               foreach ($bancos as $banco){
                               ?>
@@ -273,15 +280,16 @@ if(!isset($_SESSION['spar_usuario']))
                             </div>
                             <div class="form-group col-md-4">
                               <label class="control-label">Número de Cuenta</label>
-                              <input type="text" class="form-control input-sm" maxlength="40" data-error="Es un campo obligatorio" name="Datos[noCuentaProveedor]" required>
+                              <input type="text" class="form-control input-sm" tabindex="20" maxlength="40" data-error="Es un campo obligatorio" name="Datos[noCuentaProveedor]" required>
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
                             <div class="form-group col-md-4">
                               <label class="control-label">CLABE</label>
-                              <input type="text" class="form-control input-sm" maxlength="18" pattern="^[a-zA-Z0-9]{18}" data-error="Es un campo obligatorio" name="Datos[clabeProveedor]" required data-toggle="tooltip" title="18 caracteres obligatorios">
+                              <input type="text" class="form-control input-sm" maxlength="18" pattern="^[a-zA-Z0-9]{18}" tabindex="20" data-error="Es un campo obligatorio" name="Datos[clabeProveedor]" required data-toggle="tooltip" title="18 caracteres obligatorios">
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
                             <div class="form-group col-md-12">
+                              <div  id="mensaje" ></div>
                               <button type="submit" class="btn btn-success pull-right" name="Datos[tipo]" value="1" >Guardar</button>
                             </div>
                           </form>
@@ -290,45 +298,46 @@ if(!isset($_SESSION['spar_usuario']))
 
                         <!--DIV PARA RADIO BUTTON PERSONA MORAL-->
                         <div id="moral" class="tab-pane schedule-pane">
-                          <form data-toggle="validator" role="form" method="POST" action="index.php?accion=guardar">
+                          <form data-toggle="validator" id="formularioMoral" role="form" method="POST" action="index.php?accion=guardar">
                             <div class="form-group col-md-3">
                               <label class="control-label">R.F.C.</label>
-                              <input type="text" class="form-control input-sm" pattern="^[A-Z0-9]{12}" maxlength="12" placeholder="EJEM910825KY" data-error="Es un campo obligatorio de 13 caracteres" name="Datos[rfc]" data-toggle="tooltip" data-trigger="hover" title="12 caracteres, Mayúsculas y sin guiones" required>
+                              <input type="text" class="form-control input-sm" pattern="^[A-Z0-9]{12}" style="text-transform:uppercase;" onchange="validarRfcMoral()" maxlength="12" tabindex="1" placeholder="EJEM910825KY" data-error="Campo obligatorio de 13 caracteres" name="Datos[rfc]" data-toggle="tooltip" data-trigger="hover" title="12 caracteres, Mayúsculas y sin guiones" required id="rfcMoral">
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
                             <div class="form-group col-md-6">
                               <label class="control-label">Razón Social</label>
-                              <input type="text" class="form-control input-sm" maxlength="60" data-error="Es un campo obligatorio" name="Datos[razonSocial]" required>
+                              <input type="text" class="form-control input-sm" tabindex="2" maxlength="60" data-error="Es un campo obligatorio" name="Datos[razonSocial]" required>
                               <div class="help-block with-errors"></div>
                             </div>
                             <div class="form-group col-md-3">
                               <label class="control-label">Nombre Comercial</label>
-                              <input type="text" class="form-control input-sm" maxlength="60" name="Datos[nombreComercial]">
+                              <input type="text" class="form-control input-sm" tabindex="3" maxlength="60" name="Datos[nombreComercial]">
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
                             <div class="form-group col-md-4">
                               <label class="control-label">Calle</label>
-                              <input type="text" class="form-control input-sm" maxlength="40" data-error="Es un campo obligatorio" name="Datos[calle]" required>
+                              <input type="text" class="form-control input-sm" tabindex="4" maxlength="40" data-error="Es un campo obligatorio" name="Datos[calle]" required>
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
                             <div class="form-group col-md-2">
                               <label class="control-label">No. Interior</label>
-                              <input type="text" class="form-control input-sm" maxlength="10" data-error="Es un campo obligatorio" name="Datos[noInterior]" required>
+                              <input type="text" class="form-control input-sm" tabindex="5" maxlength="10" data-error="Es un campo obligatorio" name="Datos[noInterior]" required>
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
                             <div class="form-group col-md-2">
                               <label class="control-label">No. Exterior</label>
-                              <input type="text" class="form-control input-sm" maxlength="10" name="Datos[noExterior]">
+                              <input type="text" class="form-control input-sm" tabindex="6" maxlength="10" name="Datos[noExterior]">
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-3">
                               <label class="control-label">Colonia</label>
-                              <input type="text" class="form-control input-sm" maxlength="40" data-error="Es un campo obligatorio" name="Datos[colonia]" required>
+                              <select class="form-control input-sm selectpicker" tabindex="10" name="Datos[colonia]" data-error="Es un campo obligatorio" data-live-search="true" required="required" id="coloniasMoral" required>
+                              </select>
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-3">
                               <label class="control-label">Delegación/Municipio</label>
-                              <input type="text" class="form-control input-sm" maxlength="40" data-error="Es un campo obligatorio" name="Datos[delegacion]" required>
+                              <input type="text" class="form-control input-sm"  maxlength="40" data-error="Es un campo obligatorio" name="Datos[delegacion]" required  readonly id="delegacionMoral">
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
                             <div class="form-group col-md-3">
@@ -344,22 +353,15 @@ if(!isset($_SESSION['spar_usuario']))
                               </select>
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
+                            <input type="hidden" name="Datos[idEstado]" value="" id="idEstadoMoral">
                             <div class="form-group col-md-3">
                               <label class="control-label">Estado</label>
-                              <select id="estados" class="form-control input-sm selectpicker" data-error="Es un campo obligatorio" data-live-search="true" name="Datos[estado]" required>
-                              <?php 
-                              foreach ($estados as $estado){
-                              ?>
-                                <option <?php if ($estado["nombre"] == "Ciudad de México") echo "selected";?>><?php echo $estado["nombre"]?></option>
-                              <?php
-                              }
-                              ?>
-                              </select>
+                              <input type="text"  class="form-control input-sm" maxlength="40" data-error="Es un campo obligatorio" name="Datos[estado]" required value="" readonly id="estadoMoral">
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
                             <div class="form-group col-md-2">
                               <label class="control-label">C.P.</label>
-                              <input type="text" class="form-control input-sm" pattern="^[0-9]{5}" maxlength="5" data-error="Es un campo obligatorio" name="Datos[cp]" required>
+                              <input type="text" class="form-control input-sm" onchange="codigoPostales(this,'moral')" tabindex="7" pattern="^[0-9]{5}" maxlength="5" data-error="Es un campo obligatorio" name="Datos[cp]" required>
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
                             <fieldset class="form-group col-md-12">
@@ -367,22 +369,22 @@ if(!isset($_SESSION['spar_usuario']))
                             </fieldset>
                             <div class="form-group col-md-3">
                               <label class="control-label">Nombre</label>
-                              <input type="text" class="form-control input-sm" maxlength="40" data-error="Es un campo obligatorio"  name="Datos[nombreContacto]" required>
+                              <input type="text" class="form-control input-sm" tabindex="11" maxlength="40" data-error="Es un campo obligatorio"  name="Datos[nombreContacto]" required>
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
                             <div class="form-group col-md-3">
                               <label class="control-label">Teléfono Principal</label>
-                              <input type="text" class="form-control input-sm" maxlength="16" data-error="Es un campo obligatorio" data-inputmask='"mask": "(99) 99-99-99-99"' data-mask  name="Datos[telefonoContactoPrincipal]" required>
+                              <input type="text" class="form-control input-sm" tabindex="12" maxlength="16" data-error="Es un campo obligatorio" data-inputmask='"mask": "(99) 99-99-99-99"' data-mask  name="Datos[telefonoContactoPrincipal]" required>
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
                             <div class="form-group col-md-3">
                               <label class="control-label">Teléfono Secundario</label>
-                              <input type="text" class="form-control input-sm" maxlength="16" data-inputmask='"mask": "(99) 99-99-99-99"' data-mask name="Datos[telefonoContactoSecundario]">
+                              <input type="text" class="form-control input-sm" tabindex="13" maxlength="16" data-inputmask='"mask": "(99) 99-99-99-99"' data-mask name="Datos[telefonoContactoSecundario]">
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
                             <div class="form-group col-md-3">
                               <label class="control-label">Otro</label>
-                              <input type="text" class="form-control input-sm" maxlength="16" data-inputmask='"mask": "(99) 99-99-99-99"' data-mask name="Datos[telefonoContactoOtro]">
+                              <input type="text" class="form-control input-sm"  tabindex="14" maxlength="16" data-inputmask='"mask": "(99) 99-99-99-99"' data-mask name="Datos[telefonoContactoOtro]">
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
                             <fieldset class="form-group col-md-12">
@@ -390,7 +392,7 @@ if(!isset($_SESSION['spar_usuario']))
                             </fieldset>
                             <div class="form-group col-md-4">
                               <label class="control-label">Tipo de Proveedor</label>
-                              <select class="form-control input-sm selectpicker" data-error="Es un campo obligatorio" name="Datos[tipoProveedor]" required>
+                              <select class="form-control input-sm selectpicker" tabindex="15" data-error="Es un campo obligatorio" name="Datos[tipoProveedor]" required>
                                 <option>Productos</option>
                                 <option>Servicios</option>
                               </select>
@@ -398,7 +400,7 @@ if(!isset($_SESSION['spar_usuario']))
                             </div>
                             <div class="form-group col-md-2">
                               <label class="control-label">Días de Crédito</label>
-                              <select class="form-control input-sm selectpicker" onchange="validarDias(this,'moral');" data-error="Es un campo obligatorio"  required>
+                              <select class="form-control input-sm selectpicker" tabindex="16" onchange="validarDias(this,'moral');" data-error="Es un campo obligatorio"  required>
                                 <?php 
                                 foreach ($diasCredito as $diaCredito){
                                ?>
@@ -417,7 +419,7 @@ if(!isset($_SESSION['spar_usuario']))
                             </div>
                             <div class="form-group col-md-4">
                               <label class="control-label">Método de Pago</label>
-                              <select id="metodoPago" class="form-control input-sm selectpicker" multiple="multiple" data-live-search="true" data-selected-text-format="count > 2" name="Datos[metodosPago][]" required>
+                              <select id="metodoPago" class="form-control input-sm selectpicker" multiple="multiple" data-live-search="true" tabindex="17" data-selected-text-format="count > 2" name="Datos[metodosPago][]" required>
                               <?php 
                               foreach ($metodosPago as $metodoPago){
                               ?>
@@ -433,7 +435,7 @@ if(!isset($_SESSION['spar_usuario']))
                             </fieldset>
                             <div class="form-group col-md-4">
                               <label class="control-label">Banco</label>
-                              <select class="form-control input-sm selectpicker" data-error="Es un campo obligatorio" name="Datos[bancoProveedor]" required>
+                              <select class="form-control input-sm selectpicker" tabindex="18" data-error="Es un campo obligatorio" name="Datos[bancoProveedor]" required>
                               <?php 
                               foreach ($bancos as $banco){
                               ?>
@@ -446,12 +448,12 @@ if(!isset($_SESSION['spar_usuario']))
                             </div>
                             <div class="form-group col-md-4">
                               <label class="control-label">Número de Cuenta</label>
-                              <input type="text" class="form-control input-sm" maxlength="40" data-error="Es un campo obligatorio" name="Datos[noCuentaProveedor]" required>
+                              <input type="text" class="form-control input-sm" maxlength="40" data-error="Es un campo obligatorio" tabindex="19" name="Datos[noCuentaProveedor]" required>
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
                             <div class="form-group col-md-4">
                               <label class="control-label">CLABE</label>
-                              <input type="text" class="form-control input-sm" maxlength="18" pattern="^[a-zA-Z0-9]{18}" data-error="Es un campo obligatorio" name="Datos[clabeProveedor]" required>
+                              <input type="text" class="form-control input-sm" maxlength="18" pattern="^[a-zA-Z0-9]{18}" tabindex="20" data-error="Es un campo obligatorio" name="Datos[clabeProveedor]" required>
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
                             <div class="form-group col-md-12">
@@ -633,6 +635,44 @@ if(!isset($_SESSION['spar_usuario']))
       <!-- Add the sidebar's background. This div must be placed
            immediately after the control sidebar -->
       <div class="control-sidebar-bg"></div>
+
+      <div id="modalClienteEmpleado" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-sm">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Proveedor/Empleado</h4>
+            </div>
+            <div class="modal-body text-center">
+            El RFC que ingreso ya existe como empleado spar, ¿Desea registrarlo como proveedor?
+            </div>
+            <div class="modal-footer">
+              <a style="cursor: pointer;" class="btn btn-success btn-sm" data-dismiss="modal" id="siFisicas">Si</a>
+              <a style="cursor: pointer;" class="btn btn-danger btn-sm" data-dismiss="modal" id="noFisica">No</a>
+            </div>
+          </div>
+    </div>
+</div>
+
+<div id="modalRfcCliente" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-sm">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">RFC/Repetido</h4>
+            </div>
+            <div class="modal-body text-center">
+            El RFC que ingreso ya existe como proveedor, verifique…
+            </div>
+            <div class="modal-footer">
+              <button style="cursor: pointer;" class="btn btn-success btn-sm" data-dismiss="modal" id="cerrar">Cerrar</button>
+            </div>
+          </div>
+    </div>
+</div>
+
     </div>
     <!-- ./wrapper -->
 

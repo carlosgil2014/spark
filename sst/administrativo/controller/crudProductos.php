@@ -1,6 +1,5 @@
 <?php
-// $basedir = realpath(__DIR__); se pondrán cuando esté todo el sistema corregido
-// include_once($basedir.'/../db/conectadb.php');
+include_once('../../../db/conectadb.php');
 include_once("../../../model/sesion.php");
 include_once("../../../model/usuarios.php");
 include_once("../../model/productos.php");
@@ -71,7 +70,6 @@ class Controller {
 						$idProducto=$_POST["idProducto"];
 						$producto = $_POST["producto"];
 						$idSubcategoria = $_POST['idSubcategoria'];
-						echo $idProducto,$producto,$idSubcategoria;
 						$resultados = $this->varProductos->actualizar($idProducto,$producto,$idSubcategoria);
 						$_SESSION["spar_error"] = $resultados;
 						// echo $_SESSION["spar_error"];

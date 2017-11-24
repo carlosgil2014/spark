@@ -11,7 +11,7 @@
 
    		public function listar(){
    			$datos = array();
-   			$consulta="SELECT s.idSubcategoria,s.subcategoria,ct.categoria FROM tblSubcategorias s inner join tblCategorias ct on s.idCategoria=ct.idCategoria";
+   			$consulta="SELECT s.idSubcategoria as id,s.subcategoria,ct.categoria FROM tblSubcategorias s inner join tblCategorias ct on s.idCategoria=ct.idCategoria";
    			$resultado = $this->conexion->query($consulta);
 			while ($filaTmp = $resultado->fetch_assoc()) {
 				$datos [] = $filaTmp;

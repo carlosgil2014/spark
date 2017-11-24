@@ -1,6 +1,6 @@
 <?php
 if(!isset($_SESSION['spar_usuario']))
-    header('Location: ../index.html');
+         header('Location: ../index.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -99,7 +99,7 @@ if(!isset($_SESSION['spar_usuario']))
                       </div>
                     </div>
                   </div>
-                  <table id="tblClientes" class="table table-bordered table-striped">
+                  <table id="tblClientes" class="table table-bordered table-striped small">
                     <thead>
                     <tr>
                       <th>Razón Social</th>
@@ -117,7 +117,7 @@ if(!isset($_SESSION['spar_usuario']))
                       <td><?php echo $cliente["rfc"]?></td>
                       <td><?php echo $cliente["nombreComercial"]?></td>
                       <td class = "text-center">
-                        <a href="index.php?accion=modificar&idCliente=<?php echo $cliente['idclientes'];?>">
+                        <a href="index.php?accion=modificar&idCliente=<?php echo $cliente['idclientes'];?>&cp=<?php echo $cliente['cp'];?>">
                           <i class="fa fa-search"></i>
                         </a>
                       </td>

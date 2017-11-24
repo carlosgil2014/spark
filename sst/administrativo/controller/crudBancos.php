@@ -1,6 +1,5 @@
 <?php
-// $basedir = realpath(__DIR__); se pondrán cuando esté todo el sistema corregido
-// include_once($basedir.'/../db/conectadb.php');
+include_once("../../../db/conectadb.php");
 include_once("../../../model/sesion.php");
 include_once("../../../model/usuarios.php");
 include_once("../../model/bancos.php");
@@ -62,6 +61,7 @@ class Controller {
 						$_SESSION["spar_error"] = $resultado;
 						header("Location: index.php?accion=index");
 					break;
+				
 				case "eliminar":
 						$idBanco = $_POST["idBanco"];
 						$resultado = $this->varBanco->eliminar($idBanco);

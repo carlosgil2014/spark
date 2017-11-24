@@ -1,9 +1,8 @@
 <?php
-// $basedir = realpath(__DIR__); se pondrán cuando esté todo el sistema corregido
-// include_once($basedir.'/../db/conectadb.php');
+include_once("../../../db/conectadb.php");
 include_once("../../../model/sesion.php");
 include_once("../../../model/usuarios.php");
-include_once("../../model/clientes.php");
+include_once("../../../model/clientes.php");
 
 class Controller {
 	
@@ -64,10 +63,9 @@ class Controller {
 						$varPais = new paises();
 						$paises = $varPais->listar();
 
-						require_once("../../model/estados.php");
-						$varEstado = new estados();
-						$estados = $varEstado->listar("México");
-
+						require_once("../../model/representantes.php");
+						$varRepresentantes = new representantes();
+						$codigoPostal = $varRepresentantes->buscar($_GET["cp"]);
 						$cliente = $this->varCliente->informacion($_GET["idCliente"]);
 
 						if(is_array($cliente)){
@@ -89,6 +87,7 @@ class Controller {
 
 				case "actualizar":
 						$idCliente = $_GET["idCliente"];
+						var_dump($_POST["Datos"]);
 						$resultado = $this->varCliente -> actualizar($idCliente,$_POST["Datos"]);
 						$_SESSION["spar_error"] = $resultado;
 						header("Location: index.php?accion=modificar&idCliente=$idCliente");
@@ -100,6 +99,15 @@ class Controller {
 						echo $resultado;
 						$_SESSION["spar_error"] = "Registro eliminado correctamente.";
 
+					break;
+				case "buscarRfc":
+						$validarRfc = $this->varCliente -> rfc($_GET["rfc"]);
+						if( !empty($validarRfc) ){
+							echo json_encode($validarRfc);
+						}else{
+							echo 'error';
+						}
+							
 					break;
 
 				default:

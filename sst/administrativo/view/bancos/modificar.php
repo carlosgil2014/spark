@@ -3,7 +3,7 @@
     <form id="formAgregar" method="POST" role="form" action="index.php?accion=actualizar&idBanco=<?php echo $_GET['idBanco'];?>">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true" >&times;</button>
-        <h4 class="modal-title" id="myModalLabel"><b>Agregar Banco</b></h4>
+        <h4 class="modal-title" id="myModalLabel"><b>Modificar Banco</b></h4>
       </div>
       <div class="modal-body">
         <div class="row">

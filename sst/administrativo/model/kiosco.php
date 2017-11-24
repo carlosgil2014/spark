@@ -1,5 +1,5 @@
 <?php 
-require_once('../db/conectadb.php');
+require_once('../../db/conectadb.php');
 require_once('../phpMailer/PHPMailerAutoload.php');
 	
 class kiosco{

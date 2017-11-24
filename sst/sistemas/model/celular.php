@@ -146,7 +146,7 @@ class CelularModel
 
 	public function listarMarcas(){
 		$datos = array();
-		$consulta ="SELECT m.marca,m.idMarca FROM `tblProductos` p LEFT JOIN tblMarcasProductos mc ON p.idProducto = mc.idProducto LEFT JOIN tblMarcas m on mc.idMarca = m.idMarca WHERE p.producto LIKE '%Celular%' ORDER BY m.marca";
+		$consulta ="SELECT m.marca,m.idMarca FROM `tblProductos` p LEFT JOIN tblMarcasProductos mc ON p.idProducto = mc.idProducto LEFT JOIN tblMarcas m on mc.idMarca = m.idMarca WHERE p.producto LIKE '%celular%' ORDER BY m.marca";
 		$resultado = $this->conexion->query($consulta);
 		
 		if($resultado){

@@ -2,9 +2,10 @@
 	class logout{
 
 		public function salir(){
-			unset($_SESSION["spar_usuario"]);
-			unset($_SESSION["spar_error"]);
-			return true;
+			session_unset();
+			session_destroy();
+			session_start();
+			session_regenerate_id(true);
 		}	
 
 	}

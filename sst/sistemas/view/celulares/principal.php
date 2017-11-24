@@ -114,7 +114,8 @@
                               <label class="control-label">Marca</label>
                               <select class="form-control input-sm selectpicker" data-error="Es un campo obligatorio" data-live-search="true" onchange="cargarModelos(this,'0');"  name="marca" required="required">
                               <?php 
-                              foreach ($marcas as $marca){                              
+                              foreach ($marcas as $marca){
+                              echo '<option value="'.$marca['idMarca'].'">'.$marca['marca'].'</option>';
                               ?>
                               <?php
                               }
@@ -130,11 +131,11 @@
                             </div>
                               <div class="form-group col-md-6 ">
                                 <label for="imei">IMEI :</label>
-                                <input type="text" class="form-control" id="imei" required="required" name="imei" pattern="[0-9]{15}" data-error="Es un campo obligatorio 15 numeros" placeholder="123456789012345">
+                                <input type="text" class="form-control" id="imei" required="required" name="imei" pattern="[0-9]{15}" maxlength="15" data-error="Es un campo obligatorio 15 numeros" placeholder="123456789012345">
                               </div>
                                 <div class="form-group col-md-6 ">
                                 <label for="sim">SIM :</label>
-                                <input type="text" class="form-control" id="sim" required="required" name="sim" name="imei" pattern="[A-Za-z0-9]{21}" placeholder="12345678901234567890F">
+                                <input type="text" class="form-control" id="sim" required="required" name="sim" name="imei" pattern="[A-Za-z0-9]{21}" maxlength="21" placeholder="12345678901234567890F">
                               </div>
                               <input type="hidden" name="guardar" id="guardar" value="guardar">
                           </table>

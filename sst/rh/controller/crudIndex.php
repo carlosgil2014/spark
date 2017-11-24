@@ -1,30 +1,38 @@
 <?php
-if(isset($_GET['accion'])){
-	
-	require_once("../../model/sesion.php");
-	$sesion = new sesion();
-	$sesion -> ultimaActividad();
-	
-	require_once("../../model/usuarios.php");
-	$usu = new usuarios();
-	$datosUsuario = $usu -> datosUsuario($_SESSION["spar_usuario"]);
-	
-	switch ($_GET['accion']) 
-	{
+include_once("../db/conectadb.php");
+include_once("../model/sesion.php");
+include_once("../model/usuarios.php");
 
-	    case 'index':
-	    	include_once("../view/index.php");
-	    	break;
-	    default:
-			require_once('../view/index.php');		
-			break;	
+class Controller {
+	
+	public function __construct()  
+    {  
+        $this->varSesion = new sesion();
+        $this->varUsuario = new usuarios();
+
+    } 
+	
+	public function principal()
+	{
+		$this->varSesion->ultimaActividad();
+		$datosUsuario = $this->varUsuario->datosUsuario($_SESSION["spar_usuario"]);
+
+		if(isset($_GET["accion"]))
+		{
+			switch($_GET["accion"])
+			{
+				case 'index':
+			    	include_once("view/index.php");
+			    break;
+
+			    default:
+					header("Location: index.php?accion=index");	
+					break;	
+			}
+		}
+		else
+			header("Location: index.php?accion=index");
 	}
 }
-else{	
-	require_once('../view/index.php');	
-	unset($_SESSION["spar_error"]);
-}
 
-
-
-
+?>

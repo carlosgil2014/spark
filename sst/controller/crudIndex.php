@@ -88,7 +88,7 @@ class Controller {
 			        break;
 
 			    default:
-					require_once('index.php');		
+			    	header("Location: index.php?accion=login");
 					break;	
 			}
 		}
