@@ -422,7 +422,7 @@ class prefacturas{
   			$tipoPrefactura = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["tipoPrefactura"]))));
   			
   			if(isset($datos["opcion"]))
-  				$opcion = ($datos["opcion"] == "Prefacturar") ? "Por facturar" : "Conciliado";
+  				$opcion = ($datos["opcion"] == "Prefacturar") ? "Por facturar" : "ConciliadoA";
   			else
   				$opcion = "Por facturar";
 
@@ -744,7 +744,7 @@ class prefacturas{
 			if($resultado){
 				while ($filaTmp = $resultado->fetch_assoc()) 
 				{
-					$consulta = "SELECT COALESCE((pfc.cantidad*pfc.precioUnitario)+((pfc.cantidad*pfc.precioUnitario)*(pfc.comision/100)),0)-COALESCE(SUM((oc.cantidad*oc.precioUnitario)+((oc.cantidad*oc.precioUnitario)*(oc.comision/100))),0) AS saldosPf FROM spartodo_srs.tblprefacturasconceptos pfc LEFT JOIN spartodo_srs.tblordenesconceptos oc ON oc.idpfconcepto = pfc.idprefacturaconcepto WHERE pfc.idprefacturaconcepto = {$filaTmp["idpfconcepto"]}";
+					$consulta = "SELECT COALESCE((pfc.cantidad*pfc.precioUnitario)+((pfc.cantidad*pfc.precioUnitario)*(pfc.comision/100)),0)-COALESCE(SUM((oc.cantidad*oc.precioUnitario)+((oc.cantidad*oc.precioUnitario)*(oc.comision/100))),0) AS saldosPf FROM spartodo_srs.tblprefacturasconceptos pfc LEFT JOIN spartodo_srs.tblordenesconceptos oc ON oc.idpfconcepto = pfc.idprefacturaconcepto LEFT JOIN spartodo_srs.tblordenesdeservicio os ON os.idorden = oc.idorden WHERE os.estado != 'DevolucionC' AND os.estado != 'Cancelada' AND  pfc.idprefacturaconcepto = {$filaTmp["idpfconcepto"]}";
 					$resultadoSaldos = $this->conexion->query($consulta);
 					while ($filaTmpSaldos = $resultadoSaldos->fetch_assoc()) 
 					{

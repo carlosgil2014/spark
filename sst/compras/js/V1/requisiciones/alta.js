@@ -41,6 +41,6 @@ function agregarFila(){
 	$('.selectpicker').selectpicker(parametros);  
 }
 
-function eliminarFila(elemento){  
-    $(elemento).parents("tr").remove()  
+function eliminarFila(elemento){ 
+	$(elemento).closest('tr').remove();  
 }

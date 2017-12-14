@@ -14,7 +14,7 @@
             <select class="form-control input-sm selectpicker" name="subcategoria" data-error="Es un campo obligatorio" data-live-search="true" required="required">
             <?php 
             foreach ($subcategorias as $subcategoria){                              
-            echo '<option value="'.$subcategoria['idSubcategoria'].'">'.$subcategoria['subcategoria'].'</option>';
+            echo '<option value="'.$subcategoria['id'].'">'.$subcategoria['subcategoria'].'</option>';
             ?>
             <?php
             }

@@ -5,11 +5,10 @@
       <h4 class="modal-title" id="myModalLabel"><b>Editar un celular</b></h4>
     </div>
     <div class="modal-body">
-      <form id="formularioEditar" role="form" action="index.php?accion=actualizar" method="POST">
-        <table border="0" width="100%">
+      <form id="formularioEditar" role="form" action="index.php?accion=actualizar&id=<?php echo $resultado["idCelular"];?>" method="POST">
           <div class="form-group">
             <label for="imei">Marca :</label>
-            <select class="form-control input-sm selectpicker" data-error="Es un campo obligatorio" data-live-search="true" onchange="cargarModelos(this,'<?php echo $resultado["idCelular"]?>');"  name="marcaeditar" required>
+            <select class="form-control input-sm selectpicker" data-error="Es un campo obligatorio" data-live-search="true" onchange="cargarModelos(this,'<?php echo $resultado["idCelular"]?>');"  name="marca" required>
               <?php 
               foreach ($marcas as $marca){  
               ?>                            
@@ -21,7 +20,7 @@
           </div>
           <div class="form-group">
             <label for="imei">Modelo:</label>
-            <select class="form-control input-sm selectpicker" id="modelos<?php echo $resultado['idCelular'];?>" data-error="Es un campo obligatorio" data-live-search="true" onchange="cargarModelos(this);"  name="modeloeditar"> 
+            <select class="form-control input-sm selectpicker" id="modelos<?php echo $resultado['idCelular'];?>" data-error="Es un campo obligatorio" data-live-search="true" onchange="cargarModelos(this);"  name="modelo"> 
             <?php 
               foreach ($modelos as $modelo){
               ?>
@@ -33,14 +32,20 @@
           </div>
             <div class="form-group">
             <label for="imei">IMEI :</label>
-            <input type="text" class="form-control" id="imeieditar" value="<?php echo $resultado['imei'];?>" required="required" name="imeieditar" required pattern="[0-9]{15}" placeholder="Solo numeros 15">
+            <input type="text" class="form-control" id="imeieditar" value="<?php echo $resultado['imei'];?>" required="required" name="imei" required pattern="[0-9]{15}" placeholder="Solo numeros 15">
           </div>
-            <div class="form-group">
-            <label for="sim">SIM :</label>
-            <input type="text" class="form-control" id="simeditar" value="<?php echo $resultado['sim'];?>" required="required" name="simeditar" pattern="[A-Za-z0-9]{20}">
+          <div class="form-group col-md">
+            <label class="control-label">Tipo</label>
+            <select class="form-control input-sm"  name="tipo" data-error="Es un campo obligatorio" data-live-search="true" required="required" id="tipo" required>
+              <?php 
+            foreach ($almacene as $almacen){
+            ?>
+            <option <?php if($almacen["idAlmacen"] == $resultado["almacen"]){echo "selected";}?> value="<?php echo $almacen['idAlmacen'] ?>"><?php echo $almacen['nombre'] ?></option>
+            <?php
+            }
+            ?>
+            </select>
           </div>
-          <input type="hidden" name="id-editar" id="id-editar" value="<?php echo $resultado['idCelular'];?>">
-        </table>
       </form>
     </div>
     <div class="modal-footer">

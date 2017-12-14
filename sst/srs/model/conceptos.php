@@ -44,21 +44,24 @@
 
 		public function cargarConceptos($idCliente,$tipoServicio){
 			//$datos[0];
+			$datos = array();
 			$idCliente = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($idCliente))));	
 			$tipoServicio = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($tipoServicio))));	
-  			$consulta = "SELECT id AS idconcepto FROM tblconceptos c LEFT JOIN tblrelacionconceptos rc ON c.id = rc.idconcepto WHERE rc.idcliente ='".$idCliente."' AND c.estado = 'Activo' AND (c.categoria='".$tipoServicio."' OR c.categoria = '')";
+  			$consulta = "SELECT id AS idconcepto FROM spartodo_srs.tblconceptos c LEFT JOIN spartodo_srs.tblrelacionconceptos rc ON c.id = rc.idconcepto WHERE rc.idcliente ='".$idCliente."' AND c.estado = 'Activo' AND (c.categoria='".$tipoServicio."' OR c.categoria = '')";
 			$resultado = $this->conexion->query($consulta);
-			while($filaTmp = $resultado->fetch_assoc())                        
-			{              
-			    $consulta = "SELECT id,nombreRubro FROM tblconceptos WHERE id='".$filaTmp["idconcepto"]."'";
-			    $resultadoConcepto = $this->conexion->query($consulta); 
-			    while($filaConcepto = $resultadoConcepto->fetch_assoc())
-					$datos[] = $filaConcepto;   
-			}
-			if(isset($datos) && is_array($datos)){
+			
+			if($resultado){
+				while($filaTmp = $resultado->fetch_assoc())                        
+				{              
+				    $consulta = "SELECT id,nombreRubro FROM spartodo_srs.tblconceptos WHERE id='".$filaTmp["idconcepto"]."'";
+				    $resultadoConcepto = $this->conexion->query($consulta); 
+				    while($filaConcepto = $resultadoConcepto->fetch_assoc())
+						$datos[] = $filaConcepto;   
+				}
 				return $datos;
 			}
    			else{
+   				echo $this->conexion->errno . " : " . $this->conexion->error . "\n";
 	   			return $datos=false;
    			}
 		}

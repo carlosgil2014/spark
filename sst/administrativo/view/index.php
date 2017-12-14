@@ -66,6 +66,7 @@ if(!isset($_SESSION['spar_usuario']))
                 </span>
               </a>
               <ul class="treeview-menu">
+                <li><a href="view/almacenes/index.php?accion=index"><i class="fa fa-cubes"></i> Almacenes</a></li>
                 <li><a href="view/bancos/index.php?accion=index"><i class="fa  fa-bank"></i> Bancos</a></li>
                 <li><a href="view/categorias/index.php?accion=index"><i class="fa fa-tags"></i> Categorias</a></li>
                 <li><a href="view/clientes/index.php?accion=index"><i class="fa fa-users"></i> Clientes</a></li>
@@ -160,13 +161,17 @@ if(!isset($_SESSION['spar_usuario']))
             <!-- Find e la barra de separación entre menus -->
             <li class="treeview">
               <a href="#">
-                <i class="fa fa-cog"></i> <span>Módulo de Reclutamiento</span>
+                <i class="fa fa-cog"></i> <span>Módulo de Contratación</span>
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
               </a>
               <ul class="treeview-menu">            
-                <li><a href="#"><i class="fa fa fa-cogs"></i> Parámetros del Módulo</a></li>
+                <li><a href="view/vacantes/index.php?accion=index"><i class="fa fa-user-plus"></i> Vacantes</a></li>
+                <li><a href="view/reclutamientos/index.php?accion=index"><i class="fa fa-users"></i> Reclutamiento</a></li>
+                <li><a href="#"><i class="fa fa fa-cogs"></i> Entrevistas</a></li>
+                <li><a href="#"><i class="fa fa fa-cogs"></i> Contratación</a></li>
+                <li><a href="#"><i class="fa fa fa-cogs"></i> Orgranigrama</a></li>
               </ul>
             </li>
             <li>

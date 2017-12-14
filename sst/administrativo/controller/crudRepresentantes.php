@@ -84,7 +84,18 @@ class Controller {
 						
 					break;
 					case "buscarRfc":
-						$validarRfc = $this->varRepresentantes -> rfcEmpleado($_GET["rfc"]);
+						$validarRfc = $this->varRepresentantes -> rfc($_GET["rfc"]);
+
+						if( !empty($validarRfc) ){
+							echo json_encode($validarRfc);
+						}else{
+							echo 'error';
+						}
+							
+					break;
+
+					case "buscarRfcNoVigente":
+						$validarRfc = $this->varRepresentantes -> rfcNoVigente($_GET["rfc"]);
 
 						if( !empty($validarRfc) ){
 							echo json_encode($validarRfc);

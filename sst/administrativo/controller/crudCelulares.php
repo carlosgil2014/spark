@@ -31,9 +31,9 @@ if(isset($_GET["accion"]))
 		
 		case "buscarMunicipio":
 			
-			require_once("../model/municipiosLocalidades.php");
-			$varEstados = new municipiosLocalidades();
-			$datosEstados = $varEstados->listarMunicipios($_POST['estado']); 
+require_once("../../model/representantes.php");
+						$varRepresentantes = new representantes();
+						$codigoPostal = $varRepresentantes->buscar($_GET["cp"]);
 
 
 			foreach ($datosEstados as $estado){

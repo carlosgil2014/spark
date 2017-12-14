@@ -192,7 +192,7 @@
 
     public function bajaDirectorio(){
    			$datos = array();
-   			$borrar="DELETE d FROM tblDirectorio d LEFT JOIN spar_empleados s ON d.idUsuario=s.empleados_id where 90<=DATEDIFF(CURDATE(),s.empleados_fecha_baja)";
+   			$borrar="DELETE d FROM tblDirectorio d LEFT JOIN spar_empleados s ON d.idUsuario=s.empleados_id where 91<=DATEDIFF(CURDATE(),s.empleados_fecha_baja)";
    			$resultado2 = $this->conexion->query($borrar);
    			$consulta="SELECT s.empleados_id,s.empleados_numero_empleado,s.empleados_nombres,s.empleados_apellido_paterno,s.empleados_apellido_materno,s.empleados_correo,d.telefono,d.telefonoExtencion,d.telefonoSecundario,d.telefonoAlterno,d.telefonoCasa,r.region,s.empleados_fecha_baja,DATEDIFF(CURDATE(),s.empleados_fecha_baja) as diasRestantes FROM spar_empleados s INNER JOIN tblDirectorio d ON d.idUsuario=s.empleados_id INNER JOIN tblEstados Es ON Es.idestado=d.region INNER JOIN tblRegiones r On r.idRegion=Es.region WHERE s.empleados_vigente=0";
    			$resultado = $this->conexion->query($consulta);

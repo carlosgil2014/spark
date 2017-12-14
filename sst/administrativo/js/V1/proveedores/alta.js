@@ -67,7 +67,7 @@ function validarRfc(parametro){
     }else{
         $(".loader").fadeIn("slow", function(){
             $.ajax({
-                url:   '../representantes/index.php?accion=buscarRfc&rfc='+rfc,
+                url:   '../representantes/index.php?accion=buscarRfcNoVigente&rfc='+rfc,
                 type:  'post',
             success:  function (data) {
                 data = JSON.parse(data)
@@ -100,6 +100,7 @@ function validarRfcMoral(){
     	    	type:  'post',
             success:  function (data) {
                 data = JSON.parse(data)
+                console.log(data);
         	if (data==="error") {
         		//$('#mensaje').addClass('btn btn-danger').html('No existe el RFC que ingreso.').show(100).delay(10000).hide(200);
         		$('#mensajeMoral').html('').hide().removeClass('btn btn-danger').delay(0).hide(0);

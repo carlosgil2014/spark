@@ -8,6 +8,7 @@ include_once("../../model/cotizaciones.php");
 include_once("../../model/ordenesdeservicio.php");
 include_once("../../model/prefacturas.php");
 include_once("../../model/permisos.php");
+include_once("../../model/conceptos.php");
 
 
 class Controller {
@@ -21,6 +22,7 @@ class Controller {
 		$this->varOrden = new orden();	
 		$this->varPrefactura = new prefacturas();	
 		$this->varPermiso = new permisos();
+		$this->varConcepto = new conceptos();
     } 
 	
 	public function principal()
@@ -37,7 +39,7 @@ class Controller {
 				switch($_GET["accion"])
 				{
 					case 'listarDatos':
-					    $datos = $clientes -> listarClientes($usuario);
+					    $datos = $this->varCliente->usuariosClientes($datosUsuario["idUsuario"]);
 						if(is_array($datos))
 						{
 							$arrayTipoPlan=array('Promotoría o Merchandiser','Demostración o Impulso de Ventas','Administración de nómina');
@@ -70,21 +72,16 @@ class Controller {
 							}
 							if(isset($_SESSION["idCliente"]) &&  isset($_SESSION["tipoServicio"]))
 							{
-								require_once("../model/conceptos.php");
-								$conceptos= new conceptos();
-								$datosConceptos=$conceptos->cargarConceptos($_SESSION["idCliente"],$_SESSION["tipoServicio"]);
+								$datosConceptos = $this->varConcepto->cargarConceptos($_SESSION["idCliente"],$_SESSION["tipoServicio"]);
 							}
-							include_once('../view/cotizaciones/index.php');
+							include_once('alta.php');
 						}
 						else
-							header('location:../index.php');	
+							header('location:../../../index.php');	
 				        break;
 
 				    case 'agregarCotizacion':
-			        	session_start();
-
-			        	if($_POST['txtComisionAgencia']=="")
-						{
+			        	if($_POST['txtComisionAgencia']==""){
 							$ComisionAgencia=0;
 						}
 						else
@@ -125,7 +122,7 @@ class Controller {
 						$_SESSION["total2"]=$_SESSION["subTotal2"]+$_SESSION["iva"];
 						$_SESSION["total2Mostrar"]=number_format($_SESSION["total2"],2);
 						
-						header("location:crudCotizaciones.php?accion=listarDatos");
+						header("location:index.php?accion=listarDatos");
 			        	break;
 
 				    case 'eliminarRubro':
@@ -489,7 +486,7 @@ class Controller {
 			}
 		}
 		else
-			header("Location: ../index.php?accion=login");
+			header("Location: ../../index.php?accion=login");
 	}
 }
 

@@ -10,7 +10,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="robots" content="noindex, nofollow">
   <meta name="description" content="Plantilla general para el desarrollo de los módulos del Sistema Spar Todopromo SST">
-  <meta name="author" content="Carlos Enrique Gil, Gerardo Medina, Salvador Luna y Victor Nava">
+  <meta name="author" content="Carlos Enrique Gil(Jim Morrison y su Shenlong), Gerardo Medina, Salvador Luna y Victor Nava">
   <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
   <title>Sistema Spar Todopromo | Spar México</title>
   <!-- Indicadores para respuestas de la plantilla -->
@@ -100,7 +100,7 @@
 
                 <div>
                   <div class="modal fade" id="agregarCelular" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-                    <div class="modal-dialog" role="document">
+                    <div class="modal-dialog modal-sm" role="document">
                       <div class="modal-content">
                       <div class="modal-header">
                           <button type="button" class="close" data-dismiss="modal" aria-hidden="true" >&times;</button>
@@ -108,13 +108,13 @@
                       </div>
                       <div class="modal-body">
                         <form id="formularioAgregar" role="form">
-                          <table border="0" width="100%">
-
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-12">
                               <label class="control-label">Marca</label>
                               <select class="form-control input-sm selectpicker" data-error="Es un campo obligatorio" data-live-search="true" onchange="cargarModelos(this,'0');"  name="marca" required="required">
+                                <option value="">Seleccione</option>
                               <?php 
-                              foreach ($marcas as $marca){                              
+                              foreach ($marcas as $marca){
+                              echo '<option value="'.$marca['idMarca'].'">'.$marca['marca'].'</option>';
                               ?>
                               <?php
                               }
@@ -122,22 +122,28 @@
                               </select>
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
-                              <div class="form-group  col-md-6">
+                              <div class="form-group  col-md-12">
                               <label class="control-label">Modelo</label>
                               <select class="form-control input-sm selectpicker" data-error="Es un campo obligatorio" name="modelo" id="modelos0">
                               </select>
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
-                              <div class="form-group col-md-6 ">
-                                <label for="imei">IMEI :</label>
-                                <input type="text" class="form-control" id="imei" required="required" name="imei" pattern="[0-9]{15}" data-error="Es un campo obligatorio 15 numeros" placeholder="123456789012345">
-                              </div>
-                                <div class="form-group col-md-6 ">
-                                <label for="sim">SIM :</label>
-                                <input type="text" class="form-control" id="sim" required="required" name="sim" name="imei" pattern="[A-Za-z0-9]{21}" placeholder="12345678901234567890F">
-                              </div>
-                              <input type="hidden" name="guardar" id="guardar" value="guardar">
-                          </table>
+                            <div class="form-group col-md-12">
+                              <label for="imei">Imei</label>
+                              <input type="text" class="form-control" id="imei" required="required" name="imei" pattern="[0-9]{15}" maxlength="15" data-error="Es un campo obligatorio 15 numeros" placeholder="123456789012345">
+                            </div>
+                            <div class="form-group col-md-12">
+                              <label class="control-label">Tipo</label>
+                              <select class="form-control input-sm"  name="tipo" data-error="Es un campo obligatorio" data-live-search="true" required="required" id="tipo" required>
+                                <?php 
+                              foreach ($almacenes as $almacen){
+                              echo '<option value="'.$almacen['idAlmacen'].'">'.$almacen['nombre'].'</option>';
+                              ?>
+                              <?php
+                              }
+                              ?>
+                              </select>
+                            </div>
                             <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                               <button type="submit" name="enviar" id="agregar" class="btn btn-primary">Agregar</button>
@@ -169,11 +175,9 @@
             <div class="box-body table-responsive no-padding">
               <table id="tblCel" class="table table-bordered table-striped">
                 <thead>
-                  <th>No.</th>
                   <th>Marca</th>
                   <th>Modelo</th>
                   <th>IMEI</th>                  
-                  <th>SIM</th>              
                   <th></th>
                 </thead>
                 <tbody>
@@ -185,11 +189,9 @@
                     <tr>
                     <?php
                         echo 
-                        '<td>'.$cel["idCelular"].'</td>
-                        <td>'.$cel['marca'].'</td>
+                        '<td>'.$cel['marca'].'</td>
                         <td>'.$cel['modelo'].'</td>
                         <td>'.$cel['imei'].'</td>
-                        <td>'.$cel['sim'].'</td>
                         <td>
                         '.$btnEdit.'
                         '.$btnEliminar.'

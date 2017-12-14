@@ -412,6 +412,27 @@ class representantes
 		}
 	}
 		
+	public function rfcNoVigente($rfc){
+		$rfc = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($rfc))));
+			$consulta="SELECT s.empleados_nombres,s.empleados_apellido_paterno,s.empleados_apellido_materno,s.codigoPostal,s.empleados_rfc,s.empleados_estado,s.calle,s.numeroInterior,s.numeroExterior,cp.asentamiento,cp.delegacion,cp.estado,Es.nombre from spar_empleados s INNER JOIN tblCP cp ON s.empleados_colonia=cp.idcp inner join tblEstados Es on Es.idestado=cp.estado where s.empleados_rfc='$rfc' and s.empleados_vigente=0";
+		$resultado = $this->conexion->query($consulta);
+		if($resultado){
+			if($this->conexion->affected_rows === 1){
+			$datos = $resultado->fetch_assoc();
+			$datos['colonias']= $this->listarAsentamientos($rfc);
+			 return $datos;
+			}else{
+				return "error";	
+			}
+
+			return $resultado->fetch_assoc();
+		}
+		else{
+			echo $this->conexion->errno . " : " . $this->conexion->error . "\n";
+		}
+
+	}
+		
 	public function __destruct() 
 	{
 		mysqli_close($this->conexion);

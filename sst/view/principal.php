@@ -28,6 +28,9 @@
   <![endif]-->
 </head>
   <body class="hold-transition skin-blue sidebar-mini">
+    <?php 
+      include_once("includes/modalExpiracion.php");
+    ?>
     <div class="loader">
     </div>
     <div class="wrapper">
@@ -137,7 +140,7 @@
         if($datosUsuario["mrh"] == 1){
         ?>
         <li class="treeview">
-          <a href="../rh/controller/crudIndex.php?accion=index">
+          <a href="../rh/index.php?accion=index">
             <i class="fa fa-male"></i> <span> Módulo Recursos Humanos</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-right"></i>

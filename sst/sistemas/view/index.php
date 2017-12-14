@@ -89,7 +89,7 @@
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="#"><i class="fa fa-tablet"></i> Celulares / Tabletas</a></li>
+              <li><a href="view/consultas/index.php?accion=index"><i class="fa fa-tablet"></i> Celulares / Tabletas</a></li>
               <li><a href="#"><i class="fa fa-desktop"></i> Equipos de cómputo</a></li>
               <li><a href="#"><i class="fa fa-file-text-o"></i> Cartas responsivas</a></li>
               <li><a href="#"><i class="fa fa-user-secret"></i> Robos / Extravíos</a></li>
@@ -114,7 +114,7 @@
                   </span>
                 </a>
                 <ul class="treeview-menu">
-                  <li><a href="#"><i class="fa fa-user"></i> Por Usuario</a></li>
+                  <li><a href="view/asignaciones/index.php?accion=index"><i class="fa fa-user"></i> Por Usuario</a></li>
                   <li>
                     <a href="#"><i class="fa fa-users"></i> Por cliente
                       <span class="pull-right-container">
@@ -239,7 +239,8 @@
             <ul class="treeview-menu">
               <li><a href="view/celulares/index.php?accion=index"><i class="fa fa-mobile"></i> Celulares</a></li>
               <li><a href="#"><i class="fa fa-tablet"></i> Tablets</a></li>
-              <li><a href="#"><i class="fa fa-dedent"></i> SIMs</a></li>
+              <li><a href="view/sims/index.php?accion=index"><i class="fa fa-dedent"></i> SIMs</a></li>
+              <li><a href="view/lineas/index.php?accion=index"><i class="fa fa-dedent"></i> Lineas</a></li>
               <li><a href="#"><i class="fa fa-tv"></i> Monitores</a></li>
               <li><a href="#"><i class="fa fa-keyboard-o"></i> Teclados</a></li>
               <li><a href="#"><i class="ion-mouse"></i>  Mouses</a></li>

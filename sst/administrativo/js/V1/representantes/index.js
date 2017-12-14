@@ -97,11 +97,11 @@ function menorDeEdad(){
 	$("#fechaNacimiento").focus();
 	return false;
 	}else if(fecha>yyyy){
-	$("#mensaje").addClass('btn btn-warning').html('La fecha que ingreso es inválida, verifique…').show(100).delay(5000).hide(200);
+	$("#mensaje").addClass('btn btn-warning').html('La fecha que ingreso no es válida, verifique…').show(100).delay(5000).hide(200);
 	$("#fechaNacimiento").focus();
 	return false;
 	}else if(fecha<1927){
-	$("#mensaje").addClass('btn btn-warning').html('La fecha que ingreso es inválida, verifique…').show(100).delay(5000).hide(200);
+	$("#mensaje").addClass('btn btn-warning').html('La fecha que ingreso no es válida, verifique…').show(100).delay(5000).hide(200);
 	$("#fechaNacimiento").focus();
 	return false;
 	}

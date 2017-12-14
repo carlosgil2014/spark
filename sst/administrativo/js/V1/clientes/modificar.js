@@ -53,14 +53,12 @@ function codigoPostales(codigoPostal,tipo){
 	    		//$('#mensaje').html('').hide().removeClass('btn btn-danger');
 	    		$('#idEstadoMoral').val(data.idEstado);
 	    		$('#delegacionMoral').val(data.delegacion);
-	    		console.log(data.delegacion);
 	    		$('#estadoMoral').val(data.estado);
 	    		//$('#region').val(data.region);
 	    		codigoExiste = data.cp;
 	    		colonias = "";
 				for (var i = 0; i < data.colonias.length; i++) {
             		colonias += '<option value="' + data.colonias[i].idcp + '">' + data.colonias[i].asentamiento + '</option>';
-            		console.log(data.colonias[i].asentamiento);
     			}
     			$('#coloniasMoral').html(colonias);
     			$('#coloniasMoral').selectpicker("refresh");
@@ -71,6 +69,7 @@ function codigoPostales(codigoPostal,tipo){
 	});
 	}	
 }
+
 
 function validarRfc(parametro){
     /*$('#nombre').val('');
@@ -99,8 +98,6 @@ function validarRfc(parametro){
             success:  function (data) {
                 data = JSON.parse(data)
             if (data==="error") {
-                //$('#mensaje').addClass('btn btn-danger').html('No existe el RFC que ingreso.').show(100).delay(10000).hide(200);
-                $('#mensaje').html('').hide().removeClass('btn btn-warning').delay(0).hide(0);
             }else{
                 rfcRepetido = data.empleados_rfc;
                 if (parametro === "fisica") {
@@ -114,6 +111,7 @@ function validarRfc(parametro){
     }
 }
 
+var rfcExiste = "";
 function validarRfcMoral(){
 		rfc = $('#rfcMoral').val();
 	var rfc = rfc.toUpperCase();
@@ -127,15 +125,13 @@ function validarRfcMoral(){
     	    	type:  'post',
             success:  function (data) {
                 data = JSON.parse(data)
-                console.log(data);
         	if (data==="error") {
-        		//$('#mensaje').addClass('btn btn-danger').html('No existe el RFC que ingreso.').show(100).delay(10000).hide(200);
-        		$('#mensajeMoral').html('').hide().removeClass('btn btn-danger').delay(0).hide(0);
+        		//$('#rfcMoral').val(rfcExiste);
         	}else{
-                rfcRepetido = data.rfc;
+                rfcExiste = rfc;
         		$("#modalRfcCliente").unbind().modal({ backdrop: "static", keyboard: false }).one("click", "#cerrar", function(e){
-                    $('#formularioMoral')[0].reset();
                     $("#rfcMoral").focus();
+                    $('#rfcMoral').val(rfcExiste);  
                 });
         	}
     	    },
@@ -155,6 +151,7 @@ $("#modalClienteEmpleado").unbind().modal({ backdrop: "static", keyboard: false 
                 success:  function (data) {
                     data = JSON.parse(data)
                     if (data==="error") {
+                        rfc = $('#rfc').val(rfcRepetido);
                         $('#mensajeMoral').html('').hide().removeClass('btn btn-danger').delay(0).hide(0);
                     }else{
                         rfcRepetido = data.rfc;

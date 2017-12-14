@@ -59,7 +59,7 @@
 
 				while ($filaTmpConcepto = $resultadoConceptos->fetch_assoc()) {
 
-					$consultaCantidad = "SELECT (osc.cantidad - (SELECT COALESCE(SUM(pfc.cantidad),0) FROM tblprefacturas pf LEFT OUTER JOIN tblprefacturasconceptos pfc ON pf.idprefactura = pfc.idprefactura WHERE pfc.idordconcepto = osc.idordconcepto AND (pf.estado != 'Cancelada'))) AS cantidad FROM tblordenesconceptos osc WHERE osc.idcotconcepto = '".$filaTmpConcepto['idcotconcepto']."' AND osc.idordconcepto = '".$filaTmpConcepto['idordconcepto']."'";
+					$consultaCantidad = "SELECT (osc.cantidad - (SELECT COALESCE(SUM(pfc.cantidad),0) FROM tblprefacturas pf LEFT OUTER JOIN tblprefacturasconceptos pfc ON pf.idprefactura = pfc.idprefactura WHERE pfc.idordconcepto = osc.idordconcepto AND (pf.estado != 'Cancelada' AND pf.estado != 'ConciliadoC'))) AS cantidad FROM tblordenesconceptos osc WHERE osc.idcotconcepto = '".$filaTmpConcepto['idcotconcepto']."' AND osc.idordconcepto = '".$filaTmpConcepto['idordconcepto']."'";
 
 					$resultadoCantidad = $this->conexion->query($consultaCantidad);
 
@@ -521,7 +521,12 @@
 			$fechaFinal = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($fechaFinal))));
 			$total = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($total))));
 			$hoy = date('Y-m-d');
- 			$consulta = "UPDATE spartodo_srs.tblordenesdeservicio SET servicio = '$servicio', fechaInicial = '$fechaInicial', fechaFinal = '$fechaFinal', importe = '$total', elaboracion = '$hoy', estado = 'Por autorizar' WHERE idorden = '$idOrden'";
+			$estadoTmp = "Devolucion";
+			if(strpos($datosOrden["estado"],"Devolucion") === false){
+			    $estadoTmp = "Por autorizar";
+			}
+
+ 			$consulta = "UPDATE spartodo_srs.tblordenesdeservicio SET servicio = '$servicio', fechaInicial = '$fechaInicial', fechaFinal = '$fechaFinal', importe = '$total', elaboracion = '$hoy', estado = '$estadoTmp' WHERE idorden = '$idOrden'";
 
 			$resultado = $this->conexion->query($consulta);
 

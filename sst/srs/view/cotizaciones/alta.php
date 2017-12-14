@@ -1,361 +1,328 @@
-<?php
-if(!isset($_SESSION['srs_usuario']))
-        header('Location: ../view/index.php');
+ <?php
+if(!isset($_SESSION['spar_usuario']))
+    header('Location: ../../../idex.php');
 ?>
 <!DOCTYPE html>
-<html lang="es">
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-	<link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
-	<title>IntraNet | Spar Todopromo</title>
-	<!-- Bootstrap Core CSS -->
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <!-- MetisMenu CSS -->
-    <link href="../css/metisMenu.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="../css/sb-admin-2.css" rel="stylesheet">
-    <!--Jquery css-->
-    <link rel="stylesheet" href="../css/jquery-ui.css">
-    <!-- Custom Fonts -->
-    <link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="../css/estilo.css" rel="stylesheet" type="text/css">
-</head>
-<body>
-    <div class="loader">  
-        <label class="cargando" >CARGANDO...</label>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
+    <title>Módulo de Control de Recursos | Spar México</title>
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="expires" content="0" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="../../../assets/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="../../../assets/css/datatables/dataTables.bootstrap.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../../../assets/css/AdminLTE.min.css">
+    <!-- Bootstrap select -->
+    <link rel="stylesheet" href="../../../assets/css/bootstrap/bootstrap-select.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="../../../assets/css/_all-skins.min.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body class="hold-transition skin-blue sidebar-mini">
+    <?php 
+      include_once("../../../view/includes/modalExpiracion.php");
+    ?>
+    <div class="loader">
     </div>
-	<div id="wrapper">
+    <div class="wrapper">
 
-		<!-- Navigation -->
-        <nav class="navbar navbar-default navbar-fixed-top " role="navigation" style="margin-bottom: 0">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="../../">Módulo de Operaciones</a>
-            </div>
-            <!-- /.navbar-header -->
-
-            <ul class="nav navbar-top-links navbar-right">
-            <li><a ><?php echo $nombre;?></a></li>
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <img src="../img/user.png" class="imgUser" style="width: 27px; height: 27px;">  <i class="fa fa-caret-down"></i>
-                    </a>
-
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a href="crudConceptos.php?accion=listarConceptos"><i class="fa fa-gear fa-fw"></i> Configuraciones</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li><a href="crudIndex.php?urlValue=logout"><i class="fa fa-sign-out fa-fw"></i> Salir</a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-user -->
-
-                </li>
-                <!-- /.dropdown -->
-            </ul>
-            <!-- /.navbar-top-links -->
-
-            <div class="navbar-default sidebar" role="navigation">
-                <div class="sidebar-nav navbar-collapse">
-                    <ul class="nav" id="side-menu">
-                        <!-- <li><a href="#"><i class="fa fa-plus-circle"></i> Nueva</a></li> -->
-                        <li <?php if(empty($_SESSION["contador"])) echo "class='disabled'";?> id="idDisabled">
-                            <a  <?php if(!empty($_SESSION["contador"])) echo " style='cursor:pointer;' onclick='guardarCotizacion();'";?> id="IdbtnGuardar" > <i class="fa fa-save"></i> Guardar</a>
-                        </li>
-                        <li><a href="../"><i class="fa fa-arrow-circle-left"></i> Regresar</a></li>
-                    </ul>
+      <header class="main-header">
+        <!-- Logo -->
+        <a href="../../index.php?accion=index" class="logo">
+          <!-- mini logo for sidebar mini 50x50 pixels -->
+          <span class="logo-mini"><b>A | S</b></span>
+          <!-- logo for regular state and mobile devices -->
+          <span class="logo-lg">Administrativo | Spar</span>
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <?php 
+          include_once("../../../view/includes/datosUsuario.php");
+        ?>
+      </header>
+      <!-- Left side column. contains the logo and sidebar -->
+      <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+          <?php 
+            include_once("../../../view/includes/menuIzquierdo.php");
+          ?>
+          <!-- sidebar menu: : style can be found in sidebar.less -->
+          <ul class="sidebar-menu">
+            <!-- <li class="header">Solicitudes</li> -->
+            <li>
+              <a style="cursor: pointer;" onclick="agregar();"> 
+                <i class="fa fa-plus"></i> <span>Agregar</span>
+              </a>
+            </li>
+            <li>
+              <a href="../../index.php?accion=index">
+                <i class="fa fa-arrow-left"></i> <span>Regresar</span>
+              </a>
+            </li>
+          </ul>
+        </section>
+        <!-- /.sidebar -->
+      </aside>
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Main content -->
+        <section class="content">
+          <div class="row">
+            <!-- right column -->
+            <div class="col-md-12">
+              <!-- Horizontal Form -->
+              <div class="box box-info">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Cotizaciones/Nueva</h3>
                 </div>
-                <!-- /.sidebar-collapse -->
-            </div>
-            <!-- /.navbar-default sidebar -->
-        </nav>
-        <!-- /.navbar-fixed-top -->
-		
-		<div id="page-wrapper">
-
-			<div class="row">
-	            <br>
-	            <br>
-                <div class="col-lg-12">
-                    <h1 class="page-header">Nueva cotización </h1>
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
-            <!-- /.row -->
-
-			<div class="row">
-				<div class="form-group col-xs-8 col-lg-12" >	
-					<div class="row">
-	                    <div class="form-group col-xs-12 col-lg-7" >
-	                        <label>Cliente</label>
-	                        <div class="row">
-	                            <div class="form-group col-xs-8 col-lg-12" >
-	                            <div class="tmp1"></div>
-	                            <div class="tmp2"></div>
-	                            <form name="cotizaciones" method="post" action="crudCotizaciones.php?accion=agregarCotizacion">
-	                              <select tabindex="1" class="form-control input-sm datosText cargarConcepto" name="cmbClientes" id="IdcmbClientes" size="1"required>
-	                              <option disabled selected value="">--- Seleccione Cliente---</option>
-	                              	<?php 
-                                        foreach ($datos as $cliente)
-                                        {
-                                    ?>
-                                            <option class="idCliente" value="<?php echo $cliente['cliente']."#".$cliente['idclientes']; ?>" <?php if(isset($_SESSION["idCliente"]) && $_SESSION["idCliente"] == $cliente["idclientes"]) echo "selected"; ?> ><?php echo ($cliente["cliente"]);?></option>
-                                    <?php
-                                        }
-                                      ?>
-	                              </select>
-	                            </div>
-	                        </div>
-	                    </div>
-	                    
-	                    <div class="form-group col-xs-12 col-lg-2">
-	                        <label>De</label>
-	                        <input tabindex="2" type="date" class="form-control datosText" name="fInicial" id="fechaIn" value="<?php if(isset($_SESSION["fechaInicial"])){echo $_SESSION["fechaInicial"];}else{ echo date("Y-m-d");}?>" required="">
-	                    </div>
-	                    <div class="form-group col-xs-12 col-lg-2">
-	                        <label>Hasta</label>
-	                        <input tabindex="3" type="date" class="form-control datosText" name="fFinal" id="fechaFin" value="<?php if(isset($_SESSION["fechaFinal"]))echo$_SESSION["fechaFinal"];else echo date("Y-m-d");?>" required="">
-	                    </div>
-	                </div>
-
-	                <div class="row">
-                        <div class="form-group col-xs-12 col-lg-11">
-                            <label >Servicio</label>         
-                            <textarea tabindex="4" class="form-control datosText" name="txtServicio" id="IdtxtServicio" style="resize:none;" title='Se necesita digitar un servicio' required><?php if(isset($_SESSION["servicio"])) echo$_SESSION["servicio"];?></textarea>
-                        </div>
-                    </div>
-
+                <!-- /.box-header -->
+                <div class="box-body">
+                  <form name="cotizaciones" method="post" action="index.php?accion=agregarCotizacion">
                     <div class="row">
-                    	<div class="form-group col-xs-12 col-lg-6">
-                    		<label >Tipo de plan</label>        
-                            <select tabindex="5" class="form-control datosText" name="cmbTipoPlan" id="IdcmbTipoPlan" required >
-                            	<option disabled selected value="">--- Seleccione Tipo de plan ---</option>
-                            	<?php
-                            	foreach ($arrayTipoPlan as $tipoPlan) 
-                            	{
-                            	?>
-									<option <?php if(isset($_SESSION["tipoPLan"]) && $_SESSION["tipoPLan"] == $tipoPlan) echo"selected";?>><?php echo $tipoPlan;?></option>
-                            	<?php
-                            	}
-                            	?>
-                            </select>
-                    	</div>
-
-                    	<div class="form-group col-xs-12 col-lg-5" >
-                    		<label >Tipo de servicio</label>
-                    		<select tabindex="6" class="form-control datosText cargarConcepto" name="cmbTipoServicio" id="IdcmbTipoServicio" required>
-                    			<option disabled selected value="">--- Seleccione Tipo de servicio ---</option>
-								<?php 
-								$i=0;
-								foreach ($arrayTipoServicio as $tipoServicio) 
-								{
-								?>
-									<option data-toggle='tooltip'  data-placement='top' title="Ejemplo: <?php echo $arrayAyuda[$i];?>" <?php if(isset($_SESSION["tipoServicio"]) && $_SESSION["tipoServicio"] == $tipoServicio) echo "selected"?>><?php echo $tipoServicio;?></option>
-								<?php
-								$i++;
-								}
-								?>
+  	                  <div class="form-group col-lg-6" >
+  	                    <label>Cliente</label>
+  	                    <select class="form-control input-sm datosText" name="cmbClientes" id="IdcmbClientes" data-container="body" data-live-search="true" onchange="cargarConceptos();" required>
+  	                      <option data-hidden="true" selected value="">Seleccione Cliente</option>
+  	                      <?php 
+  	                        foreach ($datosClientes as $cliente) {
+  	                        ?>
+  	                        <option value="<?php echo $cliente['nombreComercial']."#".$cliente['idclientes']; ?>" <?php if(isset($_SESSION["idCliente"]) && $_SESSION["idCliente"] == $cliente["idclientes"]) echo "selected"; ?>><?php echo $cliente["nombreComercial"]." - ".$cliente["razonSocial"];?></option>
+  	                        <?php 
+  	                        }
+  	                      ?> 
+  	                    </select>
+  	                  </div>
+  	                  <div class="form-group col-lg-3" >
+  	                    <label>De</label>
+  	                    <input  type="date" class="form-control input-sm text-center datosText" name="fInicial" id="fechaIn" value="<?php if(isset($_SESSION["fechaInicial"])){echo $_SESSION["fechaInicial"];}else{ echo date("Y-m-d");}?>" required>
+  	                  </div>
+  	                  <div class="form-group col-lg-3" >
+  	                    <label>Hasta</label>
+  	                    <input type="date" class="form-control input-sm text-center datosText" name="fFinal" id="fechaFin" value="<?php if(isset($_SESSION["fechaFinal"]))echo$_SESSION["fechaFinal"];else echo date("Y-m-d");?>" required>
+  	                  </div>
+                    </div>
+                    <div class="row">
+  	                  <div class="form-group col-lg-6" >
+  	                    <label>Servicio</label>
+  	                    <input  type="text" class="form-control input-sm datosText" name="txtServicio" id="IdtxtServicio" value="<?php if(isset($_SESSION["servicio"])) echo$_SESSION["servicio"];?>" required>
+  	                  </div>
+  	                  <div class="form-group col-lg-3" >
+  	                    <label>Tipo de Plan</label>
+  	                    <select tabindex="5" class="form-control input-sm selectpicker datosText" data-style="btn-info btn-flat btn-sm" name="cmbTipoPlan" id="IdcmbTipoPlan" required >
+                        	<option disabled selected data-hidden="true" value="">Seleccione</option>
+                        	<?php
+                        	foreach ($arrayTipoPlan as $tipoPlan) 
+                        	{
+                        	?>
+  							          <option <?php if(isset($_SESSION["tipoPLan"]) && $_SESSION["tipoPLan"] == $tipoPlan) echo"selected";?>><?php echo $tipoPlan;?></option>
+                        	<?php
+                        	}
+                        	?>
+                        </select>
+  	                  </div>
+  	                  <div class="form-group col-lg-3" >
+  	                    <label>Tipo de Servicio</label>
+    	                    <select tabindex="6" class="form-control selectpicker datosText" data-style="btn-info btn-flat btn-sm" name="cmbTipoServicio" id="IdcmbTipoServicio" onchange="cargarConceptos();" required>
+                    			 <option selected data-hidden="true" value="">Seleccione</option>
+            							<?php 
+            							$i=0;
+            							foreach ($arrayTipoServicio as $tipoServicio) 
+            							{
+            							?>
+            							 <option <?php if(isset($_SESSION["tipoServicio"]) && $_SESSION["tipoServicio"] == $tipoServicio) echo "selected"?>><?php echo $tipoServicio;?></option>
+            							<?php
+            							$i++;
+            							}
+            							?>
                     		</select>
-                    	</div>
+  	                  </div>
                     </div>
-
                     <div class="row">
-                    	
-                    	<div class="form-group col-xs-6 col-lg-2" >
-                            <label >Cantidad</label>               
-                            <input tabindex="7" type="number" min="1" class="form-control text-right" name="txtCantidad" id="IdtxtCantidad" title="Se necesita una cantidad" required>
+                      <div class="form-group col-xs-6 col-lg-2" >
+                        <label >Cantidad</label>               
+                        <input tabindex="7" type="number" min="1" class="form-control text-right input-sm" name="txtCantidad" id="IdtxtCantidad" title="Se necesita una cantidad" required>
+                      </div>
+  						        <div class="form-group col-xs-6 col-lg-3" >
+                        <label >Concepto</label>                         
+                        <select tabindex="8" class="form-control selectpicker" data-live-search="true" name="cmbTipoConcepto" data-style="btn-info btn-flat btn-sm" id="IdcmbTipoConcepto" required>
+                        	<option data-hidden="true" selected value="">Seleccione Concepto</option>
+                        	<?php
+                        	foreach ($datosConceptos as $conceptos) 
+                        	{
+                        	?>
+                        	<option value="<?php echo $conceptos["id"]."#".$conceptos['nombreRubro'];?>" ><?php  echo  $conceptos['nombreRubro'];?></option>
+                        	<?php
+                        	}
+                        	?>
+                        </select>
+                      </div>
+                      <div class="form-group col-xs-6 col-lg-2" >
+                        <label >Precio unitario</label>
+                        <div class="input-group">
+                          <span class='input-group-addon'>$</span><input tabindex="9" type="number" class="form-control text-right input-sm" name="txtPUnitario" id="IdtxtPUnitario" value="" step="0.01" min="0.01"  title="Se necesita un precio unitario" required>
                         </div>
-
-						<div class="form-group col-xs-6 col-lg-3" >
-                            <label >Concepto</label>                         
-                            <select tabindex="8" class="form-control" name="cmbTipoConcepto" id="IdcmbTipoConcepto" required>
-                            	<option hidden selected value="">--- Seleccione Concepto ---</option>
-                            	<?php
-                            	foreach ($datosConceptos as $conceptos) 
-                            	{
-                            	?>
-                            		<option value="<?php echo $conceptos["id"]."#".$conceptos['nombreRubro'];?>" ><?php  echo  $conceptos['nombreRubro'];?></option>
-                            	<?php
-                            	}
-                            	?>
-                            	
-                            </select>
+                      </div>
+                      <div class="form-group col-xs-6 col-lg-2" >
+                        <label>Comisión</label>
+                        <div class="input-group">
+                          <input tabindex="10" type="number" class="form-control text-right input-sm" name="txtComisionAgencia" id="IdtxtComisionAgencia" step="0.01" min="0.00"><span class='input-group-addon'>%</span>
                         </div>
-
-                        <div class="form-group col-xs-6 col-lg-2" >
-                            <label >Precio unitario</label>
-                            <div class="input-group">
-                            <span class='input-group-addon'>$</span><input tabindex="9" type="number" class="form-control text-right" name="txtPUnitario" id="IdtxtPUnitario" value="" step="0.01" min="0.01"  title="Se necesita un precio unitario" required>
-                            </div>
+                      </div>
+                      <div class="form-group col-xs-6 col-lg-2" >
+                        <label>Subtotal</label>
+                        <div class="input-group">
+                          <span class='input-group-addon'>$</span><input type="text" class="form-control text-right input-sm" name="txtSubtotal" id="IdtxtSubTotal1" readonly>
                         </div>
-
-                        <div class="form-group col-xs-6 col-lg-2" >
-                            <label>Comisión</label>
-                            <div class="input-group">
-                              <input tabindex="10" type="number" class="form-control text-right" name="txtComisionAgencia" id="IdtxtComisionAgencia" step="0.01" min="0.00"><span class='input-group-addon'>%</span>
-                            </div>
-                        </div>
-
-                        <div class="form-group col-xs-6 col-lg-2" >
-                            <label>Subtotal</label>
-                            <input type="text" class="form-control text-right" name="txtSubtotal" id="IdtxtSubTotal1" readonly>
-                        </div>
-
-                        <div class="form-group col-xs-6 col-lg-1 text-center" >
-                            <br>
-                            <input tabindex="11" type="submit" class="btn btn-primary input-sm" name="btnAgregar" id="IdbtnAgregar" value="Agregar" >
-                        </div>
-
+                        
+                      </div>
+                      <div class="form-group col-xs-6 col-lg-1">
+                        <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                        <button type="submit" class="btn btn-flat btn-primary btn-sm">Agregar</button>
+                      </div>
                     </div>
-
                     <div class="row">
-                        <div class="form-group col-xs-6 col-lg-5 text-center descripcionConcepto hidden">
-                            <label name="lblDescripcionConcepto" id="IdlblDescripcionConcepto">Descripción del concepto</label>
-                            <textarea type="text" class="form-control" name="txtDescripcionConcepto" id="IdtxtDescripcionConcepto" ></textarea>
-                        </div>
+                      <div class="form-group col-xs-5 descripcionConcepto hidden">
+                        <label name="lblDescripcionConcepto" id="IdlblDescripcionConcepto">Descripción del concepto</label>
+                        <input type="text" class="form-control input-sm" name="txtDescripcionConcepto" id="IdtxtDescripcionConcepto" />
+                      </div>
                     </div>
-                    </form>
-
-                    <div id="IdtxtCotizacion" name="txtCotizacion" value="" class="form-group col-xs-12 col-lg-12">
-
-          				<!--Carga los datos de una cotizacion agregada-->
-				        <?php 
-				        if (isset($_SESSION['contador']) and $_SESSION['contador']>0) 
-				        {
-				         ?>
-				            <table id="tabla"  style="width:100%; "  cellpadding="10">
-				               <thead >
-				                
-				               <?php
-				                  if (isset($_SESSION['contador']) and $_SESSION['contador']!="") 
-				                  {
-				                     # code...
-				                     for($i=1;$i<=$_SESSION['contador'];$i++) 
-				                     {
-				                        
-				                        echo "
-				                        <tr style='border-bottom: 0px;'>
-				                        <td align='center' class='col-xs-6 col-lg-3 TipoPlan'> <b>TIPO DE PLAN</b></td>
-				                        <td class='col-xs-6 col-lg-5 TipoServicio'> <b>TIPO DE SERVICIO</b></td>
-				                        <th class='col-xs-6 col-lg-1'> <b></b></th>
-				                        <th class='col-xs-6 col-lg-1'> <b></b></th>
-				                        <th class='col-xs-6 col-lg-1'> <b></b></th>                        
-				                        </tr>
-
-				                        <tr align='center'>
-				                        <td class='col-xs-6 col-lg-3'>".$_SESSION['cmbTipoPlan'][$i]."</td>
-				                        <td class='col-xs-6 col-lg-5'align='left'>".$_SESSION['cmbTipoServicio'][$i]."</td>
-				                        </tr>
-
-				                        <tr >
-				                        <td align='center' class='col-xs-6 col-lg-1 Cantidad'> <b>Cantidad</b></td>
-				                        <td align='left' class='col-xs-6 col-lg-5 Concepto'> <b>Concepto</b></td>
-				                        <td align='center' class='col-xs-6 col-lg-1 Concepto'><b>P. Unitario</b> </td>
-				                        <td align='center' class='col-xs-6 col-lg-1 Concepto'><b>P. Total</b> </td>
-				                        <td align='center'  class='col-xs-6 col-lg-2 PUnitario'> <b>Comisión</b></td>
-				                        <td align='center' class='col-xs-6 col-lg-2 SubTotal'> <b>Sub_Total</b></td>
-				                        <td align='center' class='col-xs-6 col-lg-1 Editar'> 
-				                        <b>Eliminar</b></td>
-				                        </tr>
-				                         
-				                        <tr align='center' class='filaRubro'>
-				                        <td align='center' class='col-xs-6 col-lg-1'>".$_SESSION['txtCantidad'][$i]."</td>
-				                        <td align='left' class='col-xs-6 col-lg-5'>".$_SESSION['cmbTipoConcepto'][$i]."</td>
-				                        <td align='center' class='col-xs-6 col-lg-2'>$ ".$_SESSION['txtPUnitarioMostrar'][$i]."</td>
-				                        <td align='center' class='col-xs-6 col-lg-2'>$ ".number_format($_SESSION["precioTotal"][$i],2)."</td>
-				                        <td align='center'><a style='color:black; text-decoration:none;' data-toggle='tooltip'  data-placement='bottom' title='".$_SESSION['txtComisionAgenciaM'][$i]."%'>";
-				                        if ($_SESSION['txtComisionAgencia'][$i]>"0" || $_SESSION['txtComisionAgencia'][$i]=="0") 
-				                        {
-				                          echo "$ ".number_format($_SESSION['txtComisionAgencia'][$i],2);
-				                        }
-				                        else
-				                          echo "$ 0";
-
-				                        echo "</a></td>
-				                        
-				                        <td>$ ".$_SESSION['subTotalMostrar'][$i]."</td>
-				                        <td><a href='crudCotizaciones.php?accion=eliminarRubro&value=".$i."' ><img src='../img/imgEliminar.gif'></a></td>
-				                        </tr>
-				                        <tr  class='filaRubro'><td></td><td class='col-xs-6 col-lg-5'>".$_SESSION['txtDescripcionConcepto'][$i]."</td></tr>
-				                        <tr><td><br></td></tr>";
-				                     }
-				                  }
-				                  ?>
-
-				            	</thead>
-				         	</table>
-				        <?php
-				        }
-				        ?>
-      				</div>
-					
-					<br/><br/>
-					<div class="row">
-		                <div id="IdtxtCantidadLetra1" class="form-group col-xs-12 col-lg-8">
-		                	<label>Importe con número y letra</label>
-		                   	<textarea type="text" class="form-control" name="txtCantidadLetra" id="IdtxtCantidadLetra" rows="4" style="resize:none;" value="" readonly="">
-		                   	</textarea>
-		                </div>
-
-		                <div id="IdlblSubtotal" class="form-group col-xs-12 col-lg-2 text-right">
-	                        <br/>
-	                        <label>Subtotal </label>
-		                </div>
-
-		                <div id="IdtxtSubTotal1" class="form-group col-xs-12 col-lg-2">
-		                    <br/> 
-		                    <input type="text" class="form-control text-right" name="txtSubTotal" id="IdtxtSubTotal" value="<?php if(isset($_SESSION["subTotal2Mostrar"]))echo "$ ".$_SESSION["subTotal2Mostrar"];?>"  readonly="">
-		                </div>
-
-		                <div id="IdlblIva" class="form-group col-xs-12 col-lg-2 text-right">
-		                    <label>IVA 16% </label>
-		                </div>
-
-		                <div id="IdtxtIva1" class="form-group col-xs-12 col-lg-2">
-		                    <input type="text" class="form-control text-right" name="txtIva" id="IdtxtIva" value="<?php if(isset($_SESSION["ivaMostrar"]))echo "$ ".$_SESSION["ivaMostrar"];?>" readonly="">
-		                </div>
-
-		                <div id="IdlblTotal" class="form-group col-xs-12 col-lg-2 text-right">
-		                    <label>Total </label>
-		                </div>
-
-		                <div id="IdtxtTotal1" class="form-group col-xs-12 col-lg-2">
-		                    <input type="text" class="form-control text-right" name="txtTotal" id="IdtxtTotal" value="<?php if(isset($_SESSION["total2Mostrar"]))echo "$ ".$_SESSION["total2Mostrar"];?>" readonly="">
-		                </div>
-		                
-	                </div>
-	                <div id="idConfirmacion" title="Aviso" style="display:none">
-	                </div>
-
+                  </form>
+                  <div id="IdtxtCotizacion" name="txtCotizacion" class="table-responsive container-fluid row">
+                    <!--Carga los datos de una cotizacion agregada-->
+                    <table class="table table-bordered table-condensed small ">
+                    <?php 
+                    if (isset($_SESSION['contador']) and $_SESSION['contador']>0) {
+                      if (isset($_SESSION['contador']) and $_SESSION['contador']!=""){
+                    ?>
+                      <tr class="text-center bg-primary">
+                        <td>Cantidad</td>
+                        <td>Concepto</td>
+                        <td>Precio Unitario</td>
+                        <td>Total</td>
+                        <td>Comisión</td>
+                        <td>Subtotal</td>
+                      </tr> 
+                    <?php
+                        for($i=1;$i<=$_SESSION['contador'];$i++) {
+                     ?>
+                      <!-- <tr class="text-center">
+                        <td>Tipo de Plan</td>
+                        <td colspan="2"><?php echo $_SESSION['cmbTipoPlan'][$i];?></td>
+                        <td>Tipo de Servicio</td>
+                        <td colspan="2"><?php echo $_SESSION['cmbTipoServicio'][$i];?></td>
+                      </tr> -->
+                     
+                      <tr class="text-center">
+                          <td><?php echo $_SESSION['txtCantidad'][$i];?></td>
+                          <td><?php echo $_SESSION['cmbTipoConcepto'][$i];?></td>
+                          <td>$ <?php echo $_SESSION['txtPUnitarioMostrar'][$i];?></td>
+                          <td>$ <?php echo number_format(($_SESSION["precioTotal"][$i]),2);?></td>
+                          <td>
+                            <a  class='tool' data-toggle='tooltip' style='color:black; text-decoration:none;' data-placement='bottom' title='<?php echo $_SESSION['txtComisionAgenciaM'][$i];?> %'>$ 
+                            <?php 
+                            if ($_SESSION['txtComisionAgencia'][$i]>"0" || $_SESSION['txtComisionAgencia'][$i]=="0") {
+                              echo number_format($_SESSION['txtComisionAgencia'][$i],2);
+                            }
+                            else
+                              echo "0.00";?> 
+                          </a>
+                          </td>
+                          <td>$ <?php echo $_SESSION['subTotalMostrar'][$i];?></td>
+                      </tr> 
+                    <?php
+                          if(!empty($_SESSION['txtDescripcionConcepto'][$i])){
+                    ?>  
+                      <tr>
+                        <td></td>
+                        <td colspan="6"><?php echo $_SESSION['txtDescripcionConcepto'][$i];?></td>
+                      </tr>
+                    <?php
+                          }
+                        } 
+                      }
+                    ?>
+                    <?php 
+                    }
+                    ?>
+                      <tr>
+                        <td colspan="4" rowspan="2" class="active" style="vertical-align:bottom;">
+                          <label>Importe con letra y número </label>
+                        </td>
+                        <td  class="text-center">Subtotal </td>
+                        <td class="active text-center">
+                          <?php if(isset($_SESSION["subTotal2Mostrar"]))echo "$ ".$_SESSION["subTotal2Mostrar"];?>
+                        </td>
+                      </tr>
+                      <tr class="text-center">
+                        <td>IVA 16% </td>
+                        <td class="active text-center"><?php if(isset($_SESSION["ivaMostrar"]))echo "$ ".$_SESSION["ivaMostrar"];?>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="4" class="active" id="IdtxtCantidadLetra"></td>
+                        <td class="text-center">Total</td>
+                        <td id="IdtxtTotal" class="active text-center">
+                          <?php if(isset($_SESSION["total2Mostrar"]))echo "$ ".$_SESSION["total2Mostrar"];?>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
                 </div>
-			</div>
-			<!-- /.row -->
-		</div>
-		<!-- /#page-wrapper -->
-	</div>
-	<!-- /#wrapper -->
-	
-	<!-- jQuery -->
-    <script src="../js/jquery.min.js"></script>
-     <!-- Ui jQuery-->
-    <script src="../js/jquery-ui.min.js"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src="../js/bootstrap.min.js"></script>
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="../js/metisMenu.min.js"></script>
-    <!-- Custom Theme JavaScript -->
-    <script src="../js/sb-admin-2.js"></script>
-    <script src="../js/cotizaciones/indexcotizaciones.js"></script>
+                <!-- /.box-body -->
+              </div>
+              <!-- /.box -->
+            </div>
+            <!--/.col (right) -->
+          </div>
+          <!-- /.row -->
+        </section>
+        <!-- /.content -->
+      </div>
+      <!-- /.content-wrapper -->
+      <?php
+      include_once("../../../view/includes/footer.php");
+      ?>
+      <!-- Add the sidebar's background. This div must be placed
+           immediately after the control sidebar -->
+      <!-- <div class="control-sidebar-bg"></div> -->
+    </div>
+    <!-- ./wrapper -->
 
-	
-</body>
+    <!-- jQuery 2.2.3 -->
+    <script src="../../../assets/js/jquery/jquery-2.2.3.min.js"></script>
+    <!-- Bootstrap 3.3.6 -->
+    <script src="../../../assets/js/bootstrap/bootstrap.min.js"></script>
+    <!-- DataTables -->
+    <script src="../../../assets/js/datatables/jquery.dataTables.min.js"></script>
+    <script src="../../../assets/js/datatables/dataTables.bootstrap.min.js"></script>
+    <!-- Validaciones -->
+    <script src="../../../assets/js/validacion/validacion.js"></script>
+    <!-- AdminLTE App -->
+    <script src="../../../assets/js/app.min.js"></script>
+    <!-- Funciones Generales -->
+    <!-- <script src="../../../assets/js/funciones.js"></script> -->
+    <!-- Bootstrap select js -->
+    <script src="../../../assets/js/bootstrap/bootstrap-select.min.js"></script>
+    <!-- Index Bancos -->
+    <script src="../../js/V1/cotizaciones/index.js"></script>
+  </body>
 </html>

@@ -107,7 +107,7 @@
   			$devolucion = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($devolucion))));
 
    			// echo $servicio;
-  			$consultaPrincipal = "INSERT INTO spartodo_srs.tblordenesdeservicio (idcliente, anio, fechaInicial, fechaFinal, norden, importe, realizo, servicio,estado, ejecucion, elaboracion ) VALUES('$idcliente','$año','$hoy','$hoy','$nDevolucion','$importe','$realizo','$servicio','Devolucion','noejecutandose','$hoy'); ";
+  			$consultaPrincipal = "INSERT INTO spartodo_srs.tblordenesdeservicio (idcliente, anio, fechaInicial, fechaFinal, norden, importe, realizo, servicio,estado, ejecucion, elaboracion ) VALUES('$idcliente','$año','$hoy','$hoy','$nDevolucion','$importe','$realizo','$servicio','DevolucionA','noejecutandose','$hoy'); ";
 
 			$resultado = $this->conexion->query($consultaPrincipal);
 

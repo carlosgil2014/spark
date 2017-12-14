@@ -58,7 +58,7 @@ function validarRfc(parametro){
     }else{
         $(".loader").fadeIn("slow", function(){
             $.ajax({
-                url:   '../representantes/index.php?accion=buscarRfc&rfc='+rfc,
+                url:   '../representantes/index.php?accion=buscarRfcNoVigente&rfc='+rfc,
                 type:  'post',
             success:  function (data) {
                 data = JSON.parse(data)

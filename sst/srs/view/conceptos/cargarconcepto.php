@@ -1,4 +1,4 @@
-<option hidden selected value="0">--- Seleccione Concepto ---</option>
+<option data-hidden="true" selected value="0">Seleccione</option>
 <?php 
 	foreach ($datos as $concepto) {
 ?>

@@ -44,7 +44,6 @@ class Controller {
 					$varSubcategoria= new subcategorias();
 					$subcategorias = $varSubcategoria->listar();
 					$productos = $this->varProductos->informacion($_GET["idProducto"]);
-					var_dump($subcategorias);
 					if(empty($productos))
 						header("Location: index.php?accion=index");
 					else{
@@ -71,7 +70,6 @@ class Controller {
 						$idProducto=$_POST["idProducto"];
 						$producto = $_POST["producto"];
 						$idSubcategoria = $_POST['idSubcategoria'];
-						echo $idProducto,$producto,$idSubcategoria;
 						$resultados = $this->varProductos->actualizar($idProducto,$producto,$idSubcategoria);
 						$_SESSION["spar_error"] = $resultados;
 						// echo $_SESSION["spar_error"];

@@ -36,6 +36,9 @@ if(!isset($_SESSION['spar_usuario']))
   <![endif]-->
 </head>
   <body class="hold-transition fixed skin-blue sidebar-mini">
+    <?php 
+      include_once("../view/includes/modalExpiracion.php");
+    ?>
     <div class="loader">
     </div>
     <div class="wrapper">
@@ -69,7 +72,7 @@ if(!isset($_SESSION['spar_usuario']))
             if($resultados["cotizaciones"]["crear"] == 1){
             ?>
             <li>
-              <a style="cursor: pointer;"> 
+              <a href="view/cotizaciones/index.php?accion=listarDatos" style="cursor: pointer;"> 
                 <i class="fa fa-circle-o"></i> <span>Cotizaciones</span>
               </a>
             </li>

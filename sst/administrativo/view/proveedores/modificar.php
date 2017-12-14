@@ -185,9 +185,22 @@ if(!isset($_SESSION['spar_usuario']))
                               <input type="text" id="estadoFisica" class="form-control input-sm" maxlength="40" data-error="Es un campo obligatorio" name="Datos[estado]" required value="<?php echo $codigoPostal['estado']; ?>" readonly>
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-3">
                               <label class="control-label">Delegación/Municipio</label>
                               <input type="text" class="form-control input-sm" maxlength="40" data-error="Es un campo obligatorio" name="Datos[delegacion]" value="<?php echo $proveedor['delegacion'];?>" required id="delegacionFisica" readonly>
+                              <div class="help-block with-errors">&nbsp;</div>
+                            </div>
+                            <div class="form-group col-md-3">
+                              <label class="control-label">País</label>
+                              <select class="form-control input-sm selectpicker" data-error="Es un campo obligatorio" data-live-search="true" onchange="cargarEstados(this);"  name="Datos[pais]" required>
+                              <?php 
+                              foreach ($paises as $pais){
+                              ?>
+                                <option <?php if ($pais["nombre"] == $proveedor["pais"]) echo "selected";?>><?php echo $pais["nombre"]?></option>
+                              <?php
+                              }
+                              ?>
+                              </select>
                               <div class="help-block with-errors">&nbsp;</div>
                             </div>
                             <div class="form-group col-md-2">

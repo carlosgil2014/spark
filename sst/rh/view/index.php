@@ -15,15 +15,15 @@
   <!-- Indicadores para respuestas de la plantilla -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
-  <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
   <!-- Fuentes -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
   <!-- Iconos -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Estilo del tema -->
-  <link rel="stylesheet" href="../../assets/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="../assets/css/AdminLTE.min.css">
   <!-- Poner la carpeta de estilo CSS a utilizar-->
-  <link rel="stylesheet" href="../../assets/css/_all-skins.min.css">
+  <link rel="stylesheet" href="../assets/css/_all-skins.min.css">
   <!-- Soporte de elementos HTML5 para Respond.js, IE8 y media queries -->
   <!-- ADVERTENCIA: Respond.js no funcionará si se visualiza con IE 9:// -->
   <!--[if lt IE 9]>
@@ -38,86 +38,25 @@
 
       <header class="main-header">
         <!-- Logo -->
-        <a href="../../view/index.php" class="logo">
+        <a href="../index.php" class="logo">
           <!-- El mini logo es para la barra lateral y está como mini 50x50 pixels -->
           <span class="logo-mini"><b>ST</b></span>
           <!-- logotipo para el estado normal y dispositivos móviles  -->
           <span class="logo-lg">Spar Todopromo</span>
         </a>
         <!-- La cabecera Navbar: Este estilo se puede encontrar en header.less -->
-        <nav class="navbar navbar-static-top">
-          <!-- Botón de desplazamiento de la barra lateral-->
-          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-            <span class="sr-only">Toggle navigation</span>
-          </a>
-
-          <div class="navbar-custom-menu">
-            <ul class="nav navbar-nav">
-
-<!-- Detalle de usuario de la parte superior derecha -->
-          <li class="dropdown user user-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="/mdr/dist/img/foto-160x160.jpg" class="user-image" alt="User Image">
-              <span class="hidden-xs">Quien inició sesión</span>
-            </a>
-            <ul class="dropdown-menu">
-              <!-- Foto del usuario -->
-              <li class="user-header">
-                <img src="/mdr/dist/img/foto-160x160.jpg" class="img-circle" alt="Foto de Usuario">
-                <p>
-                  Nombre completo
-                  <small>No. Empleado | Puesto que desempeña</small>
-                </p>
-              </li>
-              <!-- Cuerpo del Menú superior derecho -->
-              <!-- <li class="user-body">
-                <div class="row">
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Menú 1</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Menú 2</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Menú 3</a>
-                  </div>
-                </div> -->
-                <!-- Fin del cuerpo del Menú superior derecho -->
-              </li>
-              <!-- Menú en pie de página del menú superior derecho-->
-              <li class="user-footer">
-                <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Perfíl del Usuario</a>
-                </div>
-                <div class="pull-right">
-                  <a href="../controller/crudIndex.php?urlValue=logout" class="btn btn-default btn-flat">Cerrar Sesión</a>
-                </div>
-              </li>
-            </ul>
-          </li>
-
-        <!-- Botón superior derecho asignado para bloquear la sesión -->
-            <li>
-                <a href="../controller/crudBloquear.php?urlValue=logout" data-toggle="control-sidebar"><i class="fa fa-unlock"></i></a>
-            </li>
-        </ul>
-      </div>
-    </nav>
-  </header>
+        <?php 
+          include_once("../view/includes/datosUsuario.php");
+        ?>
+      </header>
   <!-- Columna del lado izquierdo. Contiene el logotipo y la barra lateral -->
   <aside class="main-sidebar">
     <!-- Barra lateral: Este estilo se puede encontrar en sidebar.less -->
     <section class="sidebar">
       <!-- Panel de usuario de la barra lateral -->
-      <div class="user-panel">
-        <div class="pull-left image">
-          <img src="/mdr/dist/img/foto-160x160.jpg" class="img-circle" alt="User Image">
-        </div>
-        <div class="pull-left info">
-          <p>Usuario Activo</p>
-          <a href="#"><i class="fa fa-circle text-success"></i> Conectado</a>
-        </div>
-      </div>
+      <?php 
+        include_once("../view/includes/menuIzquierdo.php");
+      ?>
 
       <!-- Buscador -->
       <!--<form action="#" method="get" class="sidebar-form">
@@ -134,6 +73,44 @@
       <!-- Comienza barra de menus: : Estilos encontrados en Less -->
       <ul class="sidebar-menu">
         <li class="treeview">
+              <a href="../controller/crudIndex.php?urlValue=login">
+                <i class="fa fa-cog"></i> <span>Parámetros Generales</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="view/salarios/index.php?accion=index"><i class="fa  fa-money"></i> Salarios</a></li>
+                <!-- 
+                <li><a href="view/categorias/index.php?accion=index"><i class="fa fa-tags"></i> Categorias</a></li>
+                <li><a href="view/clientes/index.php?accion=index"><i class="fa fa-users"></i> Clientes</a></li>
+                <li><a href="view/proveedores/index.php?accion=index"><i class="fa fa-cubes"></i> Proveedores</a></li>
+                <li><a href="view/representantes/index.php?accion=index"><i class="fa fa-male"></i> Representantes</a></li>
+                <li><a href="view/mensajerias/index.php?accion=index"><i class="fa fa-truck"></i> Mensajerías</a></li>
+                <li><a href="view/usuarios/index.php?accion=index"><i class="fa fa-user"></i> Usuarios</a></li>
+                <li><a href="view/regiones/index.php?accion=index"><i class="fa fa-tree"></i> Regiones</a></li>-->
+              </ul>
+        </li>
+        <li class="header">Contratacion</li>
+            <!-- Find e la barra de separación entre menus -->
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-cog"></i> <span>Módulo de Contratación</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="view/perfiles/index.php?accion=index"><i class="fa fa-user-plus"></i> Perfiles</a></li>
+                <li><a href="view/requisicion/index.php?accion=index"><i class="fa fa-user-plus"></i> Requisición</a></li>            
+                <li><a href="view/vacantes/index.php?accion=index"><i class="fa fa-user-plus"></i> Vacantes</a></li>
+                <li><a href="view/reclutamientos/index.php?accion=index"><i class="fa fa-users"></i> Reclutamiento</a></li>
+                <li><a href="#"><i class="fa fa fa-cogs"></i> Entrevistas</a></li>
+                <li><a href="#"><i class="fa fa fa-cogs"></i> Contratación</a></li>
+                <li><a href="#"><i class="fa fa fa-cogs"></i> Orgranigrama</a></li>
+              </ul>
+        </li>
+        <li class="treeview">
           <a href="../controller/crudIndex.php?urlValue=login">
             <i class="fa fa-cog"></i> <span>Empleados</span>
             <span class="pull-right-container">
@@ -141,7 +118,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="../controller/crudProspecto.php?accion=alta"><i class="fa fa-user"></i>Alta-Empleado</a></li>
+            <li><a href="view/prospectos/index.php?accion=alta"><i class="fa fa-user"></i>Alta-Empleado</a></li>
             <li><a href="../controller/crudProspecto.php?accion=modificar"><i class="fa  fa-edit"></i>Editar-Empleado</a></li>
           </ul>          
         </li>
@@ -165,7 +142,7 @@
         <!-- Find e la barra de separación entre menus -->
         
         <li>
-          <a href="../../controller/crudIndex.php?urlValue=login">
+          <a href="../index.php">
             <i class="fa fa-hand-o-left"></i> <span>Regresar</span>
             
           </a>
@@ -276,14 +253,14 @@
     <!-- Fin del pie de página -->
     <!-- ./wrapper -->
     <!-- jQuery 2.2.3 -->
-    <script src="../../assets/js/jquery/jquery-2.2.3.min.js"></script>
+    <script src="../assets/js/jquery/jquery-2.2.3.min.js"></script>
     <!-- jQuery UI 1.11.4 -->
-    <script src="../../assets/js/jquery/jquery-ui.js"></script>
+    <script src="../assets/js/jquery/jquery-ui.js"></script>
     <!-- Bootstrap 3.3.6 -->
-    <script src="../../assets/js/bootstrap/bootstrap.min.js"></script>
+    <script src="../assets/js/bootstrap/bootstrap.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="../../assets/js/app.min.js"></script>
+    <script src="../assets/js/app.min.js"></script>
     <!-- Index Módulo Administrativo -->
-    <script src="../js/V1/index.js"></script>
+    <script src="js/V1/index.js"></script>
   </body>
 </html>
