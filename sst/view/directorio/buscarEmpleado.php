@@ -1,132 +1,139 @@
- <?php
-if(!isset($_SESSION['spar_usuario']))
-    header('Location: ../index.html');
-?>
-<!DOCTYPE HTML>
-<html lang="es">
+<!DOCTYPE html>
+<html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>SCG | Spar México</title>
-    <!-- Tell the browser to be responsive to screen width -->
+  <link rel="shortcut icon" href="../../img/favicon.ico" type="image/x-icon" />
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="Plantilla general para el desarrollo de los módulos del Sistema Spar Todopromo SST">
+  <meta name="author" content="Maria de los Angeles Malagon, Salvador Luna, Victor Nava y Gerardo Medina">
+  <title>Sistema Spar Todopromo | Spar México</title>
+  <!-- Indicadores para respuestas de la plantilla -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-   <!-- Bootstrap 3.3.6 -->
+  <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
-  <!-- Font Awesome -->
+  <!-- Fuentes -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-  <!-- Ionicons -->
+  <!-- Iconos -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- DataTables -->
+   <!-- DataTables -->
   <link rel="stylesheet" href="../../assets/css/datatables/dataTables.bootstrap.css">
-  <!-- Bootstrap multisect -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
-  <!-- Theme style -->
+  <!-- Estilo del tema -->
   <link rel="stylesheet" href="../../assets/css/AdminLTE.min.css">
-  <!-- AdminLTE Skins. Choose a skin from the css/skins
-       folder instead of downloading all of them to reduce the load. -->
+  <!-- Poner la carpeta de estilo CSS a utilizar-->
   <link rel="stylesheet" href="../../assets/css/_all-skins.min.css">
+  <!-- Soporte de elementos HTML5 para Respond.js, IE8 y media queries -->
+  <!-- ADVERTENCIA: Respond.js no funcionará si se visualiza con IE 9:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
 </head>
-    <body class="hold-transition skin-blue sidebar-mini">
-        <div class="loader">  
-        </div>
-        <div class="wrapper">
-                <header class="main-header">
-                <!-- Logo -->
-                    <a href="../index.php?accion=index" class="logo">
-                      <!-- mini logo for sidebar mini 50x50 pixels -->
-                      <span class="logo-mini"><b>A | S</b></span>
-                      <!-- logo for regular state and mobile devices -->
-                      <span class="logo-lg">Administrativo | Spar</span>
-                    </a>
-                    <!-- Header Navbar: style can be found in header.less -->
-                    <?php 
-                    include_once("../includes/datosUsuario.php");
-                    ?>
-                </header>
-                <!-- Left side column. contains the logo and sidebar -->
-                <aside class="main-sidebar">
-                    <!-- sidebar: style can be found in sidebar.less -->
-                    <section class="sidebar">
-                      <?php 
-                        include_once("../../view/includes/menuIzquierdo.php");
-                      ?>
-                      <!-- sidebar menu: : style can be found in sidebar.less -->
-                        <ul class="sidebar-menu">
-                            <li>
-                              <a href="index.php?accion=index">
-                                <i class="fa fa-arrow-left"></i><span>Regresar</span>
-                              </a>
-                            </li>
-                        </ul>
-                    </section>
-                    <!-- /.sidebar -->
-                </aside>
-                <!-- Content Wrapper. Contains page content -->
-                <div class="content-wrapper">
-                    <!-- Content Header (Page header) -->
-                    <section class="content-header">
-                      <h4>
-                        BUSCAR EMPLEADO PARA AGREGAR AL DIRECTORIO
-                      </h4>
-                    </section>
-                    <section class="content">
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <div class="box">
-                                    <div class="">
-                                    </div>
-                                    <div class="box-body table-responsive">
-                                        <?php if(!isset($_SESSION["spar_error"])){$estilo = "style='display:none;'";}else{$estilo = "";}?>
-                                        <div class="row">
-                                            <div class="form-group" id="div_alert" <?php echo $estilo;?>>
-                                                <div class="col-md-4 col-md-offset-4">
-                                                    <div class="alert alert-danger" >
-                                                        <strong>¡Aviso!</strong> <a onclick="cerrar('div_alert')" href="#" class="pull-right"><i class="fa fa-close"></i></a>
-                                                        <br><p id="p_alert"><?php if(isset($_SESSION["spar_error"]))echo $_SESSION["spar_error"];?></p>
-                                                    </div>
-                                              </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                          <form action="index.php" method="GET">
-                                            <div class="form-group col-md-3">
-                                              <div class="input-group margin">
-                                                <input type="text" class="form-control" name="buscar" minlength="3" value="<?php if(isset($_GET['buscar'])) echo $_GET['buscar']; ?>">
-                                                <span class="input-group-btn">
-                                                  <button type="submit" class="btn btn-info btn-flat" name="accion" value="buscarEmpleado"><i class="fa fa-search"></i></button>
-                                                </span>
-                                              </div>  
-                                            </div>
-                                          </form>
-                                        </div>
-                                        <?php 
-                                        if(isset($usuarios) && is_array($usuarios)){
-                                        ?>
+  <body class="hold-transition skin-blue sidebar-mini">
+    <div class="loader">
+    </div>
+    <div class="wrapper">
+
+      <header class="main-header">
+               <!-- Logo -->
+        <a href="index.php?accion=index" class="logo">
+          <!-- mini logo for sidebar mini 50x50 pixels -->
+          <span class="logo-mini"><b>ST</b></span>
+          <!-- logo for regular state and mobile devices -->
+          <span class="logo-lg">Spar Todopromo</span>
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <?php 
+          include_once("../includes/datosUsuario.php");
+        ?>
+  </header>
+  <!-- Columna del lado izquierdo. Contiene el logotipo y la barra lateral -->
+  <aside class="main-sidebar">
+    <!-- Barra lateral: Este estilo se puede encontrar en sidebar.less -->
+    <section class="sidebar">
+          <?php 
+            include_once("../includes/menuIzquierdo.php");
+          ?>
+
+      <!-- Comienza barra de menus: : Estilos encontrados en Less -->
+        <ul class="sidebar-menu">
+
+
+      <!-- Barra de separación entre menus -->
+        <li class="header">Directorio</li>
+      <!-- Fin de la barra de separación entre menus -->
+            <li>
+              <a href="index.php?accion=index">
+                <i class="fa fa-hand-o-left"></i> <span>Regresar</span>
+              </a>
+            </li>
+                      </ul>
+
+    </section>
+    <!-- Termina barra de menus -->
+  </aside>
+
+      <!-- Contenido general de la página -->
+      <div class="content-wrapper">
+
+        <!-- Titulo para encabezado de la pantalla central -->
+        <section class="content-header">
+          
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-home"></i> Index</a></li>
+          </ol>
+          <div class="row">
+            <!-- right column -->
+            <div class="col-md-12">
+              <!-- Horizontal Form -->
+              <div class="box box-info">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Empleados vigentes en nómina</h3>
+                </div>
+                <!-- /.box-header -->
+                <div id="respuesta"></div>
+                <div class="box-body table-responsive">
+                  <?php if(!isset($_SESSION["spar_error"])){$estilo = "style='display:none;'";}else{$estilo = "";}?>
+                  <div class="row">
+                    <div class="form-group" id="div_alert" <?php echo $estilo;?>>
+                      <div class="col-md-4 col-md-offset-4">
+                        <div class="alert alert-success" >
+                          <strong>¡Aviso!</strong> <a onclick="cerrar('div_alert')" href="#" class="pull-right"><i class="fa fa-close"></i></a>
+                          <br><p id="p_alert"><?php if(isset($_SESSION["spar_error"]))echo $_SESSION["spar_error"];?></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+  
                                         <table id="empleados" class="table table-hover">
                                           <thead>
                                               <tr>
                                                   <th>Nombre</th>
                                                   <th>R.F.C.</th>
-                                                  <th>Gastos</th>
+                                                  <th>Puesto</th>
+                                                  <th>Región </th>
+                                                  <th>Agregar al Directorio Telefónico</th>
                                               </tr>
                                           </thead>
                                           <tbody>
                                               <?php 
-                                              foreach ($usuarios as $usuario)
+                                              foreach ($datosEmpleado as $Empleado)
                                               {
                                               ?>
                                               <tr>
-                                                  <td><?php echo $usuario['nombre'];?></td>
+                                                  <td><?php echo ucwords(strtolower($Empleado['nombre']));?></td>
                                                   <td> 
                                                       <?php 
-                                                          if(!empty($usuario['rfc']))
-                                                              echo $usuario['rfc'];
+                                                          if(!empty($Empleado['empleados_rfc']))
+                                                              echo $Empleado['empleados_rfc'];
                                                           else
                                                               echo "Sin R.F.C.";
                                                       ?>    
                                                   </td>
+                                                  <td><?php echo ucwords(strtolower($Empleado['puesto']));?></td>
+                                                  <td><?php echo $Empleado['region'];?></td>
                                                   <td class="text-center">
-                                                    <i style="cursor:pointer;" class="fa fa-arrow-circle-right" onclick="crearUsuario('<?php echo $usuario["id"];?>','<?php echo $usuario["nombre"];?>');"></i>
+                                                    <i style="cursor:pointer;" class="fa fa-arrow-circle-right" onclick="agregarUsuario('<?php echo $Empleado["empleados_id"];?>','<?php echo $Empleado['estadoNombres']; ?>');"></i>
                                                   </td>
                                               </tr>
                                               <?php
@@ -134,9 +141,6 @@ if(!isset($_SESSION['spar_usuario']))
                                               ?>
                                           </tbody>
                                       </table>
-                                      <?php 
-                                      }
-                                      ?>
                                     </div>
                                 </div>
                             </div>
@@ -172,7 +176,9 @@ if(!isset($_SESSION['spar_usuario']))
         <div id="respuesta" title="Aviso">
         </div>
 
-    <!-- ./wrapper -->
+        <div class="modal fade" id="agregar" role="dialog">
+        </div>
+
     <!-- jQuery 2.2.3 -->
     <script src="../../assets/js/jquery/jquery-2.2.3.min.js"></script>
     <!-- jQuery UI 1.11.4 -->
@@ -182,12 +188,14 @@ if(!isset($_SESSION['spar_usuario']))
     <script src="../../assets/js/datatables/dataTables.bootstrap.min.js"></script>
     <!-- Bootstrap 3.3.6 -->
     <script src="../../assets/js/bootstrap/bootstrap.min.js"></script>
+    <script src="../../assets/js/input-mask/jquery.inputmask.js"></script>
     <!-- Validaciones -->
     <script src="../../assets/js/validacion/validacion.js"></script>   
     <!--Funciones Generales-->
     <script src="../../assets/js/funciones.js"></script>
     <!-- AdminLTE App -->
     <script src="../../assets/js/app.min.js"></script>
+    <script src="../../js/V1/directorio/buscarEmpleado.js"></script>
     <script src="../../js/V1/directorio/index.js"></script>
-    </body>
+  </body>
 </html>

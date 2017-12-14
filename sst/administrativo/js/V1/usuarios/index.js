@@ -1,12 +1,11 @@
 $(document).ready(function(){
+    variable = $("#div_alert");
     $("#empleados").DataTable();
     $(".loader").fadeOut("slow"); 
+    if (typeof variable !== 'undefined' && variable !== null) {
+        setTimeout(function(){cerrar("div_alert");}, 3000);
+    }
 });
-
-function goBack() 
-{
-    window.history.back();
-}
 
 function actualizarModulo(idUsuario, nombre, valor, columna){
     $("#empleadoNombre").html(nombre);
@@ -34,9 +33,4 @@ function actualizarModulo(idUsuario, nombre, valor, columna){
             });
         });
     }); 
-}
-
-function cerrar(id_elemento)
-{
-    document.getElementById(id_elemento).style.display="none";
 }

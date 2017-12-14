@@ -1,6 +1,6 @@
 <?php
 if(!isset($_SESSION['spar_usuario']))
-    header('Location: ../../view/index.php?accion=login');
+    header('Location: ../view/index.php?accion=login');
 ?>
 <!DOCTYPE html>
 <html>
@@ -66,11 +66,15 @@ if(!isset($_SESSION['spar_usuario']))
                 </span>
               </a>
               <ul class="treeview-menu">
+                <li><a href="view/almacenes/index.php?accion=index"><i class="fa fa-cubes"></i> Almacenes</a></li>
                 <li><a href="view/bancos/index.php?accion=index"><i class="fa  fa-bank"></i> Bancos</a></li>
                 <li><a href="view/categorias/index.php?accion=index"><i class="fa fa-tags"></i> Categorias</a></li>
                 <li><a href="view/clientes/index.php?accion=index"><i class="fa fa-users"></i> Clientes</a></li>
                 <li><a href="view/proveedores/index.php?accion=index"><i class="fa fa-cubes"></i> Proveedores</a></li>
+                <li><a href="view/representantes/index.php?accion=index"><i class="fa fa-male"></i> Representantes</a></li>
+                <li><a href="view/mensajerias/index.php?accion=index"><i class="fa fa-truck"></i> Mensajerías</a></li>
                 <li><a href="view/usuarios/index.php?accion=index"><i class="fa fa-user"></i> Usuarios</a></li>
+                <li><a href="view/regiones/index.php?accion=index"><i class="fa fa-tree"></i> Regiones</a></li>
               </ul>
             </li>
             <!-- Barra de separación entre menus -->
@@ -157,13 +161,17 @@ if(!isset($_SESSION['spar_usuario']))
             <!-- Find e la barra de separación entre menus -->
             <li class="treeview">
               <a href="#">
-                <i class="fa fa-cog"></i> <span>Módulo de Reclutamiento</span>
+                <i class="fa fa-cog"></i> <span>Módulo de Contratación</span>
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
               </a>
               <ul class="treeview-menu">            
-                <li><a href="#"><i class="fa fa fa-cogs"></i> Parámetros del Módulo</a></li>
+                <li><a href="view/vacantes/index.php?accion=index"><i class="fa fa-user-plus"></i> Vacantes</a></li>
+                <li><a href="view/reclutamientos/index.php?accion=index"><i class="fa fa-users"></i> Reclutamiento</a></li>
+                <li><a href="#"><i class="fa fa fa-cogs"></i> Entrevistas</a></li>
+                <li><a href="#"><i class="fa fa fa-cogs"></i> Contratación</a></li>
+                <li><a href="#"><i class="fa fa fa-cogs"></i> Orgranigrama</a></li>
               </ul>
             </li>
             <li>

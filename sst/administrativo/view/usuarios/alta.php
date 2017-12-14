@@ -114,6 +114,41 @@ if(!isset($_SESSION['spar_usuario']))
                                               <label class="control-label">&nbsp;</label>
                                               <button class="btn btn-block btn-flat btn-sm btn-success" >Crear</button>
                                           </div>
+                                          <table class="table small">
+                                          <?php
+                                          $columnas = 0;
+                                          $i = 0;
+                                          foreach($datosClientes as $cliente )                
+                                          { 
+                                            if($columnas == 0)
+                                            {
+                                          ?>
+                                            <tr>
+                                          <?php
+                                            }  
+                                            $razonSocial = substr($cliente["razonSocial"],0,20);
+                                            if(strlen($cliente["razonSocial"])>20)
+                                              $razonSocial .= "...";
+                                          ?>
+                                            <td class="danger">
+                                              <div class="checkbox">
+                                                <label>
+                                                  <input type="checkbox" class="checkCliente" name="Datos[clientes][]" value="<?php echo $cliente['idclientes']?>"/><?php echo $razonSocial." (".$cliente["nombreComercial"].")";?>
+                                                </label>
+                                              </div>
+                                            </td>
+                                          <?php    
+                                            $columnas++;
+                                            $i++;
+                                            if($columnas==5){
+                                              $columnas=0;
+                                          ?>
+                                            </tr>
+                                          <?php
+                                            }
+                                          }
+                                          ?>
+                                          </table>
                                         </form>
                                     </div>
                                 </div>

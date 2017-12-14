@@ -223,8 +223,8 @@ else{
                           <tbody>
                           <?php 
                           foreach($subcategorias as $subcategoria){
-                          $btnEdit='<a class="btn btn-primary" data-toggle="modal" data-target="#update" onclick="modificarSubCategoria('.$subcategoria['idSubcategoria'].')">Editar</a>';
-                          $btnEliminar='<a class="btn btn-danger" href="javascript:eliminarSubCategoria('.$subcategoria['idSubcategoria'].');">Eliminar</a>';                      
+                          $btnEdit='<a class="btn btn-primary" data-toggle="modal" data-target="#update" onclick="modificarSubCategoria('.$subcategoria['id'].')">Editar</a>';
+                          $btnEliminar='<a class="btn btn-danger" href="javascript:eliminarSubCategoria('.$subcategoria['id'].');">Eliminar</a>';                      
                           ?>
                       <tr>                   
                               

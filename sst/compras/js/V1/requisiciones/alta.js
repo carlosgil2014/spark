@@ -1,15 +1,46 @@
+var parametros = {
+					style: 'btn-success btn-sm',
+					size: 3,
+					noneSelectedText: 'Seleccionar un elemento', 
+					liveSearchPlaceholder:'Buscar',
+					noneResultsText: '¡No existe el elemento buscado!',
+					countSelectedText:'{0} elementos seleccionados',
+					actionsBox:true,
+					selectAllText: 'Seleccionar todos',
+					deselectAllText: 'Deseleccionar todos',
+					container:'body'
+				}
 $(function () {
 	variable = $("#div_alert");
 	$(".loader").fadeOut("slow");
 	if (typeof variable !== 'undefined' && variable !== null) {
     	setTimeout(function(){cerrar("div_alert");}, 3000);
     }
+    $('.selectpicker').selectpicker(parametros);
 });
 
-function agregarFila(){  
-	$("#customFields").append('<tr><th scope="row"><label for="customFieldName">Custom Field</label></th><td><input type="text" class="code" id="customFieldName" name="customFieldName[]" value="" placeholder="Input Name" /> &nbsp; <input type="text" class="code" id="customFieldValue" name="customFieldValue[]" value="" placeholder="Input Value" /> &nbsp; <a href="javascript:void(0);" class="remCF">Remove</a></td></tr>');    
+function rubrosCliente(cliente){
+
+	$(".loader").fadeIn("slow", function(){
+		$.ajax({
+	   	 	url: 'index.php?accion=rubrosCliente&idCliente='+cliente.value,
+		    	type:  'post',
+		    success:  function (data) {
+	    		$("#divDetalles").html(data);
+	    		$('#formAgregar').validator({focus:false});
+	    		$('.selectpicker').selectpicker(parametros);
+	    		$(".loader").fadeOut("slow");
+	    	},
+		});
+	});
 }
 
-$("#customFields").on('click','.remCF',function(){
-        $(this).parent().parent().remove();
-    });
+function agregarFila(){  
+	$("#tablaDetalles").append("<tr>"+$("#filaPrincipal").html()+"<td><a style='cursor:pointer;' data-toggle='tooltip' onclick='eliminarFila(this);''><i class='fa fa-minus text-red'></i></a></td></tr>");  
+    $("#tablaDetalles tr:last").find('.bootstrap-select').replaceWith(function() { return $('select', this); });
+	$('.selectpicker').selectpicker(parametros);  
+}
+
+function eliminarFila(elemento){ 
+	$(elemento).closest('tr').remove();  
+}

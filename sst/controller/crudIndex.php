@@ -24,12 +24,17 @@ class Controller {
 					$valida = new validar();
 
 					if(empty($_SESSION['spar_usuario'])){
-						$resultado = $valida->validaEmpleado($_POST['usuario'],$_POST['contrasena']);
-						if($resultado === "OK"){
-							header('Location:index.php?accion=login');
+						if(isset($_POST['usuario']) && isset($_POST['contrasena'])){
+							$resultado = $valida->validaEmpleado($_POST['usuario'],$_POST['contrasena']);
+							if($resultado === "OK"){
+								header('Location:index.php?accion=login');
+							}
+							else{
+								$_SESSION["spar_error"] = $resultado;
+								header('Location:../index.php');
+							}
 						}
 						else{
-							$_SESSION["spar_error"] = $resultado;
 							header('Location:../index.php');
 						}
 					}
@@ -88,7 +93,7 @@ class Controller {
 			        break;
 
 			    default:
-					require_once('index.php');		
+			    	header("Location: index.php?accion=login");
 					break;	
 			}
 		}

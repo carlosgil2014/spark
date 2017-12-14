@@ -19,8 +19,6 @@ $( "#formularioAgregar" ).submit(function( event ) {
         $('#formularioAgregar')[0].reset();
         window.location.replace("index.php?accion=index");
         $('#resp').html('Se Agrego Correctamente El Status').show(200).delay(2500).hide(200);
-        //mostrar la respuesta del servidor
-        //$('#agregar-registros').html(data);
        }
         })
     });
@@ -48,10 +46,6 @@ $( "#formularioAgregar" ).submit(function( event ) {
       'url': 'index.php?accion=modificar',
       'data': 'id='+id,
     }).done(function(resultado){
-      // console.log(resultado);
-      // data = JSON.parse(resultado);
-    //  $('#mensajee').addClass("mostrar").html('Se Agrego Correctamente El Producto').show(200).delay(2500).hide(200);
-    //var datos = eval(valores);
     $("#Editar").html(resultado);
     $('#Editar').modal({
           show:true,
@@ -76,4 +70,30 @@ function cargarModelos(marca, idMarca){
         }
     });
   });
+}
+
+function seleccionarLinea(){
+  sim = $('#sim').val();
+  console.log(sim);
+  if(sim==""){
+        sim = $('#sim').val();
+  }else{
+    $(".loader").fadeIn("slow", function(){
+  $.ajax({
+        url:   'index.php?accion=buscarLinea&sim='+sim,
+        type:  'post',
+        success:  function (data) {
+        data = JSON.parse(data)
+              if (data==="error") {
+                $('#idLinea').val('')
+                $('#linea').val('');
+              }else{
+                $('#idLinea').val(data.linea);
+                $('#linea').val(data.idLinea);
+              }
+            },
+          });
+            $(".loader").fadeOut("slow"); 
+        });  
+  }
 }
