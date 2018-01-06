@@ -70,8 +70,8 @@ if(!isset($_SESSION['spar_usuario']))
               </a>
             </li>
             <li>
-              <a style="cursor: pointer;" onclick="cargaMasiva();"> 
-                <i class="fa fa-plus"></i> <span>Carga masiva</span>
+              <a style="cursor: pointer;" onclick="agregarCliente();"> 
+                <i class="fa fa-plus"></i> <span>Agregar por cliente(cuenta)</span>
               </a>
             </li>
             <li>
@@ -93,7 +93,7 @@ if(!isset($_SESSION['spar_usuario']))
               <!-- Horizontal Form -->
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Asignaciones de linea</h3>
+                  <h3 class="box-title">Asignaciones de líneas</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body table-responsive">
@@ -112,9 +112,9 @@ if(!isset($_SESSION['spar_usuario']))
                     <thead>
                     <tr>
                       <th>Nombre</th>
-                      <th>Imei</th>
-                      <th>Sim</th>
-                      <th>Linea</th>
+                      <th>IMEI</th>
+                      <th>ICC</th>
+                      <th>Línea</th>
                       <th></th>
                       <th></th>
                     </tr>

@@ -40,6 +40,7 @@ class Controller {
 					$varLineas = new lineas();
 					$lineas = $varLineas->listarLineas();
 					$administrativos = $this->varAsignaciones->listarAdmon();
+					$cuentas = $this->varAsignaciones->listarCuentas();
 					include_once("alta.php");
 					break;
 				case "modificar":

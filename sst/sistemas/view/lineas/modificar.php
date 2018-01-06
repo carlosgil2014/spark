@@ -12,13 +12,20 @@
             <input type="text" name="linea" maxlength="10" pattern="[0-9]{10}" class="form-control input-sm" data-error="Es un campo obligatorio" required id="linea" placeholder="1234567890" value="<?php echo $linea['linea']; ?>">
             <div class="help-block with-errors"></div>
           </div>
+          <input type="hidden" name="idLinea" value="<?php echo $linea['idLinea']; ?>">
+          <input type="hidden" name="compararSim" value="<?php echo $linea['IDSIM']; ?>">
           <div class="form-group col-md-12">
-            <label class="control-label">Tipo</label>
-            <select class="form-control input-sm"  name="tipo" data-error="Es un campo obligatorio" data-live-search="true" required="required" id="tipo" required>
+            <label class="control-label">SIM</label>
+            <select class="form-control input-sm selectpicker"  name="simId" data-error="Es un campo obligatorio" data-live-search="true" id="simId">
+              <?php if(!empty($linea['IDSIM'])){ ?>
+                <option value="<?php echo $linea['IDSIM'];?>"><?php echo $linea['ICC'];?>(Actual)</option>
+              <?php }else{?>
+              <option value="0">Seleccione un ICC</option>
+              <?php } ?>
               <?php 
-            foreach ($almacenes as $almacen){
+            foreach ($sims as $sim){
             ?>
-            <option <?php if($almacen["idAlmacen"] == $linea["almacen"]){echo "selected";}?> value="<?php echo $almacen['idAlmacen'] ?>"><?php echo $almacen['nombre'] ?></option>
+            <option value="<?php echo $sim['idSim']; ?>"><?php echo $sim['icc']; ?></option>
             <?php
             }
             ?>

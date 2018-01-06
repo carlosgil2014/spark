@@ -10,7 +10,7 @@ class asignaciones
 
 	public function listar(){
 		$datos = array();
-		$consulta="SELECT a.idAsginaciones,s.icc,l.linea,sp.empleados_id,sp.empleados_nombres,sp.empleados_apellido_paterno,sp.empleados_apellido_materno,cp.imei FROM tblAsignaciones a inner join tblSim s on s.idSim=a.idSim inner join tblLineas l on l.idLinea=a.idLinea inner join spar_empleados sp on sp.empleados_id=a.idEmpleado inner join tbCelPhones cp on a.idCel=cp.idCelular";
+		$consulta="SELECT * FROM tblAsignaciones a";
 		$resultado = $this->conexion->query($consulta);
 		while ($filaTmp = $resultado->fetch_assoc()) {
 			$datos [] = $filaTmp;
@@ -189,24 +189,21 @@ class asignaciones
 		}
 	}
 
-	public function buscarRfc($rfc){
-		$rfc = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($rfc))));
-		$consulta="SELECT s.empleados_nombres,s.empleados_apellido_paterno,s.empleados_apellido_materno,e.nombre,s.empleados_estado FROM spar_empleados s inner join tblEstados e on e.idestado=s.empleados_estado where s.empleados_rfc='$rfc'";
+	public function listarCuentas(){
+		$datos = array();
+		$consulta="SELECT idCuenta, numeroCuenta, cliente FROM tblCuentas";
 		$resultado = $this->conexion->query($consulta);
 		if($resultado){
-			if($this->conexion->affected_rows === 1){
-			$datos = $resultado->fetch_assoc();
-			 return $datos;
-			}else{
-				return "error";	
-			}
-
-			return $resultado->fetch_assoc();
+		while ($filaTmp = $resultado->fetch_assoc()) {
+			$datos [] = $filaTmp;
+		}
+			return $datos;
 		}
 		else{
 			echo $this->conexion->errno . " : " . $this->conexion->error . "\n";
 		}
 	}
+
 
 	public function listarAdmon(){
 		$datos = array();

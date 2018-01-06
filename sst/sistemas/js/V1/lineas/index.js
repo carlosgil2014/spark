@@ -28,6 +28,7 @@ function modificar(id){
 	    success:  function (data) {
     		$("#modalLinea").html(data);
     		$('#formEditar').validator({focus:false});
+    		$('.selectpicker').selectpicker({style: 'btn-success btn-sm',size: 4,noneSelectedText: 'Seleccionar un elemento', liveSearchPlaceholder:'Buscar',noneResultsText: '¡No existe el elemento buscado!',countSelectedText:'{0} elementos seleccionados',actionsBox:true,selectAllText: 'Seleccionar todos',deselectAllText: 'Deseleccionar todos'});
     	},
 	});
     $("#modalLinea").modal("show");

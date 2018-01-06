@@ -94,64 +94,26 @@
               <li><a href="#"><i class="fa fa-file-text-o"></i> Cartas responsivas</a></li>
               <li><a href="#"><i class="fa fa-user-secret"></i> Robos / Extravíos</a></li>
               <li><a href="view/contrasenias/index.php?accion=index"><i class="fa fa-asterisk"></i> Contraseñas</a></li>
-
             </ul>
           </li>
-
-        <li class="treeview">
-            <a href="#">
-              <i class="fa fa-tablet"></i> <span>Celulares / Tabletas</span>
+          <li>
+            <a href="#"><i class="fa fa-plus"></i> Asignaciones
               <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
-              
+              <li><a href="view/asignaciones/index.php?accion=index"><i class="fa fa-user"></i> Por Usuario</a></li>
               <li>
-                <a href="#"><i class="fa fa-plus"></i> Asignaciones
+                <a href="#"><i class="fa fa-users"></i> Por cliente
                   <span class="pull-right-container">
                     <i class="fa fa-angle-left pull-right"></i>
                   </span>
                 </a>
                 <ul class="treeview-menu">
-                  <li><a href="view/asignaciones/index.php?accion=index"><i class="fa fa-user"></i> Por Usuario</a></li>
-                  <li>
-                    <a href="#"><i class="fa fa-users"></i> Por cliente
-                      <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                      </span>
-                    </a>
-                    <ul class="treeview-menu">
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Bic</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Concha y Toro</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Digrans</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> eCommerce</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Gridimex</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Herdez</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Malta Cleyton</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Rekitt Benckiser</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Sanfer</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Sony</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> VCT Asesores</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Walmart</a></li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-
-              <li>
-                <a href="#"><i class="fa fa-retweet"></i> Renovaciones
-                  <span class="pull-right-container">
-                    <i class="fa fa-angle-left pull-right"></i>
-                  </span>
-                </a>
-                <ul class="treeview-menu">
-                  <li><a href="#"><i class="fa fa-user"></i> Administrativas</a></li>
                   <li><a href="#"><i class="fa fa-suitcase"></i> Bic</a></li>
                   <li><a href="#"><i class="fa fa-suitcase"></i> Concha y Toro</a></li>
                   <li><a href="#"><i class="fa fa-suitcase"></i> Digrans</a></li>
-                  <li><a href="#"><i class="fa fa-user"></i> Directiva I</a></li>
-                  <li><a href="#"><i class="fa fa-user"></i> Directiva II</a></li>
                   <li><a href="#"><i class="fa fa-suitcase"></i> eCommerce</a></li>
                   <li><a href="#"><i class="fa fa-suitcase"></i> Gridimex</a></li>
                   <li><a href="#"><i class="fa fa-suitcase"></i> Herdez</a></li>
@@ -161,74 +123,10 @@
                   <li><a href="#"><i class="fa fa-suitcase"></i> Sony</a></li>
                   <li><a href="#"><i class="fa fa-suitcase"></i> VCT Asesores</a></li>
                   <li><a href="#"><i class="fa fa-suitcase"></i> Walmart</a></li>
-                  <li>
-                    <ul class="treeview-menu">
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Bic</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Concha y Toro</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Digrans</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> eCommerce</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Gridimex</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Herdez</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Malta Cleyton</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Rekitt Benckiser</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Sanfer</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Sony</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> VCT Asesores</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Walmart</a></li>
-                    </ul>
-                  </li>
                 </ul>
               </li>
-              <li><a href="#"><i class="fa fa-cube"></i> Stock</a></li>
             </ul>
           </li>
-
-        <li class="treeview">
-            <a href="#">
-              <i class="fa fa-desktop"></i> <span>Computadoras</span>
-              <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-
-              <li>
-                <a href="#"><i class="fa fa-plus"></i> Asignaciones
-                  <span class="pull-right-container">
-                    <i class="fa fa-angle-left pull-right"></i>
-                  </span>
-                </a>
-                <ul class="treeview-menu">
-                  <li><a href="#"><i class="fa fa-user"></i> Por Usuario</a></li>
-                  <li>
-                    <a href="#"><i class="fa fa-users"></i> Por cliente
-                      <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                      </span>
-                    </a>
-                    <ul class="treeview-menu">
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Bic</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Concha y Toro</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Digrans</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> eCommerce</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Gridimex</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Herdez</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Malta Cleyton</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Rekitt Benckiser</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Sanfer</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Sony</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> VCT Asesores</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Walmart</a></li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-
-              <li><a href="#"><i class="fa fa-cube"></i> Stock</a></li>
-            </ul>
-          </li>
-
-         
           <li class="treeview">
             <a href="../controller/crudIndex.php?urlValue=login">
               <i class="fa fa-cubes"></i> <span>Inventario</span>

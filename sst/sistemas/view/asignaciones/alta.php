@@ -3,36 +3,28 @@
     <form id="formAgregar" method="POST" role="form" action="index.php?accion=guardar">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true" >&times;</button>
-        <h4 class="modal-title" id="myModalLabel"><b>Alta de asignacion</b></h4>
+        <h4 class="modal-title" id="myModalLabel"><b>Asignaciones de líneas</b></h4>
       </div>
       <div class="modal-body">
         <div class="row">
           <div class="form-group col-md-3">
-            <label class="control-label">Lineas</label>
-            <select class="form-control input-sm selectpicker" name="Datos[lineas]" id="lineas" data-error="Es un campo obligatorio" data-live-search="true" required="required" id="lineas" required>
+            <label class="control-label">Líneas</label>
+            <select class="form-control input-sm selectpicker" name="Datos[lineas]"  data-error="Es un campo obligatorio" data-live-search="true" required="required" id="idLinea" required onchange="obtenerICC(this);">
               <option value="">Seleccione</option>
               <?php 
               foreach ($lineas as $linea) {
               ?>
-              <option value="<?php echo $linea['id']; ?>"><?php echo $linea['linea']; ?></option>
+              <option value="<?php echo $linea['idLinea']; ?>"><?php echo $linea['linea']; ?></option>
               <?php  
               } ?>
             </select>
           </div>
           <div class="form-group col-md-3">
-            <label class="control-label">Sim</label>
-            <select class="form-control input-sm selectpicker" name="Datos[idSimCCC]" id="idSim" data-error="Es un campo obligatorio" data-live-search="true" required="required" id="sim" required>
-              <option value="">Seleccione</option>
-              <?php 
-              foreach ($sims as $sim) {
-              ?>
-              <option value="<?php echo $sim['id']; ?>"><?php echo $sim['icc']; ?></option>
-              <?php  
-              } ?>
-            </select>
+            <label class="control-label">ICC</label>
+            <input type="text" name="Datos[icc]" class="form-control input-sm" data-error="Es un campo obligatorio" required id="icc" readonly>
           </div>
           <div class="form-group col-md-3">
-            <label class="control-label">Imei</label>
+            <label class="control-label">IMEI</label>
             <select class="form-control input-sm selectpicker" onchange="buscarImei();" name="Datos[imei]" id="imei" data-error="Es un campo obligatorio" data-live-search="true" required="required" required>
               <option value="">Seleccione</option>
               <?php 
@@ -59,10 +51,15 @@
               <option value="">Seleccione</option>
               <?php foreach ($administrativos as $admon) {
               ?>
-              <option value="<?php echo $admon['empleados_id']; ?>"><?php echo $admon['empleados_nombres']." ".$admon['empleados_apellido_paterno']." ".$admon['empleados_apellido_materno']; ?></option>
+              <option <?php echo $admon['empleados_id']; ?> value="<?php echo $admon['empleados_id']; ?>"><?php echo $admon['empleados_nombres']." ".$admon['empleados_apellido_paterno']." ".$admon['empleados_apellido_materno']; ?></option>
               <?php
               } ?>
             </select>
+          </div>
+          <div class="form-group col-md-3">
+            <label class="control-label">Cuenta</label>
+            <input type="text" name="Datos[cuenta]" class="form-control input-sm" data-error="Es un campo obligatorio" required id="cuenta" data-live-search="true" readonly>
+            <div class="help-block with-errors"></div>
           </div>
         </div>
         <!-- /.col-md-12 -->

@@ -82,36 +82,22 @@ function buscarImei(){
 	}	
 }	
 
-function validarRfc(){
-	rfc = $('#rfc').val();
-	var rfc = rfc.toUpperCase();
-	$('#rfc').val(rfc);
-    if(rfc==""){
-        cp = $('#rfc').val();
+function obtenerICC(){
+	var idLinea = $('#idLinea').val();
+		if (idLinea=="") {
+		idLinea = $('#idLinea').val('');
 	}else{
-        $(".loader").fadeIn("slow", function(){
-    		$.ajax({
-       	 	    url:   'index.php?accion=buscarRfc&rfc='+rfc,
-    	    	type:  'post',
-            	success:  function (data) {
-	                data = JSON.parse(data)
-	                console.log(data);
-		        	if (data==="error") {
-		        		$('#nombre').val('')
-			    		$('#apellidoPaterno').val('')
-			    		$('#apellidoMaterno').val('')
-			    		$('#estado').val('')
-			    		$('#idEstado').val('')
-		        	}else{
-	        			$('#nombre').val(data.empleados_nombres);
-			    		$('#apellidoPaterno').val(data.empleados_apellido_paterno);
-			    		$('#apellidoMaterno').val(data.empleados_apellido_materno);
-			    		$('#estado').val(data.nombre);
-			    		$('#idEstado').val(data.empleados_estado);
-		        	}
-    	    	},
-        	});
-            $(".loader").fadeOut("slow"); 
-        });  
-	}
+		$.ajax({
+   	 	url:   '../lineas/index.php?accion=buscarICC&idLinea='+idLinea,
+	    	type:  'post',
+	    success:  function (data) {
+		    	data = JSON.parse(data)
+		    	if (data==="error") {
+		    		$('#sim').val('');
+		    	}else{
+		    		$('#icc').val(data.marca);
+		    	}
+    		},
+		});
+	}	
 }

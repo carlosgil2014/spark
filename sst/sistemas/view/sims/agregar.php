@@ -2,7 +2,7 @@
   <div class="modal-content">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true" >&times;</button>
-      <h4 class="modal-title" id="myModalLabel"><b>Alta de Masiva</b></h4>
+      <h4 class="modal-title" id="myModalLabel"><b>Agregar</b></h4>
     </div>
     <div class="modal-body" style="height: 400px; overflow-y: auto;">
       <div class="row">
@@ -16,7 +16,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="form-group col-md-7">
+        <div class="form-group col-md-5">
           <label>ICC</label>
           <div class="input-group">
             <input type="text" class="form-control input-sm" maxlength="20" id="sim" onkeydown="añadirSim();" autofocus>
@@ -26,9 +26,17 @@
           </div>
           <div class="help-block with-errors"></div>
         </div>
-        <div class="form-group col-md-5">
+        <div class="form-group col-md-3">
+          <label>Tipo</label>
+          <select class="form-control selectpicker" id="tipo" required>
+            <option>Plan</option>
+            <option>Prepago</option>
+          </select>
+          <div class="help-block with-errors"></div>
+        </div>
+        <div class="form-group col-md-4">
           <label>Almacén</label>
-          <select class="form-control almacen" id="almacen" name="almacen" required>
+          <select class="form-control selectpicker" id="almacen" name="almacen" required>
             <?php 
             foreach ($almacenes as $almacen){
             ?>
@@ -46,6 +54,7 @@
             <table id="tablaSims" class="table table-hover table-bordered table-responsive table-condensed text-center small">
               <tr class="bg-primary">
                 <th>ICC</th>
+                <th>Tipo</th>
                 <th></th>
               </tr>
             </table>

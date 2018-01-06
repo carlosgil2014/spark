@@ -1,11 +1,11 @@
 $(function () {
-       //agregar producto  
-  //variable = $("#div_alert");
+  variable = $("#div_alert");
     $("#tblCel").DataTable();
-  //$(".loader").fadeOut("slow");
-  /*if (typeof variable !== 'undefined' && variable !== null) {
+  $(".loader").fadeOut("slow"); 
+  if (typeof variable !== 'undefined' && variable !== null) {
       setTimeout(function(){cerrar("div_alert");}, 3000);
-    }*/
+    }
+    $('.selectpicker').selectpicker({style: 'btn-success btn-sm',size: 4,noneSelectedText: 'Seleccionar un elemento', liveSearchPlaceholder:'Buscar',noneResultsText: '¡No existe el elemento buscado!',countSelectedText:'{0} elementos seleccionados',actionsBox:true,selectAllText: 'Seleccionar todos',deselectAllText: 'Deseleccionar todos'});  
 });
 
 $( "#formularioAgregar" ).submit(function( event ) {
@@ -16,9 +16,14 @@ $( "#formularioAgregar" ).submit(function( event ) {
        url: 'index.php?accion=guardar',
        data: frm,
        success: function(data){
-        $('#formularioAgregar')[0].reset();
-        window.location.replace("index.php?accion=index");
-        $('#resp').html('Se Agrego Correctamente El Status').show(200).delay(2500).hide(200);
+        if(data == "OK") {
+          $('#formularioAgregar')[0].reset();
+          window.location.replace("index.php?accion=index&clase=success");
+          //$('#resp').html('Se Agrego Correctamente El Status').show(200).delay(2500).hide(200);
+        }else{
+          $('#formularioAgregar')[0].reset();
+          window.location.replace("index.php?accion=index&clase=danger");
+        }
        }
         })
     });
@@ -32,7 +37,7 @@ $( "#formularioAgregar" ).submit(function( event ) {
             url:   'index.php?accion=eliminar',
             type:  'post',
             success:  function (data) {
-            window.location.replace("index.php?accion=index");
+            window.location.replace("index.php?accion=index&clase=success");
             },
             
         });
@@ -40,22 +45,23 @@ $( "#formularioAgregar" ).submit(function( event ) {
   }); 
   }
 
-  function editarProducto(id){
+function editarProducto(id){
     $.ajax({
       'method': 'POST',
       'url': 'index.php?accion=modificar',
       'data': 'id='+id,
     }).done(function(resultado){
     $("#Editar").html(resultado);
+     $('.selectpicker').selectpicker({style: 'btn-success btn-sm',size: 4,noneSelectedText: 'Seleccionar un elemento', liveSearchPlaceholder:'Buscar',noneResultsText: '¡No existe el elemento buscado!',countSelectedText:'{0} elementos seleccionados',actionsBox:true,selectAllText: 'Seleccionar todos',deselectAllText: 'Deseleccionar todos'});
     $('#Editar').modal({
-          show:true,
-          backdrop:'static'
+          show:true
         });
   });
-  }
+}
 
 function cargarModelos(marca, idMarca){
   var modelos = $("#modelos"+idMarca);
+  console.log(marca.value);
   $(".loader").fadeIn("slow", function(){
     $.ajax(
     {
@@ -65,6 +71,7 @@ function cargarModelos(marca, idMarca){
         success:  function (data) 
         {
         modelos.html(data);
+        $('#modelos0').selectpicker("refresh");
         // modelos.selectpicker("refresh");
           $(".loader").fadeOut("slow");
         }
@@ -72,28 +79,17 @@ function cargarModelos(marca, idMarca){
   });
 }
 
-function seleccionarLinea(){
-  sim = $('#sim').val();
-  console.log(sim);
-  if(sim==""){
-        sim = $('#sim').val();
-  }else{
-    $(".loader").fadeIn("slow", function(){
-  $.ajax({
-        url:   'index.php?accion=buscarLinea&sim='+sim,
-        type:  'post',
-        success:  function (data) {
-        data = JSON.parse(data)
-              if (data==="error") {
-                $('#idLinea').val('')
-                $('#linea').val('');
-              }else{
-                $('#idLinea').val(data.linea);
-                $('#linea').val(data.idLinea);
-              }
-            },
-          });
-            $(".loader").fadeOut("slow"); 
-        });  
-  }
+
+function historial(id){
+    $.ajax({
+      'method': 'POST',
+      'url': 'index.php?accion=historial',
+      'data': 'id='+id,
+    }).done(function(resultado){
+    $("#Editar").html(resultado);
+    $('#Editar').modal({
+          show:true,
+          backdrop:'static'
+        });
+  });
 }

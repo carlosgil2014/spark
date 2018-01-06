@@ -264,8 +264,8 @@ class representantes
 			  			
 			}
 			$consulta = "UPDATE spar_empleados a_b SET a_b.empleados_nombres = '$nombres',a_b.empleados_apellido_paterno='$apellidoPaterno',a_b.empleados_apellido_materno='$apellidoMaterno',a_b.empleados_rfc='$rfc',a_b.empleados_fecha_nacimiento='$fechaNacimiento',a_b.empleados_correo='$correo',a_b.empleados_estado='$idEstado',a_b.codigoPostal='$cp',a_b.calle='$calle',a_b.numeroInterior='$noInterior',a_b.numeroExterior='$noExterior',a_b.empleados_colonia='$colonia' WHERE a_b.empleados_id='$idRepresentante' AND 0 = (SELECT COUNT(*) FROM (SELECT * FROM (SELECT * FROM spar_empleados) AS a_b_2 WHERE a_b_2.empleados_rfc = '$rfc' AND a_b_2.empleados_id != '$idRepresentante') AS count);";
-			var_dump($consulta);
 				$resultado = $this->conexion -> query($consulta);
+				
 				if($resultado){
 			  		if($this->conexion->affected_rows === 1){
 			  			$modificaciones = 1;

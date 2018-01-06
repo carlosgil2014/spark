@@ -1,7 +1,3 @@
-<?php
-if(!isset($_SESSION['spar_usuario']))
-    header('Location: ../view/index.php?accion=login');
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,88 +54,31 @@ if(!isset($_SESSION['spar_usuario']))
           ?>
           <!-- Comienza barra de menus: : Estilos encontrados en Less -->
           <ul class="sidebar-menu">
-          <li class="treeview">
-          <a href="#">
-            <i class="fa fa-file-text-o"></i> <span>Requisiciones</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li>
-              <a href="view/requisiciones/index.php?accion=alta">
-                <i class="fa fa-clipboard"></i>
-                <span>Crear requisición</span>
+            <li class="treeview">
+              <a href="../controller/crudIndex.php?urlValue=login">
+                <i class="fa fa-cog"></i> <span>Submenú</span>
                 <span class="pull-right-container">
-                <span class="label label-primary pull-right">0</span>
+                  <i class="fa fa-angle-left pull-right"></i>
                 </span>
               </a>
-            </li>    
-            <li>
-              <a href="view/requisiciones/index.php?accion=index">
-                <i class="fa fa-files-o"></i>
-                <span>Ver requisiciones</span>
-                <span class="pull-right-container">
-                <span class="label label-primary pull-right">0</span>
-                </span>
-              </a>
+              <ul class="treeview-menu">
+                <li><a href="#"><i class="fa fa-cubes"></i> HREF</a></li>
+              </ul>
             </li>
-          </ul>
-        </li>
-            <li><a href="view/pagos/index.php?accion=index"><i class="fa fa-money"></i> Pagos</a></li>
-        
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-file-text-o"></i> <span>Ordenes de Compra</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li>
-              <a href="view/requisiciones/index.php?accion=alta">
-                <i class="fa fa-clipboard"></i>
-                <span>Crear orden de compra</span>
-                <span class="pull-right-container">
-                <span class="label label-primary pull-right">0</span>
-                </span>
-              </a>
-            </li>    
-            <li>
-              <a href="view/requisiciones/index.php?accion=index">
-                <i class="fa fa-files-o"></i>
-                <span>Ver ordenes de compra</span>
-                <span class="pull-right-container">
-                <span class="label label-primary pull-right">0</span>
-                </span>
-              </a>
-            </li>
-          </ul>
-        </li>
-
-            <li>
+            <!-- Barra de separación entre menus -->
+            <li class="header">Título</li>
+            <!-- Find e la barra de separación entre menus -->
+            <li class="treeview">
               <a href="#">
-                <i class="fa fa-files-o"></i>
-                <span>Crear Compra</span>
+                <i class="fa fa-cog"></i> <span>Submenú 2</span>
                 <span class="pull-right-container">
-                <span class="label label-primary pull-right">0</span>
+                  <i class="fa fa-angle-left pull-right"></i>
                 </span>
               </a>
+              <ul class="treeview-menu">
+                <li><a href="#"><i class="fa fa fa-file"></i> HREF</a></li>
+              </ul>
             </li>
-            <li>
-              <a href="#">
-                <i class="fa fa-files-o"></i>
-                <span>Ver Compras</span>
-                <span class="pull-right-container">
-                <span class="label label-primary pull-right">0</span>
-                </span>
-              </a>
-            </li>
-            <li><a href="#"><i class="fa  fa-cloud-download"></i> Descarga Masiva</a></li>
-            <li><a href="#"><i class="fa fa-indent"></i> Categorías de Compra</a></li>
-            <li><a href="#"><i class="fa fa-usd"></i> Centro de Costos</a></li>
-            <li><a href="#"><i class="fa fa-barcode"></i> Preventas</a></li>
-            <li><a href="view/parametros/index.php?accion=index"><i class="fa fa fa-cogs"></i> Parámetros del Módulo</a></li>
             <li>
               <a href="../index.php">
                 <i class="fa fa-hand-o-left"></i> <span>Regresar</span> 
@@ -154,7 +93,7 @@ if(!isset($_SESSION['spar_usuario']))
         <!-- Titulo para encabezado de la pantalla central -->
         <section class="content-header">
           <h1>
-          Módulo de Compras
+          Módulo Administrativo
             <small></small>
           </h1>
           <ol class="breadcrumb">
@@ -170,7 +109,7 @@ if(!isset($_SESSION['spar_usuario']))
               <div class="small-box bg-aqua">
                 <div class="inner">
                   <h3>1</h3>
-                  <p>Operaciones</p>
+                  <p>Cuadro</p>
                 </div>
                 <div class="icon">
                   <i class="fa fa-shopping-cart"></i>
@@ -186,7 +125,7 @@ if(!isset($_SESSION['spar_usuario']))
               <div class="small-box bg-green">
                 <div class="inner">
                   <h3>2<sup style="font-size: 20px"></sup></h3>
-                  <p>Finanzas</p>
+                  <p>Cuadro</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-stats-bars"></i>
@@ -202,8 +141,7 @@ if(!isset($_SESSION['spar_usuario']))
               <div class="small-box bg-red">
                 <div class="inner">
                   <h3>3</h3>
-
-                  <p>Administrativo</p>
+                  <p>Cuadro</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-calculator"></i>
@@ -219,7 +157,7 @@ if(!isset($_SESSION['spar_usuario']))
               <div class="small-box bg-yellow">
                 <div class="inner">
                   <h3>4</h3>
-                  <p>Mantenimiento</p>
+                  <p>Cuadro</p>
                 </div>
                 <div class="icon">
                   <i class="ion-ios-paper-outline"></i>

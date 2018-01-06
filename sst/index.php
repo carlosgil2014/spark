@@ -75,7 +75,7 @@ if(isset($_SESSION['spar_usuario']))
                   </div>
                   <!-- /.col -->
                   <div class="col-xs-4">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">Entrar</button>
+                    <button type="submit" name="entrar" class="btn btn-primary btn-block btn-flat">Entrar</button>
                   </div>
                   <!-- /.col -->
                 </div>

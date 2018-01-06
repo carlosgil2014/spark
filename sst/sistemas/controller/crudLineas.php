@@ -32,13 +32,13 @@ class Controller {
 				case "alta":
 					require_once('../../model/sims.php');
 					$varSims = new sims();
-					$sims = $varSims->listar();
+					$sims = $varSims->listarSimActivas();
 					include_once("alta.php");
 					break;
 				case "modificar":
-				require_once('../../../model/almacenes.php');
-					$varAlmacen = new almacen();
-					$almacenes = $varAlmacen->listar();
+					require_once('../../model/sims.php');
+					$varSims = new sims();
+					$sims = $varSims->listarSimActivas();
 					$linea = $this->varLineas->informacion($_GET["id"]);
 					if(empty($linea))
 						header("Location: index.php?accion=index");
@@ -59,7 +59,7 @@ class Controller {
 
 				case "actualizar":
 						$id = $_GET["id"];
-						$resultado = $this->varLineas->actualizar($id,$_POST['linea'],$_POST["tipo"]);
+						$resultado = $this->varLineas->actualizar($id,$_POST['linea'],$_POST['simId'],$_POST["compararSim"],$_POST["idLinea"]);
 						$_SESSION["spar_error"] = $resultado;
 						if(isset($_SESSION["spar_error"]) && $_SESSION["spar_error"] === "OK"){
 							$clase = "success";
@@ -77,6 +77,11 @@ class Controller {
 					break;
 				default:
 					header("Location: index.php?accion=index");
+					break;
+
+				case "buscarICC":
+						$idLinea = $_GET["idLinea"];
+						$resultado = $this->varLineas->actualizar($id,$_POST['linea'],$_POST["tipo"]);
 					break;
 			}
 		}

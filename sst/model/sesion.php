@@ -3,6 +3,8 @@
 
 		public function ultimaActividad(){
 			session_start();
+
+			session_set_cookie_params(0, "/", $_SERVER["HTTP_HOST"], 0); 
 			/* Establecemos que las paginas no pueden ser cacheadas */
 			header("Expires: Tue, 01 Jul 2001 06:00:00 GMT");
 			header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");

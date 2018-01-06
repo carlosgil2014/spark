@@ -3,7 +3,7 @@
     <form id="formAgregar" method="POST" role="form" action="index.php?accion=guardar">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true" >&times;</button>
-        <h4 class="modal-title" id="myModalLabel"><b>Alta de asignacion </b></h4>
+        <h4 class="modal-title" id="myModalLabel"><b>Alta de lineas </b></h4>
       </div>
       <div class="modal-body">
         <div class="row">

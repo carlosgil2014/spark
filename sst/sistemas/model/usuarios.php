@@ -1,7 +1,5 @@
 <?php 
-	require_once('../../db/conectadb.php');
-
-	class usuarios
+class usuarios
 	{
  		protected $acceso;
  		protected $conexion;

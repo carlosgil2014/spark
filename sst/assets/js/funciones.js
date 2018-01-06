@@ -3,7 +3,7 @@ var minutos = 0, temporizador, cuentaRegresiva;
 $(document).ready(function (){
     // Incrementar la variable minutos cada minuto. 
     temporizador = setInterval(tiempoInactivo, 1000); // 1 segundo
-
+    // setInterval(validarSesion, 1000);
     //Reiniciar la variable minutos si hay actividad
     $(this).mousemove(function (e) {
         reiniciarTiempo();
@@ -38,6 +38,17 @@ function tiempoInactivo(){
         }
     }
 }
+
+// function validarSesion(){
+//     $.ajax({
+//         url: '/sst/view/index.php?accion=validarSesion',
+//         success:  function (data) {
+//             if(data == "Expiró"){
+//                 cerrarSesion();
+//             }
+//         },
+//     });
+// }
 
 function mostrarAlerta(){
     var min = 4, seg = 59;
