@@ -32,13 +32,13 @@ class Controller {
 				case "alta":
 					require_once('../../model/sims.php');
 					$varSims = new sims();
-					$sims = $varSims->listar();
+					$sims = $varSims->listarSimActivas();
 					include_once("alta.php");
 					break;
 				case "modificar":
-				require_once('../../../model/almacenes.php');
-					$varAlmacen = new almacen();
-					$almacenes = $varAlmacen->listar();
+					require_once('../../model/sims.php');
+					$varSims = new sims();
+					$sims = $varSims->listarSimActivas();
 					$linea = $this->varLineas->informacion($_GET["id"]);
 					if(empty($linea))
 						header("Location: index.php?accion=index");
@@ -59,7 +59,7 @@ class Controller {
 
 				case "actualizar":
 						$id = $_GET["id"];
-						$resultado = $this->varLineas->actualizar($id,$_POST['linea'],$_POST["tipo"]);
+						$resultado = $this->varLineas->actualizar($id,$_POST['linea'],$_POST['simId'],$_POST["compararSim"],$_POST["idLinea"]);
 						$_SESSION["spar_error"] = $resultado;
 						if(isset($_SESSION["spar_error"]) && $_SESSION["spar_error"] === "OK"){
 							$clase = "success";
@@ -74,6 +74,38 @@ class Controller {
 						$resultado = $this->varLineas->eliminar($id);
 						echo $resultado;
 						$_SESSION["spar_error"] = "Se eliminó correctamente la linea.";
+					break;
+				case "historial":
+					$movimientos = $this->varLineas->historial($_POST["id"]);
+					if(empty($movimientos)){
+						include_once("historial.php");
+						echo "No existen movimientos con la linea";
+					}
+					else{
+						include_once("historial.php");
+					}
+					break;
+				case "desbloquear":
+					$desbloqueos = $this->varLineas->desbloquear($_GET["id"]);
+					if(empty($desbloqueos)){
+						include_once("desbloqueo.php");
+						echo "No existen desbloqueos";
+					}
+					else{
+						include_once("desbloqueo.php");
+					}
+					break;
+				case "desbloquearLinea":
+					$linea = $_GET["linea"];
+					$folio = $_GET["folio"];
+					$desbloqueos = $this->varLineas->actualizarDesbloqueo($idLinea,$folio);
+					if(empty($desbloqueos)){
+						include_once("desbloqueo.php");
+						echo "No existen desbloqueos";
+					}
+					else{
+						include_once("desbloqueo.php");
+					}
 					break;
 				default:
 					header("Location: index.php?accion=index");

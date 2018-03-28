@@ -1,297 +1,281 @@
 <div class="modal-dialog modal-lg" role="document">
   <div class="modal-content">
-    <form id="formAgregar" method="POST" role="form" action="index.php?accion=guardar">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" >&times;</button>
-        <h4 class="modal-title" id="myModalLabel"><b>Agregar un nuevo perfil</b></h4>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-
-          <div class="panel-group" id="accordion">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h4 class="panel-title">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-                  1- Datos de perfil</a>
-                </h4>
+    <form id="formularioAgregar" role="form">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true" >&times;</button>
+      <h4 class="modal-title" id="myModalLabel"><b>Datos de un nuevo perfil</b></h4>
+    </div>
+    <div class="modal-body">
+            <div class="row">
+              <div class="form-group col-md-4">
+                <label class="control-label">Nombre de perfil</label>
+                <input type="text" class="form-control input-sm" name="Datos[nombrePerfil]" id="nombrePerfil" required>
               </div>
-              <div id="collapse1" class="panel-collapse collapse in">
-                <div class="panel-body">
-                    <div class="form-group col-md-3">
-                      <label class="control-label">Solicitante</label>
-                      <input type="text" class="form-control input-sm" maxlength="60" data-error="Es un campo obligatorio" name="Datos[solicitante]" required  id="solicitante" value="<?php echo $datosUsuario["nombre"];?>" readonly>
-                    </div>
-                    <input type="hidden" name="Datos[idSolicitante]" value="<?php echo $datosUsuario["numEmpleado"];?>">
-                    <div class="form-group col-md-3">
-                      <label class="control-label">Fecha de solicitud</label>
-                      <input type="text" class="form-control input-sm" maxlength="6" data-error="Es un campo obligatorio" name="Datos[fechaSolicitud]" required id="fechaSolicitud" value="<?php echo date("Y")."-".date("m")."-".date("d");?>" readonly> 
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label class="control-label">Puestos</label>
-                        <select class="form-control input-sm selectpicker" tabindex="2" name="Datos[puesto]" data-error="Es un campo obligatorio" data-live-search="true" required="required" id="puesto">
-                          <?php 
-                            foreach ($Puestos as $puesto){
-                          ?>                            
-                            <option <?php $puesto['idPuesto'] ?> value="<?php echo $puesto['idPuesto']?>"><?php echo $puesto['puesto'] ?> </option>';
-                          <?php
-                            }
-                          ?>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label class="control-label">Plan</label>
-                        <select class="form-control input-sm selectpicker" name="Datos[plan]" data-error="Es un campo obligatorio"  required="required" id="plan">                           
-                            <option value="fijo">Fijo</option>
-                            <option value="eventual">Eventual</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-2">
-                      <label class="control-label">Edad</label>
-                      <input type="number" class="form-control input-sm" maxlength="2" data-error="Es un campo obligatorio" name="Datos[edad]" required  id="edad">
-                    </div>
-                    <div class="form-group col-md-4">
-                      <label class="control-label">Sexo</label><br>
-                        <label>
-                          <input type="radio" name="Datos[sexo]" class="flat-red" checked value="hombre">
-                          Hombre
-                        </label>
-                        <label>
-                          <input type="radio" name="Datos[sexo]" class="flat-red" value="mujer">
-                          Mujer
-                        </label>
-                        <label>
-                          <input type="radio" name="Datos[sexo]" class="flat-red" value="indistinto">
-                          Indistinto
-                        </label>
-                    </div>
-                    <div class="form-group col-md-3">
-                      <label class="control-label">Escolaridad</label>
-                      <select class="form-control input-sm selectpicker" name="Datos[escolaridad]" data-error="Es un campo obligatorio" required="required" id="escolaridad">
-                            <?php 
-                              foreach ($perfiles as $perfil){
-                            ?>                            
-                              <option value="<?php echo $perfil['idEscolaridad']?>"><?php echo $perfil['escolaridad']?></option>';
-                            <?php
-                              }
-                            ?>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-3">
-                      <label class="control-label">Estado civil</label>
-                      <select class="form-control input-sm selectpicker" name="Datos[estadoCivil]" data-error="Es un campo obligatorio" required="required" id="estadoCivil">
-                          <option value="casado/a">Casado/a</option>
-                          <option value="comprometido/a">Comprometido/a</option>
-                          <option value="divorciado/a">Divorciado/a</option>
-                          <option value="soltero/a" selected="selected">Soltero/a</option>
-                          <option value="viudo/a">Viudo/a</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-3">
-                      <label class="control-label">Experiencia</label>
-                      <select class="form-control input-sm selectpicker" name="Datos[experiencia]" data-error="Es un campo obligatorio" required="required" id="experiencia">                           
-                            <option value="ninguna">ninguna</option>
-                            <option value="6 meses" selected="selected">6 meses</option>
-                            <option value="1 año">1 año</option>
-                            <option value="2 años">2 años</option>
-                            <option value="5 años">3 años</option>
-                      </select>
-                    </div>
-                    <div class="form-group col-md-3">
-                      <label class="control-label">Imagen</label>
-                        <select class="form-control input-sm selectpicker" name="imagen[]" multiple data-error="Es un campo obligatorio" data-live-search="true" required="required">                 
-                          <option value="presentable" selected="selected">Presentable</option>
-                          <option value="aseado" selected="selected">Aseado</option>
-                          <option value="traje">Traje</option>
-                          <option value="condicion saludable">Condicion saludable</option>
-                          <option value="sin tatuajes">Sin tatuajes</option>
-                          <option value="sin percing">Sin percing</option>
-                          <option value="sin expansiones">Sin expansiones</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-3">
-                      <label class="control-label">Talla</label>
-                      <select class="form-control input-sm selectpicker" name="Datos[talla]" data-error="Es un campo obligatorio" required="required" id="talla">                           
-                            <option value="indistinto">indistinto</option>
-                            <option value="5">5</option>
-                            <option value="7">7</option>
-                            <option value="9">9</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-3">
-                      <label class="control-label">Lo entrevista cliente</label><br>
-                        <label>
-                          <input type="radio" name="Datos[entrevista]" class="flat-red" checked value="si">
-                          si
-                        </label>
-                        <label>
-                          <input type="radio" name="Datos[entrevista]" class="flat-red" value="no">
-                          no
-                        </label>
-                    </div>
-                    <div class="form-group col-md-6">
-                      <label class="control-label">Conocimientos especificos</label>
-                        <select class="form-control input-sm selectpicker" name="conocimientos[]" multiple data-error="Es un campo obligatorio" data-live-search="true" required="required" id="conocimientos">             
-                          <option value="1" selected="selected">Promotora de tiendas departamentales</option>
-                          <option value="2" >Manejo de herramientas para captura via webo dispositivo</option>
-                          <option value="3">Promotoria en autoservicio y/o mayoreo</option>
-                          <option value="4" selected="selected">Manejo de celular touch</option>
-                        </select>
-                    </div>
-                    <style>
-                      textarea {
-                      resize: none;
-                    }
-                    </style>
-                    <div class="form-group col-md-6">
-                      <label>Otros</label>
-                      <textarea class="form-control" rows="3" placeholder="" name="Datos[otros]"></textarea>
-                    </div>  
+              <div class="form-group col-md-3">
+                <label class="control-label">Clientes</label>
+                <select class="form-control input-sm selectpicker" name="Datos[cliente]" data-live-search="true" required="required" id="escolaridad">
+                <?php 
+                  foreach ($clientes as $cliente){
+                ?>                            
+                  <option value="<?php echo $cliente['idclientes']?>"><?php echo $cliente['nombreComercial']?></option>';
+                <?php
+                  }
+                ?>
+                </select>
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Puesto</label>
+                <select class="form-control input-sm selectpicker" name="Datos[puesto]" data-error="Es un campo obligatorio" data-live-search="true" required id="puesto">
+                  <?php foreach ($puestos as $puesto) {
+                  ?>
+                  <option value="<?php echo $puesto['idPuesto']; ?>"><?php echo $puesto['nombre']; ?></option>
+                  <?php } ?>
+                </select>
+              </div>
+              <div class="form-group col-md-2">
+                  <label class="control-label">Sueldo (Diario)</label>
+                  <input type="number" class="form-control input-sm decimal" name="Datos[salario]" id="salario" min="0" step="0.01" pattern="^[0-9]+" required onkeypress="validarDecimalPositivo(this)">
+              </div>
+              <div class="form-group col-md-2">
+                <label class="control-label">Edad mínima</label>
+                <input type="number" class="form-control input-sm" maxlength="2" data-error="Es un campo obligatorio" name="Datos[edad]" required  id="edad" min="18" max="50">
+              </div>
+              <div class="form-group col-md-2">
+                <label class="control-label">Edad máxima</label>
+                <input type="number" class="form-control input-sm" maxlength="2" data-error="Es un campo obligatorio" name="Datos[edadMaxima]" required  id="edadMaxima" min="18" max="50">
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Sexo</label>
+                <select class="form-control input-sm selectpicker" name="Datos[sexo]" data-error="Es un campo obligatorio" required="required" id="sexo">
+                  <option value="Hombre">Hombre</option>
+                  <option value="Mujer">Mujer</option>
+                  <option value="Indistinto">Indistinto</option>
+                </select>
+              </div>
+              <!-- 
+              <div class="form-group col-md-2">
+                <label class="control-label">Opcional</label><br>
+                <label class="checkbox-inline">
+                  <input type="checkbox" name="Datos[opcional]" class="flat-red" value="indistinto">
+                  Indistinto
+                </label>
+              </div> -->
+              <div class="form-group col-md-3">
+                <label class="control-label">Escolaridad mínima</label>
+                <select class="form-control input-sm selectpicker" name="Datos[escolaridad]" data-error="Es un campo obligatorio" required="required" id="escolaridad">
+                <?php 
+                  foreach ($perfiles as $perfil){
+                ?>                            
+                  <option <?php if($perfil['escolaridad'] == 'Preparatoria'){ echo 'selected';} ?> value="<?php echo $perfil['idEscolaridad']?>"><?php echo $perfil['escolaridad']?></option>';
+                <?php
+                  }
+                ?>
+                </select>
+              </div>
+              <div class="form-group col-md-8">
+                <label class="control-label">Días trabajados  <i class="fa fa-pencil-square-o" onclick="diasSemana('semana');"></i> --- L-V ---<i class="fa fa-pencil-square-o" onclick="diasSemana('finSemana');"></i> --- S-D</label>
+                <div>
+                  <label class="checkbox-inline">
+                    <input type="checkbox" name="diasTrabajados[]" class="flat-red" checked value="Lunes" id="lunes">
+                    Lunes
+                  </label>
+                  <label class="checkbox-inline">
+                    <input type="checkbox" name="diasTrabajados[]" class="flat-red" checked value="Martes" id="martes">
+                    Martes
+                  </label>
+                  <label class="checkbox-inline">
+                    <input type="checkbox" name="diasTrabajados[]" class="flat-red" checked value="Miercoles" id="miercoles">
+                    Miércoles
+                  </label>
+                  <label class="checkbox-inline">
+                    <input type="checkbox" name="diasTrabajados[]" class="flat-red" checked value="Jueves" id="jueves">
+                    Jueves
+                  </label>
+                  <label class="checkbox-inline">
+                    <input type="checkbox" name="diasTrabajados[]" class="flat-red" checked value="Viernes" id="viernes">
+                    Viernes
+                  </label>
+                  <label class="checkbox-inline">
+                    <input type="checkbox" name="diasTrabajados[]" class="flat-red" value="Sabado" id="sabado">
+                    Sábado
+                  </label>
+                  <label class="checkbox-inline">
+                    <input type="checkbox" name="diasTrabajados[]" class="flat-red" value="Domingo" id="domingo">
+                    Domingo
+                  </label>
                 </div>
               </div>
-            </div>
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h4 class="panel-title">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-                  2- Propuesta</a>
-                </h4>
+              <div class="form-group col-md-2">
+                  <div class="bootstrap-timepicker">
+                      <label>Horario entrada</label>
+                      <div class="input-group">
+                        <input type="text" class="form-control timepicker"  id="entrada" name="horariosEntrada[]">
+                        <div class="input-group-addon">
+                          <i class="fa fa-clock-o"></i>
+                        </div>
+                      </div>
+                  </div>
               </div>
-              <div id="collapse2" class="panel-collapse collapse">
-                <div class="panel-body">
-                  <div class="form-group col-md-3">
-                    <div class="bootstrap-timepicker">
-                      <div class="form-group">
-                        <label>Horarios</label>
-                        <div class="input-group">
-                          <input type="text" class="form-control timepicker" name="horariosEntrada[]">
-                          <div class="input-group-addon">
-                            <i class="fa fa-clock-o"></i>
-                          </div>
-                        </div>
+              <div class="form-group col-md-2">
+                <div class="bootstrap-timepicker">
+                    <label>Horario salida</label>
+                    <div class="input-group">
+                      <input type="text" class="form-control timepicker"  id="salida" name="horariosSalida[]">
+                      <div class="input-group-addon">
+                        <i class="fa fa-clock-o"></i>
                       </div>
                     </div>
-                  </div>
-                  <div class="form-group col-md-3">
-                    <div class="bootstrap-timepicker">
-                      <div class="form-group">
-                        <label></label>
-                        <div class="input-group">
-                          <input type="text" class="form-control timepicker" name="horariosSalida[]">
-                          <div class="input-group-addon">
-                            <i class="fa fa-clock-o"></i>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group col-md-5">
-                    <label class="control-label">Dias trabajdos</label>
-                    <select class="form-control input-sm selectpicker diasTrabajados" name="diasTrabajados[]" multiple name="Datos[]" data-error="Es un campo obligatorio" required="required"  readonly>
-                      <option selected="selected">Lunes</option>
-                      <option selected="selected">Martes</option>
-                      <option selected="selected">Miércoles</option>
-                      <option selected="selected">Jueves</option>
-                      <option selected="selected">Viernes</option>
-                      <option>Sábado</option>
-                      <option>Domingo</option>
-                    </select>
-                  </div>
-                  <div class="form-group col-md-1">
-                    <a><i class="fa fa-plus agregarFila" style="cursor:pointer" onclick="agregarFila();" ></i></a>
-                  </div>
-                  <div id="prueba" class="form-group col-md-12">
-                  </div>
-                  <div class="form-group col-md-3">
-                    <label class="control-label">Sueldo</label>
-                    <input type="number" class="form-control input-sm" tabindex="1" maxlength="60" data-error="Es un campo obligatorio" name="Datos[sueldo]" required  id="sueldo" step="0.01" >
-                  </div>
-                  <div class="form-group col-md-3">
-                      <label class="control-label">Ayuda de auto</label><br>
-                        <label>
-                          <input type="radio" name="Datos[ayuda]" class="flat-red" checked value="si">
-                          si
-                        </label>
-                        <label>
-                          <input type="radio" name="Datos[ayuda]" class="flat-red" value="no">
-                          no
-                        </label>
-                  </div>
-                  <div class="form-group col-md-2">
-                      <label class="control-label">Prestaciones de ley</label><br>
-                        <label>
-                          <input type="radio" name="Datos[prestaciones]" class="flat-red" checked value="si">
-                          si
-                        </label>
-                        <label>
-                          <input type="radio" name="Datos[prestaciones]" class="flat-red" value="no">
-                          no
-                        </label>
-                  </div>
-                  <div class="form-group col-md-2">
-                      <label class="control-label">Uniforme</label><br>
-                        <label>
-                          <input type="radio" name="Datos[uniforme]" class="flat-red" checked value="si">
-                          si
-                        </label>
-                        <label>
-                          <input type="radio" name="Datos[uniforme]" class="flat-red" value="no">
-                          no
-                        </label>
-                  </div>
-                  <div class="form-group col-md-6">
-                      <label>Observaciones</label>
-                      <textarea class="form-control" rows="3" placeholder="" name="Datos[observaciones]"></textarea>
-                  </div>
-                  <div class="form-group col-md-6">
-                      <label class="control-label">Habilidades</label>
-                        <select class="form-control input-sm selectpicker" name="habilidades[]" multiple data-error="Es un campo obligatorio" data-live-search="true" required="required" id="habilidades">             
-                          <option value="facilidad de palabra" selected="selected">Facilidad de palabra</option>
-                          <option value="2">Buen negociador  para espacios adicionales</option>
-                          <option value="3">Ejecucion de la operacion en pdv</option>
-                          <option value="4">Actitud de servicio</option>
-                        </select>
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label>Evaluaciones</label><br>
-                    <label>
-                      <input type="checkbox" class="flat-red"  value="cleaver" name="personalidad[]"  checked id="cleaver">
-                      Cleaver
+                </div>
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Experiencia</label>
+                <select class="form-control input-sm selectpicker" name="Datos[experiencia]" data-error="Es un campo obligatorio" required="required" id="experiencia">                           
+                      <option value="1">Ninguna</option>
+                      <option value="2" selected="selected">6 meses</option>
+                      <option value="3">1 año</option>
+                      <option value="4">2 años</option>
+                      <option value="5">3 años o más</option>
+                </select>
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Estado civil</label>
+                <select class="form-control input-sm selectpicker" name="Datos[estadoCivil]" data-error="Es un campo obligatorio" required="required" id="estadoCivil">
+                    <option value="Casado/a">Casado/a</option>
+                    <option value="Comprometido/a">Comprometido/a</option>
+                    <option value="Divorciado/a">Divorciado/a</option>
+                    <option value="Soltero/a" selected="selected">Soltero/a</option>
+                    <option value="Viudo/a">Viudo/a</option>
+                    <option value="Indistinto">Indistinto</option>
+                  </select>
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Imagen</label>
+                  <select class="form-control input-sm selectpicker" name="imagen[]" multiple data-error="Es un campo obligatorio" data-live-search="true" required>                 
+                    <option value="Presentable" selected="selected">Presentable</option>
+                    <option value="Aseado" selected="selected">Aseado</option>
+                    <option value="Traje">Traje</option>
+                    <option value="Condición saludable">Condición saludable</option>
+                    <option value="Sin tatuajes">Sin tatuajes</option>
+                    <option value="Sin percing">Sin percing</option>
+                    <option value="Sin expansiones">Sin expansiones</option>
+                  </select>
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Talla</label>
+                <select class="form-control input-sm selectpicker" name="Datos[talla]" data-error="Es un campo obligatorio" required="required" id="talla">
+                      <option value="Indistinto">Indistinto</option>
+                      <option value="Chica">Chica</option>
+                      <option value="Mediana" selected="selected">Mediana</option>
+                      <option value="Grande">Grande</option>
+                  </select>
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Lo entrevista cliente</label>
+                  <div class="col-md-6">
+                    <label class="radio-inline">
+                      <input type="radio" name="Datos[entrevista]" class="flat-red" checked value="Si">
+                      Si
                     </label>
-                    <label>
-                      <input type="checkbox" class="flat-red" value="personalidad" name="personalidad[]" checked id="personalidad">
-                      Personalidad
+                  </div>
+                  <div class="col-md-6">
+                    <label class="radio-inline">
+                      <input type="radio" name="Datos[entrevista]" class="flat-red" value="No">
+                      No
                     </label>
-                    <label>
-                      <input type="checkbox" class="flat-red" value="excel" name="personalidad[]" checked id="excel">
-                      Excel
+                  </div>
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Conocimientos específicos</label>
+                <select class="form-control input-sm selectpicker" multiple  name="conocimientos[]" data-error="Es un campo obligatorio" data-live-search="true" required id="conocimiento">
+                  <option data-hidden="true" selected></option>
+                  <?php foreach ($conocimientos as $conocimiento) {
+                  ?>
+                  <option value="<?php echo $conocimiento['idConocimiento']; ?>"><?php echo $conocimiento['conocimiento']; ?></option>
+                  <?php } ?>
+                </select>
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Habilidades</label>
+                <select class="form-control input-sm selectpicker" name="habilidades[]" multiple data-error="Es un campo obligatorio" data-live-search="true"  id="habilidades">
+                  <option data-hidden="true" selected></option>
+                  <?php foreach ($habilidades as $habilidad) {?> 
+                  <option value="<?php echo $habilidad['idHabilidades']; ?>"><?php echo $habilidad['habilidad']; ?></option>
+                  <?php } ?>
+                </select>
+              </div> 
+              <div class="form-group col-md-3">
+                <label class="control-label">Evaluaciones</label>
+                <select class="form-control input-sm selectpicker" name="evaluaciones[]" multiple data-error="Es un campo obligatorio" data-live-search="true" required id="evaluaciones">
+                  <option  value="Cleaver" selected="selected">Cleaver</option>
+                  <option  value="Personalidad" selected="selected">Personalidad</option>
+                </select>                
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Paquetes o lenguajes</label>
+                <select class="form-control input-sm selectpicker" name="paquetesLenguajes[]" multiple data-error="Es un campo obligatorio" data-live-search="true" required id="paquetesLenguajes">
+                  <option data-hidden="true"></option>
+                  <option  value="Word" selected="selected">Word</option>
+                  <option  value="Excel" selected="selected">Excel</option>
+                  <option  value="Power point" selected="selected">Power point</option>
+                </select>                
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Prestaciones de ley</label>
+                <div class="col-md-6">
+                  <label class="radio-inline">
+                    <input type="radio" name="Datos[prestaciones]" class="flat-red" checked value="Si">
+                    Si
+                  </label>
+                </div>
+                <div class="col-md-6">
+                  <label class="radio-inline">
+                    <input type="radio" name="Datos[prestaciones]" class="flat-red" value="No">
+                    No
+                  </label>
+                </div>
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Ayuda de auto</label>
+                <div>
+                  <div class="col-md-6">
+                    <label class="radio-inline">
+                      <input type="radio" name="Datos[ayudaAuto]" class="flat-red" value="Si">
+                      Si
                     </label>
-                    <label>
-                      <input type="checkbox" class="flat-red" value="ppt" name="personalidad[]" checked id="ppt">
-                      PPT
+                  </div>
+                  <div class="col-md-6">
+                    <label class="radio-inline">
+                      <input type="radio" name="Datos[ayudaAuto]" class="flat-red" checked value="No">
+                      No
                     </label>
-                    <label>
-                      <input type="checkbox" class="flat-red" value="word" name="personalidad[]" checked id="word">
-                      Word
+                  </div>
+                </div>  
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Uniforme</label>
+                <div>
+                  <div class="col-md-6">
+                    <label class="radio-inline">
+                      <input type="radio" name="Datos[uniforme]" class="flat-red" value="Si">
+                      Si
                     </label>
-                    <label>
-                      <input type="checkbox" class="flat-red" value="otra" name="personalidad[]"  id="otra">
-                      Otra
+                  </div>
+                  <div class="col-md-6">
+                    <label class="radio-inline">
+                      <input type="radio" name="Datos[uniforme]" class="flat-red" checked value="No">
+                      No
                     </label>
                   </div>
                 </div>
               </div>
             </div>
-          </div>          
-
-        </div>
         <!-- /.col-md-12 -->
-      </div>
-      <div class="modal-footer">
-        <div  id="mensaje" ></div>
-        <button id="cerrar" type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button  type="submit" id="agregar" class="btn btn-success btn-sm">Agregar</button>
-      </div> 
+    </div>
+    <div class="modal-footer">
+      <div id="mensaje"></div>
+      <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      <button name="enviar" id="agregar" class="btn btn-success" >Agregar</button>
+    </div>
     </form>
   </div>
 </div>

@@ -70,8 +70,8 @@ if(!isset($_SESSION['spar_usuario']))
               </a>
             </li>
             <li>
-              <a style="cursor: pointer;" onclick="cargaMasiva();"> 
-                <i class="fa fa-plus"></i> <span>Carga masiva</span>
+              <a style="cursor: pointer;" onclick="agregarCliente();"> 
+                <i class="fa fa-plus"></i> <span>Agregar por cliente(cuenta)</span>
               </a>
             </li>
             <li>
@@ -93,7 +93,7 @@ if(!isset($_SESSION['spar_usuario']))
               <!-- Horizontal Form -->
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Asignaciones de linea</h3>
+                  <h3 class="box-title">Asignaciones de líneas</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body table-responsive">
@@ -112,11 +112,14 @@ if(!isset($_SESSION['spar_usuario']))
                     <thead>
                     <tr>
                       <th>Nombre</th>
-                      <th>Imei</th>
-                      <th>Sim</th>
-                      <th>Linea</th>
+                      <th>Línea</th>
+                      <th>Modelo</th>
+                      <th>Cuenta</th>
+                      <th>Estatus</th>
+                      <th>Estado</th>
                       <th></th>
                       <th></th>
+                      <!-- <th></th> -->
                     </tr>
                     </thead>
                     <tbody>
@@ -125,19 +128,39 @@ if(!isset($_SESSION['spar_usuario']))
                     ?>
                     <tr>
                       <td><?php echo ucwords(strtolower($asignacion["empleados_nombres"]." ".$asignacion["empleados_apellido_paterno"]." ".$asignacion["empleados_apellido_materno"]))?></td>
-                      <td><?php echo $asignacion["imei"]?></td>
-                      <td><?php echo $asignacion["icc"]?></td>
                       <td><?php echo $asignacion["linea"]?></td>
+                      <td><?php echo $asignacion["modelo"]?></td>
+                      <td><?php echo $asignacion["cliente"]?></td>
+                      <td><?php echo $asignacion["estatus"]?></td>
+                      <td><?php echo $asignacion["nombre"]?></td>
+                      <?php if($asignacion["estatus"]=="Activa"){?>
                       <td class = "text-center">
-                        <a style="cursor: pointer;" onclick="modificar('<?php echo $asignacion['idAsginaciones'];?>');">
+                        <a style="cursor: pointer;" onclick="modificar('<?php echo $asignacion['idAsignaciones'];?>');">
                           <i class="fa fa-pencil-square-o"></i>
                         </a>
-                      </td>                      
+                      </td>
                       <td class = "text-center">
-                        <a style="cursor: pointer;" onclick="eliminar('<?php echo $asignacion['idAsginaciones'];?>');">
+                        <a style="cursor: pointer;" onclick="historial('<?php echo $asignacion['idLinea'];?>');">
+                          <i class="fa fa-search text-red"></i>
+                        </a>
+                      </td>
+                      <?php }else{?>
+                      <td></td>
+                      <td class = "text-center">
+                        <a style="cursor: pointer;" onclick="historial('<?php echo $asignacion['idLinea'];?>');">
+                          <i class="fa fa-search text-red"></i>
+                        </a>
+                      </td>
+                      <?php
+                      }
+                      ?>
+                      <!--                       
+                      <td class = "text-center">
+                        <a style="cursor: pointer;" onclick="eliminar('<?php echo $asignacion['idAsignaciones'];?>');">
                           <i class="fa fa-trash-o text-red"></i>
                         </a>
                       </td>
+                      -->
                     </tr>
                     <?php
                     }
@@ -198,8 +221,8 @@ if(!isset($_SESSION['spar_usuario']))
     <!-- AdminLTE App -->
     <script src="../../../assets/js/app.min.js"></script>
     <!-- Funciones Generales -->
-    <!-- <script src="../../../assets/js/funciones.js"></script> -->
-        <!-- Bootstrap select js -->
+    <script src="../../../assets/js/funciones.js"></script>
+        <!-- Bootstrap select js --> 
     <script src="../../../assets/js/bootstrap/bootstrap-select.min.js"></script>
     <!-- Index Bancos -->
     <script src="../../js/V1/asignaciones/index.js"></script>

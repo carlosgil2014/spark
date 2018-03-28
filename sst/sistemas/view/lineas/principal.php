@@ -108,8 +108,10 @@ if(!isset($_SESSION['spar_usuario']))
                     <thead>
                     <tr>
                       <th>Lineas</th>
-                      <th>SIM</th>
+                      <th>ICC</th>
+                      <th>Estatus</th>
                       <th></th>
+                      <!--<th></th>-->
                       <th></th>
                     </tr>
                     </thead>
@@ -119,17 +121,43 @@ if(!isset($_SESSION['spar_usuario']))
                     ?>
                     <tr>
                       <td><?php echo $linea["linea"]?></td>
+                      <td><?php if( empty($linea["icc"]) ){ echo 'Sin ICC'; }else{ echo $linea["icc"]; }?></td>
+                      <td><?php if($linea["estatus"]=="Robada"){ echo "Bloqueada";
+                        ?>
+                        <a style="cursor: pointer;" onclick="desbloquear('<?php echo $linea['idLinea'];?>');">
+                          <i class="fa fa-unlock"></i>
+                        </a>
+                        <?php
+                          }else{
+                            echo "Activa";
+                          }
+                        ?>
+                      </td>
+                      <?php if($linea["estatus"]=="Robada"){?>
                       <td></td>
                       <td class = "text-center">
+                        <a style="cursor: pointer;" onclick="historial('<?php echo $linea['idLinea'];?>');">
+                          <i class="fa fa-search text-red"></i>
+                        </a>
+                      </td>
+                      <?php }else{?>
+                        <td class = "text-center">
                         <a style="cursor: pointer;" onclick="modificar('<?php echo $linea['idLinea'];?>');">
                           <i class="fa fa-pencil-square-o"></i>
                         </a>
                       </td>                      
-                      <td class = "text-center">
+                      <!--<td class = "text-center">
                         <a style="cursor: pointer;" onclick="eliminar('<?php echo $linea['idLinea'];?>');">
                           <i class="fa fa-trash-o text-red"></i>
                         </a>
+                      </td>-->
+                      <td class = "text-center">
+                        <a style="cursor: pointer;" onclick="historial('<?php echo $linea['idLinea'];?>');">
+                          <i class="fa fa-search text-red"></i>
+                        </a>
                       </td>
+                      <?php 
+                      }?>
                     </tr>
                     <?php
                     }
@@ -193,7 +221,7 @@ if(!isset($_SESSION['spar_usuario']))
         <!-- Bootstrap select js -->
     <script src="../../../assets/js/bootstrap/bootstrap-select.min.js"></script>
     <!-- Funciones Generales -->
-    <!-- <script src="../../../assets/js/funciones.js"></script> -->
+    <script src="../../../assets/js/funciones.js"></script>
     <!-- Index Bancos -->
     <script src="../../js/V1/lineas/index.js"></script>
   </body>

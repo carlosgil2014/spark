@@ -10,7 +10,7 @@ class perfiles
 
 	public function listar(){
 		$datos = array();
-		$consulta="SELECT v.IdPerfil, v.solicitante, v.fechaSolicitud, v.nombrePuesto, v.plan, v.edad, v.sexo, v.escolaridad, v.estadoCivil, v.experiencia, v.conocimientosEspecificos, v.imagen, v.talla, v.entrevistadoCliente, v.otro, v.jornadaInicio, v.descanso, v.horario, v.horarioTermino, v.sueldo, v.ayuda, v.prestacionesLey, v.uniforme, v.material, v.observaciones, v.funcionesGenerales, v.conocimientos, v.habilidades, v.cleaver, v.personalidad, v.excel, v.ppt, v.word, v.otra,s.empleados_nombres,s.empleados_apellido_paterno,s.empleados_apellido_materno FROM tblPerfiles v inner join spar_empleados s ON v.solicitante=s.empleados_id";
+		$consulta="SELECT p.idPerfil,p.fechaSolicitud, p.nombrePerfil, p.edad, p.sexo, p.escolaridad, p.estadoCivil, p.experiencia, p.imagen, p.talla, p.entrevistaCliente, p.conocimientosEspecificos, p.habilidades, p.evaluaciones,s.empleados_nombres,s.empleados_apellido_paterno,s.empleados_apellido_materno,cl.nombreComercial FROM spartodo_rh.tblPerfiles p left join spartodo_spar_bd.spar_empleados s on p.idSolicitante=s.empleados_id left join spartodo_spar_bd.tblClientes cl on cl.idclientes=p.idCliente";
 		$resultado = $this->conexion->query($consulta);
 		if($resultado){
 			while ($filaTmp = $resultado->fetch_assoc()) {
@@ -25,7 +25,7 @@ class perfiles
 
 	public function informacion($id){
 		$id = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($id))));
-			$consulta="SELECT s.idSalarios,s.cliente,s.salario,s.estado,s.puesto,Es.nombre,c.razonSocial,p.idPuesto FROM tblSalariosPuestos s inner join tblEstados Es ON Es.idestado=s.estado inner join tblClientes c ON c.idclientes=s.cliente inner join tblPuestos p ON p.idPuesto=s.puesto where s.idSalarios=$id";
+			$consulta="SELECT p.edad,p.edadMaxima,p.idPerfil,p.fechaSolicitud,p.nombrePerfil,p.sexo,p.escolaridad as perfilEscolaridad,p.estadoCivil,p.experiencia,p.talla,p.entrevistaCliente,p.conocimientosEspecificos,p.habilidades,p.evaluaciones,s.empleados_nombres,e.escolaridad,p.imagen,p.idCliente,p.idPuesto,p.salario,p.opcional,p.diasTrabajados,p.horarioEntrada,p.horarioSalida,p.prestacionesLey,p.ayudaAuto,p.paquetes,p.uniforme FROM spartodo_rh.tblPerfiles p left join spar_empleados s on p.idSolicitante=s.empleados_id left join spartodo_spar_bd.tblEscolaridad e on e.idEscolaridad=p.escolaridad WHERE p.idPerfil=$id";
 		$resultado = $this->conexion->query($consulta);
 		if($resultado){
 			return $resultado->fetch_assoc();
@@ -35,60 +35,91 @@ class perfiles
 		}
 	}
 
-		public function guardar($datos,$conocimientos,$horariosEntrada,$horariosSalida,$imagen,$habilidades,$personalidad){
+	public function guardar($datos,$conocimientos,$imagen,$habilidades,$evaluaciones,$idEmpleado,$paquetesLenguajes,$diasTrabajados,$horariosEntrada,$horariosSalida){
+		$idEmpleado = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($idEmpleado))));
+		$nombrePerfil = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["nombrePerfil"]))));
+		$puesto= $this->conexion-> real_escape_string(strip_tags(stripslashes(trim($datos["puesto"]))));
+		$salario = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["salario"]))));
+		$fechaSolicitud = date("Y-m-d H:i:s");
+		$edad = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["edad"]))));
+		$sexo = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["sexo"]))));
+		$escolaridad = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["escolaridad"]))));
+		$estadoCivil = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["estadoCivil"]))));
+		$experiencia = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["experiencia"]))));
+		$talla = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["talla"]))));
+		$entrevista = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["entrevista"]))));
+		$prestaciones = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["prestaciones"]))));
+		$ayudaAuto = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["ayudaAuto"]))));
+		$cliente = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["cliente"]))));
+		$edadMaxima = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["edadMaxima"]))));
+		$uniforme = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["uniforme"]))));
+		if(isset($datos["opcional"])){
+			$opcional = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["opcional"]))));
+		}else{
+			$opcional = NULL;
+		}
+		
 
-			$id = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["idSolicitante"]))));
-			$fechaSolicitud = $this->conexion-> real_escape_string(strip_tags(stripslashes(trim($datos["fechaSolicitud"]))));
-			$puesto = $this->conexion-> real_escape_string(strip_tags(stripslashes(trim($datos["puesto"]))));
-			$plan = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["plan"]))));
-			$edad = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["edad"]))));
-			$sexo = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["sexo"]))));
-			$escolaridad = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["escolaridad"]))));
-			$estadoCivil = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["estadoCivil"]))));
-			$experiencia = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["experiencia"]))));
-			$talla = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["talla"]))));
-			$entrevista = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["entrevista"]))));
-			$sueldo = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["sueldo"]))));
-			$ayuda = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["ayuda"]))));
-			$prestaciones = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["prestaciones"]))));
-			$uniforme = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["uniforme"]))));
-			
-			if(isset($datos["observaciones"]))
-			$observaciones = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["observaciones"]))));
-			else
-			$calle = NULL;
-			if(isset($datos["otros"]))
-			$otros = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["otros"]))));
-			else
-			$calle = NULL;
-
+		if(isset($diasTrabajados)){
+			$diasTrabajados1 = implode(",", $diasTrabajados);
+			$diasTrabajados1 = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($diasTrabajados1))));
+		}else{
+			$diasTrabajados1 = NULL;
+		}
+		if($paquetesLenguajes == ''){
+			$paqueteLenguaje = NULL;
+		}else{
+			$paqueteLenguaje = implode(",", $paquetesLenguajes);
+			$paqueteLenguaje = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($paqueteLenguaje))));
+		}
+		if($conocimientos == ''){
+			$conocimientos = NULL;
+		}else{
+			$conocimientos = array_slice($conocimientos, 1); 
 			$conocimiento = implode(",", $conocimientos);
+			$conocimientos = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($conocimiento))));
+		}if(isset($horariosEntrada)){
 			$entrada = implode(",", $horariosEntrada);
+			$horarioEntrada = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($entrada))));
+		}else{
+			$horarioEntrada = NULL;
+		}if(isset($horariosSalida)){
 			$salida = implode(",", $horariosSalida);
+			$HorarioSalida = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($salida))));
+		}else{
+			$HorarioSalida = NULL;
+		}if(isset($imagen)){
 			$imagenDescripcion = implode(",", $imagen);
+			$imagen = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($imagenDescripcion))));
+		}else{
+			$imagen = NULL;
+		}if($habilidades == ''){
+			$habilidad = NULL;
+		}else{
+			$habilidades = array_slice($habilidades, 1); 
 			$habilidad = implode(",", $habilidades);
-			$personalidad1 = implode(",", $personalidad);
-			echo $conocimiento,$entrada,$salida,$imagenDescripcion,$habilidad,$personalidad1;
-
-
+			$habilidad = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($habilidad))));
+		}if(isset($evaluaciones)){
+			$evaluacion1 = implode(",", $evaluaciones);
+			$evaluacion = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($evaluacion1))));
+		}else{
+			$evaluacion = NULL;
+		}
 		$errores = 0;
 		$errorResultado = "";
 
-		if (empty($id)) {
+		if (empty($idEmpleado)) {
 			$errores ++;
 			$errorResultado .= "El campo solicitante no puede estar vacío. <br>";
 		}if (empty($fechaSolicitud)) {
 			$errores ++;
 			$errorResultado .= "El campo fecha de solicitud no puede estar vacío. <br>";
-		}if (empty($puesto)) {
-			$errores ++;
-			$errorResultado .= "El campo puesto no puede estar vacío. <br>";
-		}if (empty($plan)) {
-			$errores ++;
-			$errorResultado .= "El campo plan no puede estar vacío. <br>";
 		}if (empty($edad)) {
 			$errores ++;
-			$errorResultado .= "El campo edad no puede estar vacío. <br>";
+			$errorResultado .= "El campo edad minima no puede estar vacío. <br>";
+		}if (empty($edadMaxima)) {
+			$errores ++;
+			$errorResultado .= "El campo edad maxima no puede estar vacío. <br>";
 		}if (empty($sexo)) {
 			$errores ++;
 			$errorResultado .= "El campo sexo no puede estar vacío. <br>";
@@ -101,41 +132,37 @@ class perfiles
 		}if (empty($experiencia)) {
 			$errores ++;
 			$errorResultado .= "El campo experiencia no puede estar vacío. <br>";
+		}if (empty($imagen)) {
+			$errores ++;
+			$errorResultado .= "El campo imagen no puede estar vacío. <br>";
 		}if (empty($talla)) {
 			$errores ++;
 			$errorResultado .= "El campo talla no puede estar vacío. <br>";
 		}if (empty($entrevista)) {
 			$errores ++;
 			$errorResultado .= "El campo entrevista no puede estar vacío. <br>";
-		}if (empty($otros)) {
+		}if (empty($salario)) {
 			$errores ++;
-			$errorResultado .= "El campo otros no puede estar vacío. <br>";
-		}if (empty($sueldo)) {
+			$errorResultado .= "El campo salario no puede estar vacío. <br>";
+		}if (empty($edadMaxima)) {
 			$errores ++;
-			$errorResultado .= "El campo sueldo no puede estar vacío. <br>";
-		}if (empty($ayuda)) {
-			$errores ++;
-			$errorResultado .= "El campo ayuda no puede estar vacío. <br>";
-		}if (empty($prestaciones)) {
-			$errores ++;
-			$errorResultado .= "El campo prestaciones no puede estar vacío. <br>";
+			$errorResultado .= "El campo edad maxima no puede estar vacío. <br>";
 		}if (empty($uniforme)) {
 			$errores ++;
-			$errorResultado .= "El campo uniforme no puede estar vacío. <br>";
-		}if (empty($observaciones)) {
+			$errorResultado .= "El campo uniforme maxima no puede estar vacío. <br>";
+		}if (empty($ayudaAuto)) {
 			$errores ++;
-			$errorResultado .= "El campo observaciones no puede estar vacío. <br>";
+			$errorResultado .= "El campo ayuda de auto no puede estar vacío. <br>";
 		}
 
 		if($errores === 0){
-			$consulta = "INSERT INTO `tblVacantes` (`IdVacante`, `nombre`, `apellidoPaterno`, `apellidoMaterno`, `fechaSolicitud`, `nombreVacante`, `plan`, `edad`, `sexo`, `escolaridad`, `estadoCivil`, `experiencia`, `conocimientosEspecificos`, `imagen`, `talla`, `entrevistadoCliente`, `otro`, `jornadaInicio`, `descanso`, `horario`, `horarioTermino`, `sueldo`, `ayuda`, `prestacionesLey`, `uniforme`, `material`, `observaciones`, `funcionesGenerales`, `conocimientos`, `habilidades`, `cleaver`, `personalidad`, `excel`, `ppt`, `word`, `otra`) VALUES (NULL, 'Jim', 'Morrison', 'Angus', '2017-11-27', 'Hey amigo', '1', '25', '1', 'universidad', '1', 'mucha', 'muchos', 'PRESENTABLE, ASEADO', '30.5', 'no', 'xxxxxx', '1,2,3,4,5', '6,7', '9:00', '6:00', '200.30', 'si', 'si', 'si', 'xxxxxx', 'pppppppp', 'aaaaaa', 'php,mysql', 'muchas', 'si', 'si', 'si', 'si', 'si', 'si'); LIMIT 1";
-			//echo $consulta;
+			$consulta = "INSERT INTO spartodo_rh.tblPerfiles (`idSolicitante`,`idPuesto`, `fechaSolicitud`, `nombrePerfil`, `salario`,`edad`, `edadMaxima`, `sexo`,`opcional`,`escolaridad`, `estadoCivil`,`diasTrabajados`,`horarioEntrada`,`horarioSalida`,`experiencia`, `imagen`, `talla`, `entrevistaCliente`, `conocimientosEspecificos`, `habilidades`,`evaluaciones`,`paquetes`,`ayudaAuto`,`prestacionesLey`,`idCliente`,`uniforme`) VALUES ($idEmpleado,$puesto,'$fechaSolicitud', '$nombrePerfil',$salario,$edad,'$edadMaxima','$sexo','$opcional','$escolaridad','$estadoCivil','$diasTrabajados1','$horarioEntrada','$HorarioSalida','$experiencia','$imagen','$talla','$entrevista','$conocimientos','$habilidad','$evaluacion','$paqueteLenguaje','$ayudaAuto','$prestaciones','$cliente','$uniforme')";
 				$resultado = $this->conexion -> query($consulta);
 			if($resultado){
 		  		if($this->conexion->affected_rows === 1)
 					return "OK";
 				else 
-					return "El salario ya existe para el puesto y la ciudad. <br>";
+					return "El perfil ya existe. <br>";
 			}
 			else{
 				return $this->conexion->errno . " : " . $this->conexion->error . "\n";
@@ -146,32 +173,128 @@ class perfiles
 		}
 	}
 
-	public function actualizar($id,$datos){
-			$cliente = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["cliente"]))));
-			$puesto = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["puesto"]))));
-			$estado = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["estado"]))));
-			$salario = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["salario"]))));
-
+	public function actualizar($datos,$conocimientos,$imagen,$habilidades,$evaluaciones,$idEmpleado,$paquetesLenguajes,$diasTrabajados,$horariosEntrada,$horariosSalida){
+		$idPerfil = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["idPerfil"]))));
+		$idEmpleado = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($idEmpleado))));
+		$nombrePerfil = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["nombrePerfil"]))));
+		$puesto= $this->conexion-> real_escape_string(strip_tags(stripslashes(trim($datos["puesto"]))));
+		$salario = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["salario"]))));
+		$fechaSolicitud = date("Y-m-d H:i:s");
+		$edad = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["edad"]))));
+		$sexo = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["sexo"]))));
+		$escolaridad = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["escolaridad"]))));
+		$estadoCivil = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["estadoCivil"]))));
+		$experiencia = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["experiencia"]))));
+		$talla = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["talla"]))));
+		$entrevista = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["entrevista"]))));
+		$prestaciones = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["prestaciones"]))));
+		$ayudaAuto = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["ayudaAuto"]))));
+		$cliente = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["cliente"]))));
+		$edadMaxima = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["edadMaxima"]))));
+		$uniforme = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["uniforme"]))));
+		if(isset($datos["opcional"])){
+			$opcional = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["opcional"]))));
+		}else{
+			$opcional = NULL;
+		}
+		if(isset($diasTrabajados)){
+			$diasTrabajados1 = implode(",", $diasTrabajados);
+			$diasTrabajados1 = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($diasTrabajados1))));
+		}else{
+			$diasTrabajados1 = NULL;
+		}
+		if($paquetesLenguajes == ''){
+			$paqueteLenguaje = NULL;
+		}else{
+			$paqueteLenguaje = implode(",", $paquetesLenguajes);
+			$paqueteLenguaje = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($paqueteLenguaje))));
+		}
+		if($conocimientos == ''){
+			$conocimientos = NULL;
+		}else{
+			$conocimientos = array_slice($conocimientos, 1); 
+			$conocimiento = implode(",", $conocimientos);
+			$conocimientos = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($conocimiento))));
+		}if(isset($horariosEntrada)){
+			$entrada = implode(",", $horariosEntrada);
+			$horarioEntrada = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($entrada))));
+		}else{
+			$horarioEntrada = NULL;
+		}if(isset($horariosSalida)){
+			$salida = implode(",", $horariosSalida);
+			$HorarioSalida = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($salida))));
+		}else{
+			$HorarioSalida = NULL;
+		}if(isset($imagen)){
+			$imagenDescripcion = implode(",", $imagen);
+			$imagen = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($imagenDescripcion))));
+		}else{
+			$imagen = NULL;
+		}if($habilidades == ''){
+			$habilidad = NULL;
+		}else{
+			$habilidades = array_slice($habilidades, 1); 
+			$habilidad = implode(",", $habilidades);
+			$habilidad = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($habilidad))));
+		}if(isset($evaluaciones)){
+			$evaluacion1 = implode(",", $evaluaciones);
+			$evaluacion = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($evaluacion1))));
+		}else{
+			$evaluacion = NULL;
+		}
 		$errores = 0;
 		$errorResultado = "";
 
-		if (empty($cliente)) {
+		if (empty($idEmpleado)) {
 			$errores ++;
-			$errorResultado .= "El cliente no puede estar vacío. <br>";
-		}if (empty($puesto)) {
+			$errorResultado .= "El campo solicitante no puede estar vacío. <br>";
+		}if (empty($fechaSolicitud)) {
 			$errores ++;
-			$errorResultado .= "El puesto no puede estar vacío. <br>";
-		}if (empty($estado)) {
+			$errorResultado .= "El campo fecha de solicitud no puede estar vacío. <br>";
+		}if (empty($edad)) {
 			$errores ++;
-			$errorResultado .= "El estado  no puede estar vacío. <br>";
+			$errorResultado .= "El campo edad minima no puede estar vacío. <br>";
+		}if (empty($edadMaxima)) {
+			$errores ++;
+			$errorResultado .= "El campo edad maxima no puede estar vacío. <br>";
+		}if (empty($sexo)) {
+			$errores ++;
+			$errorResultado .= "El campo sexo no puede estar vacío. <br>";
+		}if (empty($escolaridad)) {
+			$errores ++;
+			$errorResultado .= "El campo escolaridad no puede estar vacío. <br>";
+		}if (empty($estadoCivil)) {
+			$errores ++;
+			$errorResultado .= "El campo estado civil no puede estar vacío. <br>";
+		}if (empty($experiencia)) {
+			$errores ++;
+			$errorResultado .= "El campo experiencia no puede estar vacío. <br>";
+		}if (empty($imagen)) {
+			$errores ++;
+			$errorResultado .= "El campo imagen no puede estar vacío. <br>";
+		}if (empty($talla)) {
+			$errores ++;
+			$errorResultado .= "El campo talla no puede estar vacío. <br>";
+		}if (empty($entrevista)) {
+			$errores ++;
+			$errorResultado .= "El campo entrevista no puede estar vacío. <br>";
 		}if (empty($salario)) {
 			$errores ++;
-			$errorResultado .= "El campo salario  no puede estar vacío. <br>";
+			$errorResultado .= "El campo salario no puede estar vacío. <br>";
+		}if (empty($edadMaxima)) {
+			$errores ++;
+			$errorResultado .= "El campo edad maxima no puede estar vacío. <br>";
+		}if (empty($uniforme)) {
+			$errores ++;
+			$errorResultado .= "El campo uniforme maxima no puede estar vacío. <br>";
+		}if (empty($ayudaAuto)) {
+			$errores ++;
+			$errorResultado .= "El campo ayuda de auto no puede estar vacío. <br>";
 		}
 
-		if($errores === 0){
-			$consulta = "UPDATE tblSalariosPuestos a_b SET a_b.cliente = '$cliente',a_b.puesto = '$puesto',a_b.estado = '$estado',a_b.salario = '$salario' WHERE a_b.idSalarios = $id";
-			$resultado = $this->conexion -> query($consulta);
+		if($errores === 0){ 
+			$consulta = "UPDATE spartodo_rh.tblPerfiles a_b SET a_b.idPuesto='$puesto',a_b.idSolicitante=$idEmpleado,a_b.fechaSolicitud='$fechaSolicitud',a_b.nombrePerfil='$nombrePerfil',a_b.salario=$salario,a_b.edad=$edad,a_b.edadMaxima=$edadMaxima,a_b.sexo='$sexo',a_b.opcional='$opcional',a_b.escolaridad=$escolaridad,a_b.estadoCivil='$estadoCivil',a_b.diasTrabajados='$diasTrabajados1',a_b.horarioEntrada='$horarioEntrada',a_b.horarioSalida='$HorarioSalida',a_b.experiencia='$experiencia',a_b.imagen='$imagen',a_b.talla='$talla',a_b.entrevistaCliente='$entrevista',a_b.conocimientosEspecificos='$conocimientos',a_b.habilidades='$habilidad',a_b.evaluaciones='$evaluacion',a_b.paquetes='$paqueteLenguaje',a_b.ayudaAuto='$ayudaAuto',a_b.prestacionesLey='$prestaciones',a_b.idCliente=$cliente,a_b.uniforme='$uniforme' WHERE a_b.idperfil=$idPerfil";
+			$resultado = $this->conexion->query($consulta);
 			if($resultado){
 			  	if($this->conexion->affected_rows === 1)
 					return "OK";
@@ -191,11 +314,16 @@ class perfiles
 
 	public function eliminar($id){
 		$id = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($id))));
-		$fecha_actual=date("Y/m/d");
-		$consulta="DELETE FROM tblSalariosPuestos WHERE idSalarios=$id";
-		$resultado = $this->conexion->query($consulta);
+		$consultarPerfiles="SELECT * FROM spartodo_rh.tblVacantes v inner join spartodo_rh.tblPerfiles p on v.idPerfil = p.idPerfil where p.idPerfil = $id";
+		$resultado = $this->conexion->query($consultarPerfiles);		
 		if($resultado){
-			return "OK";
+			if($this->conexion->affected_rows >= 1){
+				return "No se puede eliminar este perfil esta asigando a una vacante.";
+			}else{
+				$consulta="DELETE FROM spartodo_rh.tblPerfiles WHERE idPerfil = $id";
+				$resultado2 = $this->conexion->query($consulta);
+				return "OK";
+			}
 		}
 		else{
 			return $this->conexion->errno . " : " . $this->conexion->error . "\n";
@@ -205,21 +333,6 @@ class perfiles
 	public function listarEscolaridad(){
 		$datos = array();
 		$consulta="SELECT e.idEscolaridad, e.escolaridad FROM tblEscolaridad e order by e.idEscolaridad";
-		$resultado = $this->conexion->query($consulta);
-		if($resultado){
-		while ($filaTmp = $resultado->fetch_assoc()) {
-			$datos [] = $filaTmp;
-		}
-			return $datos;
-		}
-		else{
-			echo $this->conexion->errno . " : " . $this->conexion->error . "\n";
-		}
-	}
-
-	public function listarEstadoCivil(){
-		$datos = array();
-		$consulta="SELECT e.idEstadoCivil, e.estadoCivil FROM tblEstadoCivil e ORDER BY e.estadoCivil";
 		$resultado = $this->conexion->query($consulta);
 		if($resultado){
 		while ($filaTmp = $resultado->fetch_assoc()) {
@@ -278,6 +391,23 @@ class perfiles
 		}
 	}
 		
+	public function cargarPerfiles($idCliente){
+		$idCliente = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim(base64_decode($idCliente)))));
+		$datos = array();
+		$consulta="SELECT p.idPerfil, p.nombrePerfil, p.salario FROM spartodo_rh.tblPerfiles p WHERE p.idCliente = '$idCliente' ORDER BY p.nombrePerfil";
+		$resultado = $this->conexion->query($consulta);
+		// echo $consulta;
+		if($resultado){
+			while ($filaTmp = $resultado->fetch_assoc()) {
+				$datos [] = $filaTmp;
+			}
+			return $datos;
+		}
+		elseif (!$this->conexion->query($consulta)) {
+   			echo $this->conexion->errno . " : " . $this->conexion->error . "\n";
+		}
+	}
+
 	public function __destruct() 
 	{
 		mysqli_close($this->conexion);

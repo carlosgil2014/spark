@@ -12,17 +12,17 @@
 			$contrasena = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($contrasena))));
 			if(!empty(trim($usuario))){
 				if(!empty(trim($contrasena))){
-					$consulta = "SELECT * FROM tblUsuarios WHERE usuarios_usuario = '$usuario'"; //Consulta si existe el usuario                   
+					$consulta = "SELECT * FROM tblUsuarios WHERE BINARY usuarios_usuario = '$usuario'"; //Consulta si existe el usuario                   
 		            $queryConsulta = $this->conexion -> query($consulta) or die($this->conexion->error);
 		            $resultado = $queryConsulta->fetch_assoc();
 					$filas = $queryConsulta->num_rows;
 						if($filas === 1){
-							$consulta = "SELECT * FROM tblUsuarios WHERE usuarios_usuario = '$usuario' "; // AND empleados_vigente = 1 Consulta si el usuario está activo                 
+							$consulta = "SELECT * FROM tblUsuarios WHERE BINARY usuarios_usuario = '$usuario' "; // AND empleados_vigente = 1 Consulta si el usuario está activo                 
 				            $queryConsulta = $this->conexion -> query($consulta) or die($this->conexion->error);
 				            $resultado = $queryConsulta->fetch_assoc();
 							$filas = $queryConsulta->num_rows;
 							if($filas === 1){			
-								$consulta = "SELECT * FROM tblUsuarios WHERE usuarios_usuario = '$usuario' and usuarios_contrasena = SHA1('$contrasena')"; //Consulta si existe el usuario con el usuarios_contrasena correcto                   
+								$consulta = "SELECT * FROM tblUsuarios WHERE BINARY usuarios_usuario = '$usuario' and usuarios_contrasena = SHA1('$contrasena')"; //Consulta si existe el usuario con el usuarios_contrasena correcto                   
 					            $queryConsulta = $this->conexion -> query($consulta) or die($this->conexion->error);
 					            $resultado = $queryConsulta->fetch_assoc();
 								$filas = $queryConsulta->num_rows;

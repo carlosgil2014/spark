@@ -124,14 +124,14 @@ if(!isset($_SESSION['spar_usuario']))
                                             <tr>
                                           <?php
                                             }  
-                                            $razonSocial = substr($cliente["razonSocial"],0,20);
-                                            if(strlen($cliente["razonSocial"])>20)
-                                              $razonSocial .= "...";
+                                            // $razonSocial = substr($cliente["razonSocial"],0,20);
+                                            // if(strlen($cliente["razonSocial"])>20)
+                                            //   $razonSocial .= "...";
                                           ?>
                                             <td class="<?php if(in_array($cliente["idclientes"],$usuariosClientes)){echo 'success';}else{echo 'danger';}?>" >
                                               <div class="checkbox">
                                                 <label>
-                                                  <input type="checkbox" class="checkCliente" name="Datos[clientes][]" value="<?php echo $cliente['idclientes']?>" <?php if(in_array($cliente["idclientes"],$usuariosClientes)){echo 'checked';}?> /><?php echo $razonSocial." (".$cliente["nombreComercial"].")";?>
+                                                  <input type="checkbox" class="checkCliente" name="Datos[clientes][]" value="<?php echo $cliente['idclientes']?>" <?php if(in_array($cliente["idclientes"],$usuariosClientes)){echo 'checked';}?> /><?php echo $cliente["nombreComercial"];?>
                                                 </label>
                                               </div>
                                             </td>

@@ -1,6 +1,7 @@
 <?php
-// if(!isset($_SESSION['spar_usuario']))
-//   header('Location: ../../index.html');
+    if(!isset($_SESSION['spar_usuario']))
+    header('Location: ../index.php');
+    //Poner sesiones principales 
 ?>
 <!DOCTYPE html>
 <html>
@@ -20,10 +21,14 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
   <!-- Iconos -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Morris charts -->
+  <link rel="stylesheet" href="../assets/css/morris/morris.css">
   <!-- Estilo del tema -->
   <link rel="stylesheet" href="../assets/css/AdminLTE.min.css">
   <!-- Poner la carpeta de estilo CSS a utilizar-->
   <link rel="stylesheet" href="../assets/css/_all-skins.min.css">
+  <!-- selected -->
+  <link rel="stylesheet" href="../assets/css/bootstrap/bootstrap-select.min.css">
   <!-- Soporte de elementos HTML5 para Respond.js, IE8 y media queries -->
   <!-- ADVERTENCIA: Respond.js no funcionará si se visualiza con IE 9:// -->
   <!--[if lt IE 9]>
@@ -35,7 +40,6 @@
     <div class="loader">
     </div>
     <div class="wrapper">
-
       <header class="main-header">
         <!-- Logo -->
         <a href="../index.php" class="logo">
@@ -49,30 +53,28 @@
           include_once("../view/includes/datosUsuario.php");
         ?>
       </header>
-  <!-- Columna del lado izquierdo. Contiene el logotipo y la barra lateral -->
-  <aside class="main-sidebar">
-    <!-- Barra lateral: Este estilo se puede encontrar en sidebar.less -->
-    <section class="sidebar">
-      <!-- Panel de usuario de la barra lateral -->
-      <?php 
-        include_once("../view/includes/menuIzquierdo.php");
-      ?>
-
-      <!-- Buscador -->
-      <!--<form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Buscar...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form> -->
-      <!-- Fin de Buscador -->
-
-      <!-- Comienza barra de menus: : Estilos encontrados en Less -->
-      <ul class="sidebar-menu">
-        <li class="treeview">
+      <!-- Columna del lado izquierdo. Contiene el logotipo y la barra lateral -->
+      <aside class="main-sidebar">
+        <!-- Barra lateral: Este estilo se puede encontrar en sidebar.less -->
+        <section class="sidebar">
+        <!-- Panel de usuario de la barra lateral -->
+        <?php 
+          include_once("../view/includes/menuIzquierdo.php");
+        ?>
+          <!-- Buscador -->
+          <!--<form action="#" method="get" class="sidebar-form">
+            <div class="input-group">
+              <input type="text" name="q" class="form-control" placeholder="Buscar...">
+                  <span class="input-group-btn">
+                    <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                    </button>
+                  </span>
+            </div>
+          </form> -->
+          <!-- Fin de Buscador -->
+          <!-- Comienza barra de menus: : Estilos encontrados en Less -->
+          <ul class="sidebar-menu">
+            <li class="treeview">
               <a href="../controller/crudIndex.php?urlValue=login">
                 <i class="fa fa-cog"></i> <span>Parámetros Generales</span>
                 <span class="pull-right-container">
@@ -80,81 +82,93 @@
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li><a href="view/salarios/index.php?accion=index"><i class="fa  fa-money"></i> Salarios</a></li>
-                <!-- 
-                <li><a href="view/categorias/index.php?accion=index"><i class="fa fa-tags"></i> Categorias</a></li>
-                <li><a href="view/clientes/index.php?accion=index"><i class="fa fa-users"></i> Clientes</a></li>
-                <li><a href="view/proveedores/index.php?accion=index"><i class="fa fa-cubes"></i> Proveedores</a></li>
-                <li><a href="view/representantes/index.php?accion=index"><i class="fa fa-male"></i> Representantes</a></li>
-                <li><a href="view/mensajerias/index.php?accion=index"><i class="fa fa-truck"></i> Mensajerías</a></li>
-                <li><a href="view/usuarios/index.php?accion=index"><i class="fa fa-user"></i> Usuarios</a></li>
-                <li><a href="view/regiones/index.php?accion=index"><i class="fa fa-tree"></i> Regiones</a></li>-->
+                <li><a href="view/conocimientos/index.php?accion=index"><i class="fa  fa-graduation-cap"></i> Conocimientos</a></li>
+                <li><a href="view/habilidades/index.php?accion=index"><i class="fa  fa-comment-o"></i> Habilidades</a></li>
+                <li><a href="view/presupuestos/index.php?accion=index"><i class="fa fa-calculator"></i> Presupuestos</a></li>
+                <li><a href="view/perfiles/index.php?accion=index"><i class="fa fa-user-plus"></i> Perfiles</a></li>
+                <!-- <li><a href="view/salarios/index.php?accion=index"><i class="fa  fa-money"></i> Salarios</a></li> -->
               </ul>
-        </li>
-        <li class="header">Contratacion</li>
+            </li>
             <!-- Find e la barra de separación entre menus -->
             <li class="treeview">
               <a href="#">
-                <i class="fa fa-cog"></i> <span>Módulo de Contratación</span>
+                <i class="fa fa-cog"></i> <span>Solicitudes de Empleo</span>
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li><a href="view/perfiles/index.php?accion=index"><i class="fa fa-user-plus"></i> Perfiles</a></li>
-                <li><a href="view/requisicion/index.php?accion=index"><i class="fa fa-user-plus"></i> Requisición</a></li>            
-                <li><a href="view/vacantes/index.php?accion=index"><i class="fa fa-user-plus"></i> Vacantes</a></li>
-                <li><a href="view/reclutamientos/index.php?accion=index"><i class="fa fa-users"></i> Reclutamiento</a></li>
-                <li><a href="#"><i class="fa fa fa-cogs"></i> Entrevistas</a></li>
-                <li><a href="#"><i class="fa fa fa-cogs"></i> Contratación</a></li>
-                <li><a href="#"><i class="fa fa fa-cogs"></i> Orgranigrama</a></li>
+                <li><a href="view/solicitudEmpleos/index.php?accion=index"><i class="fa fa-user-plus"></i>Principal</a></li>
               </ul>
-        </li>
-        <li class="treeview">
-          <a href="../controller/crudIndex.php?urlValue=login">
-            <i class="fa fa-cog"></i> <span>Empleados</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="view/prospectos/index.php?accion=alta"><i class="fa fa-user"></i>Alta-Empleado</a></li>
-            <li><a href="../controller/crudProspecto.php?accion=modificar"><i class="fa  fa-edit"></i>Editar-Empleado</a></li>
-          </ul>          
-        </li>
-        <li class="treeview">
-          <a href="../controller/crudIndex.php?urlValue=login">
-            <i class="fa fa-cog"></i> <span>Vacantes</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="../controller/crudVacantes.php?accion=index"><i class="fa fa-user"></i>Solicitud-Vacantes</a></li>
-            </ul>          
-        </li>
-        <li class="treeview">
-          <li><a href="../view/representantes/index.php?accion=index"><i class="fa fa-user"></i>Representante</a></li>
-        </li>
-
-        <!-- Barra de separación entre menus -->
-        <li class="header"></li>
-        <!-- Find e la barra de separación entre menus -->
-        
-        <li>
-          <a href="../index.php">
-            <i class="fa fa-hand-o-left"></i> <span>Regresar</span>
-            
-          </a>
-        </li>
-
-    </section>
-    <!-- Termina barra de menus -->
-  </aside>
-
+            </li>
+            <?php
+            if(isset($permisosVacantes["Principal"]) && $permisosVacantes["Principal"] === "1" ){
+            ?>
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-black-tie"></i> <span>Vacantes</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="view/vacantes/index.php?accion=index"><i class="fa fa-circle-o"></i> Principal</a></li>
+                <?php
+                if(isset($permisosVacantes["Procesar"]) && $permisosVacantes["Procesar"] === "1"){
+                ?>
+                <li><a href="view/vacantes/index.php?accion=indexProcesar"><i class="fa fa-spinner"></i> Procesar</a></li>
+                <?php
+                }
+                ?>
+              </ul>
+            </li>
+            <?php
+            }
+            ?>
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-black-tie"></i> <span>Prospectos</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="view/prospectos/index.php?accion=index"><i class="fa fa-circle-o"></i> Vacante</a></li>
+                <li><a href="view/prospectos/index.php?accion=indexProcesar"><i class="fa fa-spinner"></i> Perfil</a></li>
+                <li><a href="view/prospectos/index.php?accion=indexProcesar"><i class="fa fa-spinner"></i> Solicitudes</a></li>
+              </ul>
+            </li>
+            <!--
+            <li class="treeview">
+              <li><a href="../view/representantes/index.php?accion=index"><i class="fa fa-user"></i> Representante</a></li>
+            </li>
+          -->
+            <!-- <li class="treeview">
+              <a href="#">
+                <i class="fa fa-line-chart"></i> <span>Reportes</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="view/vacantes/index.php?accion=index"><i class="fa fa-calendar"></i> Semanal</a></li>
+              </ul>
+            </li> -->
+             
+            <!-- Barra de separación entre menus -->
+            <li class="header"></li>
+            <!-- Find e la barra de separación entre menus -->
+            <li>
+              <a href="../index.php">
+                <i class="fa fa-hand-o-left"></i> <span>Regresar</span>
+              </a>
+            </li>
+          </ul>
+        </section>
+        <!-- Termina barra de menus -->
+      </aside>
       <!-- Contenido de la página -->
       <div class="content-wrapper">
-
         <!-- Titulo para encabezado de la pantalla central -->
         <section class="content-header">
           <h1>
@@ -162,95 +176,69 @@
             <small></small>
           </h1>
           <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-sign-in"></i> Inicio</a></li>
+            <!-- <li><a href="#"><i class="fa fa-sign-in"></i> Inicio</a></li> -->
           </ol>
         </section>
         <!-- Main content -->
         <section class="content">
-          <!-- Small boxes (Stat box) -->
-          <div class="row">
-            <div class="col-lg-3 col-xs-6">
-              <!-- small box -->
-              <div class="small-box bg-aqua">
-                <div class="inner">
-                  <h3>1</h3>
-                  <p>Operaciones</p>
+          <!-- BAR CHART -->
+          <div class="box box-info">
+            <div class="box-header with-border">
+              <div class="col-md-6">
+                <div class="col-md-7">
+                  <small><?php echo "Elaboración: $calculado";?></small>
                 </div>
-                <div class="icon">
-                  <i class="fa fa-shopping-cart"></i>
+                <div class="col-md-5 text-center">
+                  <strong>Movimientos <?php echo $tmp;?></strong>
                 </div>
-                <a href="#" class="small-box-footer">
-                  Entrar <i class="fa fa-arrow-circle-right"></i>
-                </a>
+              </div>
+              <div class="col-md-6">
+                <form action="index.php?accion=index" method="POST">
+                  <div class="row">
+                    <div class="col-md-7">
+                      <select class="form-control input-sm selectpicker" data-style="btn-info btn-flat btn-sm" data-live-search="true" data-size="5" name="clientes[]" id="cliente" multiple="multiple" data-container="body"  data-live-search = "true" data-selected-text-format="count > 5">
+                        <?php
+                        foreach ($clientes as $cliente) {
+                        ?>
+                        <option value="<?php echo base64_encode($cliente['idclientes'])?>" <?php if(isset($tmpClientes)) if (in_array(base64_encode($cliente['idclientes']), array_column($tmpClientes, "idclientes"))) echo "selected";?>><?php echo $cliente["nombreComercial"];?></option>
+                        <?php 
+                        }
+                      ?> 
+                      </select>
+                    </div>
+                    <div class="col-md-3">
+                      <select class="form-control input-sm selectpicker" name="g">
+                        <option <?php if($txtBoton == "Diario") echo "selected";?>>Diario</option>
+                        <option <?php if($txtBoton == "Semanal") echo "selected";?>>Semanal</option>
+                        <option <?php if($txtBoton == "Mensual") echo "selected";?>>Mensual</option>
+                        <option <?php if($txtBoton == "Anual") echo "selected";?>>Anual</option>
+                      </select>
+                    </div>
+                    <div class="col-md-2">
+                      <button type="submit" class="btn btn-flat btn-info btn-sm btn-block"><i class="fa fa-fw fa-bar-chart"></i></button>
+                    </div>
+                  </div>
+                </form>
               </div>
             </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-xs-6">
-              <!-- small box -->
-              <div class="small-box bg-green">
-                <div class="inner">
-                  <h3>2<sup style="font-size: 20px"></sup></h3>
-                  <p>Finanzas</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-stats-bars"></i>
-                </div>
-                <a href="#" class="small-box-footer">
-                  Entrar <i class="fa fa-arrow-circle-right"></i>
-                </a>
+            <div class="box-body">
+              <div class="table-responsive">
+                <div id="bar-chart" ></div>
               </div>
             </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-xs-6">
-              <!-- small box -->
-              <div class="small-box bg-red">
-                <div class="inner">
-                  <h3>3</h3>
-
-                  <p>Administrativo</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-calculator"></i>
-                </div>
-                <a href="#" class="small-box-footer">
-                  Entrar <i class="fa fa-arrow-circle-right"></i>
-                </a>
-              </div>
-            </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-xs-6">
-              <!-- small box -->
-              <div class="small-box bg-yellow">
-                <div class="inner">
-                  <h3>4</h3>
-
-                  <p>Mantenimiento</p>
-                </div>
-                <div class="icon">
-                  <i class="ion-ios-paper-outline"></i>
-                </div>
-                <a href="#" class="small-box-footer">
-                  Entrar <i class="fa fa-arrow-circle-right"></i>
-                </a>
-              </div>
-            </div>
+            <!-- /.box-body -->
           </div>
-
-        <!-- ./col -->
-
+          <!-- /.box -->
+        </section>
       </div>
       <!-- /.content-wrapper -->
-
       <!-- Termina el contenido general de la página -->
-      
       <!-- Inicio del pie de página -->
-      <footer class="main-footer">
-        <div class="pull-right hidden-xs">
-          <b>Versión</b> 1.0.0
-        </div>
-        Todos los derechos reservados 2017 - <strong>Módulo Administrativo</strong> | Spar Todopromo, SAPI de C.V.
-      </footer>
-    <!-- Fin del pie de página -->
+      <?php
+      include_once("../view/includes/footer.php");
+      ?>
+      <!-- Fin del pie de página -->
+    </div>
     <!-- ./wrapper -->
     <!-- jQuery 2.2.3 -->
     <script src="../assets/js/jquery/jquery-2.2.3.min.js"></script>
@@ -258,9 +246,64 @@
     <script src="../assets/js/jquery/jquery-ui.js"></script>
     <!-- Bootstrap 3.3.6 -->
     <script src="../assets/js/bootstrap/bootstrap.min.js"></script>
+    <!-- Morris.js charts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="../assets/js/morris/morris.min.js"></script>
     <!-- AdminLTE App -->
     <script src="../assets/js/app.min.js"></script>
+    <!-- Bootstrap select js -->
+    <script src="../assets/js/bootstrap/bootstrap-select.min.js"></script>
     <!-- Index Módulo Administrativo -->
     <script src="js/V1/index.js"></script>
+    <script>
+      $(function () {
+        "use strict";
+        //BAR CHART
+        var bar = new Morris.Bar({
+          element: 'bar-chart',
+          data: [
+          <?php
+          $j = 0;
+          for($i = 1; $i <= count($ejeX); $i++) {
+            // echo $vacantes[$j]["ejeX"];
+            if(isset($vacantes[$j]["ejeX"])){
+              if($i == $vacantes[$j]["ejeX"]){
+                $tmpA = $vacantes[$j]["búsqueda"];
+                $tmpB = $vacantes[$j]["canceladas"];
+                $tmpC = $vacantes[$j]["cubiertas"];
+                $tmpD = $vacantes[$j]["proceso"];
+                $tmpE = $vacantes[$j]["solicitadas"];
+                $j++;
+              }
+              else{
+                $tmpA = 0;
+                $tmpB = 0;
+                $tmpC = 0;
+                $tmpD = 0;
+                $tmpE = 0;
+              }
+            }
+            else{
+              $tmpA = 0;
+              $tmpB = 0;
+              $tmpC = 0;
+              $tmpD = 0;
+              $tmpE = 0;
+            }
+          ?>
+            {y: '<?php echo $ejeX[$i];?>', a: <?php echo $tmpA;?>, b: <?php echo $tmpB;?>, c: <?php echo $tmpC;?>, d: <?php echo $tmpD;?>, e: <?php echo $tmpE;?>},
+          <?php
+          }
+          ?>
+          ],
+          // numLines: 5,
+          barColors: ['#00c0ef', '#dd4b39', '#00a65a', '#f39c12', '#3c8dbc'],
+          xkey: 'y',
+          ykeys: ['a', 'b', 'c', 'd', 'e'],
+          labels: ['Búsqueda', 'Canceladas', 'Cubiertas', 'Proceso', 'Solicitadas'],
+          hideHover: 'auto'
+        });
+      });
+    </script>
   </body>
 </html>

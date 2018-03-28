@@ -47,21 +47,33 @@ class Controller {
 					}
 					break;
 				case "guardar":
-						$almacen = $_POST["almacen"];
+						$nombre = $_POST["nombre"];
+						$ubicacion = $_POST["ubicacion"];
 						$tipo = $_POST["tipo"];
-						$resultado = $this->varAlmacen->guardar($almacen,$tipo);
+						$resultado = $this->varAlmacen->guardar($nombre,$tipo,$ubicacion);
 						$_SESSION["spar_error"] = $resultado;
-						header("Location: index.php?accion=index");
+						if(isset($_SESSION["spar_error"]) && $_SESSION["spar_error"] === "OK"){
+							$clase = "success";
+							$_SESSION["spar_error"] = "Se agregó el salario correctamente.";
+						}else
+						$clase = "danger";
+						header("Location: index.php?accion=index&clase=".$clase);
 
 					break;
 
 				case "actualizar":
 						$id = $_GET["id"];
-						$almacen = $_POST["almacen"];
+						$nombre = $_POST["nombre"];
+						$ubicacion = $_POST["ubicacion"];
 						$tipo = $_POST["tipo"];
-						$resultado = $this->varAlmacen->actualizar($id,$almacen,$tipo);
+						$resultado = $this->varAlmacen->actualizar($id,$nombre,$tipo,$ubicacion);
 						$_SESSION["spar_error"] = $resultado;
-						header("Location: index.php?accion=index");
+						if(isset($_SESSION["spar_error"]) && $_SESSION["spar_error"] === "OK"){
+							$clase = "success";
+							$_SESSION["spar_error"] = "Se modificó los datos correctamente.";
+						}else
+						$clase = "danger";
+						header("Location: index.php?accion=index&clase=".$clase);
 					break;
 				
 				case "eliminar":

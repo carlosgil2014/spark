@@ -2,6 +2,10 @@
 include_once("../../../db/conectadb.php");
 include_once("../../../model/sesion.php");
 include_once("../../../model/usuarios.php");
+include_once("../../../model/puestos.php");
+include_once("../../../model/clientes.php");
+include_once("../../model/conocimientos.php");
+include_once("../../model/habilidades.php");
 include_once("../../model/perfiles.php");
 
 class Controller {
@@ -11,8 +15,11 @@ class Controller {
         $this->varSesion = new sesion();
         $this->varUsuario = new usuarios();
         $this->varPerfil = new perfiles();
-
-    } 
+		$this->varConocimientos = new conocimientos();
+		$this->varPuestos = new puestos();
+		$this->varClientes = new clientes();
+		$this->varHabilidades = new habilidades();
+    }
 	
 	public function principal()
 	{
@@ -31,58 +38,56 @@ class Controller {
 					break;
 
 				case "alta":
-						include_once("../../../administrativo/model/representantes.php");
-						$varRepresentantes = new representantes();
-						$Puestos = $varRepresentantes->listarPuestos();
-						$perfiles = $this->varPerfil->listarEscolaridad();
-						$estadoCivil = $this->varPerfil->listarEstadoCivil();
-						var_dump($perfiles);
-						include_once("alta.php");
+					$conocimientos = $this->varConocimientos->listar();
+					$puestos = $this->varPuestos->listar();
+					$clientes = $this->varClientes->listar();
+					$habilidades = $this->varHabilidades->listar();
+					$perfiles = $this->varPerfil->listarEscolaridad();
+					include_once("alta.php");
 					break;
 
 				case "modificar":
-					include_once("../../../administrativo/model/representantes.php");
-					$varRepresentantes = new representantes();
-					$puestos = $varRepresentantes->listarPuestos();
-					$Clientes = $this->varSalarios->listarClientes();
-					$Estados = $this->varSalarios->listarEstados();
-					$salario = $this->varSalarios->informacion($_GET["id"]);
-					var_dump($salario);
-					if(empty($salario))
+					$conocimientos = $this->varConocimientos->listar();
+					$puestos = $this->varPuestos->listar();
+					$clientes = $this->varClientes->listar();
+					$habilidades = $this->varHabilidades->listar();
+					$escolaridades = $this->varPerfil->listarEscolaridad();
+					$perfil = $this->varPerfil->informacion($_GET["id"]);
+					if(empty($perfil)){
 						header("Location: index.php?accion=index");
+					}
 					else{
 						include_once("modificar.php");
 					}
 					break;
 
 				case "guardar":
-						$resultado = $this->varPerfil -> guardar($_POST["Datos"],$_POST["conocimientos"],$_POST["horariosEntrada"],$_POST["horariosSalida"],$_POST["imagen"],$_POST["habilidades"],$_POST["personalidad"]);
-						$_SESSION["spar_error"] = $resultado;
-						if(isset($_SESSION["spar_error"]) && $_SESSION["spar_error"] === "OK"){
-							$clase = "success";
-							//$_SESSION["spar_error"] = "Se agregó el salario correctamente.";
-						}else
-						$clase = "danger";
-						//header("Location: index.php?accion=index&clase=".$clase);
+					$resultado = $this->varPerfil -> guardar($_POST["Datos"],$_POST["conocimientos"],$_POST["imagen"],$_POST["habilidades"],$_POST["evaluaciones"],$datosUsuario["idEmpleado"],$_POST["paquetesLenguajes"],$_POST["diasTrabajados"],$_POST["horariosEntrada"],$_POST["horariosSalida"]);
+					echo $resultado;
+					$_SESSION["spar_error"] = "Se agregó el perfil correctamente.";
 					break;
 
 				case "actualizar":
-						$id = $_GET["id"];
-						$resultado = $this->varSalarios->actualizar($id,$_POST["Datos"]);
+					$resultado = $this->varPerfil->actualizar($_POST["Datos"],$_POST["conocimientos"],$_POST["imagen"],$_POST["habilidades"],$_POST["evaluaciones"],$datosUsuario["idEmpleado"],$_POST["paquetesLenguajes"],$_POST["diasTrabajados"],$_POST["horariosEntrada"],$_POST["horariosSalida"]);
+					if($resultado == "OK") {
+						$_SESSION["spar_error"] = "Se modificó el perfil correctamente.";	
+					}else{
 						$_SESSION["spar_error"] = $resultado;
-						if(isset($_SESSION["spar_error"]) && $_SESSION["spar_error"] === "OK"){
-							$clase = "success";
-							$_SESSION["spar_error"] = "Se modificó los datos correctamente.";
-						}else
-						$clase = "danger";
-						header("Location: index.php?accion=index&clase=".$clase);
+					}
+					echo $resultado;
 					break;
 
 				case "eliminar":
-						$idRepresentante = $_POST["idRepresentante"];
-						$resultado = $this->varRepresentantes -> eliminar($idRepresentante);
-						echo $resultado;
-						$_SESSION["spar_error"] = "Se eliminó correctamente el salario.";
+					$id = $_POST["id"];
+					$resultado = $this->varPerfil -> eliminar($id);
+						if ($resultado == "OK") {
+							$_SESSION["spar_error"] = "Registro eliminado correctamente.";	
+						}else{
+							$clase = "danger";
+							$_SESSION["spar_error"] = $resultado;
+						}
+					echo $resultado;
+					//$_SESSION["spar_error"] = "Se eliminó correctamente el perfil.";
 					break;
 
 				default:

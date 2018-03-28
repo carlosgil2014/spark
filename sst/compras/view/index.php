@@ -1,6 +1,6 @@
 <?php
 if(!isset($_SESSION['spar_usuario']))
-    header('Location: ../../view/index.php?accion=login');
+    header('Location: ../view/index.php?accion=login');
 ?>
 <!DOCTYPE html>
 <html>
@@ -9,7 +9,7 @@ if(!isset($_SESSION['spar_usuario']))
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="robots" content="noindex, nofollow">
   <meta name="description" content="Plantilla general para el desarrollo de los módulos del Sistema Spar Todopromo SST">
-  <meta name="author" content="Maria de los Angeles Malagon, Salvador Luna, Victor Nava y Gerardo Medina">
+  <meta name="author" content="">
   <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
   <title>Sistema Spar Todopromo | Spar México</title>
   <!-- Indicadores para respuestas de la plantilla -->
@@ -32,8 +32,7 @@ if(!isset($_SESSION['spar_usuario']))
   <![endif]-->
 </head>
   <body class="hold-transition skin-blue sidebar-mini">
-    <div class="loader">
-    </div>
+    
     <div class="wrapper">
       <header class="main-header">
         <!-- Logo -->
@@ -67,7 +66,7 @@ if(!isset($_SESSION['spar_usuario']))
           </a>
           <ul class="treeview-menu">
             <li>
-              <a href="view/requisiciones/index.php?accion=alta">
+              <a href="#">
                 <i class="fa fa-clipboard"></i>
                 <span>Crear requisición</span>
                 <span class="pull-right-container">
@@ -76,7 +75,7 @@ if(!isset($_SESSION['spar_usuario']))
               </a>
             </li>    
             <li>
-              <a href="view/requisiciones/index.php?accion=index">
+              <a href="#">
                 <i class="fa fa-files-o"></i>
                 <span>Ver requisiciones</span>
                 <span class="pull-right-container">
@@ -86,7 +85,7 @@ if(!isset($_SESSION['spar_usuario']))
             </li>
           </ul>
         </li>
-            <li><a href="view/pagos/index.php?accion=index"><i class="fa fa-money"></i> Pagos</a></li>
+            <li><a href="#"><i class="fa fa-money"></i> Pagos</a></li>
         
         <li class="treeview">
           <a href="#">
@@ -97,7 +96,7 @@ if(!isset($_SESSION['spar_usuario']))
           </a>
           <ul class="treeview-menu">
             <li>
-              <a href="view/requisiciones/index.php?accion=alta">
+              <a href="view/ordenCompra/index.php?accion=index">
                 <i class="fa fa-clipboard"></i>
                 <span>Crear orden de compra</span>
                 <span class="pull-right-container">
@@ -106,7 +105,7 @@ if(!isset($_SESSION['spar_usuario']))
               </a>
             </li>    
             <li>
-              <a href="view/requisiciones/index.php?accion=index">
+              <a href="view/ordenCompra/index.php?accion=">
                 <i class="fa fa-files-o"></i>
                 <span>Ver ordenes de compra</span>
                 <span class="pull-right-container">
@@ -253,6 +252,6 @@ if(!isset($_SESSION['spar_usuario']))
     <!-- AdminLTE App -->
     <script src="../assets/js/app.min.js"></script>
     <!-- Index Módulo Administrativo -->
-    <script src="js/V1/index.js"></script>
+    <script src="../js/V1/index.js"></script>
   </body>
 </html>

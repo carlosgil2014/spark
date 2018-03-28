@@ -1,4 +1,4 @@
 $(function()
 {
-	$(".loader").fadeOut("slow");
+	$("#compras").DataTable();
 });

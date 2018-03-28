@@ -33,25 +33,49 @@ class Controller {
 					require_once("../../model/celular.php");
 					$varCelular = new CelularModel();
 					$imeis = $varCelular->listarImeis();
-					require_once("../../model/sims.php");
-					$varSims = new sims();
-					$sims = $varSims->listarSim();
+					require_once("../../../model/estados.php");
+					$varEstsdos = new estados();
+					$estados = $varEstsdos->listar();
 					require_once("../../model/lineas.php");
 					$varLineas = new lineas();
 					$lineas = $varLineas->listarLineas();
 					$administrativos = $this->varAsignaciones->listarAdmon();
+					$cuentas = $this->varAsignaciones->listarCuentas();
 					include_once("alta.php");
 					break;
-				case "modificar":
+				case "altaPorClientes":
+					require_once("../../../model/estados.php");
+					$varEstsdos = new estados();
+					$estados = $varEstsdos->listar();
 					require_once("../../model/celular.php");
 					$varCelular = new CelularModel();
 					$imeis = $varCelular->listarImeis();
-					require_once("../../model/sims.php");
-					$varSims = new sims();
-					$sims = $varSims->listarSim();
+					require_once("../../../model/cuentas.php");
+					$varCuentas = new cuentas();
+					$cuentas = $varCuentas->listar();
+					require_once("../../../model/estados.php");
+					$varEstsdos = new estados();
+					$estados = $varEstsdos->listar();
 					require_once("../../model/lineas.php");
 					$varLineas = new lineas();
 					$lineas = $varLineas->listarLineas();
+					$administrativos = $this->varAsignaciones->listarAdmon();
+					$cuentas = $this->varAsignaciones->listarCuentas();
+					include_once("altaPorCliente.php");
+					break;
+				case "modificar":
+					require_once("../../../model/estados.php");
+					$varEstsdos = new estados();
+					$estados = $varEstsdos->listar();
+					require_once("../../model/celular.php");
+					$varCelular = new CelularModel();
+					$imeis = $varCelular->listarImeis();
+					require_once("../../model/lineas.php");
+					$varLineas = new lineas();
+					$lineas = $varLineas->listarLineas();
+					require_once("../../../model/cuentas.php");
+					$varCuentas = new cuentas();
+					$cuentas = $varCuentas->listar();
 					$asignaciones = $this->varAsignaciones->informacion($_GET["id"]);
 					$administrativos = $this->varAsignaciones->listarAdmon();
 					if(empty($asignaciones))
@@ -60,24 +84,63 @@ class Controller {
 						include_once("modificar.php");
 					}
 					break;
+				case "historial":
+					$movimientos = $this->varAsignaciones->historial($_POST["id"]);
+					if(empty($movimientos)){
+						include_once("historial.php");
+						echo "No existen movimientos con ese asignaciones";
+					}
+					else{
+						include_once("historial.php");
+					}
+					break;
 				case "guardar":
-						$resultado = $this->varAsignaciones->guardar($_POST["Datos"]);
-						$_SESSION["spar_error"] = $resultado;
+						$idEstado = $_POST["idEstado"];
+						$linea = $_POST["linea"];
+						$responsable = $_POST['responsable'];
+						$imei = $_POST['imei'];
+						$cuenta = $_POST['cuenta'];
+						$resultado = $this->varAsignaciones->guardar($linea,$responsable,$imei,$cuenta,$idEstado);
+						echo $resultado;
+					break;
+				case "guardar2":
+						$linea = $_POST["linea"];
+						$responsable = $_POST['responsable'];
+						$imei = $_POST['imei'];
+						$cuenta = $_POST['cuenta'];
+						$idEstado = $_POST['idEstado'];
+						$resultado = $this->varAsignaciones->guardar($linea,$responsable,$imei,$cuenta,$idEstado);
+						echo $resultado;
+						 $_SESSION["spar_error"] = $resultado;
 						if(isset($_SESSION["spar_error"]) && $_SESSION["spar_error"] === "OK"){
 							$clase = "success";
-							$_SESSION["spar_error"] = "Se asigno correctamente el imei.";
+							$_SESSION["spar_error"] = "Se asigno correctamente.";
 						}else
 						$clase = "danger";
 						header("Location: index.php?accion=index&clase=".$clase);
 					break;
-
 				case "actualizar":
+						$usuario = $_POST['usuario'];
+						$icc = $_POST['icc'];
+						$compararIdEstado = $_POST['compararIdEstado'];
+						$idEstado = $_POST['idEstado'];
+						$compararLinea = $_POST['compararLinea'];
+						$compararImei = $_POST['compararImei'];
+						$compararResponsable = $_POST['compararResponsable'];
+						$compararCuenta = $_POST['compararCuenta'];
+						$compararEstado = $_POST['compararEstado'];
 						$id= $_GET['id'];
-						$resultado = $this->varAsignaciones->actualizar($id,$_POST["Datos"]);
-						$_SESSION["spar_error"] = $resultado;
+						$linea = $_POST["linea"];
+						$responsable = $_POST['responsable'];
+						$imei = $_POST['imei'];
+						$cuenta = $_POST['cuenta'];
+						$estado = $_POST['estado'];
+						$resultado = $this->varAsignaciones->actualizar($compararLinea,$compararImei,$compararResponsable,$compararCuenta,$compararEstado,$id,$linea,$responsable,$imei,$cuenta,$estado,$idEstado,$compararIdEstado,$usuario,$compararIdICC);
+						echo $resultado;
+						 $_SESSION["spar_error"] = $resultado;
 						if(isset($_SESSION["spar_error"]) && $_SESSION["spar_error"] === "OK"){
 							$clase = "success";
-							$_SESSION["spar_error"] = "Se modificó los datos correctamente.";
+							$_SESSION["spar_error"] = "Se modifico correctamente.";
 						}else
 						$clase = "danger";
 						header("Location: index.php?accion=index&clase=".$clase);

@@ -81,77 +81,86 @@
           <!-- Find e la barra de separación entre menus -->
 
         <ul class="sidebar-menu">
-          <li class="treeview">
-            <a href="../controller/crudIndex.php?urlValue=login">
-              <i class="fa fa-file-text-o"></i> <span>Consultas</span>
+          <li>
+            <a href="#"><i class="fa fa-file-o"></i> Consultas
               <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="view/consultas/index.php?accion=index"><i class="fa fa-tablet"></i> Celulares / Tabletas</a></li>
-              <li><a href="#"><i class="fa fa-desktop"></i> Equipos de cómputo</a></li>
-              <li><a href="#"><i class="fa fa-file-text-o"></i> Cartas responsivas</a></li>
-              <li><a href="#"><i class="fa fa-user-secret"></i> Robos / Extravíos</a></li>
-              <li><a href="view/contrasenias/index.php?accion=index"><i class="fa fa-asterisk"></i> Contraseñas</a></li>
+            <li><a href="view/contratos/index.php?accion=index"><i class="fa fa-search"></i>Consulta</a></li>
+              <li><a href="view/contratos/index.php?accion=agregar"><i class="fa fa-user"></i>Nuevo Contrato</a></li>
+              <li><a href="#"><i class="fa fa-user"></i>Lineas</a></li>
+              <li><a href="#"><i class="fa fa-user"></i>Asignaciones</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="view/consultas/index.php?accion=index">
+              <!--<i class="fa fa-file-text-o"></i><span>Consultas</span>-->
+            </a>
+          </li>
 
+          <li>
+            <a href="#"><i class="fa fa-cubes"></i> Inventario
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li>
+                <a href="#"><i class="fa-mobile-phone (alias)"></i> Telefonìa celular
+                  <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li><a href="view/celulares/index.php?accion=index"><i class="fa-mobile-phone"></i> Equipos</a></li>
+                  <li><a href="view/sims/index.php?accion=index"><i class="fa fa-dedent"></i> Sims (ICC)</a></li>
+                  <li><a href="view/lineas/index.php?accion=index"><i class="fa fa-dedent"></i> Lìneas</a></li>
+                </ul>
+              </li>
+              <li>
+                <a href="#"><i class="fa fa-users"></i> Equipos de oficina
+                  <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li><a href="#"><i class="fa fa-tv"></i> Monitores</a></li>
+                  <li><a href="#"><i class="fa fa-keyboard-o"></i>  Teclados</a></li>
+                  <li><a href="#"><i class="ion-mouse"></i>  Mouse</a></li>
+                  <li><a href="#"><i class="fa fa-print"></i>  Impresoras</a></li>
+                  <li><a href="#"><i class="ion-mouse"></i>  Otros</a></li>
+                  <li><a href="#"><i class="fa fa-tablet"></i> Tablets</a></li>
+                  <li><a href="#"><i class="fa fa-laptop"></i> Laptops</a></li>
+                  <li><a href="#"><i class="fa fa-desktop"></i> Computadoras</a></li>
+                  <li><a href="#"><i class="fa fa-print"></i> Impresoras</a></li>
+                  <li><a href="#"><i class="fa fa-tty"></i> Teléfonos</a></li>
+                </ul>
+              </li>
+              <li><a href="#"><i class="fa fa-windows"></i>Software</a></li>
+              <li><a href="#"><i class="fa fa-wrench"></i>Herramientas</a></li>
             </ul>
           </li>
 
-        <li class="treeview">
-            <a href="#">
-              <i class="fa fa-tablet"></i> <span>Celulares / Tabletas</span>
+          <li>
+            <a href="#"><i class="fa fa-plus"></i> Asignaciones
               <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
-              
+              <li><a href="view/asignaciones/index.php?accion=index"><i class="fa fa-user"></i> Por Usuario</a></li>
               <li>
-                <a href="#"><i class="fa fa-plus"></i> Asignaciones
+                <a href="#"><i class="fa fa-users"></i> Por cliente
                   <span class="pull-right-container">
                     <i class="fa fa-angle-left pull-right"></i>
                   </span>
                 </a>
                 <ul class="treeview-menu">
-                  <li><a href="view/asignaciones/index.php?accion=index"><i class="fa fa-user"></i> Por Usuario</a></li>
-                  <li>
-                    <a href="#"><i class="fa fa-users"></i> Por cliente
-                      <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                      </span>
-                    </a>
-                    <ul class="treeview-menu">
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Bic</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Concha y Toro</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Digrans</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> eCommerce</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Gridimex</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Herdez</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Malta Cleyton</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Rekitt Benckiser</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Sanfer</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Sony</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> VCT Asesores</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Walmart</a></li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-
-              <li>
-                <a href="#"><i class="fa fa-retweet"></i> Renovaciones
-                  <span class="pull-right-container">
-                    <i class="fa fa-angle-left pull-right"></i>
-                  </span>
-                </a>
-                <ul class="treeview-menu">
-                  <li><a href="#"><i class="fa fa-user"></i> Administrativas</a></li>
                   <li><a href="#"><i class="fa fa-suitcase"></i> Bic</a></li>
                   <li><a href="#"><i class="fa fa-suitcase"></i> Concha y Toro</a></li>
                   <li><a href="#"><i class="fa fa-suitcase"></i> Digrans</a></li>
-                  <li><a href="#"><i class="fa fa-user"></i> Directiva I</a></li>
-                  <li><a href="#"><i class="fa fa-user"></i> Directiva II</a></li>
                   <li><a href="#"><i class="fa fa-suitcase"></i> eCommerce</a></li>
                   <li><a href="#"><i class="fa fa-suitcase"></i> Gridimex</a></li>
                   <li><a href="#"><i class="fa fa-suitcase"></i> Herdez</a></li>
@@ -161,112 +170,37 @@
                   <li><a href="#"><i class="fa fa-suitcase"></i> Sony</a></li>
                   <li><a href="#"><i class="fa fa-suitcase"></i> VCT Asesores</a></li>
                   <li><a href="#"><i class="fa fa-suitcase"></i> Walmart</a></li>
-                  <li>
-                    <ul class="treeview-menu">
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Bic</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Concha y Toro</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Digrans</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> eCommerce</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Gridimex</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Herdez</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Malta Cleyton</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Rekitt Benckiser</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Sanfer</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Sony</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> VCT Asesores</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Walmart</a></li>
-                    </ul>
-                  </li>
                 </ul>
               </li>
-              <li><a href="#"><i class="fa fa-cube"></i> Stock</a></li>
             </ul>
           </li>
-
-        <li class="treeview">
-            <a href="#">
-              <i class="fa fa-desktop"></i> <span>Computadoras</span>
-              <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-
-              <li>
-                <a href="#"><i class="fa fa-plus"></i> Asignaciones
-                  <span class="pull-right-container">
-                    <i class="fa fa-angle-left pull-right"></i>
-                  </span>
-                </a>
-                <ul class="treeview-menu">
-                  <li><a href="#"><i class="fa fa-user"></i> Por Usuario</a></li>
-                  <li>
-                    <a href="#"><i class="fa fa-users"></i> Por cliente
-                      <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                      </span>
-                    </a>
-                    <ul class="treeview-menu">
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Bic</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Concha y Toro</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Digrans</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> eCommerce</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Gridimex</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Herdez</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Malta Cleyton</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Rekitt Benckiser</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Sanfer</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Sony</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> VCT Asesores</a></li>
-                      <li><a href="#"><i class="fa fa-suitcase"></i> Walmart</a></li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-
-              <li><a href="#"><i class="fa fa-cube"></i> Stock</a></li>
-            </ul>
-          </li>
-
-         
-          <li class="treeview">
-            <a href="../controller/crudIndex.php?urlValue=login">
-              <i class="fa fa-cubes"></i> <span>Inventario</span>
-              <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="view/celulares/index.php?accion=index"><i class="fa fa-mobile"></i> Celulares</a></li>
-              <li><a href="#"><i class="fa fa-tablet"></i> Tablets</a></li>
-              <li><a href="view/sims/index.php?accion=index"><i class="fa fa-dedent"></i> SIMs</a></li>
-              <li><a href="view/lineas/index.php?accion=index"><i class="fa fa-dedent"></i> Lineas</a></li>
-              <li><a href="#"><i class="fa fa-tv"></i> Monitores</a></li>
-              <li><a href="#"><i class="fa fa-keyboard-o"></i> Teclados</a></li>
-              <li><a href="#"><i class="ion-mouse"></i>  Mouses</a></li>
-              <li><a href="#"><i class="fa fa-laptop"></i> Laptops</a></li>
-              <li><a href="#"><i class="fa fa-desktop"></i> Computadoras</a></li>
-              <li><a href="#"><i class="fa fa-windows"></i> Licencias</a></li>
-              <li><a href="#"><i class="fa fa-print"></i> Impresoras</a></li>
-              <li><a href="#"><i class="fa fa-tty"></i> Teléfonos</a></li>
-              <li><a href="#"><i class="fa fa-wrench"></i> Herramienta</a></li>
-            </ul>
-          </li>
-
-
 
           <!-- Barra de separación entre menus -->
   <!--         <li class="header"></li> -->
           <!-- Find e la barra de separación entre menus -->
 
-  <!--         <li class="treeview">
+          <li class="treeview">
             <a href="#">
-              <i class="fa fa-street-view"></i> <span>Solicitar Vacantes</span>
+              <i class="fa fa-street-view"></i> <span>Parámetros del Sistema</span>
               <span class="pull-right-container">
                 <i class="fa fa-angle-right"></i>
               </span>
+              <ul class="treeview-menu">
+                  <li><a href="../index.php?accion=alta"><i class="fa fa-suitcase"></i> Alta de Perfíl</a></li>
+                <li>
+                  <a href="#"><i class="fa fa-users"></i> Administracion de lineas
+                    <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu">
+                    <li><a href="#"><i class="fa fa-suitcase"></i> Por usuario</a></li>
+                    <li><a href="#"><i class="fa fa-suitcase"></i> Por cliente</a></li>
+                  </ul>
+                </li>
+              </ul>
             </a>
-          </li>-->
+          </li>
 
                   <!-- Barra de separación entre menus -->
           <li class="header"></li>

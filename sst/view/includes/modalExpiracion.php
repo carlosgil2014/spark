@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal modal-info" id="modalExpiracion" role="dialog">
+<div class="modal modal-info" id="mensajeCapitalia" role="dialog">
     <div class="modal-dialog modal-sm">
         <!-- Modal content-->
         <div class="modal-content">

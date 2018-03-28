@@ -128,45 +128,47 @@ if(!isset($_SESSION['spar_usuario']))
                   if(isset($datosPrefacturas))
                   {
                   ?>
-                  <div class="table-responsive container-fluid row">
-                    <table id="tblPrefacturas" class="table table-bordered table-striped small">
-                      <thead>
-                        <tr>
-                          <th>Folio</th>
-                          <th>Fecha</th>
-                          <th>Servicio</th>
-                          <th>Total</th>
-                          <th>Disponible</th>
-                          <th>OS's</th>
-                          <th>DV's</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php 
-                        foreach($datosPrefacturas as $prefactura){
-                        ?>
-                        <tr>
-                          <td><?php echo "PF-".$prefactura["clave"]."-".$prefactura["anio"]."-".$prefactura["nprefactura"];?></td>
-                          <td><?php echo date_format(date_create($prefactura["fechaInicial"]),"d-m-Y");?></td>
-                          <td><?php echo $prefactura["servicio"];?></td>
-                          <td class="text-center">$ <?php echo number_format($prefactura["cantidad"]*$prefactura["precioUnitario"]*(1+($prefactura["comision"]/100)),2);?></td>
-                          <td class="text-center">$ <?php echo number_format($prefactura["saldoAnticipado"],2);?></td>
-                          <td class = "text-center">
-                            <a style="cursor:pointer;" onclick="detalleConcepto('<?php echo $prefactura['idprefactura'];?>','<?php echo $prefactura['idprefacturaconcepto'];?>');">
-                              <i class="fa fa-search"></i>
-                            </a>
-                          </td>
-                          <td class = "text-center">
-                            <a style="cursor:pointer;" onclick="agregar('<?php echo $prefactura['idprefactura'];?>','<?php echo $prefactura['idprefacturaconcepto'];?>',<?php echo $prefactura["saldoAnticipado"];?>);">
-                              <i class="fa fa-mail-reply-all"></i>
-                            </a>
-                          </td>
-                        </tr>
-                        <?php
-                        }
-                        ?>
-                      </tbody>
-                    </table>
+                  <div class="row">
+                    <div class="table-responsive container-fluid">
+                      <table id="tblPrefacturas" class="table table-bordered table-striped small">
+                        <thead>
+                          <tr>
+                            <th>Folio</th>
+                            <th>Fecha</th>
+                            <th>Servicio</th>
+                            <th>Total</th>
+                            <th>Disponible</th>
+                            <th>OS's</th>
+                            <th>DV's</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php 
+                          foreach($datosPrefacturas as $prefactura){
+                          ?>
+                          <tr>
+                            <td><?php echo "PF-".$prefactura["clave"]."-".$prefactura["anio"]."-".$prefactura["nprefactura"];?></td>
+                            <td><?php echo date_format(date_create($prefactura["fechaInicial"]),"d-m-Y");?></td>
+                            <td><?php echo $prefactura["servicio"];?></td>
+                            <td class="text-center">$ <?php echo number_format($prefactura["cantidad"]*$prefactura["precioUnitario"]*(1+($prefactura["comision"]/100)),2);?></td>
+                            <td class="text-center">$ <?php echo number_format($prefactura["saldoAnticipado"],2);?></td>
+                            <td class = "text-center">
+                              <a style="cursor:pointer;" onclick="detalleConcepto('<?php echo $prefactura['idprefactura'];?>','<?php echo $prefactura['idprefacturaconcepto'];?>');">
+                                <i class="fa fa-search"></i>
+                              </a>
+                            </td>
+                            <td class = "text-center">
+                              <a style="cursor:pointer;" onclick="agregar('<?php echo $prefactura['idprefactura'];?>','<?php echo $prefactura['idprefacturaconcepto'];?>',<?php echo $prefactura["saldoAnticipado"];?>);">
+                                <i class="fa fa-mail-reply-all"></i>
+                              </a>
+                            </td>
+                          </tr>
+                          <?php
+                          }
+                          ?>
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                   <?php 
                   }

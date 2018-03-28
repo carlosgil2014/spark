@@ -150,12 +150,17 @@
         <?php 
         }
         ?>
-        </li>
         <!-- Barra de separación entre menus -->
         <li class="header"></li>
         <!-- Find e la barra de separación entre menus -->
-        
-
+        <li class="treeview">
+          <a href="../tmp/index.php?accion=index">
+            <i class="fa fa-male"></i> <span>Temporal</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-right"></i>
+            </span>
+          </a>
+        </li>
         <li>
           <a href="index.php?accion=logout">
             <i class="fa fa-power-off"></i> <span> Salir</span>

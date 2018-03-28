@@ -85,7 +85,6 @@ class Controller {
 					break;
 					case "buscarRfc":
 						$validarRfc = $this->varRepresentantes -> rfc($_GET["rfc"]);
-
 						if( !empty($validarRfc) ){
 							echo json_encode($validarRfc);
 						}else{
@@ -96,7 +95,6 @@ class Controller {
 
 					case "buscarRfcNoVigente":
 						$validarRfc = $this->varRepresentantes -> rfcNoVigente($_GET["rfc"]);
-
 						if( !empty($validarRfc) ){
 							echo json_encode($validarRfc);
 						}else{

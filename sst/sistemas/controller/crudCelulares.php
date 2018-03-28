@@ -45,34 +45,62 @@ class Controller {
 					}
 					break;
 				case "modificar":
+					$id_celular = $_POST["id"];
 					require_once('../../../model/almacenes.php');
 					$varAlmacen = new almacen();
-					$almacene = $varAlmacen->listar();
-					$id_celular = $_POST["id"];					
+					$almacenes = $varAlmacen->listar();
+					$IdCelularAsignaciones = $this->celular->informacion($id_celular);					
 					$resultado = $this->celular->informacion($id_celular);
 					$marcas = $this->celular->listarMarcas();
-					$modelos = $this->celular->listarModelos($resultado["marca"]);
+					$modelos = $this->celular->listarModelos($resultado["idMarca"]);
 					include_once("modificar.php");
 					break;
 				case "guardar":
-						$marca = $_POST['marca'];
 						$model = $_POST['modelo'];
 						$imei = $_POST['imei'];
 						$tipo = $_POST['tipo'];
-						$resultado = $this->celular->guardar($marca,$model,$imei,$tipo);
+						$usuario = $_POST['usuario'];
+						$resultado = $this->celular->guardar($model,$imei,$tipo,$usuario);
 						$_SESSION["spar_error"] = $resultado;
-					break;
-
+						if(isset($_SESSION["spar_error"]) && $_SESSION["spar_error"] === "OK"){
+							$clase = "success";
+							$_SESSION["spar_error"] = "Se agregó el celular correctamente.";
+						}else
+						$clase = "danger";
+						echo $resultado;
+						header("Location: index.php?accion=index&clase=".$clase);
+						break;
 				case "actualizar":
-						$id_celular = $_GET['id']; 
-						$marca = $_POST['marca'];
+						$id_celular = $_GET['id'];
+						$idAlmacenHistorial = $_POST['idAlmacenHistorial'];
+						$idEstado = $_POST['idEstado'];
 						$model = $_POST['modelo'];
 						$imei = $_POST['imei'];
 						$tipo = $_POST['tipo'];
-						$resultado = $this->celular->actualizar($id_celular,$marca,$model,$imei,$tipo);
+						$usuario = $_POST['usuario'];
+						$estado = $_POST['estado'];
+						// crear metodo que obtiene el ultimo id de celular aignaciones para insertar en la tabal de asignaciones
+						$utlimoIdAsignaciones= $this->celular->seleccionarIdUltimoCelular($id_celular);
+						$resultado = $this->celular->actualizar($id_celular,$model,$imei,$tipo,$usuario,$estado,$idAlmacenHistorial,$idEstado,$utlimoIdAsignaciones);
 						echo $resultado;
 						$_SESSION["spar_error"] = $resultado;
-						header("Location: index.php?accion=index");
+						if(isset($_SESSION["spar_error"]) && $_SESSION["spar_error"] === "OK"){
+							$clase = "success";
+							$_SESSION["spar_error"] = "Se modificó los datos correctamente.";
+						}else
+						$clase = "danger";
+						header("Location: index.php?accion=index&clase=".$clase);
+					break;
+				case "historial":
+					echo $_POST["id"];
+					$movimientos = $this->celular->historial($_POST["id"]);
+					if(empty($movimientos)){
+						include_once("historial.php");
+						echo "No existen movimientos con ese SIM";
+					}
+					else{
+						include_once("historial.php");
+					}
 					break;
 				case "eliminar":
 						$id_celular = $_POST["id"];
@@ -81,7 +109,7 @@ class Controller {
 					$_SESSION["spar_error"] = "Registro eliminado correctamente.";
 					break;
 				case "listarmodelos":
-							$idMarca = $GET["marca"];
+						$idMarca = $GET["marca"];
 						$listarModelo = $this->celular->listarModelos($idMarca);
 				break;
 				case "buscarLinea":
