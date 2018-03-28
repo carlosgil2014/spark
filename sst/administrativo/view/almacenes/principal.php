@@ -94,19 +94,22 @@ if(!isset($_SESSION['spar_usuario']))
                 <!-- /.box-header -->
                 <div class="box-body table-responsive">
                   <?php if(!isset($_SESSION["spar_error"])){$estilo = "style='display:none;'";}else{$estilo = "";}?>
-                  <div class="form-group" id="div_alert" <?php echo $estilo;?>>
-                    <div class="col-md-4 col-md-offset-4">
-                      <div class="alert alert-<?php echo $clase;?>" >
-                        <strong>¡Aviso!</strong> <a onclick="cerrar('div_alert')" href="#" class="pull-right"><i class="fa fa-close"></i></a>
-                        <br><p id="p_alert"><?php if(isset($_SESSION["spar_error"]))echo $_SESSION["spar_error"];?></p>
+                  <div class="row">
+                    <div class="form-group" id="div_alert" <?php echo $estilo;?>>
+                      <div class="col-md-4 col-md-offset-4">
+                        <div class="alert alert-<?php echo $_GET['clase'];?>" >
+                          <strong>¡Aviso!</strong> <a onclick="cerrar('div_alert')" href="#" class="pull-right"><i class="fa fa-close"></i></a>
+                          <br><p id="p_alert"><?php if(isset($_SESSION["spar_error"]))echo $_SESSION["spar_error"];?></p>
+                        </div>
                       </div>
                     </div>
                   </div>
                   <table id="tblAlmacenes" class="table table-bordered table-striped small">
                     <thead>
                     <tr>
-                      <th>Almacén</th>
                       <th>Tipo</th>
+                      <th>Nombre</th>
+                      <th>ubicacion</th>
                       <th></th>
                       <th></th>
                     </tr>
@@ -116,8 +119,9 @@ if(!isset($_SESSION['spar_usuario']))
                     foreach($almacenes as $almacen){
                     ?>
                     <tr>
-                      <td><?php echo $almacen["nombre"]?></td>
                       <td><?php echo $almacen["tipo"]?></td>
+                      <td><?php echo $almacen["nombre"]?></td>
+                      <td><?php echo $almacen["ubicacion"]?></td>
                       <td class = "text-center">
                         <a style="cursor: pointer;" onclick="modificar('<?php echo $almacen['idAlmacen'];?>');">
                           <i class="fa fa-pencil-square-o"></i>
@@ -192,8 +196,8 @@ if(!isset($_SESSION['spar_usuario']))
     <script src="../../../assets/js/input-mask/jquery.inputmask.js"></script>
     <!-- Bootstrap select js -->
     <script src="../../../assets/js/bootstrap/bootstrap-select.min.js"></script>
-    <!-- Funciones <script src="../../../assets/js/funciones.js"></script> Generales -->
-    
+    <!-- Funciones Generales -->
+    <script src="../../../assets/js/funciones.js"></script>
     <!-- Index almacens -->
     <script src="../../js/V1/almacenes/index.js"></script>
   </body>

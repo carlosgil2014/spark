@@ -11,7 +11,7 @@
 
    		public function listar(){
    			$datos = array();
-   			$consulta="SELECT d.idUsuario,d.region,d.idDirectorio as id ,d.telefono,d.telefonoSecundario,d.telefonoExtencion,d.telefonoAlterno,d.telefonoCasa,e.empleados_nombres,e.empleados_apellido_paterno,e.empleados_apellido_materno,p.puesto,e.empleados_correo,p.idPuesto,Rg.region FROM tblDirectorio d inner JOIN spar_empleados e ON d.idUsuario=e.empleados_id LEFT JOIN tblUsuarios u ON e.empleados_id=u.usuarios_empleados_id LEFT JOIN tblPuestos p on e.empleados_puesto=p.idPuesto LEFT JOIN tblEstados Es on e.empleados_estado=Es.idestado INNER JOIN tblRegiones Rg ON Es.region=Rg.idRegion where e.empleados_vigente=1";
+   			$consulta="SELECT d.idUsuario,d.region,d.idDirectorio as id ,d.telefono,d.telefonoSecundario,d.telefonoExtencion,d.telefonoAlterno,d.telefonoCasa,e.empleados_nombres,e.empleados_apellido_paterno,e.empleados_apellido_materno,p.puesto,e.empleados_correo,p.idPuesto,Rg.region FROM tblDirectorio d inner JOIN spar_empleados e ON d.idUsuario=e.empleados_id LEFT JOIN tblUsuarios u ON e.empleados_id=u.usuarios_empleados_id LEFT JOIN spartodo_rh.tblPuestos p on e.empleados_puesto=p.idPuesto LEFT JOIN tblEstados Es on e.empleados_estado=Es.idestado INNER JOIN tblRegiones Rg ON Es.region=Rg.idRegion where e.empleados_vigente=1";
    			$resultado = $this->conexion->query($consulta);
 			
 			if($resultado){
@@ -30,7 +30,7 @@
 //funcion para$idinformacion
    		public function informacion($id){
 			$id = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($id))));
-   			$consulta="SELECT d.telefonoAlterno,d.telefonoCasa,d.idDirectorio,s.empleados_numero_empleado,s.empleados_nombres,s.empleados_apellido_paterno,s.empleados_apellido_materno,s.empleados_correo,d.telefono,d.telefonoSecundario,d.telefonoExtencion,p.puesto,Es.nombre as nombreEstados,u.usuarios_foto,Rg.region FROM tblDirectorio d LEFT JOIN spar_empleados s ON s.empleados_id=d.idUsuario LEFT JOIN tblUsuarios u ON u.usuarios_empleados_id=s.empleados_id INNER JOIN tblPuestos p ON p.idPuesto=s.empleados_puesto INNER JOIN tblEstados Es ON s.empleados_estado=Es.idestado INNER JOIN tblRegiones Rg ON Es.region=Rg.idRegion where d.idDirectorio=$id";
+   			$consulta="SELECT d.telefonoAlterno,d.telefonoCasa,d.idDirectorio,s.empleados_numero_empleado,s.empleados_nombres,s.empleados_apellido_paterno,s.empleados_apellido_materno,s.empleados_correo,d.telefono,d.telefonoSecundario,d.telefonoExtencion,p.puesto,Es.nombre as nombreEstados,u.usuarios_foto,Rg.region FROM tblDirectorio d LEFT JOIN spar_empleados s ON s.empleados_id=d.idUsuario LEFT JOIN tblUsuarios u ON u.usuarios_empleados_id=s.empleados_id INNER JOIN spartodo_rh.tblPuestos p ON p.idPuesto=s.empleados_puesto INNER JOIN tblEstados Es ON s.empleados_estado=Es.idestado INNER JOIN tblRegiones Rg ON Es.region=Rg.idRegion where d.idDirectorio=$id";
    			$resultado = $this->conexion->query($consulta);
 			if($resultado){
 				return $resultado->fetch_assoc();
@@ -134,7 +134,7 @@
    	public function buscarEmpleados(){
         $errores = 0;
         if($errores === 0){
-           $consulta = "SELECT Rg.region,e.empleados_id,CONCAT(e.empleados_nombres,' ',e.empleados_apellido_paterno,' ',e.empleados_apellido_materno) AS nombre,e.empleados_rfc,e.empleados_numero_empleado,Es.nombre as estadoNombre,Es.idestado as estadoNombres, dr.activo,p.puesto from spar_empleados e INNER JOIN tblEstados Es ON Es.idestado=e.empleados_estado INNER JOIN tblRegiones Rg ON Es.region=Rg.idRegion left join tblDirectorio dr ON e.empleados_id=dr.idUsuario INNER JOIN tblPuestos p ON p.idPuesto=e.empleados_puesto where not exists (select * from tblDirectorio d where d.activo=1 and e.empleados_id = d.idUsuario) and e.empleados_vigente=1";
+           $consulta = "SELECT Rg.region,e.empleados_id,CONCAT(e.empleados_nombres,' ',e.empleados_apellido_paterno,' ',e.empleados_apellido_materno) AS nombre,e.empleados_rfc,e.empleados_numero_empleado,Es.nombre as estadoNombre,Es.idestado as estadoNombres, dr.activo,p.puesto from spar_empleados e INNER JOIN tblEstados Es ON Es.idestado=e.empleados_estado INNER JOIN tblRegiones Rg ON Es.region=Rg.idRegion left join tblDirectorio dr ON e.empleados_id=dr.idUsuario INNER JOIN spartodo_rh.tblPuestos p ON p.idPuesto=e.empleados_puesto where not exists (select * from tblDirectorio d where d.activo=1 and e.empleados_id = d.idUsuario) and e.empleados_vigente=1";
            $resultado = $this->conexion->query($consulta);
            if($resultado){
               while ($filaTmp = $resultado->fetch_assoc()) {

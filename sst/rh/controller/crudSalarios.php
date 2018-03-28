@@ -3,6 +3,7 @@ include_once("../../../db/conectadb.php");
 include_once("../../../model/sesion.php");
 include_once("../../../model/usuarios.php");
 include_once("../../model/salarios.php");
+include_once("../../../model/clientes.php");
 
 class Controller {
 	
@@ -11,6 +12,7 @@ class Controller {
         $this->varSesion = new sesion();
         $this->varUsuario = new usuarios();
         $this->varSalarios = new salarios();
+        $this->varClientes = new clientes();
 
     } 
 	
@@ -29,7 +31,7 @@ class Controller {
 					include_once("../../../administrativo/model/representantes.php");
 					$varRepresentantes = new representantes();
 					$Puestos = $varRepresentantes->listarPuestos();
-					$Clientes = $this->varSalarios->listarClientes();
+					$Clientes = $this->varClientes->listar();
 					if(isset($_GET["cliente"]) && isset($_GET["puesto"])){
 						$cliente = $_GET["cliente"];
 						$idPuesto = $_GET["puesto"];

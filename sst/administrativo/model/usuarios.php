@@ -27,7 +27,7 @@ class usuariosMA
 
    		public function informacion($idUsuario){
 			$idUsuario = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($idUsuario))));
-   			$consulta="SELECT u.usuarios_usuario AS usuario, CONCAT(e.empleados_apellido_paterno,' ',e.empleados_apellido_materno,' ',e.empleados_nombres) AS nombre, e.empleados_correo AS correo, p.puesto AS puesto  FROM spartodo_spar_bd.spar_empleados e LEFT JOIN spartodo_spar_bd.tblUsuarios u ON e.empleados_id = u.usuarios_empleados_id LEFT JOIN tblPuestos p ON e.empleados_puesto = p.idPuesto WHERE u.usuarios_id = '$idUsuario'";
+   			$consulta="SELECT u.usuarios_usuario AS usuario, CONCAT(e.empleados_apellido_paterno,' ',e.empleados_apellido_materno,' ',e.empleados_nombres) AS nombre, e.empleados_correo AS correo, p.nombre AS puesto  FROM spartodo_spar_bd.spar_empleados e LEFT JOIN spartodo_spar_bd.tblUsuarios u ON e.empleados_id = u.usuarios_empleados_id LEFT JOIN spartodo_rh.tblPuestos p ON e.empleados_puesto = p.idPuesto WHERE u.usuarios_id = '$idUsuario'";
 			$resultado = $this->conexion->query($consulta);
 			if($resultado){
 				return $resultado->fetch_assoc();
@@ -49,39 +49,6 @@ class usuariosMA
 	   			echo $this->conexion->errno . " : " . $this->conexion->error . "\n";
    			}
    		}
-
-   		public function buscarEmpleados($buscar)
-         {
-            $datosEmpleados = array();
-            $buscar = $this->conexion->real_escape_string(strip_tags(stripslashes(trim($buscar))));
-            $errores = 0;
-            $errorResultado = "";
-            if(empty($buscar)) {
-               $errores ++;
-               $errorResultado .= "El campo no puede estar vacío. <br>";
-            }
-            else{
-               if(strlen($buscar) < 3){
-                  $errores ++;
-                  $errorResultado .= "El campo debe contener mínimo 3 caracteres. <br>";
-               }
-            }
-            if($errores === 0){
-               $consulta = "SELECT empleados_id AS id, CONCAT( empleados_apellido_paterno, ' ',empleados_apellido_materno, ' ',empleados_nombres) AS nombre, empleados_rfc AS rfc FROM spartodo_spar_bd.spar_empleados e LEFT JOIN tblUsuarios u ON e.empleados_id = u.usuarios_empleados_id WHERE (CONCAT( empleados_apellido_paterno, ' ',empleados_apellido_materno, ' ',empleados_nombres) LIKE '%$buscar%' OR empleados_apellido_paterno LIKE '%$buscar%' OR empleados_apellido_materno LIKE '%$buscar%' OR empleados_nombres LIKE '%$buscar%' OR empleados_rfc LIKE '%$buscar%') AND u.usuarios_empleados_id IS NULL GROUP BY id";
-               $resultado = $this->conexion->query($consulta);
-               if($resultado){
-                  while ($filaTmp = $resultado->fetch_assoc()) {
-                     $datosEmpleados[] = $filaTmp;
-                  }
-               }
-               else
-                  echo $this->conexion->errno . " : " . $this->conexion->error . "\n";
-
-               return $datosEmpleados;
-            }
-            else
-               return $errorResultado;
-         }
 
    		public function guardar($datos, $idEmpleado){
 
@@ -211,6 +178,40 @@ class usuariosMA
 				return $errorResultado;
 			}
 		}
+
+		public function buscarEmpleados($buscar)
+	    {
+	        $datosEmpleados = array();
+	        $buscar = $this->conexion->real_escape_string(strip_tags(stripslashes(trim($buscar))));
+	        $errores = 0;
+	        $errorResultado = "";
+	        if(empty($buscar)) {
+	           $errores ++;
+	           $errorResultado .= "El campo no puede estar vacío. <br>";
+	        }
+	        else{
+	           if(strlen($buscar) < 3){
+	              $errores ++;
+	              $errorResultado .= "El campo debe contener mínimo 3 caracteres. <br>";
+	           }
+	        }
+	        if($errores === 0){
+	           $consulta = "SELECT empleados_id AS id, CONCAT( empleados_apellido_paterno, ' ',empleados_apellido_materno, ' ',empleados_nombres) AS nombre, empleados_rfc AS rfc FROM spartodo_spar_bd.spar_empleados e LEFT JOIN tblUsuarios u ON e.empleados_id = u.usuarios_empleados_id WHERE (CONCAT( empleados_apellido_paterno, ' ',empleados_apellido_materno, ' ',empleados_nombres) LIKE '%$buscar%' OR empleados_apellido_paterno LIKE '%$buscar%' OR empleados_apellido_materno LIKE '%$buscar%' OR empleados_nombres LIKE '%$buscar%' OR empleados_rfc LIKE '%$buscar%') AND u.usuarios_empleados_id IS NULL GROUP BY id";
+	           $resultado = $this->conexion->query($consulta);
+	           if($resultado){
+	              while ($filaTmp = $resultado->fetch_assoc()) {
+	                 $datosEmpleados[] = $filaTmp;
+	              }
+	           }
+	           else
+	              echo $this->conexion->errno . " : " . $this->conexion->error . "\n";
+
+	           return $datosEmpleados;
+	        }
+	        else
+	           return $errorResultado;
+	    }
+
 
 		public function guardarUsuarioClientes($idUsuario, $clientes){
 			$ok = 0;

@@ -68,11 +68,6 @@ if(!isset($_SESSION['spar_usuario']))
           <ul class="sidebar-menu">
             <!-- <li class="header">Solicitudes</li> -->
             <li>
-              <a style="cursor: pointer;" onclick="agregar();"> 
-                <i class="fa fa-plus"></i> <span>Agregar</span>
-              </a>
-            </li>
-            <li>
               <a href="../../index.php?accion=index">
                 <i class="fa fa-arrow-left"></i> <span>Regresar</span>
               </a>
@@ -95,7 +90,10 @@ if(!isset($_SESSION['spar_usuario']))
                 </div>
                 <!-- /.box-header -->
                 <div id="respuesta"></div>
-                <div class="box-body table-responsive">
+                  <div class="btn-group">
+                    <button type="button" onclick="agregar();" class="btn btn-success">Agregar</button>
+                  </div>
+                <div class="box-body">
                   <?php if(!isset($_SESSION["spar_error"])){$estilo = "style='display:none;'";}else{$estilo = "";}?>
                   <div class="row">
                     <div class="form-group" id="div_alert" <?php echo $estilo;?>>
@@ -107,52 +105,61 @@ if(!isset($_SESSION['spar_usuario']))
                       </div>
                     </div>
                   </div>
-                  <table id="tblPerfiles" class="table table-bordered table-striped small">
-                    <thead>
-                    <tr>
-                      <th>Solicitante</th>
-                      <th>Puesto</th>
-                      <th>Fecha de Solicitud</th>
-                      <th>Plan</th>
-                      <th>Experiencia</th>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php 
-                    foreach($perfiles as $perfil){
-                    ?>
-                    <tr>
-                      <td><?php echo $perfil['empleados_nombres']." ".$perfil['empleados_apellido_paterno']." ".$perfil['empleados_apellido_materno']?></td>
-                      <td><?php echo $perfil['nombrePuesto'] ?></td>
-                      <td><?php echo $perfil['fechaSolicitud'] ?></td>
-                      <td><?php echo $perfil['plan'] ?></td>
-                      <td><?php echo $perfil['experiencia'] ?></td>
-                      <td class = "text-center">
-                        <a style="cursor: pointer;" onclick="ver('<?php echo $perfil['empleados_id'];?>','<?php echo $perfil['codigoPostal'];?>');">
-                          <i class="fa fa-search"></i>
-                        </a>
-                      </td>
-                      <td class = "text-center">
-                        <a style="cursor: pointer;" onclick="modificar('<?php echo $perfil['empleados_id'];?>','<?php echo $perfil['codigoPostal'];?>');">
-                          <i class="fa fa-pencil-square-o"></i>
-                        </a>
-                      </td>
-                      <td class = "text-center">
-                        <a style="cursor: pointer;" onclick="eliminar('<?php echo $perfil['empleados_id'];?>');">
-                          <i class="fa fa-trash-o text-red"></i>
-                        </a>
-                      </td>
-                    </tr>
-                    <?php
-                    }
-                    ?>
-                    </tbody>
-                  </table>
-
-
+                  <div class="row">
+                    <div class="table-responsive container-fluid">
+                      <table id="tblPerfiles" class="table table-bordered table-striped small">
+                        <thead>
+                        <tr>
+                          <th>Solicitante</th>
+                          <th>Perfil</th>
+                          <th>Fecha de Solicitud</th>
+                          <th>Cliente</th>
+                          <th>Experiencia</th>
+                          <th></th>
+                          <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php 
+                        foreach($perfiles as $perfil){
+                        ?>
+                        <tr>
+                          <td><?php echo ucwords(strtolower($perfil['empleados_nombres']))." ".ucwords(strtolower($perfil['empleados_apellido_paterno']))." ".$perfil['empleados_apellido_materno']?></td>
+                          <td><?php echo $perfil['nombrePerfil'] ?></td>
+                          <td><?php echo $perfil['fechaSolicitud'] ?></td>
+                          <td><?php echo $perfil['nombreComercial'] ?></td>
+                          <td><?php if($perfil['experiencia'] == '1')
+                          { echo 'Ninguna'; }
+                          elseif($perfil['experiencia'] == '2'){
+                            echo '6 meses';
+                          }
+                          elseif($perfil['experiencia'] == '3'){
+                           echo '1 año'; 
+                          }
+                          elseif($perfil['experiencia'] == '4'){
+                            echo '2 años';
+                          }
+                          elseif($perfil['experiencia'] == '5'){
+                           echo '3 años o más'; 
+                          }?></td>
+                          <td class = "text-center">
+                            <a style="cursor: pointer;" onclick="modificar('<?php echo $perfil['idPerfil'];?>');">
+                              <i class="fa fa-pencil-square-o"></i>
+                            </a>
+                          </td>
+                          <td class = "text-center">
+                            <a style="cursor: pointer;" onclick="eliminar('<?php echo $perfil['idPerfil'];?>');">
+                              <i class="fa fa-trash-o text-red"></i>
+                            </a>
+                          </td>
+                        </tr>
+                        <?php
+                        }
+                        ?>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
                 </div>
                 <!-- /.box-body -->
               </div>
@@ -208,8 +215,7 @@ if(!isset($_SESSION['spar_usuario']))
     <script src="../../../assets/js/validacion/validacion.js"></script>
     <!-- AdminLTE App -->
     <script src="../../../assets/js/app.min.js"></script>
-    <!-- maskaras -->
-    <script src="../../../assets/js/input-mask/jquery.inputmask.js"></script>
+    <script src="../../../assets/js/funciones.js"></script>
     <!-- Bootstrap select js -->
     <script src="../../../assets/js/bootstrap/bootstrap-select.min.js"></script>
     <!-- bootstrap time picker -->

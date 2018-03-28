@@ -27,7 +27,9 @@ class Controller {
 				case "listar":
 					require_once("../../model/celular.php");
 					$varCelular = new CelularModel();
+					echo $_POST["marca"];
 					$modelos = $varCelular->listarModelos($_POST["marca"]);
+					var_dump($modelos);
 					include_once("cargarModelos.php");
 					break;
 

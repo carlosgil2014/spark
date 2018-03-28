@@ -48,7 +48,7 @@ if(!isset($_SESSION['spar_usuario']))
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini"><b>A | S</b></span>
           <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg">Administrativo | Spar</span>
+          <span class="logo-lg">Recursos humanos | Spar</span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <?php 
@@ -109,9 +109,9 @@ if(!isset($_SESSION['spar_usuario']))
                       <label class="control-label">Clientes</label>
                       <select class="form-control input-sm selectpicker" tabindex="1" data-error="Es un campo obligatorio" data-live-search="true" required="required" id="cliente" name="cliente" data-container="body">
                         <?php 
-                          foreach ($Clientes as $clientes){
+                          foreach ($Clientes as $cliente){
                         ?>                 
-                          <option <?php if ($clientes['idclientes'] == $cliente){echo "selected"; } ?> value="<?php echo $clientes['idclientes']?>"><?php echo $clientes['razonSocial'] ?> </option>';
+                          <option <?php if ($cliente['idclientes'] == $cliente){echo "selected"; } ?> value="<?php echo $cliente['idclientes']?>"><?php echo $cliente['nombreComercial'] ?> </option>';
                         <?php
                           }
                         ?>

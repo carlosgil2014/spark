@@ -1,527 +1,279 @@
-<?php
-    // if(!isset($_SESSION['spar_usuario']))
-    //     header('Location: ../view/index.php');
-    //Poner sesiones principales 
-?>
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="robots" content="noindex, nofollow">
-  <meta name="description" content="Plantilla general para el desarrollo de los módulos del Sistema Spar Todopromo SST">
-  <meta name="author" content="Maria de los Angeles Malagon, Salvador Luna, Victor Nava y Gerardo Medina">
-  <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
-  <title>Sistema Spar Todopromo | Spar México</title>
-  <!-- Indicadores para respuestas de la plantilla -->
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <!-- Bootstrap 3.3.6 -->
-  <link rel="stylesheet" href="../../../assets/css/bootstrap.min.css">
-  <!-- Fuentes -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-  <!-- Iconos -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- Estilo del tema -->
-  <link rel="stylesheet" href="../../../assets/css/AdminLTE.min.css">
-  <!-- Poner la carpeta de estilo CSS a utilizar-->
-  <link rel="stylesheet" href="../../../assets/css/_all-skins.min.css">
-  <!-- Soporte de elementos HTML5 para Respond.js, IE8 y media queries -->
-  <!-- ADVERTENCIA: Respond.js no funcionará si se visualiza con IE 9:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
-</head>
-  <body class="hold-transition skin-blue sidebar-mini">
-    <div class="loader">
+<div class="modal-dialog modal-lg" role="document">
+  <div class="modal-content">
+    <form id="formularioAgregar" role="form">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true" >&times;</button>
+      <h4 class="modal-title" id="myModalLabel"><b>Datos de un nuevo perfil</b></h4>
     </div>
-    <div class="wrapper">
-
-      <header class="main-header">
-        <!-- Logo -->
-        <a href="../../view/index.php" class="logo">
-          <!-- El mini logo es para la barra lateral y está como mini 50x50 pixels -->
-          <span class="logo-mini"><b>ST</b></span>
-          <!-- logotipo para el estado normal y dispositivos móviles  -->
-          <span class="logo-lg">Spar Todopromo</span>
-        </a>
-        <!-- La cabecera Navbar: Este estilo se puede encontrar en header.less -->
-        <?php 
-          include_once("../../../view/includes/datosUsuario.php");
-        ?>
-  </header>
-  <!-- Columna del lado izquierdo. Contiene el logotipo y la barra lateral -->
-  <aside class="main-sidebar">
-    <!-- Barra lateral: Este estilo se puede encontrar en sidebar.less -->
-    <section class="sidebar">
-      <!-- Panel de usuario de la barra lateral -->
-      <?php 
-        include_once("../../../view/includes/menuIzquierdo.php");
-      ?>
-
-      <!-- Buscador -->
-      <!--<form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Buscar...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form> -->
-      <!-- Fin de Buscador -->
-
-      <!-- Comienza barra de menus: : Estilos encontrados en Less -->
-      <ul class="sidebar-menu">
-        <li class="treeview">
-          <a href="../controller/crudIndex.php?urlValue=login">
-            <i class="fa fa-cog"></i> <span>Empleados</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="../controller/crudProspecto.php?accion=alta"><i class="fa fa-user"></i>Alta-Empleado</a></li>
-            <li><a href="../controller/crudProspecto.php?accion=modificar"><i class="fa  fa-edit"></i>Editar-Empleado</a></li>
-          </ul>
-        </li>
-
-        <!-- Barra de separación entre menus -->
-        <li class="header"></li>
-        <!-- Find e la barra de separación entre menus -->
-        
-        <li>
-          <a href="../../controller/crudIndex.php?urlValue=login">
-            <i class="fa fa-hand-o-left"></i> <span>Regresar</span>
-            
-          </a>
-        </li>
-
-    </section>
-    <!-- Termina barra de menus -->
-  </aside>
-
-<!-- Contenido de la página -->
-<div class="content-wrapper">
-
-  <section class="content">
-    <div class="row">
-            <!-- right column -->
-      <div class="col-md-12">
-              <!-- Horizontal Form -->
-        <div class="box box-info">
-          
-          <div class="box-header with-border">
-            <h3 class="box-title">Alta/Prospectos</h3>
-          </div>
-            
-            <section class="content">
-
-              <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#1">Datos Personales</a></li>
-                <li><a data-toggle="tab" href="#2">Documentacion</a></li>
-                <li><a data-toggle="tab" href="#3">Salud y Habitos</a></li>
-                <li><a data-toggle="tab" href="#4">Datos familiares</a></li>
-                <li><a data-toggle="tab" href="#5">Escolaridad</a></li>
-              </ul>
-              
-              <div class="tab-content">
-
-                <div id="1" class="tab-pane active">
-                  <div class="row">
-                      <div class="form-group col-md-3">
-                        <label for="">CURP</label>
-                        <input type="text" class="form-control">
-                      </div>
-                  </div>
-
-                  <div class="row">
-                      <div class="form-group col-md-3">
-                        <label for="">Apellido Paterno</label>
-                        <input type="text" class="form-control">
-                      </div>
-                      <div class="form-group col-md-3">
-                        <label for="">Apellido Materno</label>
-                        <input type="text" class="form-control">
-                      </div>
-                      <div class="form-group col-md-3">
-                        <label for="">Nombre(s)</label>
-                        <input type="text" class="form-control">
-                      </div>
-                       <div class="form-group col-md-3">
-                        <label for="">Edad</label>
-                        <input type="text" class="form-control">
-                      </div>
-                  </div>
-
-                  <div class="row">
-                      <div class="form-group col-md-3">
-                        <label for="">CP</label>
-                        <input type="text" class="form-control">
-                      </div>
-                      <div class="form-group col-md-3">
-                        <label for="">Estado</label>
-                        <input type="text" class="form-control">                
-                      </div>
-                      <div class="form-group col-md-3">
-                        <label for="">Ciudad</label>
-                        <input type="text" class="form-control">                
-                      </div>
-                      <div class="form-group col-md-3">
-                        <label for="">Colonia</label>
-                        <input type="text" class="form-control">
-                      </div>
-                  </div>
-
-                  <div class="row">
-                      <div class="form-group col-md-3">
-                        <label for="">Telefono</label>
-                        <input type="text" class="form-control">
-                      </div>
-                      <div class="form-group col-md-3">
-                        <label for="">Sexo</label>
-                        <div class="radio">
-                          <label class="radio-inline"><input type="radio" name="Sexo">Hombre</label>
-                          <label class="radio-inline"><input type="radio" name="Sexo">Mujer</label>
-                        </div>
-                      </div>
-                      <div class="form-group col-md-3">
-                        <label for="">Lugar de Nacimiento</label>
-                        <input type="text" class="form-control">                
-                      </div>
-                      <div class="form-group col-md-3">
-                        <label for="">Fecha de Nacimiento</label>
-                        <input type="date" class="form-control">                
-                      </div>
-                  </div>
-
-                  <div class="row">
-                      <div class="form-group col-md-3">
-                        <label for="">Nacionalidad</label>
-                          <select name="nacionalidad" id="" class="form-control">
-                            <option value="Mexicano">Mexicano(a)</option>
-                            <option value="Extranjero">Extranjero(a)</option>
-                          </select>  
-                      </div>
-                      <div class="form-group col-md-3">
-                        <label for="">Estado Civil</label>
-                        <div class="radio">
-                          <label class="radio-inline"><input type="radio" name="EstadoCivil">Soltero(a)</label>
-                          <label class="radio-inline"><input type="radio" name="EstadoCivil">Casado(a)</label>
-                          <label class="radio-inline"><input type="radio" name="EstadoCivil">Otro</label>
-                        </div>
-                      </div>
-                      <div class="form-group col-md-3">
-                        <label for="">Estatura</label>
-                        <div class="input-group">
-                          <input type="text" class="form-control">
-                          <span class="input-group-addon">Mts.</span>                      
-                        </div>
-                      </div>
-                      <div class="form-group col-md-3">
-                        <label for="">Peso</label>
-                        <div class="input-group">
-                          <input type="text" class="form-control">
-                          <span class="input-group-addon">Kg.</span>                      
-                        </div>
-                      </div>
-                  </div>
-
-                  <div class="row">
-                      <div class="form-group col-md-6">
-                        <label for="">Vive con</label>
-                        <div class="radio">
-                          <label class="radio-inline"><input type="radio" name="vivecon">Padres</label>
-                          <label class="radio-inline"><input type="radio" name="vivecon">Familia</label>
-                          <label class="radio-inline"><input type="radio" name="vivecon">Parientes</label>
-                          <label class="radio-inline"><input type="radio" name="vivecon">Solo</label>
-                        </div>
-                      </div>
-                      <div class="form-group col-md-6">
-                        <label for="">Personas que dependen de usted</label>
-                        <div class="checkbox">
-                          <label class="checkbox-inline"><input type="checkbox" name="personas">Hijos</label>
-                          <label class="checkbox-inline"><input type="checkbox" name="personas">Conyuge</label>
-                          <label class="checkbox-inline"><input type="checkbox" name="personas">Padres</label>
-                          <label class="checkbox-inline"><input type="checkbox" name="personas">Otros</label>
-                        </div>
-                      </div>
-                  </div>
+    <div class="modal-body">
+            <div class="row">
+              <div class="form-group col-md-4">
+                <label class="control-label">Nombre de perfil</label>
+                <input type="text" class="form-control input-sm" name="Datos[nombrePerfil]" id="nombrePerfil" required>
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Clientes</label>
+                <select class="form-control input-sm selectpicker" name="Datos[cliente]" data-live-search="true" required="required" id="escolaridad">
+                <?php 
+                  foreach ($clientes as $cliente){
+                ?>                            
+                  <option value="<?php echo $cliente['idclientes']?>"><?php echo $cliente['nombreComercial']?></option>';
+                <?php
+                  }
+                ?>
+                </select>
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Puesto</label>
+                <select class="form-control input-sm selectpicker" name="Datos[puesto]" data-error="Es un campo obligatorio" data-live-search="true" required id="puesto">
+                  <?php foreach ($puestos as $puesto) {
+                  ?>
+                  <option value="<?php echo $puesto['idPuesto']; ?>"><?php echo $puesto['nombre']; ?></option>
+                  <?php } ?>
+                </select>
+              </div>
+              <div class="form-group col-md-2">
+                  <label class="control-label">Sueldo (Diario)</label>
+                  <input type="number" class="form-control input-sm" name="Datos[salario]" id="salario" min="0" step="0.01" pattern="^[0-9]+">
+              </div>
+              <div class="form-group col-md-2">
+                <label class="control-label">Edad mínima</label>
+                <input type="number" class="form-control input-sm" maxlength="2" data-error="Es un campo obligatorio" name="Datos[edad]" required  id="edad" min="18" max="50">
+              </div>
+              <div class="form-group col-md-2">
+                <label class="control-label">Edad máxima</label>
+                <input type="number" class="form-control input-sm" maxlength="2" data-error="Es un campo obligatorio" name="Datos[edadMaxima]" required  id="edadMaxima" min="18" max="50">
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Sexo</label>
+                <select class="form-control input-sm selectpicker" name="Datos[sexo]" data-error="Es un campo obligatorio" required="required" id="sexo">
+                  <option value="Hombre">Hombre</option>
+                  <option value="Mujer">Mujer</option>
+                </select>
+              </div>
+              <div class="form-group col-md-2">
+                <label class="control-label">Opcional</label><br>
+                <label class="checkbox-inline">
+                  <input type="checkbox" name="Datos[opcional]" class="flat-red" value="indistinto">
+                  Indistinto
+                </label>
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Escolaridad mínima</label>
+                <select class="form-control input-sm selectpicker" name="Datos[escolaridad]" data-error="Es un campo obligatorio" required="required" id="escolaridad">
+                <?php 
+                  foreach ($perfiles as $perfil){
+                ?>                            
+                  <option <?php if($perfil['escolaridad'] == 'Preparatoria'){ echo 'selected';} ?> value="<?php echo $perfil['idEscolaridad']?>"><?php echo $perfil['escolaridad']?></option>';
+                <?php
+                  }
+                ?>
+                </select>
+              </div>
+              <div class="form-group col-md-8">
+                <label class="control-label">Días trabajados  <i class="fa fa-pencil-square-o" onclick="diasSemana('semana');"></i>L-V<i class="fa fa-pencil-square-o" onclick="diasSemana('finSemana');"></i>S-D</label>
+                <div>
+                  <label class="checkbox-inline">
+                    <input type="checkbox" name="diasTrabajados[]" class="flat-red" checked value="Lunes" id="lunes">
+                    Lunes
+                  </label>
+                  <label class="checkbox-inline">
+                    <input type="checkbox" name="diasTrabajados[]" class="flat-red" checked value="Martes" id="martes">
+                    Martes
+                  </label>
+                  <label class="checkbox-inline">
+                    <input type="checkbox" name="diasTrabajados[]" class="flat-red" checked value="Miercoles" id="miercoles">
+                    Miércoles
+                  </label>
+                  <label class="checkbox-inline">
+                    <input type="checkbox" name="diasTrabajados[]" class="flat-red" checked value="Jueves" id="jueves">
+                    Jueves
+                  </label>
+                  <label class="checkbox-inline">
+                    <input type="checkbox" name="diasTrabajados[]" class="flat-red" checked value="Viernes" id="viernes">
+                    Viernes
+                  </label>
+                  <label class="checkbox-inline">
+                    <input type="checkbox" name="diasTrabajados[]" class="flat-red" value="Sabado" id="sabado">
+                    Sábado
+                  </label>
+                  <label class="checkbox-inline">
+                    <input type="checkbox" name="diasTrabajados[]" class="flat-red" value="Domingo" id="domingo">
+                    Domingo
+                  </label>
                 </div>
-
-                <div id="2" class="tab-pane">
-
-                  <div class="row">
-                    <div class="form-group col-md-3">
-                      <label>Afore</label>
-                      <input type="text" class="form-control">
-                    </div>
-                    <div class="form-group col-md-3">
-                      <label>RFC</label>
-                      <input type="text" class="form-control">
-                    </div>
-                    <div class="form-group col-md-3">
-                      <label>Numero Seguro Social</label>
-                      <input type="text" class="form-control">
-                    </div>
-                    <div class="form-group col-md-3">
-                      <label>N° Cartilla Militar</label>
-                      <input type="text" class="form-control">
-                    </div>
-                  </div>  
-
-                  <div class="row">
-                    <div class="form-group col-md-3">
-                      <label>N° Pasaporte</label>
-                      <input type="text" class="form-control">
-                    </div>
-                    <div class="form-group col-md-3">
-                      <label>Tiene Licencia de manejo</label>
-                      <div class="radio">
-                        <label class="radio-inline"><input type="radio" name="licencia">Si</label>
-                        <label class="radio-inline"><input type="radio" name="licencia">No</label>
-                      </div>
-                    </div>
-                    <div class="form-group col-md-3">
-                      <label>Clase y N° de Licencia</label>
-                      <input type="text" class="form-control">
-                    </div>
-                    <div class="form-group col-md-3">
-                      <label>Documentos Extranjeros</label>
-                      <input type="text" class="form-control">
-                    </div>
-                  </div>   
-                </div>
-                
-                <div id="3" class="tab-pane">
-                  <div class="row">
-                    <div class="form-group col-md-3">
-                      <label >¿Como considera su estado de salud?</label>
-                      <div class="radio">
-                        <label class="radio-inline"><input type="radio" name="salud">Bueno</label>
-                        <label class="radio-inline"><input type="radio" name="salud">Regular</label>
-                        <label class="radio-inline"><input type="radio" name="salud">Malo</label>
-                      </div>
-                    </div>
-                    <div class="form-group col-md-3">
-                      <label>¿Padece alguna enfermedad cronica?</label>
-                      <div class="radio">
-                        <label class="radio-inline"><input type="radio" name="enfermedad">No </label>
-                        <label class="radio-inline"><input type="radio" name="enfermedad">Si </label>
-                        <input type="text" placeholder="Explique">
-                      </div>
-                    </div>
-                    <div class="form-group col-md-3">
-                      <label>¿Practica algun deporte?</label>
-                      <input type="text" class="form-control">
-                    </div>
-                    <div class="form-group col-md-3">
-                      <label>¿Pertenece algun club social?</label>
-                      <input type="text" class="form-control">
-                    </div>
-                  </div>  
-                    <div class="row">
-                      <div class="form-group col-md-3">
-                        <label>¿Cual es su pasatiempo favorito?</label>
-                        <input type="text" class="form-control">
-                      </div>
-                      <div class="form-group col-md-3">
-                        <label>¿Cual es su meta en la vida?</label>
-                        <input type="text" class="form-control">
-                      </div>
-                    </div>  
-                </div>
-
-                <div id="4" class="tab-pane">
-                  <div class="row">
-                    <div class="form-group col-md-3">
-                      <label>Nombre del padre</label>
-                      <input type="text" class="form-control">                      
-                    </div>
-                    <div class="form-group col-md-2">
-                      <label>Vive / Finado</label>
-                      <div class="radio">
-                        <label class="radio-inline"><input type="radio"></label>
-                        <label class="radio-inline"><input type="radio"></label>
-                      </div>
-                    </div>
-                    <div class="form-group col-md-4">
-                      <label>Domicilio</label>
-                      <input type="text" class="form-control">                      
-                    </div>
-                    <div class="form-group col-md-3">
-                      <label>Ocupacíon</label>
-                      <input type="text" class="form-control">                      
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="form-group col-md-3">
-                      <label>Nombre de la madre</label>
-                      <input type="text" class="form-control">                      
-                    </div>
-                    <div class="form-group col-md-2">
-                      <label>Vive / Finado</label>
-                      <div class="radio">
-                        <label class="radio-inline"><input type="radio"></label>
-                        <label class="radio-inline"><input type="radio"></label>
-                      </div>
-                    </div>
-                    <div class="form-group col-md-4">
-                      <label>Domicilio</label>
-                      <input type="text" class="form-control">                      
-                    </div>
-                    <div class="form-group col-md-3">
-                      <label>Ocupacíon</label>
-                      <input type="text" class="form-control">                      
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="form-group col-md-3">
-                      <label>Nombre de la esposa</label>
-                      <input type="text" class="form-control">                      
-                    </div>
-                    <div class="form-group col-md-2">
-                      <label>Vive / Finado</label>
-                      <div class="radio">
-                        <label class="radio-inline"><input type="radio"></label>
-                        <label class="radio-inline"><input type="radio"></label>
-                      </div>
-                    </div>
-                    <div class="form-group col-md-4">
-                      <label>Domicilio</label>
-                      <input type="text" class="form-control">                      
-                    </div>
-                    <div class="form-group col-md-3">
-                      <label>Ocupacíon</label>
-                      <input type="text" class="form-control">                      
-                    </div>
-                  </div>
-                </div>
-
-                <div id="5" class="tab-pane">
-                  <div class="row">
-                    <div class="form-group col-md-3">
-                      <label>Nombre Primaria</label>
-                      <input type="text" class="form-control">                      
-                    </div>
-                    <div class="form-group col-md-3">
-                      <label>Direccíon</label>
-                      <input type="text" class="form-control">                      
-                    </div>  
-                    <div class="form-group col-md-3">
-                      <label>Periodo</label>
+              </div>
+              <div class="form-group col-md-2">
+                  <div class="bootstrap-timepicker">
+                      <label>Horario entrada</label>
                       <div class="input-group">
-                        <input type="text" class="form-control">  
-                        <span class="input-group-addon">A</span>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control timepicker"  id="entrada" name="horariosEntrada[]">
+                        <div class="input-group-addon">
+                          <i class="fa fa-clock-o"></i>
+                        </div>
                       </div>
-                    </div>
-                    <div class="form-group col-md-3">
-                      <label>Titulo recibido</label>
-                      <input type="text" class="form-control">                      
-                    </div>  
                   </div>
-                  <div class="row">
-                    <div class="form-group col-md-3">
-                      <label>Nombre Secundaria</label>
-                      <input type="text" class="form-control">                      
-                    </div>
-                    <div class="form-group col-md-3">
-                      <label>Direccíon</label>
-                      <input type="text" class="form-control">                      
-                    </div>  
-                    <div class="form-group col-md-3">
-                      <label>Periodo</label>
-                      <div class="input-group">
-                        <input type="text" class="form-control">  
-                        <span class="input-group-addon">A</span>
-                        <input type="text" class="form-control">
+              </div>
+              <div class="form-group col-md-2">
+                <div class="bootstrap-timepicker">
+                    <label>Horario salida</label>
+                    <div class="input-group">
+                      <input type="text" class="form-control timepicker"  id="salida" name="horariosSalida[]">
+                      <div class="input-group-addon">
+                        <i class="fa fa-clock-o"></i>
                       </div>
                     </div>
-                    <div class="form-group col-md-3">
-                      <label>Titulo recibido</label>
-                      <input type="text" class="form-control">                      
-                    </div>  
+                </div>
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Experiencia</label>
+                <select class="form-control input-sm selectpicker" name="Datos[experiencia]" data-error="Es un campo obligatorio" required="required" id="experiencia">                           
+                      <option value="ninguna">Ninguna</option>
+                      <option value="6 meses" selected="selected">6 meses</option>
+                      <option value="1 año">1 año</option>
+                      <option value="2 años">2 años</option>
+                      <option value="3 años o más">3 años o más</option>
+                </select>
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Estado civil</label>
+                <select class="form-control input-sm selectpicker" name="Datos[estadoCivil]" data-error="Es un campo obligatorio" required="required" id="estadoCivil">
+                    <option value="casado/a">Casado/a</option>
+                    <option value="comprometido/a">Comprometido/a</option>
+                    <option value="divorciado/a">Divorciado/a</option>
+                    <option value="soltero/a" selected="selected">Soltero/a</option>
+                    <option value="viudo/a">Viudo/a</option>
+                    <option value="Indistinto">Indistinto</option>
+                  </select>
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Imagen</label>
+                  <select class="form-control input-sm selectpicker" name="imagen[]" multiple data-error="Es un campo obligatorio" data-live-search="true" required>                 
+                    <option value="presentable" selected="selected">Presentable</option>
+                    <option value="aseado" selected="selected">Aseado</option>
+                    <option value="traje">Traje</option>
+                    <option value="condicion saludable">Condición saludable</option>
+                    <option value="sin tatuajes">Sin tatuajes</option>
+                    <option value="sin percing">Sin percing</option>
+                    <option value="sin expansiones">Sin expansiones</option>
+                  </select>
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Talla</label>
+                <select class="form-control input-sm selectpicker" name="Datos[talla]" data-error="Es un campo obligatorio" required="required" id="talla">
+                      <option value="indistinto">Indistinto</option>
+                      <option value="Chica">Chica</option>
+                      <option value="Mediana">Mediana</option>
+                      <option value="Grande">Grande</option>
+                  </select>
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Lo entrevista cliente</label>
+                  <div class="col-md-6">
+                    <label class="radio-inline">
+                      <input type="radio" name="Datos[entrevista]" class="flat-red" checked value="Si">
+                      Si
+                    </label>
                   </div>
-                  <div class="row">
-                    <div class="form-group col-md-3">
-                      <label>Nombre Prepa</label>
-                      <input type="text" class="form-control">                      
-                    </div>
-                    <div class="form-group col-md-3">
-                      <label>Direccíon</label>
-                      <input type="text" class="form-control">                      
-                    </div>  
-                    <div class="form-group col-md-3">
-                      <label>Periodo</label>
-                      <div class="input-group">
-                        <input type="text" class="form-control">  
-                        <span class="input-group-addon">A</span>
-                        <input type="text" class="form-control">
-                      </div>
-                    </div>
-                    <div class="form-group col-md-3">
-                      <label>Titulo recibido</label>
-                      <input type="text" class="form-control">                      
-                    </div>  
+                  <div class="col-md-6">
+                    <label class="radio-inline">
+                      <input type="radio" name="Datos[entrevista]" class="flat-red" value="No">
+                      No
+                    </label>
                   </div>
-                  <div class="row">
-                    <div class="form-group col-md-3">
-                      <label>Profesional</label>
-                      <input type="text" class="form-control">                      
-                    </div>
-                    <div class="form-group col-md-3">
-                      <label>Direccíon</label>
-                      <input type="text" class="form-control">                      
-                    </div>  
-                    <div class="form-group col-md-3">
-                      <label>Periodo</label>
-                      <div class="input-group">
-                        <input type="text" class="form-control">  
-                        <span class="input-group-addon">A</span>
-                        <input type="text" class="form-control">
-                      </div>
-                    </div>
-                    <div class="form-group col-md-3">
-                      <label>Titulo recibido</label>
-                      <input type="text" class="form-control">                      
-                    </div>  
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Conocimientos específicos</label>
+                <select class="form-control input-sm selectpicker" multiple  name="conocimientos[]" data-error="Es un campo obligatorio" data-live-search="true" required id="conocimiento">
+                  <option data-hidden="true" selected></option>
+                  <?php foreach ($conocimientos as $conocimiento) {
+                  ?>
+                  <option value="<?php echo $conocimiento['idConocimiento']; ?>"><?php echo $conocimiento['conocimiento']; ?></option>
+                  <?php } ?>
+                </select>
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Habilidades</label>
+                <select class="form-control input-sm selectpicker" name="habilidades[]" multiple data-error="Es un campo obligatorio" data-live-search="true"  id="habilidades">
+                  <option data-hidden="true" selected></option>
+                  <?php foreach ($habilidades as $habilidad) {?> 
+                  <option value="<?php echo $habilidad['idHabilidades']; ?>"><?php echo $habilidad['habilidad']; ?></option>
+                  <?php } ?>
+                </select>
+              </div> 
+              <div class="form-group col-md-3">
+                <label class="control-label">Evaluaciones</label>
+                <select class="form-control input-sm selectpicker" name="evaluaciones[]" multiple data-error="Es un campo obligatorio" data-live-search="true" required="required" id="evaluaciones" class="claseCheckBox">
+                  <option  value="cleaver" selected="selected">Cleaver</option>
+                  <option  value="Personalidad" selected="selected">Personalidad</option>
+                </select>                
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Paquetes o lenguajes</label>
+                <select class="form-control input-sm selectpicker" name="paquetesLenguajes[]" multiple  data-live-search="true" id="paquetesLenguajes" required>
+                  <option data-hidden="true"></option>
+                  <option  value="Word" selected="selected">Word</option>
+                  <option  value="Excel" selected="selected">Excel</option>
+                  <option  value="Power point" selected="selected">Power point</option>
+                </select>                
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Prestaciones de ley</label>
+                <div class="col-md-6">
+                  <label class="radio-inline">
+                    <input type="radio" name="Datos[prestaciones]" class="flat-red" checked value="Si">
+                    Si
+                  </label>
+                </div>
+                <div class="col-md-6">
+                  <label class="radio-inline">
+                    <input type="radio" name="Datos[prestaciones]" class="flat-red" value="No">
+                    No
+                  </label>
+                </div>
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Ayuda de auto</label>
+                <div>
+                  <div class="col-md-6">
+                    <label class="radio-inline">
+                      <input type="radio" name="Datos[ayudaAuto]" class="flat-red" value="Si">
+                      Si
+                    </label>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="radio-inline">
+                      <input type="radio" name="Datos[ayudaAuto]" class="flat-red" checked value="No">
+                      No
+                    </label>
+                  </div>
+                </div>  
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Uniforme</label>
+                <div>
+                  <div class="col-md-6">
+                    <label class="radio-inline">
+                      <input type="radio" name="Datos[uniforme]" class="flat-red" value="Si">
+                      Si
+                    </label>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="radio-inline">
+                      <input type="radio" name="Datos[uniforme]" class="flat-red" checked value="No">
+                      No
+                    </label>
                   </div>
                 </div>
-
-              </div><!-- tab content-->  
-               
-              
-
-            </section><!--content-->
-                         
-        </div><!-- fin class=box -->
-
-      </div>  
-           
-    </div><!-- /.row -->
-          
-  </section><!-- content-->
-</div><!-- /.content-wrapper --><!-- Termina el contenido general de la página -->
-
-      <!-- Inicio del pie de página -->
-      <footer class="main-footer">
-        <div class="pull-right hidden-xs">
-          <b>Versión</b> 1.0.0
-        </div>
-        Todos los derechos reservados 2017 - <strong>Módulo Administrativo</strong> | Spar Todopromo, SAPI de C.V.
-      </footer>
-    <!-- Fin del pie de página -->
-    <!-- ./wrapper -->
-    <!-- jQuery 2.2.3 -->
-    <script src="../../../assets/js/jquery/jquery-2.2.3.min.js"></script>
-    <!-- jQuery UI 1.11.4 -->
-    <script src="../../../assets/js/jquery/jquery-ui.js"></script>
-    <!-- Bootstrap 3.3.6 -->
-    <script src="../../../assets/js/bootstrap/bootstrap.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="../../../assets/js/app.min.js"></script>
-    <!-- Index Módulo Administrativo -->
-    <script src="../../js/V1/index.js"></script>
-  </body>
-</html>
+              </div>
+            </div>
+        <!-- /.col-md-12 -->
+    </div>
+    <div class="modal-footer">
+      <div id="mensaje"></div>
+      <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      <button name="enviar" id="agregar" class="btn btn-success" >Agregar</button>
+    </div>
+    </form>
+  </div>
+</div>

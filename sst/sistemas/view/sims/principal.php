@@ -89,9 +89,9 @@ if(!isset($_SESSION['spar_usuario']))
                   <h3 class="box-title">Sims/Principal</h3>
                 </div>
                 <!-- /.box-header -->
-                <div class="box-body table-responsive">
+                <div class="box-body">
                   <div class="page-header">
-                    <button type="button" onclick="cargaMasiva();" class="btn btn-success btn-flat btn-sm">Agregar</button>
+                    <button type="button" onclick="agregar();" class="btn btn-success btn-flat btn-sm">Agregar</button>
                   </div>
                   <?php if(!isset($_SESSION["spar_error"])){$estilo = "style='display:none;'";}else{$estilo = "";}?>
                   <div class="row">
@@ -104,30 +104,40 @@ if(!isset($_SESSION['spar_usuario']))
                       </div>
                     </div>
                   </div>
-                  <table id="tblSims" class="table table-bordered table-striped small">
-                    <thead>
-                    <tr>
-                      <th>Sim</th>
-                      <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php 
-                    foreach($sims as $sim){
-                    ?>
-                    <tr>
-                      <td><?php echo $sim["icc"]?></td>
-                      <td class = "text-center">
-                        <a style="cursor: pointer;" onclick="modificar('<?php echo $sim['idSim'];?>');">
-                          <i class="fa fa-pencil-square-o"></i>
-                        </a>
-                      </td>                      
-                    </tr>
-                    <?php
-                    }
-                    ?>
-                    </tbody>
-                  </table>
+                  <div class="row">
+                    <div class="table-responsive">
+                      <table id="tblSims" class="table table-bordered table-striped small">
+                        <thead>
+                        <tr>
+                          <th>SIM</th>
+                          <th>Tipo</th>
+                          <th>Estado</th>
+                          <th>Almacén</th>
+                          <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php 
+                        foreach($sims as $sim){
+                        ?>
+                        <tr>
+                          <td><?php echo $sim["icc"]?></td>
+                          <td><?php echo $sim["tipo"]?></td>
+                          <td><?php echo $sim["estado"]?></td>
+                          <td><?php echo $sim["almacen"]?></td>
+                          <td class = "text-center">
+                            <a style="cursor: pointer;" onclick="modificar('<?php echo base64_encode($sim['idSim']);?>');">
+                              <i class="fa fa-pencil-square-o"></i>
+                            </a>
+                          </td>                      
+                        </tr>
+                        <?php
+                        }
+                        ?>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
                 </div>
                 <!-- /.box-body -->
               </div>
@@ -146,7 +156,7 @@ if(!isset($_SESSION['spar_usuario']))
       <!-- Add the sidebar's background. This div must be placed
            immediately after the control sidebar -->
       <div class="control-sidebar-bg"></div>
-      <div class="modal fade" id="modalSim" role="dialog">              
+      <div  id="modalSim" class="modal" tabindex="-1" role="dialog">              
       </div>
       <!-- Modal Eliminar -->
       <div id="modalEliminar" class="modal fade" role="dialog">

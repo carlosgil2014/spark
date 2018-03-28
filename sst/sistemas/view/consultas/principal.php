@@ -7,7 +7,7 @@ if(!isset($_SESSION['spar_usuario']))
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="../../../assets/img/favicon.ico" type="image/x-icon" />
     <title>Módulo de Control de Recursos | Spar México</title>
     <meta http-equiv="cache-control" content="no-cache" />
     <meta http-equiv="expires" content="0" />
@@ -64,26 +64,6 @@ if(!isset($_SESSION['spar_usuario']))
           <ul class="sidebar-menu">
             <!-- <li class="header">Solicitudes</li> -->
             <li>
-              <a style="cursor: pointer;" onclick="agregar();"> 
-                <i class="fa fa-plus"></i> <span>Por Usuario</span>
-              </a>
-              <a style="cursor: pointer;" onclick="agregar();"> 
-                <i class="fa fa-plus"></i> <span>Por Línea</span>
-              </a>
-              <a style="cursor: pointer;" onclick="agregar();"> 
-                <i class="fa fa-plus"></i> <span>Por Equipo (IMEI)</span>
-              </a>
-              <a style="cursor: pointer;" onclick="agregar();"> 
-                <i class="fa fa-plus"></i> <span>Por Empleado</span>
-              </a>
-              <a style="cursor: pointer;" onclick="agregar();"> 
-                <i class="fa fa-plus"></i> <span>Por SIM</span>
-              </a>
-              <a style="cursor: pointer;" onclick="agregar();"> 
-                <i class="fa fa-plus"></i> <span>Por Cliente</span>
-              </a>
-            </li>
-            <li>
               <a href="../../index.php?accion=index">
                 <i class="fa fa-arrow-left"></i> <span>Regresar</span>
               </a>
@@ -102,49 +82,128 @@ if(!isset($_SESSION['spar_usuario']))
               <!-- Horizontal Form -->
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Consultas | Celulares | Tabletas</h3>
+                  <h3 class="box-title">Consulta</h3>
                 </div>
                 <!-- /.box-header -->
-                <div class="box-body table-responsive">
-                  <?php if(!isset($_SESSION["spar_error"])){$estilo = "style='display:none;'";}else{$estilo = "";}?>
-                  <div class="row">
-                    <div class="form-group" id="div_alert" <?php echo $estilo;?>>
-                      <div class="col-md-4 col-md-offset-4">
-                        <div class="alert alert-<?php echo $_GET['clase'];?>" >
-                          <strong>¡Aviso!</strong> <a onclick="cerrar('div_alert')" href="#" class="pull-right"><i class="fa fa-close"></i></a>
-                          <br><p id="p_alert"><?php if(isset($_SESSION["spar_error"]))echo $_SESSION["spar_error"];?></p>
+                <div class="box-body">
+                    <?php if(!isset($_SESSION["spar_error"])){$estilo = "style='display:none;'";}else{$estilo = "";}?>
+                    <div class="row">
+                        <div class="form-group" id="div_alert" <?php echo $estilo;?>>
+                            <div class="col-md-6 col-md-offset-3">
+                                <div class="alert alert-danger" >
+                                    <strong>¡Aviso!</strong> <a onclick="cerrar('div_alert')" href="#" class="pull-right"><i class="fa fa-close"></i></a>
+                                    <br><p id="p_alert"><?php if(isset($_SESSION["spar_error"]))echo $_SESSION["spar_error"];?></p>
+                                </div>
+                          </div>
                         </div>
+                    </div>
+                    <div class="row">
+                      <form action="index.php?accion=index" method="GET">
+                        <div class="form-group col-md-2 col-xs-4">   
+                            <label class="radio-inline"><input type="radio" name="tipoBusqueda" value="linea" <?php if(isset($_GET['tipoBusqueda'])){if($_GET['tipoBusqueda'] == 'linea') echo 'checked';} else echo 'checked';?> >Línea</label>
+                        </div>
+                        <div class="form-group col-md-2 col-xs-4">    
+                            <label class="radio-inline"><input type="radio" name="tipoBusqueda" value="imei" <?php if(isset($_GET['tipoBusqueda'])) if($_GET['tipoBusqueda'] == 'imei') echo 'checked';?>>IMEI</label>
+                        </div>
+                        <div class="form-group col-md-2 col-xs-4">  
+                            <label class="radio-inline"><input type="radio" name="tipoBusqueda" value="icc" <?php if(isset($_GET['tipoBusqueda'])) if($_GET['tipoBusqueda'] == 'icc') echo 'checked';?>>ICC</label>
+                        </div>                      
+                        <div class="form-group col-md-2 col-xs-4">  
+                            <label class="radio-inline"><input type="radio" name="tipoBusqueda" value="empleado" <?php if(isset($_GET['tipoBusqueda'])) if($_GET['tipoBusqueda'] == 'empleado') echo 'checked';?>>Empleado</label>
+                        </div>
+                        <div class="form-group col-md-3 col-xs-4">
+                          <input type="text" class="form-control input-sm" name="buscar" minlength="3" value="<?php if(isset($_GET['buscar'])) echo $_GET['buscar']; ?>">
+                        </div>
+                        <div class="form-group col-md-1 col-xs-2">
+                          <button class="btn btn-flat btn-sm btn-success" name="accion" value="index">Buscar</button>
+                        </div>
+                      </form>
+                    </div>
+                    <?php
+                    if(isset($_GET["tipoBusqueda"])){
+                    ?>
+                    <div class="row">
+                      <div class="table-responsive container-fluid">
+                        <table id="tblDatos" class="table table-bordered table-striped small">
+                        <?php 
+                        if(isset($datosEmpleados)){
+                        ?>
+                          <thead>
+                            <tr>
+                              <th>Nombre</th>
+                              <th>R.F.C.</th>
+                              <th>Continuar</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                          <?php 
+                          foreach ($datosEmpleados as $empleado)
+                          {
+                          ?>
+                            <tr>
+                              <td><?php echo $empleado['nombre'];?></td>
+                              <td> 
+                              <?php 
+                              if(!empty($empleado['rfc']))
+                                echo $empleado['rfc'];
+                              else
+                                echo "Sin R.F.C.";
+                              ?>    
+                              </td>
+                              <td class="text-center">
+                                <a href="index.php?accion=index&tipoBusqueda=empleado&buscar=id&idEmpleado=<?php echo $empleado['id']?>"><i style="cursor:pointer;" class="fa fa-arrow-circle-right" ></i></a>
+                              </td>
+                            </tr>
+                          <?php
+                          }
+                          ?>
+                          </tbody>
+                        <?php
+                        }
+                        if(isset($datosBusqueda)){
+                        ?>
+                          <thead>
+                            <tr>
+                              <th>Empleado</th>
+                              <th>Cliente/Departamento</th>
+                              <th>Ciudad</th>
+                              <th>Estado</th>
+                              <th>Línea</th>
+                              <th>Equipo</th>
+                              <th>IMEI</th>
+                              <th>ICC</th>
+                              <th>Fecha Asignación</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                          <?php 
+                          foreach ($datosBusqueda as $busqueda)
+                          {
+                          ?>
+                            <tr>
+                              <td><?php echo $busqueda['empleado'];?></td>
+                              <td><?php echo $busqueda['departamento'];?></td>
+                              <td><?php echo $busqueda['region'];?></td>
+                              <td><?php echo $busqueda['estado'];?></td>
+                              <td><?php echo $busqueda['linea'];?></td>
+                              <td><?php echo $busqueda['modelo']." (".$busqueda['marca'].")";?></td>
+                              <td><?php echo $busqueda['imei'];?></td>
+                              <td><?php echo $busqueda['icc'];?></td>
+                              <td><?php echo $busqueda['fecha'];?></td>
+                            </tr>
+                          <?php
+                          }
+                          ?>
+                          </tbody>
+                        <?php
+                        }
+                        ?>
+                        </table>
                       </div>
                     </div>
-                  </div>
-                  <table id="tblAsignaciones" class="table table-bordered table-striped small">
-                    <thead>
-                    <tr>
-                      <th>Nombre</th>
-                      <th>IMEI</th>
-                      <th>SIM</th>
-                      <th>Línea</th>
-                      <th>Estatus</th>
-                    </tr>
-                    </thead>
-                    <tbody>
                     <?php 
-                    foreach($asignaciones as $asignacion){
-                    ?>
-                    <tr>
-                      <td><?php echo ucwords(strtolower($asignacion["empleados_nombres"]." ".$asignacion["empleados_apellido_paterno"]." ".$asignacion["empleados_apellido_materno"]))?></td>
-                      <td><?php echo $asignacion["imei"]?></td>
-                      <td><?php echo $asignacion["icc"]?></td>
-                      <td><?php echo $asignacion["linea"]?></td>
-                      <td><?php echo $asignacion["estatus"]?></td>                      
-                    </tr>
-                    <!-- <a style="cursor: pointer;" onclick="modificar('<?php echo $asignacion['idAsginaciones'];?>');">
-                          <i class="fa fa-pencil-square-o"></i></a> -->
-                    <?php
                     }
                     ?>
-                    </tbody>
-                  </table>
                 </div>
                 <!-- /.box-body -->
               </div>
@@ -162,28 +221,7 @@ if(!isset($_SESSION['spar_usuario']))
       ?>
       <!-- Add the sidebar's background. This div must be placed
            immediately after the control sidebar -->
-      <div class="control-sidebar-bg"></div>
-      <div class="modal fade" id="modalAsignacion" role="dialog">              
-      </div>
-      <!-- Modal Eliminar -->
-      <div id="modalEliminar" class="modal fade" role="dialog">
-        <div class="modal-dialog modal-sm">
-          <!-- Modal content-->
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title">Región/Eliminar</h4>
-            </div>
-            <div class="modal-body text-center">
-            ¿Eliminar región <b id="AsignacionEliminar"></b>?
-            </div>
-            <div class="modal-footer">
-              <button type="button" id="eliminar" class="btn btn-sm btn-danger" data-dismiss="modal">Continuar</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Modal Eliminar -->
+      <div class="control-sidebar-bg"></div>l Eliminar -->
     </div>
     <!-- ./wrapper -->
 
@@ -199,7 +237,7 @@ if(!isset($_SESSION['spar_usuario']))
     <!-- AdminLTE App -->
     <script src="../../../assets/js/app.min.js"></script>
     <!-- Funciones Generales -->
-    <!-- <script src="../../../assets/js/funciones.js"></script> -->
+    <script src="../../../assets/js/funciones.js"></script>
     <!-- Index Bancos -->
     <script src="../../js/V1/consultas/index.js"></script>
         <!-- maskaras -->

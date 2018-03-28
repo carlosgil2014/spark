@@ -1,283 +1,288 @@
 <div class="modal-dialog modal-lg" role="document">
   <div class="modal-content">
-    <form id="formAgregar" method="POST" role="form" action="index.php?accion=guardar">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" >&times;</button>
-        <h4 class="modal-title" id="myModalLabel"><b>Agregar un nuevo perfil</b></h4>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-
-          <div class="panel-group" id="accordion">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h4 class="panel-title">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-                  1- Datos de perfil</a>
-                </h4>
+    <form id="formularioModificar" role="form">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true" >&times;</button>
+      <h4 class="modal-title" id="myModalLabel"><b>Modificacion de perfil</b></h4>
+    </div>
+    <div class="modal-body">
+            <div class="row">
+              <div class="form-group col-md-4">
+                <label class="control-label">Nombre de perfil</label>
+                <input type="text" class="form-control input-sm" name="Datos[nombrePerfil]" id="nombrePerfil" required  value="<?php echo $perfil['nombrePerfil']; ?>">
               </div>
-              <div id="collapse1" class="panel-collapse collapse in">
-                <div class="panel-body">
-                    <div class="form-group col-md-3">
-                      <label class="control-label">Solicitante</label>
-                      <input type="text" class="form-control input-sm" maxlength="60" data-error="Es un campo obligatorio" name="Datos[solicitante]" required  id="solicitante" value="<?php echo $datosUsuario["nombre"];?>" readonly>
-                    </div>
-                    <input type="hidden" name="idSolicitante" value="<?php echo $datosUsuario["numEmpleado"];?>">
-                    <div class="form-group col-md-3">
-                      <label class="control-label">Fecha de solicitud</label>
-                      <input type="text" class="form-control input-sm" maxlength="6" data-error="Es un campo obligatorio" name="Datos[fechaSolicitud]" required id="fechaSolicitud" value="<?php echo date("Y")."-".date("m")."-".date("d");?>" readonly> 
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label class="control-label">Puestos</label>
-                        <select class="form-control input-sm selectpicker" tabindex="2" name="Datos[puesto]" data-error="Es un campo obligatorio" data-live-search="true" required="required" id="puesto">
-                          <?php 
-                            foreach ($Puestos as $puesto){
-                          ?>                            
-                            <option <?php $puesto['idPuesto'] ?> value="<?php echo $puesto['idPuesto']?>"><?php echo $puesto['puesto'] ?> </option>';
-                          <?php
-                            }
-                          ?>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label class="control-label">Plan</label>
-                        <select class="form-control input-sm selectpicker" name="Datos[plan]" data-error="Es un campo obligatorio"  required="required" id="plan">                           
-                            <option value="1">Fijo</option>
-                            <option value="2">Eventual</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-2">
-                      <label class="control-label">Edad</label>
-                      <input type="number" class="form-control input-sm" maxlength="2" data-error="Es un campo obligatorio" name="Datos[edad]" required  id="edad">
-                    </div>
-                    <div class="form-group col-md-4">
-                      <label class="control-label">Sexo</label><br>
-                        <label>
-                          <input type="radio" name="datos[sexo]" class="flat-red" checked value="hombre">
-                          Hombre
-                        </label>
-                        <label>
-                          <input type="radio" name="datos[sexo]" class="flat-red" value="mujer">
-                          Mujer
-                        </label>
-                        <label>
-                          <input type="radio" name="r3" class="flat-red" value="indistinto">
-                          Indistinto
-                        </label>
-                    </div>
-                    <div class="form-group col-md-3">
-                      <label class="control-label">Escolaridad</label>
-                      <select class="form-control input-sm selectpicker" name="Datos[escolaridad]" data-error="Es un campo obligatorio" required="required" id="escolaridad">
-                            <option value="1">Doctorado</option>
-                            <option value="2">Maestria</option>                           
-                            <option value="3">Universidad</option>
-                            <option value="4">Preparatoria</option>
-                            <option value="5">Secundaria</option>
-                            <option value="6">Primaria</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-3">
-                      <label class="control-label">Estado civil</label>
-                      <select class="form-control input-sm selectpicker" name="Datos[estadoCivil]" data-error="Es un campo obligatorio" required="required" id="estadoCivil">                           
-                            <option value="1">Soltero</option>
-                            <option value="2">Comprometido/a</option>
-                            <option value="3">Casado/a</option>
-                            <option value="3">Divorciado/a</option>
-                            <option value="3">Viudo/a</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-3">
-                      <label class="control-label">Experiencia</label>
-                      <select class="form-control input-sm selectpicker" name="Datos[experiencia]" data-error="Es un campo obligatorio" required="required" id="experiencia">                           
-                            <option value="1">ninguna</option>
-                            <option value="2">6 meses</option>
-                            <option value="3">1 año</option>
-                            <option value="4">2 años</option>
-                            <option value="5">3 años</option>
-                      </select>
-                    </div>
-                    <div class="form-group col-md-3">
-                      <label class="control-label">Imagen</label>
-                        <select class="form-control input-sm selectpicker" name="idProductos[]" multiple data-error="Es un campo obligatorio" data-live-search="true" required="required">                 
-                          <option value="1">Presentable</option>
-                          <option value="2">Aseado</option>
-                          <option value="3">Traje</option>
-                          <option value="4">Condicion saludable</option>
-                          <option value="5">Sin tatuajes</option>
-                          <option value="6">Sin percing</option>
-                          <option value="7">Sin expansiones</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-3">
-                      <label class="control-label">Talla</label>
-                      <select class="form-control input-sm selectpicker" name="Datos[talla]" data-error="Es un campo obligatorio" required="required" id="talla">                           
-                            <option value="1">indistinto</option>
-                            <option value="2">5</option>
-                            <option value="3">7</option>
-                            <option value="4">9</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-3">
-                      <label class="control-label">Lo entrevista cliente</label><br>
-                        <label>
-                          <input type="radio" name="r3" class="flat-red" checked>
-                          si
-                        </label>
-                        <label>
-                          <input type="radio" name="r3" class="flat-red">
-                          no
-                        </label>
-                    </div>
-                    <div class="form-group col-md-6">
-                      <label class="control-label">Conocimientos especificos</label>
-                        <select class="form-control input-sm selectpicker" name="idConocimientos[]" multiple data-error="Es un campo obligatorio" data-live-search="true" required="required" id="conocimientos">             
-                          <option value="1">Promotora de tiendas departamentales</option>
-                          <option value="2">Manejo de herramientas para captura via webo dispositivo</option>
-                          <option value="3">Promotoria en autoservicio y/o mayoreo</option>
-                          <option value="4">Manejo de celular touch</option>
-                        </select>
-                    </div>
-                    <style>
-                      textarea {
-                      resize: none;
-                    }
-                    </style>
-                    <div class="form-group col-md-6">
-                      <label>Otros</label>
-                      <textarea class="form-control" rows="3" placeholder=""></textarea>
-                    </div>  
+              <div class="form-group col-md-3">
+                <label class="control-label">Clientes</label>
+                <select class="form-control input-sm selectpicker" name="Datos[cliente]" data-live-search="true" required="required" id="cliente">
+                <?php 
+                  foreach ($clientes as $cliente){
+                ?>                            
+                  <option <?php if($perfil['idCliente'] == $cliente['idclientes']){ echo 'selected';} ?> value="<?php echo $cliente['idclientes']?>"><?php echo $cliente['nombreComercial']?></option>';
+                <?php
+                  }
+                ?>
+                </select>
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Puesto</label>
+                <select class="form-control input-sm selectpicker" name="Datos[puesto]" data-error="Es un campo obligatorio" data-live-search="true" required id="puesto">
+                  <?php foreach ($puestos as $puesto) {
+                  ?>
+
+                  <option <?php if($perfil['idPuesto'] == $puesto['idPuesto']){ echo 'selected';} ?> value="<?php echo $puesto['idPuesto']; ?>"><?php echo $puesto['nombre']; ?></option>
+                  <?php } ?>
+                </select>
+              </div>
+              <div class="form-group col-md-2">
+                  <label class="control-label">Sueldo (Diario)</label>
+                  <input type="number" class="form-control input-sm decimal" name="Datos[salario]" id="salario" value="<?php echo $perfil['salario']; ?>" min="0" step="0.01" pattern="^[0-9]+" required onkeypress="validarDecimalPositivo(this)">
+              </div>
+              <div class="form-group col-md-2">
+                <label class="control-label">Edad mínima</label>
+                <input type="number" class="form-control input-sm" maxlength="2" data-error="Es un campo obligatorio" name="Datos[edad]" required  id="edad" value="<?php echo $perfil['edad']; ?>"  min="18" max="50">
+              </div>
+              <div class="form-group col-md-2">
+                <label class="control-label">Edad máxima</label>
+                <input type="number" class="form-control input-sm" maxlength="2" data-error="Es un campo obligatorio" name="Datos[edadMaxima]" required  id="edadMaxima" value="<?php echo $perfil['edadMaxima']; ?>" min="18" max="50">
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Sexo</label>
+                <select class="form-control input-sm selectpicker" name="Datos[sexo]" data-error="Es un campo obligatorio" required="required" id="sexo">
+                  <option <?php if($perfil['sexo'] == 'Hombre'){ echo 'selected';} ?> value="Hombre">Hombre</option>
+                  <option <?php if($perfil['sexo'] == 'Mujer'){ echo 'selected';} ?> value="Mujer">Mujer</option>
+                </select>
+              </div>
+              <!--
+              <div class="form-group col-md-2">
+                <label class="control-label">Opcional</label><br>
+                <label class="checkbox-inline">
+                  <input type="checkbox" name="Datos[opcional]" class="flat-red" <?php if($perfil['opcional'] == 'indistinto') echo "checked";?> value="indistinto">
+                  Indistinto
+                </label>
+              </div>-->
+              <div class="form-group col-md-3">
+                <label class="control-label">Escolaridad mínima</label>
+                <select class="form-control input-sm selectpicker" name="Datos[escolaridad]" data-error="Es un campo obligatorio" required="required" id="escolaridad">
+                <?php 
+                  foreach ($escolaridades as $escolaridad){
+                ?>                            
+                  <option <?php if($escolaridad['idEscolaridad'] == $perfil['perfilEscolaridad']){ echo 'selected';} ?> value="<?php echo $escolaridad['idEscolaridad']?>"><?php echo $escolaridad['escolaridad']?></option>
+                <?php
+                  }
+                ?>
+                </select>
+              </div>
+              <?php $cadena = explode(",", $perfil['diasTrabajados']); ?>
+              <div class="form-group col-md-8">
+                <label class="control-label">Días trabajados<i class="fa fa-pencil-square-o" onclick="diasSemana('semana');"></i>---L-V ---<i class="fa fa-pencil-square-o" onclick="diasSemana('finSemana');"></i> --- S-D</label>
+                <div>
+                  <label class="checkbox-inline">
+                    <input type="checkbox" name="diasTrabajados[]" class="flat-red" <?php if(in_array('Lunes', $cadena)){echo 'checked';}?> value="Lunes" id="lunes">
+                    Lunes
+                  </label>
+                  <label class="checkbox-inline">
+                    <input type="checkbox" name="diasTrabajados[]" class="flat-red"  value="Martes" <?php if(in_array('Martes', $cadena)){echo 'checked';}?> id="martes">
+                    Martes
+                  </label>
+                  <label class="checkbox-inline">
+                    <input type="checkbox" name="diasTrabajados[]" class="flat-red" value="Miercoles" <?php if(in_array('Miercoles', $cadena)){echo 'checked';}?> id="miercoles">
+                    Miércoles
+                  </label>
+                  <label class="checkbox-inline">
+                    <input type="checkbox" name="diasTrabajados[]" class="flat-red"  value="Jueves" <?php if(in_array('Jueves', $cadena)){echo 'checked';}?> id="jueves">
+                    Jueves
+                  </label>
+                  <label class="checkbox-inline">
+                    <input type="checkbox" name="diasTrabajados[]" class="flat-red"  value="Viernes" <?php if(in_array('Viernes', $cadena)){echo 'checked';}?> id="viernes">
+                    Viernes
+                  </label>
+                  <label class="checkbox-inline">
+                    <input type="checkbox" name="diasTrabajados[]" class="flat-red" value="Sabado" <?php if(in_array('Sabado', $cadena)){echo 'checked';}?> id="sabado">
+                    Sábado
+                  </label>
+                  <label class="checkbox-inline">
+                    <input type="checkbox" name="diasTrabajados[]" class="flat-red" value="Domingo" <?php if(in_array('Domingo', $cadena)){echo 'checked';}?> id="domingo">
+                    Domingo
+                  </label>
                 </div>
               </div>
-            </div>
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h4 class="panel-title">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-                  2- Propuesta</a>
-                </h4>
+              <div class="form-group col-md-2">
+                  <div class="bootstrap-timepicker">
+                      <label>Horario entrada</label>
+                      <div class="input-group">
+                        <input type="text" class="form-control timepicker"  id="entrada" name="horariosEntrada[]" value=" <?php echo $perfil['horarioEntrada']; ?> ">
+                        <div class="input-group-addon">
+                          <i class="fa fa-clock-o"></i>
+                        </div>
+                      </div>
+                  </div>
               </div>
-              <div id="collapse2" class="panel-collapse collapse">
-                <div class="panel-body">
-                  <div class="form-group col-md-6">
-                    <label>Jornada</label><br>
-                    <label>
-                      <input type="checkbox" class="flat-red"  value="lunes" name="lunes" checked id="lunes">
-                      Lun
-                    </label>
-                    <label>
-                      <input type="checkbox" class="flat-red" value="martes" name="martes" checked id="martes">
-                      Mar
-                    </label>
-                    <label>
-                      <input type="checkbox" class="flat-red" value="miercoles" name="miercoles" checked id="miercoles">
-                      Mie
-                    </label>
-                    <label>
-                      <input type="checkbox" class="flat-red" value="jueves" name="jueves" checked id="jueves">
-                      Jue
-                    </label>
-                    <label>
-                      <input type="checkbox" class="flat-red" value="viernes" name="viernes" checked id="viernes">
-                      Vie
-                    </label>
-                    <label>
-                      <input type="checkbox" class="flat-red" value="sabado" name="sabado"  id="sabado" >
-                      Sab
-                    </label>
-                    <label>
-                      <input type="checkbox" class="flat-red" value="domingo" name="domingo"  id="domingo">Dom
-                    </label>
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label>Descanso</label><br>
-                    <label>
-                      <input type="checkbox" class="flat-red" value="lunesDescanso" name="lunesDescanso" id="lunesDescanso" disabled>Lun
-                    </label>
-                    <label>
-                      <input type="checkbox" class="flat-red" value="martesDescanso" name="martesDescanso" id="martesDescanso" disabled>
-                      Mar
-                    </label>
-                    <label>
-                      <input type="checkbox" class="flat-red" value="miercolesDescanso" name="miercolesDescanso" id="miercolesDescanso" disabled>
-                      Mie
-                    </label>
-                    <label>
-                      <input type="checkbox" class="flat-red" value="juevesDescanso" name="juevesDescanso" id="juevesDescanso" disabled>
-                      Jue
-                    </label>
-                    <label>
-                      <input type="checkbox" class="flat-red" value="viernesDescanso" name="viernesDescanso" id="viernesDescanso" disabled>
-                      Vie
-                    </label>
-                    <label>
-                      <input type="checkbox" class="flat-red" value="sabadoDescanso" name="sabadoDescanso" checked id="sabadoDescanso" disabled>
-                      Sab
-                    </label>
-                    <label>
-                      <input type="checkbox" class="flat-red" value="domingoDescanso" name="domingoDescanso" checked id="domingoDescanso" disabled>
-                      Dom
-                    </label>
-                  </div>
-                  <div class="form-group col-md-3">
-                    <div class="bootstrap-timepicker">
-                      <div class="form-group">
-                        <label>Horarios</label>
-                        <div class="input-group">
-                          <input type="text" class="form-control timepicker">
-                          <div class="input-group-addon">
-                            <i class="fa fa-clock-o"></i>
-                          </div>
-                        </div>
+              <div class="form-group col-md-2">
+                <div class="bootstrap-timepicker">
+                    <label>Horario salida</label>
+                    <div class="input-group">
+                      <input type="text" class="form-control timepicker"  id="salida" name="horariosSalida[]" value=" <?php echo $perfil['horarioSalida']; ?> ">
+                      <div class="input-group-addon">
+                        <i class="fa fa-clock-o"></i>
                       </div>
                     </div>
+                </div>
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Experiencia</label>
+                <select class="form-control input-sm selectpicker" name="Datos[experiencia]" data-error="Es un campo obligatorio" required="required" id="experiencia">                           
+                      <option <?php if($perfil['experiencia']=='1'){echo 'selected';}  ?> value="1">Ninguna</option>
+                      <option <?php if($perfil['experiencia']=='2'){echo 'selected';}  ?> value="2">6 meses</option>
+                      <option <?php if($perfil['experiencia']=='3'){echo 'selected';}  ?> value="3">1 año</option>
+                      <option <?php if($perfil['experiencia']=='4'){echo 'selected';}  ?> value="4">2 años</option>
+                      <option <?php if($perfil['experiencia']=='5'){echo 'selected';}  ?> value="5">3 años o más</option>
+                </select>
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Estado civil</label>
+                <select class="form-control input-sm selectpicker" name="Datos[estadoCivil]" data-error="Es un campo obligatorio" required="required" id="estadoCivil">
+                    <option <?php if($perfil['estadoCivil']=='Casado/a'){echo 'selected';}  ?> value="Casado/a">Casado/a</option>
+                    <option <?php if($perfil['estadoCivil']=='Comprometido/a'){echo 'selected';}  ?> value="Comprometido/a">Comprometido/a</option>
+                    <option <?php if($perfil['estadoCivil']=='Divorciado/a'){echo 'selected';}  ?> value="Divorciado/a">Divorciado/a</option>
+                    <option <?php if($perfil['estadoCivil']=='Soltero/a'){echo 'selected';}  ?> value="Soltero/a" selected="selected">Soltero/a</option>
+                    <option <?php if($perfil['estadoCivil']=='Viudo/a'){echo 'selected';}  ?> value="Viudo/a">Viudo/a</option>
+                    <option <?php if($perfil['estadoCivil']=='Indistinto'){echo 'selected';}  ?> value="Indistinto">Indistinto</option>
+                  </select>
+              </div>
+              <?php $cadena = explode(",", $perfil['imagen']); ?>
+              <div class="form-group col-md-3">
+                <label class="control-label">Imagen</label>
+                  <select class="form-control input-sm selectpicker" name="imagen[]" multiple data-error="Es un campo obligatorio" data-live-search="true" required>                 
+                    <option <?php if(in_array('Presentable', $cadena)){echo 'checked';}?> value="Presentable" selected="selected">Presentable</option>
+                    <option <?php if(in_array('Aseado', $cadena)){echo 'checked';}?> value="Aseado" selected="selected">Aseado</option>
+                    <option <?php if(in_array('Traje', $cadena)){echo 'checked';}?> value="Traje">Traje</option>
+                    <option <?php if(in_array('Condición saludable', $cadena)){echo 'checked';}?> value="Condición saludable">Condición saludable</option>
+                    <option <?php if(in_array('Sin tatuajes', $cadena)){echo 'checked';}?> value="Sin tatuajes">Sin tatuajes</option>
+                    <option <?php if(in_array('Sin percing', $cadena)){echo 'checked';}?> value="Sin percing">Sin percing</option>
+                    <option <?php if(in_array('Sin expansiones', $cadena)){echo 'checked';}?> value="Sin expansiones">Sin expansiones</option>
+                  </select>
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Talla</label>
+                <select class="form-control input-sm selectpicker" name="Datos[talla]" data-error="Es un campo obligatorio" required="required" id="talla">
+                      <option <?php if($perfil['talla']=='Indistinto'){ echo 'selected'; } ?> value="Indistinto">Indistinto</option>
+                      <option <?php if($perfil['talla']=='Chica'){ echo 'selected'; } ?> value="Chica">Chica</option>
+                      <option <?php if($perfil['talla']=='Mediana'){ echo 'selected'; } ?> value="Mediana">Mediana</option>
+                      <option <?php if($perfil['talla']=='Grande'){ echo 'selected'; } ?> value="Grande">Grande</option>
+                  </select>
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Lo entrevista cliente</label>
+                  <div class="col-md-6">
+                    <label class="radio-inline">
+                      <input type="radio" name="Datos[entrevista]" class="flat-red" <?php if($perfil['entrevistaCliente']=='Si'){ echo 'checked';} ?> value="Si">
+                      Si
+                    </label>
                   </div>
-                  <div class="form-group col-md-3">
-                    <div class="bootstrap-timepicker">
-                      <div class="form-group">
-                        <label></label>
-                        <div class="input-group">
-                          <input type="text" class="form-control timepicker">
-                          <div class="input-group-addon">
-                            <i class="fa fa-clock-o"></i>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                  <div class="col-md-6">
+                    <label class="radio-inline">
+                      <input type="radio" name="Datos[entrevista]" class="flat-red" value="No" <?php if($perfil['entrevistaCliente']=='No'){ echo 'checked';} ?>>
+                      No
+                    </label>
                   </div>
-                  <div class="form-group col-md-5">
-                    <label class="control-label">Dias trabajdos</label>
-                    <select class="form-control input-sm selectpicker" multiple name="Datos[]" data-error="Es un campo obligatorio" required="required" id="diasTrabajados" readonly>
-                      <option value="1">lunes</option>
-                      <option value="2" selected="selected">martes</option>
-                      <option value="3" selected="selected">miercoles</option>
-                      <option value="4" selected="selected">jueves</option>
-                      <option value="5" selected="selected">viernes</option>
-                      <option value="6" disabled="disabled">sabado</option>
-                      <option value="7" disabled="disabled">domingo</option>
-                    </select>
+              </div>
+              <?php $cadenaConocimietos = explode(",", $perfil['conocimientosEspecificos']); ?>
+              <div class="form-group col-md-3">
+                <label class="control-label">Conocimientos específicos</label>
+                <select class="form-control input-sm selectpicker" multiple  name="conocimientos[]" data-error="Es un campo obligatorio" data-live-search="true" required id="conocimiento">
+                  <option data-hidden="true" selected></option>
+                  <?php foreach ($conocimientos as $conocimiento) {
+                  ?>
+                  <option <?php if(in_array($conocimiento['idConocimiento'],$cadenaConocimietos)){ echo 'selected';} ?> value="<?php echo $conocimiento['idConocimiento']; ?>"><?php  echo $conocimiento['conocimiento']; ?></option>
+                  <?php } ?>
+                </select>
+              </div>
+              <?php $cadenaHabilidades = explode(",", $perfil['habilidades']); ?>
+              <div class="form-group col-md-3">
+                <label class="control-label">Habilidades</label>
+                <select class="form-control input-sm selectpicker" name="habilidades[]" multiple data-error="Es un campo obligatorio" data-live-search="true"  id="habilidades">
+                  <option data-hidden="true" selected></option>
+                  <?php foreach ($habilidades as $habilidad) {?> 
+                  <option <?php if(in_array($habilidad['idHabilidades'],$cadenaHabilidades)){ echo 'selected';} ?> value="<?php echo $habilidad['idHabilidades']; ?>"><?php echo $habilidad['habilidad']; ?></option>
+                  <?php } ?>
+                </select>
+              </div> 
+              <?php $cadenaEvaluaciones = explode(",", $perfil['evaluaciones']); ?>
+              <div class="form-group col-md-3">
+                <label class="control-label">Evaluaciones</label>
+                <select class="form-control input-sm selectpicker" name="evaluaciones[]" multiple data-error="Es un campo obligatorio" data-live-search="true" required="required" id="evaluaciones" class="claseCheckBox">
+                  <option <?php  if(in_array('Cleaver',$cadenaEvaluaciones)){ echo 'selected';} ?> value="Cleaver">Cleaver</option>
+                  <option <?php  if(in_array('Personalidad',$cadenaEvaluaciones)){ echo 'selected';} ?> value="Personalidad">Personalidad</option>
+                </select>                
+              </div>
+              <?php $cadenaPaquetes = explode(",", $perfil['paquetes']); ?>
+              <div class="form-group col-md-3">
+                <label class="control-label">Paquetes o lenguajes</label>
+                <select class="form-control input-sm selectpicker" name="paquetesLenguajes[]" multiple  data-live-search="true" id="paquetesLenguajes">
+                  <option data-hidden="true"></option>
+                  <option  <?php  if(in_array('Word',$cadenaPaquetes)){ echo 'selected';} ?> value="Word" >Word</option>
+                  <option  <?php  if(in_array('Excel',$cadenaPaquetes)){ echo 'selected';} ?> value="Excel">Excel</option>
+                  <option  <?php  if(in_array('Power point',$cadenaPaquetes)){ echo 'selected';} ?> value="Power point">Power point</option>
+                </select>                
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Prestaciones de ley</label>
+                <div class="col-md-6">
+                  <label class="radio-inline">
+                    <input type="radio" name="Datos[prestaciones]" class="flat-red" value="Si" <?php if($perfil['prestacionesLey']=='Si'){ echo 'checked';} ?> >
+                    Si
+                  </label>
+                </div>
+                <div class="col-md-6">
+                  <label class="radio-inline">
+                    <input type="radio" name="Datos[prestaciones]" class="flat-red" value="No" <?php if($perfil['prestacionesLey']=='No'){ echo 'checked';} ?>>
+                    No
+                  </label>
+                </div>
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Ayuda de auto</label>
+                <div>
+                  <div class="col-md-6">
+                    <label class="radio-inline">
+                      <input type="radio" name="Datos[ayudaAuto]" class="flat-red" value="Si" <?php if($perfil['ayudaAuto']=='Si'){ echo 'checked';} ?> >
+                      Si
+                    </label>
                   </div>
-                  <div class="form-group col-md-1">
-                    <a><i class="fa fa-plus agregarFila" style="cursor:pointer" agregarFila()  onclick="agregarFila();" ></i></a>
+                  <div class="col-md-6">
+                    <label class="radio-inline">
+                      <input type="radio" name="Datos[ayudaAuto]" class="flat-red" value="No" <?php if($perfil['ayudaAuto']=='No'){ echo 'checked';} ?> >
+                      No
+                    </label>
                   </div>
-                  <div id="prueba" class="form-group col-md-12">
+                </div>  
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Uniforme</label>
+                <div>
+                  <div class="col-md-6">
+                    <label class="radio-inline">
+                      <input type="radio" name="Datos[uniforme]" class="flat-red" value="Si" <?php if($perfil['uniforme']=='Si'){ echo 'checked';} ?>>
+                      Si
+                    </label>
                   </div>
-                  <div class="form-group col-md-3">
-                    <label class="control-label">Salario</label>
-                    <input type="number" class="form-control input-sm" tabindex="1" maxlength="60" data-error="Es un campo obligatorio" name="Datos[salario]" required  id="salario" step="0.01" >
+                  <div class="col-md-6">
+                    <label class="radio-inline">
+                      <input type="radio" name="Datos[uniforme]" class="flat-red" value="No" <?php if($perfil['uniforme']=='No'){ echo 'checked';} ?>>
+                      No
+                    </label>
                   </div>
                 </div>
               </div>
+              <input type="hidden" name="Datos[idPerfil]" value="<?php echo $_GET['id'];?>">
             </div>
-          </div>          
-
-        </div>
         <!-- /.col-md-12 -->
-      </div>
-      <div class="modal-footer">
-        <div  id="mensaje" ></div>
-        <button id="cerrar" type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button  type="submit" id="modificar" class="btn btn-success btn-sm">Modificar</button>
-      </div> 
+    </div>
+    <div class="modal-footer">
+      <div id="mensaje"></div>
+      <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      <button name="enviar" id="modificar" class="btn btn-success" >Modificar</button>
+    </div>
     </form>
   </div>
 </div>

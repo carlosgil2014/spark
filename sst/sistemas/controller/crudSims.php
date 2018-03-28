@@ -19,7 +19,8 @@ class Controller {
 	public function principal()
 	{
 		$this->varSesion->ultimaActividad();
-		$datosUsuario = $this->varUsuario->datosUsuario($_SESSION["spar_usuario"]);
+		if(isset($_SESSION["spar_usuario"]))
+			$datosUsuario = $this->varUsuario->datosUsuario($_SESSION["spar_usuario"]);
 
 		if(isset($_GET["accion"]))
 		{
@@ -32,41 +33,52 @@ class Controller {
 						unset($_SESSION["spar_error"]);
 					break;
 				case "alta":
-
 					$almacenes = $this->varAlmacen->listar();
 					include_once("alta.php");
 					break;
 
-				case "cargaMasiva":
+				case "agregar":
 					$almacenes = $this->varAlmacen->listar();
-					include_once("cargaMasiva.php");
+					include_once("agregar.php");
 					break;
 
 				case "modificar":
-					$sims = $this->varSims->informacion($_GET["id"]);
-					if(empty($sims))
-						header("Location: index.php?accion=index");
-						//echo 'aa';
+					$clase = "success";
+					if(isset($_SESSION["spar_error"]) && $_SESSION["spar_error"] === "OK"){
+						$_SESSION["spar_error"] = "SIM actualizada correctamente.";
+					}
+					else{
+						$clase = "danger";
+					}
+					$sim = $this->varSims->informacion($_GET["idSim"]);
+					$almacenes = $this->varAlmacen->listar();
+					$movimientos = $this->varSims->historial($_GET["idSim"]);
+					if(empty($sim)){
+						echo "No existen datos con ese SIM";
+					}
 					else{
 						include_once("modificar.php");
 					}
+					unset($_SESSION["spar_error"]);
 					break;
 				case "guardar":
-					$resultado = $this->varSims->guardar($_POST["icc"],$_POST["almacen"]);
-					echo $resultado;
+					if(isset($_SESSION["spar_usuario"])){
+						$resultado = $this->varSims->guardar($_POST["icc"],$_POST["almacen"],$_POST["tipo"],$datosUsuario["idUsuario"]);
+						echo $resultado;
+					}
+					else{
+						echo "Expiró la sesión, actualice e inicie nuevamente.";
+					}
 					break;
 
 				case "actualizar":
-						$id = $_GET["id"];
-						$sim = $_POST["sim"];
-						$resultado = $this->varSims->actualizar($id,$sim);
+					if(isset($_SESSION["spar_usuario"])){
+						$resultado = $this->varSims->actualizar($_POST["idSim"], $_POST["icc"], $_POST["almacen"], $_POST["tipo"], $_POST["estado"], $datosUsuario["idUsuario"]);
 						$_SESSION["spar_error"] = $resultado;
-						if(isset($_SESSION["spar_error"]) && $_SESSION["spar_error"] === "OK"){
-							$clase = "success";
-							$_SESSION["spar_error"] = "Se modificó los datos correctamente.";
-						}else
-						$clase = "danger";
-						header("Location: index.php?accion=index&clase=".$clase);
+					}
+					else{
+						echo "Expiró la sesión, actualice e inicie nuevamente.";
+					}
 					break;
 				
 				case "eliminar":
@@ -74,6 +86,17 @@ class Controller {
 						$resultado = $this->varSims->eliminar($id);
 						echo $resultado;
 						$_SESSION["spar_error"] = "Se eliminó correctamente el salario.";
+					break;
+
+				case "buscarICC":
+						$idLinea = $_GET["idLinea"];
+						$datosLinea = $this->varSims->buscarICC($idLinea);
+						// var_dump($datosLinea);
+						if( !empty($datosLinea) ){
+							echo json_encode($datosLinea);
+						}else{
+							echo 'error';
+						}	
 					break;
 				default:
 					header("Location: index.php?accion=index");

@@ -95,67 +95,7 @@ if(!isset($_SESSION['spar_usuario']))
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-12">
-                      <form id="formAgregar" data-toggle="validator" role="form" method="POST" action="index.php?accion=guardar">
-                        <div class="col-md-6">
-                          <div class="form-group col-md-4">
-                            <label class="control-label">Almacén</label>
-                            <select type="text" class="form-control input-sm" pattern="^[A-Z0-9]{13}" maxlength="13" placeholder="Bodega" data-error="Almacén no puede estar vacío." name="Datos[rfc]" data-toggle="tooltip" title="Si requiere dar de alta un nuevo almacén hágalo en el menú:'Párámetros Generales' de este módulo" required></select>
-                            <div class="help-block with-errors">&nbsp;</div>
-                          </div>
-                          <div class="form-group col-md-4">
-                            <label class="control-label">Fecha de solicitud</label>
-                            <input type="date" value="<?php echo date('Y-m-d');?>" class="form-control input-sm" maxlength="60" data-error="Este es un campo obligatorio" name="Datos[nombres]" disabled>
-                            <div class="help-block with-errors">&nbsp;</div>
-                          </div>
-                          <div class="form-group col-md-4">
-                            <label class="control-label">Fecha de entrega</label>
-                            <input type="date" value="<?php echo date('Y-m-d');?>" class="form-control input-sm" maxlength="40" data-error="Es un campo obligatorio" name="Datos[calle]" required>
-                            <div class="help-block with-errors">&nbsp;</div>
-                          </div>
-                          <div class="form-group col-md-4">
-                            <label class="control-label">Solicita</label>
-                            <input type="hidden" value="<?php echo $datosUsuario['idEmpleado'];?>" name="Datos[solicita]">
-                            <input type="text" class="form-control input-sm" value="<?php echo $datosUsuario['nombre'];?>" readonly required>
-                            <div class="help-block with-errors">&nbsp;</div>
-                          </div>
-                          <div class="form-group col-md-4">
-                            <label class="control-label">Prioridad</label>
-                            <select type="text" class="form-control input-sm selectpicker" maxlength="60" name="Datos[cliente]">
-                              <option>Baja</option>
-                              <option>Media</option>
-                              <option>Alta</option>
-                            </select>
-                            <div class="help-block with-errors">&nbsp;</div>
-                          </div>
-                          <div class="form-group col-md-4">
-                            <label class="control-label">Centro de costos</label>
-                            <select type="text" class="form-control input-sm selectpicker" onchange="rubrosCliente(this);" data-live-search="true" maxlength="60" name="Datos[cliente]">
-                              <option data-hidden="true"></option>
-                            <?php 
-                            foreach ($clientes as $cliente) {
-                            ?>
-                              <option value="<?php echo $cliente['idclientes'];?>"><?php echo $cliente["nombreComercial"]?></option>
-                            <?php
-                            }
-                            ?>
-                            </select>
-                            <div class="help-block with-errors">&nbsp;</div>
-                          </div>
-                          <div class="form-group col-md-12">
-                            <label class="control-label">Motivo o descripción de la requisición</label>
-                            <textarea type="text" class="form-control input-sm" style="resize:none;" data-error="Es un campo obligatorio" name="Datos[noInterior]" required></textarea> 
-                            <div class="help-block with-errors">&nbsp;</div>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div id="divDetalles" class="col-md-12">
-                            
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                    <!-- /.col-md-12 -->
+                    
                   </div>
                   <!-- /.box-body -->
               </div>

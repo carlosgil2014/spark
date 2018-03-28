@@ -9,7 +9,7 @@ class usuarios{
 	
 	public function datosUsuario($usuario){
 		$usuario = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($usuario))));
-		$consulta = "SELECT u.usuarios_id AS idUsuario, u.usuarios_empleados_id AS idEmpleado, u.usuarios_usuario AS usuario, usuarios_foto AS foto, e.empleados_numero_empleado AS numEmpleado, e.empleados_correo AS correo, p.puesto, CONCAT(e.empleados_nombres,' ',e.empleados_apellido_paterno,' ',e.empleados_apellido_materno) AS nombre, e.empleados_rfc AS rfc, usuarios_mrs AS mrs, usuarios_mcg AS mcg, usuarios_ma AS ma, usuarios_mcc AS mcc, usuarios_mrh AS mrh, usuarios_ms AS ms FROM spartodo_spar_bd.spar_empleados e LEFT JOIN tblPuestos p ON e.empleados_puesto = p.idPuesto LEFT JOIN tblUsuarios u ON e.empleados_id = u.usuarios_empleados_id WHERE u.usuarios_usuario = '".$usuario."' ";
+		$consulta = "SELECT u.usuarios_id AS idUsuario, u.usuarios_empleados_id AS idEmpleado, u.usuarios_usuario AS usuario, usuarios_foto AS foto, e.empleados_numero_empleado AS numEmpleado, e.empleados_correo AS correo, p.nombre AS puesto, CONCAT(e.empleados_nombres,' ',e.empleados_apellido_paterno,' ',e.empleados_apellido_materno) AS nombre, e.empleados_rfc AS rfc, usuarios_mrs AS mrs, usuarios_mcg AS mcg, usuarios_ma AS ma, usuarios_mcc AS mcc, usuarios_mrh AS mrh, usuarios_ms AS ms FROM spartodo_spar_bd.spar_empleados e LEFT JOIN spartodo_rh.tblPuestos p ON e.empleados_puesto = p.idPuesto LEFT JOIN tblUsuarios u ON e.empleados_id = u.usuarios_empleados_id WHERE u.usuarios_usuario = '".$usuario."' ";
 		$resultado = $this->conexion->query($consulta);
 		$datos = array();
 
@@ -145,7 +145,7 @@ class usuarios{
 		}
 	}
 
-	public function buscarEmpleado($buscar)
+	public function buscarEmpleados($buscar)
     {
         $datosEmpleados = array();
         $buscar = $this->conexion->real_escape_string(strip_tags(stripslashes(trim($buscar))));
@@ -162,7 +162,7 @@ class usuarios{
            }
         }
         if($errores === 0){
-           $consulta = "SELECT empleados_id AS id, CONCAT( empleados_apellido_paterno, ' ',empleados_apellido_materno, ' ',empleados_nombres) AS nombre, empleados_rfc AS rfc FROM spartodo_spar_bd.spar_empleados e LEFT JOIN tblUsuarios u ON e.empleados_id = u.usuarios_empleados_id WHERE (CONCAT( empleados_apellido_paterno, ' ',empleados_apellido_materno, ' ',empleados_nombres) LIKE '%$buscar%' OR empleados_apellido_paterno LIKE '%$buscar%' OR empleados_apellido_materno LIKE '%$buscar%' OR empleados_nombres LIKE '%$buscar%' OR empleados_rfc LIKE '%$buscar%') AND u.usuarios_empleados_id IS NULL GROUP BY id";
+           $consulta = "SELECT empleados_id AS id, CONCAT( empleados_apellido_paterno, ' ',empleados_apellido_materno, ' ',empleados_nombres) AS nombre, empleados_rfc AS rfc FROM spartodo_spar_bd.spar_empleados e LEFT JOIN tblUsuarios u ON e.empleados_id = u.usuarios_empleados_id WHERE (CONCAT( empleados_apellido_paterno, ' ',empleados_apellido_materno, ' ',empleados_nombres) LIKE '%$buscar%' OR empleados_apellido_paterno LIKE '%$buscar%' OR empleados_apellido_materno LIKE '%$buscar%' OR empleados_nombres LIKE '%$buscar%' OR empleados_rfc LIKE '%$buscar%') GROUP BY id";
            $resultado = $this->conexion->query($consulta);
            if($resultado){
               while ($filaTmp = $resultado->fetch_assoc()) {
@@ -180,7 +180,7 @@ class usuarios{
 
       public function informEmpleado($idEmpleado){
 			$idEmpleado = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($idEmpleado))));
-   			$consulta="SELECT e.empleados_id,CONCAT(e.empleados_nombres,' ',e.empleados_apellido_paterno,' ',e.empleados_apellido_materno) AS nombre, e.empleados_correo,p.puesto FROM spar_empleados e LEFT join tblPuestos p on e.empleados_puesto=p.idPuesto WHERE e.empleados_id = $idEmpleado";
+   			$consulta="SELECT e.empleados_id,CONCAT(e.empleados_nombres,' ',e.empleados_apellido_paterno,' ',e.empleados_apellido_materno) AS nombre, e.empleados_correo,p.nombre FROM spar_empleados e LEFT join spartodo_rh.tblPuestos p on e.empleados_puesto=p.idPuesto WHERE e.empleados_id = $idEmpleado";
    			// echo $consulta;
 			$resultado = $this->conexion->query($consulta);
 			if($resultado){

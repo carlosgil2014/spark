@@ -1,13 +1,14 @@
 <?php
-if(!isset($_SESSION['spar_usuario']))
-    header('Location: ../index.html');
+if(!isset($_SESSION['spar_usuario']) || $permisos["Principal"] !== "1")
+    header('Location: ../index.php');
+
 ?>
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="shortcut icon" href="../../img/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="../../../assets/img/favicon.ico" type="image/x-icon" />
     <title>Módulo de Control de Recursos | Spar México</title>
     <meta http-equiv="cache-control" content="no-cache" />
     <meta http-equiv="expires" content="0" />
@@ -24,12 +25,11 @@ if(!isset($_SESSION['spar_usuario']))
     <link rel="stylesheet" href="../../../assets/css/datatables/dataTables.bootstrap.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="../../../assets/css/AdminLTE.min.css">
-    <!-- selected -->
-    <link rel="stylesheet" href="../../../assets/css/bootstrap/bootstrap-select.min.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="../../../assets/css/_all-skins.min.css">
-
+    <!-- selected -->
+    <link rel="stylesheet" href="../../../assets/css/bootstrap/bootstrap-select.min.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -38,6 +38,9 @@ if(!isset($_SESSION['spar_usuario']))
     <![endif]-->
   </head>
   <body class="hold-transition skin-blue sidebar-mini">
+    <?php 
+      include_once("../../../view/includes/modalExpiracion.php");
+    ?>
     <div class="loader">
     </div>
     <div class="wrapper">
@@ -62,13 +65,9 @@ if(!isset($_SESSION['spar_usuario']))
           <?php 
             include_once("../../../view/includes/menuIzquierdo.php");
           ?>
+          <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
             <!-- <li class="header">Solicitudes</li> -->
-            <li>
-              <a style="cursor: pointer;" onclick="agregar();"> 
-                <i class="fa fa-plus"></i> <span>Agregar</span>
-              </a>
-            </li>
             <li>
               <a href="../../index.php?accion=index">
                 <i class="fa fa-arrow-left"></i> <span>Regresar</span>
@@ -91,8 +90,40 @@ if(!isset($_SESSION['spar_usuario']))
                   <h3 class="box-title">Vacantes/Principal</h3>
                 </div>
                 <!-- /.box-header -->
-                <div id="respuesta"></div>
-                <div class="box-body table-responsive">
+                <div class="box-body">
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-1 col-sm-4" <?php if(!isset($permisos["Agregar"]) || $permisos["Agregar"] !== "1"){ echo 'data-toggle="tooltip" data-container="body" title="Permisos insuficientes."';}?>>
+                       
+                        <button type="button" onclick="agregar();" class="btn btn-success btn-block btn-flat btn-sm" <?php 
+                        if(!isset($permisos["Agregar"]) || $permisos["Agregar"] !== "1"){ echo 'disabled';}
+                        ?>>Agregar</button>
+                        
+                      </div>
+                      <form action="index.php?accion=index" method="POST">
+                        <div class="col-md-3 col-sm-4">
+                          <select class="form-control input-sm selectpicker" data-style="btn-info btn-flat btn-sm" data-live-search="true" data-size="5" name="clientes[]" multiple="multiple" data-container="body"  data-live-search = "true" data-selected-text-format="count > 5">
+                            <?php
+                            foreach ($clientes as $cliente) {
+                            ?>
+                            <option value="<?php echo base64_encode($cliente['idclientes'])?>" <?php if(isset($tmpClientes)) if (in_array(base64_encode($cliente['idclientes']), array_column($tmpClientes, "idclientes"))) echo "selected";?>><?php echo $cliente["nombreComercial"];?></option>
+                            <?php 
+                            }
+                          ?> 
+                          </select>
+                        </div>
+                        <div class="col-md-1 col-sm-4">
+                          <button type="submit" class="btn btn-info pull-right btn-sm btn-block btn-flat">Buscar</button>
+                        </div>
+                        <div class="col-md-7">
+                          <div class="col-md-2 col-md-offset-1 col-sm-4"><h6><i class="fa fa-square" style="color:#00c0ef;"></i> Búsqueda</h6></div>
+                          <div class="col-md-2 col-sm-4"><h6><i class="fa fa-square" style="color:#dd4b39;"></i> Canceladas</h6></div>
+                          <div class="col-md-2 col-sm-4"><h6><i class="fa fa-square" style="color:#00a65a;"></i> Cubiertas</h6></div>
+                          <div class="col-md-2 col-sm-4"><h6><i class="fa fa-square" style="color:#f39c12;"></i> Proceso</h6></div>
+                          <div class="col-md-2  col-sm-4"><h6><i class="fa fa-square" style="color:#3c8dbc;"></i> Solicitadas</h6></div>
+                        </div>                      </form>
+                    </div>
+                  </div>
                   <?php if(!isset($_SESSION["spar_error"])){$estilo = "style='display:none;'";}else{$estilo = "";}?>
                   <div class="row">
                     <div class="form-group" id="div_alert" <?php echo $estilo;?>>
@@ -104,45 +135,60 @@ if(!isset($_SESSION['spar_usuario']))
                       </div>
                     </div>
                   </div>
-
-                  <table id="tblVacacantes" class="table table-bordered table-striped small">
-                    <thead>
-                    <tr>
-                      <th>Nombres</th>
-                      <th>RFC</th>
-                      <th>Correo</th>
-                      <th>Estado</th>
-                      <th>Region</th>
-                      <th></th>
-                      <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php 
-                    foreach($representantes as $representante){
-                    ?>
-                    <tr>
-                      <td><?php echo ucwords(strtolower($representante["empleados_nombres"]." ".$representante["empleados_apellido_paterno"]." ".$representante["empleados_apellido_materno"]))?></td>
-                      <td><?php echo $representante["empleados_rfc"]?></td>
-                      <td><?php echo $representante["empleados_correo"]?></td>
-                      <td><?php echo $representante["nombre"]?></td>
-                      <td><?php echo $representante["region"]?></td>
-                      <td class = "text-center">
-                        <a style="cursor: pointer;" onclick="modificar('<?php echo $representante['empleados_id'];?>','<?php echo $representante['codigoPostal'];?>');">
-                          <i class="fa fa-pencil-square-o"></i>
-                        </a>
-                      </td>
-                      <td class = "text-center">
-                        <a style="cursor: pointer;" onclick="eliminar('<?php echo $representante['empleados_id'];?>');">
-                          <i class="fa fa-trash-o text-red"></i>
-                        </a>
-                      </td>
-                    </tr>
-                    <?php
-                    }
-                    ?>
-                    </tbody>
-                  </table>
+                  <div class="row">
+                    <div class="table-responsive container-fluid">
+                      <table id="tblVacantes" class="table table-bordered small">
+                        <thead>
+                        <tr>
+                          <th class="col-md-6">Vacantes</th>
+                          <th class="col-md-2">Cliente</th>
+                          <th class="col-md-3">Elaborado</th>
+                          <th class="col-md-1"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php 
+                        foreach($vacantes as $vacante){
+                        ?>
+                        <tr>
+                          <td>
+                            <div class="progress-group">
+                              <span class="progress-text"><?php echo $vacante["presupuesto"]?></span>
+                              <span class="progress-number"><b><?php echo $vacante["cubiertas"] + $vacante["canceladas"];?></b>/<?php echo $vacante["vacantes"];?></span>
+                              <div class="progress">
+                                <div class="progress-bar progress-bar-info" role="progressbar" style="width:<?php echo ($vacante["búsqueda"] * 100) / $vacante["vacantes"];?>%">
+                                <?php echo $vacante["búsqueda"];?>
+                                </div>
+                                <div class="progress-bar progress-bar-success" role="progressbar" style="width:<?php echo ($vacante["cubiertas"] * 100) / $vacante["vacantes"];?>%">
+                                <?php echo $vacante["cubiertas"];?>
+                                </div>
+                                <div class="progress-bar progress-bar-primary" role="progressbar" style="width:<?php echo ($vacante["solicitadas"] * 100) / $vacante["vacantes"];?>%">
+                                  <?php echo $vacante["solicitadas"];?>
+                                </div>
+                                <div class="progress-bar progress-bar-warning" role="progressbar" style="width:<?php echo ($vacante["proceso"] * 100) / $vacante["vacantes"];?>%">
+                                  <?php echo $vacante["proceso"];?>
+                                </div>
+                                <div class="progress-bar progress-bar-danger" role="progressbar" style="width:<?php echo ($vacante["canceladas"] * 100) / $vacante["vacantes"];?>%">
+                                  <?php echo $vacante["canceladas"];?>
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                          <td  class = "text-center"><?php echo $vacante["nombreComercial"];?></td>
+                          <td><?php echo $vacante["solicitante"];?></td>
+                          <td class = "text-center">
+                            <a style="cursor: pointer;" <?php if(!isset($permisos["Consultar"]) || $permisos["Consultar"] !== "1"){ ?> data-toggle="tooltip" data-container="body" title="Permisos insuficientes."';<?php } else{ ?> onclick="modificar('<?php echo base64_encode($vacante['idCliente']);?>','<?php echo base64_encode($vacante['idPresupuesto']);?>','<?php echo base64_encode($vacante['idPerfil']);?>','<?php echo base64_encode($vacante['idPuesto']);?>','<?php echo base64_encode($vacante['fechaModificacion']);?>');" <?php }?>>
+                              <i class="fa fa-search"></i>
+                            </a>
+                          </td>                      
+                        </tr>
+                        <?php
+                        }
+                        ?>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
                 </div>
                 <!-- /.box-body -->
               </div>
@@ -161,29 +207,10 @@ if(!isset($_SESSION['spar_usuario']))
       <!-- Add the sidebar's background. This div must be placed
            immediately after the control sidebar -->
       <div class="control-sidebar-bg"></div>
-
-      <div class="modal fade" id="modalVacante" role="dialog">              
+      <div  id="modalVacante" class="modal" tabindex="-1" role="dialog">              
       </div>
-      <!-- Modal Eliminar -->
-      <div id="modalEliminar" class="modal fade" role="dialog">
-        <div class="modal-dialog modal-sm">
-          <!-- Modal content-->
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title">Representante/Eliminar</h4>
-            </div>
-            <div class="modal-body text-center">
-            ¿Está seguro de querer eliminar a este representante?
-            </div>
-            <div class="modal-footer">
-              <button type="button" id="eliminar" class="btn btn-sm btn-success" data-dismiss="modal">Si</button>
-              <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">No</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Modal Eliminar -->
+      <!-- Modal Principal -->
+      
     </div>
     <!-- ./wrapper -->
 
@@ -198,11 +225,11 @@ if(!isset($_SESSION['spar_usuario']))
     <script src="../../../assets/js/validacion/validacion.js"></script>
     <!-- AdminLTE App -->
     <script src="../../../assets/js/app.min.js"></script>
-    <!-- maskaras -->
-    <script src="../../../assets/js/input-mask/jquery.inputmask.js"></script>
     <!-- Bootstrap select js -->
     <script src="../../../assets/js/bootstrap/bootstrap-select.min.js"></script>
-    <!-- Index vacantes -->
+    <!-- Funciones Generales -->
+    <script src="../../../assets/js/funciones.js"></script>
+    <!-- Index Sims -->
     <script src="../../js/V1/vacantes/index.js"></script>
   </body>
 </html>

@@ -14,7 +14,7 @@
     </div>
   	<div class="pull-left info">
     	<p><?php echo $datosUsuario["usuario"];?></p>
-    	<a href="#"><i class="fa fa-circle text-success"></i> Conectado</a>
+    	<!-- <a href="#"><i class="fa fa-circle text-success"></i> Conectado</a> -->
   	</div>
 </div>
 <?php 

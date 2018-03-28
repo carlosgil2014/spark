@@ -7,17 +7,23 @@
       </div>
       <div class="modal-body">
         <div class="row">
-          <div class="form-group col-md-12">
-            <label class="control-label">Nombre</label>
-            <input type="text" name="almacen" class="form-control input-sm" data-error="Es un campo obligatorio" value="<?php echo $almacen['nombre'];?>" required>
-            <div class="help-block with-errors"></div>
+          <div class="form-group col-md-6">
+            <label class="control-label">Tipo de almacén</label><br>
+              <label>
+                <input type="radio" name="tipo" class="flat-red" id="fisico" <?php if ($almacen['tipo'] == 'fisico'){ $estilo = 'display:block;'; echo 'checked="checked"';} ?> value="fisico">
+                Fisico
+                <input type="radio" name="tipo" class="flat-red" <?php if ($almacen['tipo'] == 'virtual'){ $estilo = 'display:none;'; echo 'checked="checked"';} ?> id="virtual" value="virtual">
+                Virtual
+              </label>
           </div>
           <div class="form-group col-md-12">
-            <label class="control-label">Tipo</label>
-            <select class="form-control input-sm"  name="tipo" data-error="Es un campo obligatorio" data-live-search="true" required="required" id="tipo" required>
-              <option <?php if($almacen['tipo'] == "Sucursal"){echo "selected";}?>>Sucursal</option>
-              <option <?php if($almacen['tipo'] == "Matriz"){echo "selected";}?>>Matriz</option>
-            </select>
+            <label class="control-label">Nombre</label>
+            <input type="text" name="nombre" class="form-control input-sm" data-error="Es un campo obligatorio" required id="tipo" value="<?php echo $almacen['nombre']; ?>">
+            <div class="help-block with-errors"></div>
+          </div>
+          <div class="form-group col-md-12" id="lol" style="<?php echo $estilo;?>">
+            <label class="control-label">Ubicación</label>
+            <input type="text" name="ubicacion" class="form-control input-sm" data-error="Es un campo obligatorio" id="ubicacion" value="<?php echo $almacen['ubicacion']; ?>">
           </div>
           <!-- /.col-md-12 -->
         </div>

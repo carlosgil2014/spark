@@ -1,11 +1,13 @@
 <?php
 include_once('../db/conectadb.php');
 include_once('../model/sesion.php');
+include_once("../model/usuarios.php");
 class Controller {
 	
 	public function __construct()  
     {  
         $this->varSesion = new sesion();
+		$this->varUsuario = new usuarios();
     } 
 	
 
@@ -40,9 +42,7 @@ class Controller {
 					}
 					elseif(!empty($_SESSION['spar_usuario']))
 					{
-						require_once("../model/usuarios.php");
-						$varUsuario = new usuarios();
-						$datosUsuario = $varUsuario -> datosUsuario($_SESSION["spar_usuario"]);
+						$datosUsuario = $this->varUsuario -> datosUsuario($_SESSION["spar_usuario"]);
 						require_once("principal.php");
 						unset($_SESSION["spar_error"]);
 					}
@@ -59,10 +59,14 @@ class Controller {
 						header('Location: '. $_SERVER['HTTP_REFERER']); //Regresa a la pagina anterior
 			        break;
 
+			    case 'validarSesion':
+			    	if(!isset($_SESSION["spar_usuario"])){
+			    		echo "Expiró";
+			    	}
+			        break;
+
 			    case 'perfil':
-			    	require_once('../model/usuarios.php');
-					$varUsuario = new usuarios();
-					$datosUsuario = $varUsuario -> datosUsuario($_SESSION["spar_usuario"]);
+					$datosUsuario = $this->varUsuario -> datosUsuario($_SESSION["spar_usuario"]);
 					if(isset($_SESSION["spar_error"]) && $_SESSION["spar_error"] == "OK"){
 						$_SESSION["spar_error"] = "Se modificó correctamente el perfil";
 						$clase = "success";
@@ -75,18 +79,14 @@ class Controller {
 					break;
 
 				case 'actualizarPerfil':
-			    	require_once('../model/usuarios.php');
-					$varUsuario = new usuarios();
-					$resultado = $varUsuario -> actualizarPerfil($_POST["idUsuario"], $_POST["usuario"],$_SESSION["spar_usuario"],$_FILES["foto"]["tmp_name"]);
+					$resultado = $this->varUsuario -> actualizarPerfil($_POST["idUsuario"], $_POST["usuario"],$_SESSION["spar_usuario"],$_FILES["foto"]["tmp_name"]);
 					$_SESSION["spar_error"] = $resultado;
 					header("Location: index.php?accion=perfil");
 
 			        break;
 
 			    case 'actualizarContrasena':
-			    	require_once('../model/usuarios.php');
-					$varUsuario = new usuarios();
-					$resultado = $varUsuario -> actualizarContraseña($_POST["idUsuario"], $_SESSION["spar_usuario"],$_POST["contrasenaActual"], $_POST["contrasenaNueva"], $_POST["contrasenaNueva1"]);
+					$resultado = $this->varUsuario -> actualizarContraseña($_POST["idUsuario"], $_SESSION["spar_usuario"],$_POST["contrasenaActual"], $_POST["contrasenaNueva"], $_POST["contrasenaNueva1"]);
 					$_SESSION["spar_error"] = $resultado;
 					header("Location: index.php?accion=perfil");
 

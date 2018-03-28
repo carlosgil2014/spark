@@ -1,135 +1,124 @@
-var contar = [], dias, diasSemana = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
+var progreso, parametros = {
+					style: 'btn-success btn-sm btn-flat',
+					noneSelectedText: 'Seleccionar un elemento', 
+					liveSearchPlaceholder:'Buscar',
+					noneResultsText: '¡No existe el elemento buscado!',
+					countSelectedText:'{0} elementos seleccionados',
+					actionsBox:true,
+					selectAllText: 'Seleccionar todos',
+					deselectAllText: 'Deseleccionar todos'
+				}
 $(function () {
 	variable = $("#div_alert");
  // alert(variable);
     $("#tblPerfiles").DataTable();
 	$(".loader").fadeOut("slow"); 
 	if (typeof variable !== 'undefined' && variable !== null) {
-    	// setTimeout(function(){cerrar("div_alert");}, 3000);
+    	setTimeout(function(){cerrar("div_alert");}, 3000);
     }
+    $('.selectpicker').selectpicker(parametros);
+    //$('.decimal').numeric(",");
+    
 });
-	
+
 function agregar(){
-	dias = [];
 	$.ajax({
    	 	url:   'index.php?accion=alta',
 	    	type:  'post',
 	    success:  function (data) {
     		$("#modalPerfil").html(data);
-    		$(".timepicker").timepicker({ showInputs: false });
-    		$('.selectpicker').selectpicker({style: 'btn-success btn-sm',size: 4,noneSelectedText: 'Seleccionar un elemento', liveSearchPlaceholder:'Buscar',noneResultsText: '¡No existe el elemento buscado!',countSelectedText:'{0} elementos seleccionados',actionsBox:true,selectAllText: 'Seleccionar todos',deselectAllText: 'Deseleccionar todos'});
+    		$(".timepicker").timepicker({ showInputs: false, showMeridian: false});
+    		$('.selectpicker').selectpicker(parametros);
     		$('#formAgregar').validator({focus:false});
-
-				$(".diasTrabajados").change(function(){
-            		x = $(this).val();
-            		// console.log(x);
-            		if (x != null) {
-	            		if (x.indexOf("Lunes") == -1) {
-	            			$('#lunes').prop("checked", false);
-	            			$('#lunesDescanso').prop("checked", true);
-	            		}else{
-	            			$('#lunes').prop("checked", true);
-	            			$('#lunesDescanso').prop("checked", false);
-	            		}
-	            		if (x.indexOf("Martes") == -1) {
-	            			$('#martes').prop("checked", false);
-	            			$('#martesDescanso').prop("checked", true);
-	            		}else{
-	            			$('#martes').prop("checked", true);
-	            			$('#martesDescanso').prop("checked", false);
-	            		}
-	            		if (x.indexOf("Miércoles") == -1) {
-	            			$('#miercoles').prop("checked", false);
-	            			$('#miercolesDescanso').prop("checked", true);
-	            		}else{
-	            			$('#miercoles').prop("checked", true);
-	            			$('#miercolesDescanso').prop("checked", false);
-	            		}
-	            		if (x.indexOf("Jueves") == -1) {
-	            			$('#jueves').prop("checked", false);
-	            			$('#juevesDescanso').prop("checked", true);
-	            		}else{
-	            			$('#jueves').prop("checked", true);
-	            			$('#juevesDescanso').prop("checked", false);
-	            		}
-	            		if (x.indexOf("Viernes") == -1) {
-	            			$('#viernes').prop("checked", false);
-	            			$('#viernesDescanso').prop("checked", true);
-	            		}else{
-	            			$('#viernes').prop("checked", true);
-	            			$('#viernesDescanso').prop("checked", false);
-	            		}
-	            		if (x.indexOf("Sábado") == -1) {
-	            			$('#sabado').prop("checked", false);
-	            			$('#sabadoDescanso').prop("checked", true);
-	            		}else{
-	            			$('#sabado').prop("checked", true);
-	            			$('#sabadoDescanso').prop("checked", false);
-	            		}
-	            		if (x.indexOf("Domingo") == -1) {
-	            			$('#domingo').prop("checked", false);
-	            			$('#domingoDescanso').prop("checked", true);
-	            		}else{
-	            			$('#domingo').prop("checked", true);
-	            			$('#domingoDescanso').prop("checked", true);
-	            		}
-	            	}else{
-	            		$('#lunes').prop("checked", false);
-	            		$('#martes').prop("checked", false);
-	            		$('#miercole').prop("checked", false);
-	            		$('#jueves').prop("checked", false);
-	            		$('#viernes').prop("checked", false);
-	            		$('#sabado').prop("checked", false);
-	            		$('#domingo').prop("checked", false);
-	            	}
-				});
-
+    		$('.decimal').numeric(",");
     	},
 	});
+	$("#modalPerfil").modal({backdrop: 'static', keyboard: false});
     $("#modalPerfil").modal("show");
 }
-function agregarFila(){
-	diasTmp = [], opciones = "";
-	$('.diasTrabajados').each(function(i, obj) {
-		dias = $.merge(dias,$(this).val());
-	});
-	dias = $.unique(dias);
 
-	$.grep(diasSemana, function(el) {
-        if ($.inArray(el, dias) == -1) diasTmp.push(el);
-	});
 
-	for(var i = 0; i < diasTmp.length; i++){
-		opciones += "<option>" + diasTmp[i] + "</option> ";  
-	}
-	cajita = '<div class="form-group col-md-3"><div class="bootstrap-timepicker"><div class="form-group"><label>Horarios</label><div class="input-group"><input type="text" class="form-control timepicker" name="horariosEntrada[]"><div class="input-group-addon"><i class="fa fa-clock-o"></i></div></div></div></div></div>'; 
-	cajita += '<div class="form-group col-md-3"><div class="bootstrap-timepicker"><div class="form-group"><label></label><div class="input-group"><input type="text" class="form-control timepicker" name="horariosSalida[]"><div class="input-group-addon"><i class="fa fa-clock-o"></i></div></div></div></div></div>';
-	cajita += '<div class="form-group col-md-5"><label class="control-label">Dias trabajados</label><select class="form-control input-sm selectpicker diasTrabajados" name="diasTrabajados[]" multiple name="Datos[]" data-error="Es un campo obligatorio" required="required" id="diasTrabajados2">'+opciones+'</select></div>';
-	cajita += '<div class="form-group col-md-1"><a><i class="fa fa-minus eliminarFila" style="cursor:pointer" agregarFila()  onclick="eliminarFila();" ></i></a></div>';
-	cuadro = '<div class="form-group col-md-11" id="cuadro">'+cajita+'</div>';
-	$("#prueba").append(cuadro);
-	$('.selectpicker').selectpicker({style: 'btn-success btn-sm',size: 4,noneSelectedText: 'Seleccionar un elemento', liveSearchPlaceholder:'Buscar',noneResultsText: '¡No existe el elemento buscado!',countSelectedText:'{0} elementos seleccionados',actionsBox:true,selectAllText: 'Seleccionar todos',deselectAllText: 'Deseleccionar todos'});		
-	$(".timepicker").timepicker({ showInputs: false });
-	$(".diasTrabajados").selectpicker("refresh");
+$(document).on("submit", "#formularioAgregar", function (e) {
+	e.preventDefault();
+	var allChecksBoxes = document.querySelectorAll('input[type="checkbox"]');
+	var chkVacio = [].filter.call(allChecksBoxes, function(el) {
+	    //console.log(el.checked);
+	    return !el.checked
+	  });
 
-}
-
-function eliminarFila(){  
-    $('#cuadro').remove()  
-}
+	  if (allChecksBoxes.length == chkVacio.length) {
+	  	$('#mensaje').addClass('btn btn-danger').html('Seleccione los dias trabajados.').show(50).delay(5000).hide(200);
+	    	return false;
+	  }
+	  	var edad = $('#edad').val();
+	  	var edadM = $('#edadMaxima').val();
+	  if (edad > edadM){
+	  	$('#mensaje').addClass('btn btn-danger').html('La edad mínima debe ser menor que la edad maxima.').show(50).delay(5000).hide(200);
+	    	return false;
+	  }
+      var frm= $(this).serialize();
+       $.ajax({
+       type:"POST",
+       url: 'index.php?accion=guardar',
+       data: frm,
+       success: function(data){
+	    	if(data == "OK") {
+	          	window.location.replace("index.php?accion=index&clase=success");
+	        }else{
+	          	window.location.replace("index.php?accion=index&clase=danger");
+	        }
+	       }
+       })
+});
 
 function modificar(id){
 	$.ajax({
    	 	url:   'index.php?accion=modificar&id='+id,
 	    	type:  'post',
 	    success:  function (data) {
-    		$("#modalSalario").html(data);
+    		$("#modalPerfil").html(data);
     		$('.selectpicker').selectpicker({style: 'btn-success btn-sm',size: 4,noneSelectedText: 'Seleccionar un elemento', liveSearchPlaceholder:'Buscar',noneResultsText: '¡No existe el elemento buscado!',countSelectedText:'{0} elementos seleccionados',actionsBox:true,selectAllText: 'Seleccionar todos',deselectAllText: 'Deseleccionar todos'});
-    		$('#formEditar').validator({focus:false});
+    		$('#formularioModificar').validator({focus:false});
+    		$(".timepicker").timepicker({ showInputs: false, showMeridian: false});
     	},
 	});
-    $("#modalSalario").modal("show");
+	$("#modalPerfil").modal({backdrop: 'static', keyboard: false});
+    $("#modalPerfil").modal("show");
 }
+
+
+$(document).on("submit", "#formularioModificar", function (e) {
+	e.preventDefault();
+	var allChecksBoxes = document.querySelectorAll('input[type="checkbox"]');
+	var chkVacio = [].filter.call(allChecksBoxes, function(el) {
+	    //console.log(el.checked);
+	    return !el.checked
+	  });
+
+	  if (allChecksBoxes.length == chkVacio.length) {
+	  	$('#mensaje').addClass('btn btn-danger').html('Seleccione los dias trabajados.').show(50).delay(5000).hide(200);
+	    	return false;
+	  }
+	  	var edad = $('#edad').val();
+	  	var edadM = $('#edadMaxima').val();
+	  if (edad > edadM){
+	  	$('#mensaje').addClass('btn btn-danger').html('La edad mínima debe ser menor que la edad maxima.').show(50).delay(5000).hide(200);
+	    	return false;
+	  }
+      var frm= $(this).serialize();
+       $.ajax({
+       type:"POST",
+       url: 'index.php?accion=actualizar',
+       data: frm,
+       success: function(data){
+	    	if(data == "OK") {
+	          window.location.replace("index.php?accion=index&clase=success");
+	        }else{
+	          window.location.replace("index.php?accion=index&clase=danger");
+	        }
+	       }
+       })
+});
 
 function eliminar(id){
 	$("#modalEliminar").unbind().modal({ backdrop: "static", keyboard: false }).one("click", "#eliminar", function (e) {
@@ -142,7 +131,8 @@ function eliminar(id){
 		        	if(data == "OK")
 						window.location.replace("index.php?accion=index&clase=success");
 					else{
-						alert(data);
+						window.location.replace("index.php?accion=index&clase=danger");
+						//alert(data);
 					}
 		        },
 	        	
@@ -150,3 +140,24 @@ function eliminar(id){
 	    });
 	});	
 }
+
+function diasSemana(dias){
+ if(dias=='semana'){
+ 	$('#lunes').prop('checked',true);
+ 	$('#martes').prop('checked',true);
+ 	$('#miercoles').prop('checked',true);
+ 	$('#jueves').prop('checked',true);
+ 	$('#viernes').prop('checked',true);
+ 	$('#sabado').prop('checked',false);
+ 	$('#domingo').prop('checked',false);
+ }if(dias=='finSemana'){
+ 	$('#sabado').prop('checked',true);
+ 	$('#domingo').prop('checked',true);
+ 	$('#lunes').prop('checked',false);
+ 	$('#martes').prop('checked',false);
+ 	$('#miercoles').prop('checked',false);
+ 	$('#jueves').prop('checked',false);
+ 	$('#viernes').prop('checked',false);
+ }
+}
+

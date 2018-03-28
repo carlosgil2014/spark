@@ -3,7 +3,7 @@ var minutos = 0, temporizador, cuentaRegresiva;
 $(document).ready(function (){
     // Incrementar la variable minutos cada minuto. 
     temporizador = setInterval(tiempoInactivo, 1000); // 1 segundo
-
+    // setInterval(validarSesion, 1000);
     //Reiniciar la variable minutos si hay actividad
     $(this).mousemove(function (e) {
         reiniciarTiempo();
@@ -38,6 +38,17 @@ function tiempoInactivo(){
         }
     }
 }
+
+// function validarSesion(){
+//     $.ajax({
+//         url: '/sst/view/index.php?accion=validarSesion',
+//         success:  function (data) {
+//             if(data == "Expiró"){
+//                 cerrarSesion();
+//             }
+//         },
+//     });
+// }
 
 function mostrarAlerta(){
     var min = 4, seg = 59;
@@ -76,4 +87,42 @@ function cerrar(id_elemento){
 
 function goBack() {
     window.history.back();
+}
+
+function eliminarFila(elemento){ 
+    $(elemento).closest('tr').remove();  
+}
+
+function validarEnteroPositivo(elemento){ 
+    tmp = $(elemento), valor = parseInt(Math.round(tmp.val()));
+    (isNaN(valor) || valor < 1) ? tmp.val("") : tmp.val(""); tmp.val(valor);
+    return true;
+}
+
+function validarDecimalPositivo(elemento){ 
+    tmp = $(elemento), valor = parseFloat(tmp.val());
+    //console.log(valor);
+    if( isNaN(valor) || valor < 1){
+        tmp.val("")
+    }else{
+        // var patron= /^[0-9]+([.])?([0-9]+)?$/;
+        // if (patron.test(valor)){
+        //     return true;
+        // }
+    }
+}
+
+
+function porcentajeBarra(elemento, porcentaje, html){
+    elemento.css("width", porcentaje);
+    elemento.html(html);
+}
+
+function validarInputsNumerico(nombre){
+    resultado = true;
+    $("input[name='"+nombre+"']").each(function(i, obj) {
+        tmp = $.trim($(this).val());
+        if(tmp === "" || tmp <= 0) resultado = false;
+    });
+    return resultado;
 }

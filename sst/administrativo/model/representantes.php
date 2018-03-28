@@ -10,7 +10,7 @@ class representantes
 
 	public function listar(){
 		$datos = array();
-		$consulta="SELECT e.empleados_id,e.empleados_nombres,e.empleados_apellido_paterno,e.empleados_apellido_materno,e.empleados_rfc,e.empleados_curp,e.empleados_correo,Es.nombre,r.region,e.codigoPostal FROM spar_empleados e LEFT JOIN tblEstados Es ON e.empleados_estado=Es.idestado INNER JOIN tblRegiones r ON Es.region=r.idRegion INNER JOIN tblPuestos p ON e.empleados_puesto=p.idPuesto WHERE p.idPuesto=164 and e.empleados_vigente=1";
+		$consulta="SELECT e.empleados_id,e.empleados_nombres,e.empleados_apellido_paterno,e.empleados_apellido_materno,e.empleados_rfc,e.empleados_curp,e.empleados_correo,Es.nombre,r.region,e.codigoPostal FROM spar_empleados e LEFT JOIN tblEstados Es ON e.empleados_estado=Es.idestado INNER JOIN tblRegiones r ON Es.region=r.idRegion INNER JOIN spartodo_rh.tblPuestos p ON e.empleados_puesto=p.idPuesto WHERE p.idPuesto=164 and e.empleados_vigente=1";
 		$resultado = $this->conexion->query($consulta);
 		while ($filaTmp = $resultado->fetch_assoc()) {
 			$datos [] = $filaTmp;
@@ -25,7 +25,7 @@ class representantes
 
 	public function informacion($idRepresentante){
 		$idRepresentante = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($idRepresentante))));
-			$consulta="SELECT s.empleados_id,s.empleados_nombres,s.empleados_apellido_paterno,s.empleados_apellido_materno,s.empleados_rfc,s.empleados_fecha_nacimiento,s.empleados_correo,s.codigoPostal as cp,s.calle,s.numeroInterior,s.numeroExterior,d.telefonoSecundario,d.telefonoAlterno,d.telefonoCasa,s.empleados_colonia,s.empleados_puesto,s.empleados_estado,p.puesto FROM spar_empleados s left join tblDirectorio d ON d.idUsuario=s.empleados_id inner join tblPuestos p ON p.idPuesto=s.empleados_puesto inner JOIN tblEstados Es On Es.idestado=s.empleados_estado INNER JOIN tblRegiones reg ON reg.idRegion=Es.region where s.empleados_id=$idRepresentante";
+			$consulta="SELECT s.empleados_id,s.empleados_nombres,s.empleados_apellido_paterno,s.empleados_apellido_materno,s.empleados_rfc,s.empleados_fecha_nacimiento,s.empleados_correo,s.codigoPostal as cp,s.calle,s.numeroInterior,s.numeroExterior,d.telefonoSecundario,d.telefonoAlterno,d.telefonoCasa,s.empleados_colonia,s.empleados_puesto,s.empleados_estado,p.nombre as puesto FROM spar_empleados s left join tblDirectorio d ON d.idUsuario=s.empleados_id inner join spartodo_rh.tblPuestos p ON p.idPuesto=s.empleados_puesto inner JOIN tblEstados Es On Es.idestado=s.empleados_estado INNER JOIN tblRegiones reg ON reg.idRegion=Es.region where s.empleados_id=$idRepresentante";
 		$resultado = $this->conexion->query($consulta);
 		if($resultado){
 			return $resultado->fetch_assoc();
@@ -264,8 +264,8 @@ class representantes
 			  			
 			}
 			$consulta = "UPDATE spar_empleados a_b SET a_b.empleados_nombres = '$nombres',a_b.empleados_apellido_paterno='$apellidoPaterno',a_b.empleados_apellido_materno='$apellidoMaterno',a_b.empleados_rfc='$rfc',a_b.empleados_fecha_nacimiento='$fechaNacimiento',a_b.empleados_correo='$correo',a_b.empleados_estado='$idEstado',a_b.codigoPostal='$cp',a_b.calle='$calle',a_b.numeroInterior='$noInterior',a_b.numeroExterior='$noExterior',a_b.empleados_colonia='$colonia' WHERE a_b.empleados_id='$idRepresentante' AND 0 = (SELECT COUNT(*) FROM (SELECT * FROM (SELECT * FROM spar_empleados) AS a_b_2 WHERE a_b_2.empleados_rfc = '$rfc' AND a_b_2.empleados_id != '$idRepresentante') AS count);";
-			var_dump($consulta);
 				$resultado = $this->conexion -> query($consulta);
+				
 				if($resultado){
 			  		if($this->conexion->affected_rows === 1){
 			  			$modificaciones = 1;
@@ -341,7 +341,7 @@ class representantes
 
 	public function listarPuestos(){
 		$datos = array();
-		$consulta="SELECT p.idPuesto, p.puesto FROM tblPuestos p ORDER BY `p`.`puesto` ASC";
+		$consulta="SELECT p.idPuesto, p.nombre as puesto FROM spartodo_rh.tblPuestos p ORDER BY `p`.`nombre` ASC";
 		$resultado = $this->conexion->query($consulta);
 		while ($filaTmp = $resultado->fetch_assoc()) {
 			$datos [] = $filaTmp;

@@ -28,6 +28,7 @@ function modificar(id){
 	    success:  function (data) {
     		$("#modalLinea").html(data);
     		$('#formEditar').validator({focus:false});
+    		$('.selectpicker').selectpicker({style: 'btn-success btn-sm',size: 4,noneSelectedText: 'Seleccionar un elemento', liveSearchPlaceholder:'Buscar',noneResultsText: '¡No existe el elemento buscado!',countSelectedText:'{0} elementos seleccionados',actionsBox:true,selectAllText: 'Seleccionar todos',deselectAllText: 'Deseleccionar todos'});
     	},
 	});
     $("#modalLinea").modal("show");
@@ -51,4 +52,29 @@ function eliminar(id){
 		    });
 	    });
 	});	
+}
+
+function historial(id){
+    $.ajax({
+      'method': 'POST',
+      'url': 'index.php?accion=historial',
+      'data': 'id='+id,
+    }).done(function(resultado){
+    	$("#modalLinea").html(resultado);
+    	$('#modalLinea').modal({
+          show:true,
+          backdrop:'static'
+        });
+  });
+}
+
+function desbloquear(id){
+	$.ajax({
+   	 	url:   'index.php?accion=desbloquear&id='+id,
+	    	type:  'post',
+	    success:  function (data) {
+    		$("#modalLinea").html(data);
+    		$('#formAgregar').validator({focus:false});},
+	});
+    $("#modalLinea").modal("show");
 }
