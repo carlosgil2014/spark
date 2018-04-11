@@ -65,11 +65,6 @@ if(!isset($_SESSION['spar_usuario']))
           <ul class="sidebar-menu">
             <!-- <li class="header">Solicitudes</li> -->
             <li>
-              <a style="cursor: pointer;"  data-toggle="modal" data-target="#agregarCelular"> 
-                <i class="fa fa-plus"></i> <span>Agregar</span>
-              </a>
-            </li>
-            <li>
               <a href="../../index.php?accion=index">
                 <i class="fa fa-arrow-left"></i> <span>Regresar</span>
               </a>
@@ -91,6 +86,15 @@ if(!isset($_SESSION['spar_usuario']))
                   <h3 class="box-title">Celulares/Principal</h3>
                 </div>
                 <!-- /.box-header -->
+                <div class="box-body">
+                  <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-1 col-sm-4">
+                        <a class="btn btn-success btn-block btn-flat btn-sm" data-toggle="modal" data-target="#agregarCelular" onclick="agregarCategoria()">Agregar</a>
+                      </div>
+                    </div>
+                  </div>
+                </div> 
                 <div id="respuesta"></div>
                 <div class="box-body table-responsive">
                   <?php if(!isset($_SESSION["spar_error"])){$estilo = "style='display:none;'";}else{$estilo = "";}?>
@@ -124,13 +128,13 @@ if(!isset($_SESSION['spar_usuario']))
                       <tr>
                         <?php
                         echo 
-                        '<td>'.$cel['marca'].'</td>
-                        <td>'.$cel['modelo'].'</td>
-                        <td>'.$cel['imei'].'</td>
-                        <td>'.$cel['estatus'].'</td>';
+                        '<td class = "text-center">'.$cel['marca'].'</td>
+                        <td class = "text-center">'.$cel['modelo'].'</td>
+                        <td class = "text-center">'.$cel['imei'].'</td>
+                        <td class = "text-center">'.$cel['estatus'].'</td>';
                         ?>
-                        <td><?php if($cel['estatus'] != 'Robado'){ echo $btnEdit;}?></td>
-                        <td><?php echo $btnHistorial;?></td>
+                        <td class = "text-center"><?php if($cel['estatus'] != 'Robado'){ echo $btnEdit;}?></td>
+                        <td class = "text-center"><?php echo $btnHistorial;?></td>
                         </tr>
                       </tr>
                     <?php

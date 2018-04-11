@@ -73,7 +73,7 @@
                 </select>
               </div>
               <div class="form-group col-md-8">
-                <label class="control-label">Días trabajados  <i class="fa fa-pencil-square-o" onclick="diasSemana('semana');"></i> --- L-V ---<i class="fa fa-pencil-square-o" onclick="diasSemana('finSemana');"></i> --- S-D</label>
+                <label class="control-label">Días trabajados </label><input type="radio" name="dias"  id="semana" onclick="diasSemana('semana');" checked>L-V<input type="radio" name="dias" id="finSemana" onclick="diasSemana('finSemana');">S-D
                 <div>
                   <label class="checkbox-inline">
                     <input type="checkbox" name="diasTrabajados[]" class="flat-red" checked value="Lunes" id="lunes">
@@ -140,13 +140,13 @@
               <div class="form-group col-md-3">
                 <label class="control-label">Estado civil</label>
                 <select class="form-control input-sm selectpicker" name="Datos[estadoCivil]" data-error="Es un campo obligatorio" required="required" id="estadoCivil">
-                    <option value="Casado/a">Casado/a</option>
-                    <option value="Comprometido/a">Comprometido/a</option>
-                    <option value="Divorciado/a">Divorciado/a</option>
-                    <option value="Soltero/a" selected="selected">Soltero/a</option>
-                    <option value="Viudo/a">Viudo/a</option>
-                    <option value="Indistinto">Indistinto</option>
-                  </select>
+                  <option value="Casado/a">Casado/a</option>
+                  <option value="Comprometido/a">Comprometido/a</option>
+                  <option value="Divorciado/a">Divorciado/a</option>
+                  <option value="Soltero/a" selected="selected">Soltero/a</option>
+                  <option value="Viudo/a">Viudo/a</option>
+                  <option value="Indistinto">Indistinto</option>
+                </select>
               </div>
               <div class="form-group col-md-3">
                 <label class="control-label">Imagen</label>
@@ -163,10 +163,10 @@
               <div class="form-group col-md-3">
                 <label class="control-label">Talla</label>
                 <select class="form-control input-sm selectpicker" name="Datos[talla]" data-error="Es un campo obligatorio" required="required" id="talla">
-                      <option value="Indistinto">Indistinto</option>
-                      <option value="Chica">Chica</option>
-                      <option value="Mediana" selected="selected">Mediana</option>
-                      <option value="Grande">Grande</option>
+                    <option value="Indistinto">Indistinto</option>
+                    <option value="Chica">Chica</option>
+                    <option value="Mediana" selected="selected">Mediana</option>
+                    <option value="Grande">Grande</option>
                   </select>
               </div>
               <div class="form-group col-md-3">
@@ -187,7 +187,7 @@
               <div class="form-group col-md-3">
                 <label class="control-label">Conocimientos específicos</label>
                 <select class="form-control input-sm selectpicker" multiple  name="conocimientos[]" data-error="Es un campo obligatorio" data-live-search="true" required id="conocimiento">
-                  <option data-hidden="true" selected></option>
+                  
                   <?php foreach ($conocimientos as $conocimiento) {
                   ?>
                   <option value="<?php echo $conocimiento['idConocimiento']; ?>"><?php echo $conocimiento['conocimiento']; ?></option>
@@ -196,8 +196,8 @@
               </div>
               <div class="form-group col-md-3">
                 <label class="control-label">Habilidades</label>
-                <select class="form-control input-sm selectpicker" name="habilidades[]" multiple data-error="Es un campo obligatorio" data-live-search="true"  id="habilidades">
-                  <option data-hidden="true" selected></option>
+                <select class="form-control input-sm selectpicker" name="habilidades[]" multiple data-error="Es un campo obligatorio" data-live-search="true" required id="habilidades">
+                
                   <?php foreach ($habilidades as $habilidad) {?> 
                   <option value="<?php echo $habilidad['idHabilidades']; ?>"><?php echo $habilidad['habilidad']; ?></option>
                   <?php } ?>

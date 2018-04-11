@@ -1,6 +1,6 @@
 <?php
 if(!isset($_SESSION['spar_usuario']))
-    header('Location: index.php');
+    header('Location: ../index.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -46,9 +46,9 @@ if(!isset($_SESSION['spar_usuario']))
         <!-- Logo -->
         <a href="../index.php" class="logo">
           <!-- El mini logo es para la barra lateral y está como mini 50x50 pixels -->
-          <span class="logo-mini"><b>SRS</b></span>
+          <span class="logo-mini"><b>ST</b></span>
           <!-- logotipo para el estado normal y dispositivos móviles  -->
-          <span class="logo-lg">SRS</span>
+          <span class="logo-lg">Spar Todopromo</span>
         </a>
         <!-- La cabecera Navbar: Este estilo se puede encontrar en header.less -->
         <?php 
@@ -69,7 +69,7 @@ if(!isset($_SESSION['spar_usuario']))
             <!-- <li class="header">Solicitudes</li> -->
             <!-- Fin de la barra de separación entre menus -->
             <?php 
-            if($resultados["cotizaciones"]["crear"] == 1){
+            if(isset($permisosCotizaciones["Principal"]) && $permisosCotizaciones["Principal"] === "1"){
             ?>
             <li>
               <a href="view/cotizaciones/index.php?accion=listarDatos" style="cursor: pointer;"> 
@@ -78,7 +78,7 @@ if(!isset($_SESSION['spar_usuario']))
             </li>
             <?php
             }
-            if($resultados["ordenes"]["crear"] == 1){
+            if(isset($permisosOrdenes["Principal"]) && $permisosOrdenes["Principal"] === "1"){
             ?>
             <li>
               <a style="cursor: pointer;"> 
@@ -87,13 +87,17 @@ if(!isset($_SESSION['spar_usuario']))
             </li>
             <?php
             }
-            if($resultados["prefacturas"]["crear"] == 1){
+            if(isset($permisosPrefacturas["Principal"]) && $permisosPrefacturas["Principal"] === "1"){
             ?>
             <li>
               <a style="cursor: pointer;"> 
                 <i class="fa fa-circle-o"></i> <span>Prefacturas</span>
               </a>
             </li>
+            <?php 
+            }
+            if(isset($permisosConciliaciones["Principal"]) && $permisosConciliaciones["Principal"] === "1"){
+            ?>
             <li>
               <a style="cursor: pointer;"> 
                 <i class="fa fa-circle-o"></i> <span>Conciliaciones</span>
@@ -101,7 +105,7 @@ if(!isset($_SESSION['spar_usuario']))
             </li>
             <?php
             }
-            if($resultados["ordenes"]["crear"] == 1){
+            if(isset($permisosDevoluciones["Principal"]) && $permisosDevoluciones["Principal"] === "1"){
             ?>
             <li>
               <a style="cursor: pointer;" href="view/devoluciones/index.php?accion=listaClientes"> 
@@ -110,7 +114,7 @@ if(!isset($_SESSION['spar_usuario']))
             </li>
             <?php
             }
-            if($resultados["reportes"]["crear"] == 1){
+            if(isset($permisosReportes["Principal"]) && $permisosReportes["Principal"] === "1"){
             ?>
             <li class="treeview">
               <a href="#">
@@ -123,7 +127,6 @@ if(!isset($_SESSION['spar_usuario']))
                 <li><a href="#"><i class="fa fa-circle-o"></i> General</a></li>
                 <li><a href="#"><i class="fa fa-circle-o"></i> Ventas</a></li>
                 <li><a href="#"><i class="fa fa-circle-o"></i> Facturación</a></li>
-                <li><a href="#"><i class="fa fa-circle-o"></i> Total</a></li>
               </ul>
             </li>
             <?php
@@ -189,17 +192,36 @@ if(!isset($_SESSION['spar_usuario']))
                 </li>
               </ul>
             </li>
-            <?php
-            if($resultados["conceptos"]["crear"] == 1){
-            ?>
-            <li>
-              <a style="cursor: pointer;"> 
+            <li class="treeview">
+              <a href="#">
                 <i class="fa fa fa-cogs"></i> <span>Parámetros del Módulo</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
               </a>
-            </li>
-            <?php
-            }
-            ?>
+              <ul class="treeview-menu">
+                <?php
+                if(isset($permisosConceptos["Principal"]) && $permisosConceptos["Principal"] === "1"){
+                ?>
+                <li>
+                  <a href="#"><i class="fa fa-circle-o"></i>Conceptos
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                </li>        
+                <?php
+                }
+                if(isset($permisosPermisos["Principal"]) && $permisosPermisos["Principal"] === "1"){
+                ?>
+                <li>
+                  <a href="view/permisos/index.php?accion=index"><i class="fa fa-circle-o"></i>Permisos</a>
+                </li>        
+                <?php
+                }
+                ?>
+              </ul>
+            </li>  
           </ul>
         </section>
         <!-- Termina barra de menus -->
@@ -227,7 +249,7 @@ if(!isset($_SESSION['spar_usuario']))
                 <?php 
                   foreach ($datosClientes as $cliente) {
                   ?>
-                  <option value="<?php echo $cliente['idclientes']?>" <?php if(isset($idClientes)) if (in_array($cliente['idclientes'], $idClientes)) echo "selected";?>><?php echo $cliente["nombreComercial"]." - ".$cliente["razonSocial"];?></option>
+                  <option value="<?php echo $cliente['idclientes']?>" <?php if(isset($idClientes)) if (in_array($cliente['idclientes'], $idClientes)) echo "selected";?>><?php echo $cliente["nombreComercial"];?></option>
                   <?php 
                   }
                 ?> 
@@ -243,7 +265,7 @@ if(!isset($_SESSION['spar_usuario']))
               </div>
               <div class=" form-group col-sm-1 col-xs-2">
                 <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                <button type="submit" class="btn btn-info pull-right btn-sm btn-flat">Buscar</button>
+                <button type="submit" class="btn btn-info pull-right btn-sm btn-flat btn-block">Buscar</button>
               </div>
             </form>
           </div>

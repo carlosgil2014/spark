@@ -181,12 +181,12 @@
                       <div class="form-group col-md-3">
                         <label class="control-label">Estado civil</label>
                         <select class="form-control input-sm selectpicker" name="Datos[estadoCivilDatosPersonales]"   id="estadoCivil" required>
-                            <option value="Casado/a">Casado/a</option>
-                            <option value="comprometido/a">Comprometido/a</option>
-                            <option value="Divorciado/a">Divorciado/a</option>
-                            <option value="Soltero/a" selected="selected">Soltero/a</option>
-                            <option value="Viudo/a">Viudo/a</option>
-                          </select>
+                          <option value="Casado/a">Casado/a</option>
+                          <option value="comprometido/a">Comprometido/a</option>
+                          <option value="Divorciado/a">Divorciado/a</option>
+                          <option value="Soltero/a" selected="selected">Soltero/a</option>
+                          <option value="Viudo/a">Viudo/a</option>
+                        </select>
                       </div>
                       <div class="form-group col-md-2">
                         <label class="control-label">Estatura</label>
@@ -195,10 +195,10 @@
                       <div class="form-group col-md-2">
                         <label class="control-label">Talla</label>
                         <select class="form-control input-sm selectpicker" name="Datos[tallaDatosPersonales]"  ="" id="talla">
-                            <option value="Chica">Chica</option>
-                            <option value="Mediana" selected="selected">Mediana</option>
-                            <option value="Grande">Grande</option>
-                          </select>
+                          <option value="Chica">Chica</option>
+                          <option value="Mediana" selected="selected">Mediana</option>
+                          <option value="Grande">Grande</option>
+                        </select>
                       </div> 
                       <div class="form-group col-md-3">
                         <label class="control-label">Teléfono de recados</label>
@@ -256,7 +256,7 @@
                             <th>#</th>
                             <th>Nombre completo</th>
                             <th>Direccion</th>
-                            <th>telefono</th>
+                            <th>Telefono</th>
                             <th>Ocupacion</th>
                           </tr>
                         </thead>
@@ -483,6 +483,11 @@
                         </select>
                       </div>
                       <div class="form-group col-md-4">
+                        <label class="control-label"></label>
+                        <select>
+                        </select>
+                      </div>
+                      <div class="form-group col-md-4">
                         <label class="control-label">Paquetes y/o lenguajes que domina</label>
                         <select class="form-control conocimientosGenerales input-sm selectpicker" name="paquestesLenguajes[]" multiple data-error="Es un campo obligatorio" data-live-search="true" id="paquestesLenguajes">
                           <option data-hidden="true" selected></option>
@@ -540,40 +545,40 @@
                           <tr>
                             <td>Experencia</td>
                             <td>  
-                                <select class="form-control input-sm selectpicker" name="Datos[fechaExperienciaLaboral1]" data-error="Es un campo obligatorio" required="required" id="experiencia">                           
-                                      <option value="1" selected="selected">Ninguna</option>
-                                      <option value="2">6 meses</option>
-                                      <option value="3">1 año</option>
-                                      <option value="4">2 años</option>
-                                      <option value="5">3 años o más</option>
-                                </select>
+                              <select class="form-control input-sm selectpicker" name="Datos[fechaExperienciaLaboral1]" data-error="Es un campo obligatorio" required="required" id="experiencia">                           
+                                <option value="1" selected="selected">Ninguna</option>
+                                <option value="2">6 meses</option>
+                                <option value="3">1 año</option>
+                                <option value="4">2 años</option>
+                                <option value="5">3 años o más</option>
+                              </select>
                             </td>
                             <td>
-                             <select class="form-control input-sm selectpicker" name="Datos[fechaExperienciaLaboral2]" data-error="Es un campo obligatorio" required="required" id="experiencia">                           
-                                      <option value="1" selected="selected">Ninguna</option>
-                                      <option value="2">6 meses</option>
-                                      <option value="3">1 año</option>
-                                      <option value="4">2 años</option>
-                                      <option value="5">3 años o más</option>
-                                </select>
+                             <select class="form-control input-sm selectpicker" name="Datos[fechaExperienciaLaboral2]" data-error="Es un campo obligatorio" required="required" id="experiencia">
+                                <option value="1" selected="selected">Ninguna</option>
+                                <option value="2">6 meses</option>
+                                <option value="3">1 año</option>
+                                <option value="4">2 años</option>
+                                <option value="5">3 años o más</option>
+                              </select>
                             </td>
                             <td>
-                             <select class="form-control input-sm selectpicker" name="Datos[fechaExperienciaLaboral3]" data-error="Es un campo obligatorio" required="required" id="experiencia">                           
-                                      <option value="1" selected="selected">Ninguna</option>
-                                      <option value="2">6 meses</option>
-                                      <option value="3">1 año</option>
-                                      <option value="4">2 años</option>
-                                      <option value="5">3 años o más</option>
-                                </select>
+                             <select class="form-control input-sm selectpicker" name="Datos[fechaExperienciaLaboral3]" data-error="Es un campo obligatorio" required="required" id="experiencia">                  
+                                <option value="1" selected="selected">Ninguna</option>
+                                <option value="2">6 meses</option>
+                                <option value="3">1 año</option>
+                                <option value="4">2 años</option>
+                                <option value="5">3 años o más</option>
+                              </select>
                             </td>
                             <td>
-                             <select class="form-control input-sm selectpicker" name="Datos[fechaExperienciaLaboral4]" data-error="Es un campo obligatorio" required="required" id="experiencia">                           
-                                      <option value="1" selected="selected">Ninguna</option>
-                                      <option value="2">6 meses</option>
-                                      <option value="3">1 año</option>
-                                      <option value="4">2 años</option>
-                                      <option value="5">3 años o más</option>
-                                </select>
+                             <select class="form-control input-sm selectpicker" name="Datos[fechaExperienciaLaboral4]" data-error="Es un campo obligatorio" required="required" id="experiencia">               
+                                <option value="1" selected="selected">Ninguna</option>
+                                <option value="2">6 meses</option>
+                                <option value="3">1 año</option>
+                                <option value="4">2 años</option>
+                                <option value="5">3 años o más</option>
+                              </select>
                             </td>
                           </tr>
                           <tr>
@@ -701,43 +706,3 @@
     </form>
   </div>
 </div>
-
-<!--<div class="form-group col-md-2">
-      <div class="bootstrap-timepicker">
-          <label>Horario entrada</label>
-          <div class="input-group">
-            <input type="text" class="form-control timepicker"  id="entrada" name="horariosEntrada[]">
-            <div class="input-group-addon">
-              <i class="fa fa-clock-o"></i>
-            </div>
-          </div>
-      </div>
-    </div>
-    <div class="form-group col-md-2">
-      <div class="bootstrap-timepicker">
-          <label>Horario salida</label>
-          <div class="input-group">
-            <input type="text" class="form-control timepicker"  id="salida" name="horariosSalida[]">
-            <div class="input-group-addon">
-              <i class="fa fa-clock-o"></i>
-            </div>
-          </div>
-      </div>
-    </div>
-    <div class="form-group col-md-5">
-      <label class="control-label">Dias trabajdos</label>
-      <select class="form-control input-sm selectpicker"  name="diasTrabajados[]" multiple  id="diasTrabajados">
-        <option selected="selected" value="Lunes">Lunes</option>
-        <option selected="selected" value="Martes">Martes</option>
-        <option selected="selected" value="Miércoles">Miércoles</option>
-        <option selected="selected" value="Jueves">Jueves</option>
-        <option selected="selected" value="Viernes">Viernes</option>
-        <option value="Sábado">Sábado</option>
-        <option value="Domingo">Domingo</option>
-      </select>
-    </div>
-    <div class="form-group col-md-1">
-      <a><i class="fa fa-plus agregarFila"  style="cursor:pointer" onclick="agregarFila();" ></i></a>
-    </div>
-    <div id="prueba"></div>
-    -->

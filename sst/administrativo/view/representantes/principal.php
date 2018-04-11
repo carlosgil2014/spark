@@ -65,11 +65,6 @@ if(!isset($_SESSION['spar_usuario']))
           <ul class="sidebar-menu">
             <!-- <li class="header">Solicitudes</li> -->
             <li>
-              <a style="cursor: pointer;" onclick="agregar();"> 
-                <i class="fa fa-plus"></i> <span>Agregar</span>
-              </a>
-            </li>
-            <li>
               <a href="../../index.php?accion=index">
                 <i class="fa fa-arrow-left"></i> <span>Regresar</span>
               </a>
@@ -91,6 +86,15 @@ if(!isset($_SESSION['spar_usuario']))
                   <h3 class="box-title">Representantes/Principal</h3>
                 </div>
                 <!-- /.box-header -->
+                <div class="box-body">
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-1 col-sm-4">
+                        <button type="button" onclick="agregar();" class="btn btn-success btn-block btn-flat btn-sm">Agregar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <div id="respuesta"></div>
                 <div class="box-body table-responsive">
                   <?php if(!isset($_SESSION["spar_error"])){$estilo = "style='display:none;'";}else{$estilo = "";}?>

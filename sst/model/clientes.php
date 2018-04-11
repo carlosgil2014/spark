@@ -10,7 +10,7 @@ class clientes
 
    		public function listar(){
    			$datos = array();
-   			$consulta="SELECT idclientes, nombreComercial ,cp FROM tblClientes c ORDER BY nombreComercial";
+   			$consulta="SELECT idclientes, nombreComercial FROM tblClientes c ORDER BY nombreComercial";
 			// echo $consulta;
 			$resultado = $this->conexion->query($consulta);
 			while ($filaTmp = $resultado->fetch_assoc()) {

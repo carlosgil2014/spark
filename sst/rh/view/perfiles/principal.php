@@ -1,6 +1,6 @@
 <?php
 if(!isset($_SESSION['spar_usuario']))
-    header('Location: ../index.html');
+    header('Location: ../index.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -90,10 +90,14 @@ if(!isset($_SESSION['spar_usuario']))
                 </div>
                 <!-- /.box-header -->
                 <div id="respuesta"></div>
-                  <div class="btn-group">
-                    <button type="button" onclick="agregar();" class="btn btn-success">Agregar</button>
-                  </div>
                 <div class="box-body">
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-1 col-sm-4">
+                        <button type="button" onclick="agregar();" class="btn btn-success btn-block btn-flat btn-sm">Agregar</button>
+                      </div>
+                    </div>
+                  </div>
                   <?php if(!isset($_SESSION["spar_error"])){$estilo = "style='display:none;'";}else{$estilo = "";}?>
                   <div class="row">
                     <div class="form-group" id="div_alert" <?php echo $estilo;?>>
@@ -116,7 +120,7 @@ if(!isset($_SESSION['spar_usuario']))
                           <th>Cliente</th>
                           <th>Experiencia</th>
                           <th></th>
-                          <th></th>
+                          <!--<th></th>-->
                         </tr>
                         </thead>
                         <tbody>
@@ -147,11 +151,12 @@ if(!isset($_SESSION['spar_usuario']))
                               <i class="fa fa-pencil-square-o"></i>
                             </a>
                           </td>
+                          <!--
                           <td class = "text-center">
                             <a style="cursor: pointer;" onclick="eliminar('<?php echo $perfil['idPerfil'];?>');">
                               <i class="fa fa-trash-o text-red"></i>
                             </a>
-                          </td>
+                          </td>-->
                         </tr>
                         <?php
                         }

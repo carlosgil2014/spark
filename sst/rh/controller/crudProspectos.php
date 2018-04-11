@@ -9,6 +9,7 @@ include_once("../../model/habilidades.php");
 include_once("../../model/perfiles.php");
 include_once("../../model/prospectos.php");
 include_once("../../model/vacantes.php");
+include_once("../../model/solicitudEmpleos.php");
 
 
 class Controller {
@@ -24,6 +25,7 @@ class Controller {
 		$this->varCliente = new clientes();
 		$this->varVacantes = new vacantes();
 		$this->varProspectos = new prospectos();
+		$this->varSolicitudes = new solicitudEmpleos();
     }
 	
 	public function principal()
@@ -39,14 +41,33 @@ class Controller {
 			{
 				case "index":
 					if (isset($_POST["clientes"])) {
+						$tmpClientes = array_map(
+							function ($cliente) 
+							{return array("idclientes" => $cliente);}
+							, $_POST["clientes"]);
+					}
+					else{
+						$tmpClientes = array_map(function ($cliente) {return array("idclientes" => base64_encode($cliente["idclientes"]));}, $clientes);
+					}
+					$busqueda = "Busqueda";
+					$Solicitada = "Solicitada";
+					$vacantes = $this->varVacantes->listarVacantesSolicitudBusquedas($tmpClientes, $Solicitada,$busqueda);
+					
+					include_once("principalVacante.php");
+					if(isset($_SESSION["spar_error"]))
+						unset($_SESSION["spar_error"]);
+					break;
+
+				case "indexSolicitudes":
+					if (isset($_POST["clientes"])) {
 						$tmpClientes = array_map(function ($cliente) {return array("idclientes" => $cliente);}, $_POST["clientes"]);
 					}
 					else{
 						$tmpClientes = array_map(function ($cliente) {return array("idclientes" => base64_encode($cliente["idclientes"]));}, $clientes);
 					}
-					$vacantes = $this->varVacantes->listarVacantes($tmpClientes, base64_encode("Solicitada"));
+					$solicitudes = $this->varSolicitudes->listar();
 					
-					include_once("principalVacante.php");
+					include_once("principalSolicitudes.php");
 					if(isset($_SESSION["spar_error"]))
 						unset($_SESSION["spar_error"]);
 					break;

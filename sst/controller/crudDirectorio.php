@@ -44,7 +44,7 @@ class Controller {
 						if (!is_array($datosEmpleado)) {
 							$_SESSION["spar_error"] = $datosEmpleado;
 							$_SESSION["spar_error"] = "No hay empleados por agregar";
-							header("Location: index.php?accion=index");
+							header("Location: index.php?accion=index&clase=success");
 						}else{
 							include_once("buscarEmpleado.php");
 						}

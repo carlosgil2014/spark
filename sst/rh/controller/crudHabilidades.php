@@ -46,6 +46,15 @@ class Controller {
 						include_once("modificar.php");
 					}
 					break;
+				case "historial":
+					$id =$_GET["id"];
+					$historial = $this->varHabilidad->historiales($id);
+					if(empty($historial))
+						header("Location: index.php?accion=index");
+					else{
+						include_once("historial.php");
+					}
+					break;
 				case "guardar":
 						$habilidad = $_POST["habilidad"];
 						$usuario = $_POST["usuario"];
@@ -53,16 +62,18 @@ class Controller {
 						$_SESSION["spar_error"] = $resultado;
 						if(isset($_SESSION["spar_error"]) && $_SESSION["spar_error"] === "OK"){
 							$clase = "success";
-							//$_SESSION["spar_error"] = "Se agregó el salario correctamente.";
+							$_SESSION["spar_error"] = "Se agregó el salario correctamente.";
 						}else
 						$clase = "danger";
-						//header("Location: index.php?accion=index&clase=".$clase);
+						header("Location: index.php?accion=index&clase=".$clase);
 					break;
 
 				case "actualizar":
 						$id = $_GET["id"];
+						$idHabilidad = $_POST["idHabilidad"];
 						$habilidad = $_POST["habilidad"];
-						$resultado = $this->varHabilidad->actualizar($id,$habilidad);
+						$usuario = $_POST["usuario"];
+						$resultado = $this->varHabilidad->actualizar($id,$habilidad,$usuario,$idHabilidad);
 						$_SESSION["spar_error"] = $resultado;
 						if(isset($_SESSION["spar_error"]) && $_SESSION["spar_error"] === "OK"){
 							$clase = "success";

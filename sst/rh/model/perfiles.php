@@ -212,7 +212,7 @@ class perfiles
 		if($conocimientos == ''){
 			$conocimientos = NULL;
 		}else{
-			$conocimientos = array_slice($conocimientos, 1); 
+			//$conocimientos = array_slice($conocimientos, 1); 
 			$conocimiento = implode(",", $conocimientos);
 			$conocimientos = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($conocimiento))));
 		}if(isset($horariosEntrada)){
@@ -230,10 +230,9 @@ class perfiles
 			$imagen = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($imagenDescripcion))));
 		}else{
 			$imagen = NULL;
-		}if($habilidades == ''){
+		}if($habilidades == NULL){
 			$habilidad = NULL;
-		}else{
-			$habilidades = array_slice($habilidades, 1); 
+		}else{ 
 			$habilidad = implode(",", $habilidades);
 			$habilidad = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($habilidad))));
 		}if(isset($evaluaciones)){
@@ -294,6 +293,7 @@ class perfiles
 
 		if($errores === 0){ 
 			$consulta = "UPDATE spartodo_rh.tblPerfiles a_b SET a_b.idPuesto='$puesto',a_b.idSolicitante=$idEmpleado,a_b.fechaSolicitud='$fechaSolicitud',a_b.nombrePerfil='$nombrePerfil',a_b.salario=$salario,a_b.edad=$edad,a_b.edadMaxima=$edadMaxima,a_b.sexo='$sexo',a_b.opcional='$opcional',a_b.escolaridad=$escolaridad,a_b.estadoCivil='$estadoCivil',a_b.diasTrabajados='$diasTrabajados1',a_b.horarioEntrada='$horarioEntrada',a_b.horarioSalida='$HorarioSalida',a_b.experiencia='$experiencia',a_b.imagen='$imagen',a_b.talla='$talla',a_b.entrevistaCliente='$entrevista',a_b.conocimientosEspecificos='$conocimientos',a_b.habilidades='$habilidad',a_b.evaluaciones='$evaluacion',a_b.paquetes='$paqueteLenguaje',a_b.ayudaAuto='$ayudaAuto',a_b.prestacionesLey='$prestaciones',a_b.idCliente=$cliente,a_b.uniforme='$uniforme' WHERE a_b.idperfil=$idPerfil";
+			//echo $consulta;
 			$resultado = $this->conexion->query($consulta);
 			if($resultado){
 			  	if($this->conexion->affected_rows === 1)

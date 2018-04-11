@@ -43,12 +43,28 @@ class vacantes
 	}
 
 	public function listarVacantes($clientes, $estado){
-		// echo $estado;
 		$estado = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim(base64_decode($estado)))));
 		$datos = array();
 		$tmpClientes = implode("','", array_map(function ($cliente){return $this->conexion -> real_escape_string(strip_tags(stripslashes(trim(base64_decode($cliente['idclientes'])))));}, $clientes));
-		$consulta="SELECT v.idVacante, v.idCliente, v.idPresupuesto, v.idPerfil,	 pe.nombrePerfil AS perfil, v.idPuesto, v.fechaRegistro, v.folio, v.mes, v.anio, v.fechaModificacion, pr.nombre AS presupuesto, pe.nombrePerfil, c.nombreComercial, pu.nombre, CONCAT(e.empleados_nombres,' ', e.empleados_apellido_paterno, ' ', e.empleados_apellido_materno) AS solicitante FROM spartodo_rh.tblVacantes v LEFT JOIN spartodo_rh.tblPresupuestos pr ON v.idPresupuesto = pr.idPresupuesto LEFT JOIN spartodo_rh.tblPerfiles pe ON v.idPerfil = pe.idPerfil LEFT JOIN tblClientes c ON pr.idCliente = c.idclientes LEFT JOIN spartodo_rh.tblPuestos pu ON v.idPuesto = pu.idPuesto LEFT JOIN spar_empleados e ON v.idSolicitante = e.empleados_id WHERE v.idCliente IN('$tmpClientes') AND v.estado = '$estado'";
-		  // echo $consulta;
+		$consulta="SELECT v.estado,v.idVacante, v.idCliente, v.idPresupuesto, v.idPerfil,	 pe.nombrePerfil AS perfil, v.idPuesto, v.fechaRegistro, v.folio, v.mes, v.anio, v.fechaModificacion, pr.nombre AS presupuesto, pe.nombrePerfil, c.nombreComercial, pu.nombre, CONCAT(e.empleados_nombres,' ', e.empleados_apellido_paterno, ' ', e.empleados_apellido_materno) AS solicitante FROM spartodo_rh.tblVacantes v LEFT JOIN spartodo_rh.tblPresupuestos pr ON v.idPresupuesto = pr.idPresupuesto LEFT JOIN spartodo_rh.tblPerfiles pe ON v.idPerfil = pe.idPerfil LEFT JOIN tblClientes c ON pr.idCliente = c.idclientes LEFT JOIN spartodo_rh.tblPuestos pu ON v.idPuesto = pu.idPuesto LEFT JOIN spar_empleados e ON v.idSolicitante = e.empleados_id WHERE v.idCliente IN('$tmpClientes') AND v.estado = '$estado'";
+		$resultado = $this->conexion->query($consulta);
+		if($resultado){
+			while ($filaTmp = $resultado->fetch_assoc()) {
+				$datos [] = $filaTmp;
+			}
+			return $datos;
+		}
+		else{
+			echo $this->conexion->errno . " : " . $this->conexion->error . "\n";
+		}
+	}
+
+	public function listarVacantesSolicitudBusquedas($clientes, $estado,$estado2){
+		//$estado = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim(base64_decode($estado)))));
+		//$estado2 = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim(base64_decode($estado2)))));
+		$datos = array();
+		$tmpClientes = implode("','", array_map(function ($cliente){return $this->conexion -> real_escape_string(strip_tags(stripslashes(trim(base64_decode($cliente['idclientes'])))));}, $clientes));
+		$consulta="SELECT v.estado,v.idVacante, v.idCliente, v.idPresupuesto, v.idPerfil,	 pe.nombrePerfil AS perfil, v.idPuesto, v.fechaRegistro, v.folio, v.mes, v.anio, v.fechaModificacion, pr.nombre AS presupuesto, pe.nombrePerfil, c.nombreComercial, pu.nombre, CONCAT(e.empleados_nombres,' ', e.empleados_apellido_paterno, ' ', e.empleados_apellido_materno) AS solicitante FROM spartodo_rh.tblVacantes v LEFT JOIN spartodo_rh.tblPresupuestos pr ON v.idPresupuesto = pr.idPresupuesto LEFT JOIN spartodo_rh.tblPerfiles pe ON v.idPerfil = pe.idPerfil LEFT JOIN tblClientes c ON pr.idCliente = c.idclientes LEFT JOIN spartodo_rh.tblPuestos pu ON v.idPuesto = pu.idPuesto LEFT JOIN spar_empleados e ON v.idSolicitante = e.empleados_id WHERE v.idCliente IN('$tmpClientes') AND v.estado = '$estado' OR v.estado='$estado2'";
 		$resultado = $this->conexion->query($consulta);
 		if($resultado){
 			while ($filaTmp = $resultado->fetch_assoc()) {

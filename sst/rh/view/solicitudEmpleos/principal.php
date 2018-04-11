@@ -1,6 +1,6 @@
 <?php
 if(!isset($_SESSION['spar_usuario']))
-    header('Location: ../index.html');
+    header('Location: ../index.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -95,16 +95,15 @@ if(!isset($_SESSION['spar_usuario']))
                   <h3 class="box-title">Solicitud de empleo/Principal</h3>
                 </div>
                 <!-- /.box-header -->
-                <div id="respuesta"></div>
-               <!-- <div class="row">
-                  <div class="btn-toolbar" role="toolbar"> -->
-
-                    <div class="btn-group">
-                       <button type="button" onclick="agregar();" class="btn btn-success">Agregar</button>
+                <div class="box-body">
+                <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-1 col-sm-4">
+                        <button type="button" onclick="agregar();" class="btn btn-success btn-block btn-flat btn-sm">Agregar</button>
+                      </div>
                     </div>
-
-                  <!--</div>
-                </div>-->
+                  </div>
+                  <div id="respuesta"></div>
                 <div class="box-body table-responsive">
                   <?php if(!isset($_SESSION["spar_error"])){$estilo = "style='display:none;'";}else{$estilo = "";}?>
                   <div class="row">
@@ -125,6 +124,7 @@ if(!isset($_SESSION['spar_usuario']))
                       <th>Fecha de Solicitud</th>
                       <th>Celular</th>
                       <th>RFC</th>
+                      <th>Estado</th>
                       <th></th>
                       <!--<th></th>-->
                     </tr>
@@ -139,6 +139,7 @@ if(!isset($_SESSION['spar_usuario']))
                       <td><?php echo $solicitudEmpleo['fechaSolicitud'] ?></td>
                       <td><?php echo $solicitudEmpleo['telefonoCelular'] ?></td>
                       <td><?php echo $solicitudEmpleo['rfc'] ?></td>
+                      <td><?php echo $solicitudEmpleo['estado'] ?></td>
                       <td class = "text-center">
                         <a style="cursor: pointer;" onclick="modificar('<?php echo $solicitudEmpleo['idSolicitudEmpleo']; ?>','<?php echo $solicitudEmpleo['cpDatosPersonales'];?>');">
                           <i class="fa fa-pencil-square-o"></i>
@@ -157,6 +158,7 @@ if(!isset($_SESSION['spar_usuario']))
                     ?>
                     </tbody>
                   </table>
+                </div>
                 </div>
                 <!-- /.box-body -->
               </div>

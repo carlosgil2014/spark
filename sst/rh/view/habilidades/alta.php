@@ -8,7 +8,7 @@
       <div class="modal-body">
         <div class="row">
           <div class="form-group col-md-12">
-            <label class="control-label">habilidad</label>
+            <label class="control-label">Habilidad</label>
             <input type="text" name="habilidad" class="form-control input-sm" required>
           </div>
           <input type="hidden" name="usuario" id="usuario" value="<?php echo $datosUsuario['numEmpleado']; ?>">

@@ -90,6 +90,15 @@ if(!isset($_SESSION['spar_usuario']))
                   <h3 class="box-title">Regiones/Principal</h3>
                 </div>
                 <!-- /.box-header -->
+                <div class="box-body">
+                  <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-1 col-sm-4">
+                        <a  class="btn btn-success btn-block btn-flat btn-sm" style="cursor: pointer;" onclick="agregar()">Agregar</a>
+                      </div>
+                    </div>
+                  </div>
+                </div> 
                 <div class="box-body table-responsive">
                   <?php if(!isset($_SESSION["spar_error"])){$estilo = "style='display:none;'";}else{$estilo = "";}?>
                   <div class="form-group" id="div_alert" <?php echo $estilo;?>>

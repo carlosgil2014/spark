@@ -1,6 +1,6 @@
 <?php
 if(!isset($_SESSION['spar_usuario']))
-    header('Location: ../index.php');
+    header('Location: ../index.html');
 ?>
 <!DOCTYPE html>
 <html>
@@ -86,7 +86,7 @@ if(!isset($_SESSION['spar_usuario']))
               <!-- Horizontal Form -->
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Consulta de prospectos por vacante/Principal</h3>
+                  <h3 class="box-title">Consulta de prospectos por solicitud de empleo/Principal</h3>
                 </div>
                 <!-- /.box-header -->
                 <div id="respuesta"></div>
@@ -127,28 +127,18 @@ if(!isset($_SESSION['spar_usuario']))
                     <thead>
                       <tr>
                         <th>Solicitante</th>
-                        <th>Perfil</th>
-                        <th>Cliente</th>
+                        <th>Puesto</th>
                         <th>Fecha de solicitud</th>
-                        <th>Estado</th>
-                        <th></th>
                       </tr>
                     </thead>
                     <tbody>
                     <?php 
-                    foreach($vacantes as $vacante){
+                    foreach($solicitudes as $solicitud){
                     ?>
                       <tr>
-                        <td><?php echo $vacante['solicitante']?></td>
-                        <td><?php echo $vacante["nombrePerfil"]?></td>
-                        <td><?php echo $vacante["nombreComercial"]?></td>
-                        <td><?php echo $vacante["fechaRegistro"]?></td>
-                        <td><?php echo $vacante["estado"]?></td>
-                        <td class = "text-center">
-                          <a style="cursor: pointer;" onclick="listarProspectos('<?php echo base64_encode($vacante['idPresupuesto']);?>','<?php echo base64_encode($vacante['idVacante']);?>');">
-                            <i class="fa fa-users"></i>
-                          </a>
-                        </td>
+                        <td><?php echo $solicitud['nombresDatosPersonales'].' '.$solicitud['apellidoPaternoDatosPersonales'].' '.$solicitud['apellidoMaternoDatosPersonales'];?></td>
+                        <td><?php echo $solicitud["nombre"]?></td>
+                        <td><?php echo $solicitud["fechaSolicitud"]?></td>
                       </tr>
                     <?php
                     }

@@ -120,7 +120,6 @@ function preparacionAcademica(){
 	return ( ($('#escolaridad').val() != 0) && ($('#nombreEscuela').val() != '') && ($('#fechaInicioFin').val() != '') && ($('#anosCursados').val() != '') && ($('#tituloRecibido').val() != '') && ($('#preparacionAcademicaCarrera').val() != '') );
 }
 
-
 $(document).on("submit", "#formularioAgregar", function (e) {
 	e.preventDefault();
 	var allChecksBoxes = document.querySelectorAll('input[type="checkbox"]');
@@ -337,14 +336,18 @@ $(document).on("submit", "#formularioModificar", function (e) {
        url: 'index.php?accion=actualizar',
        data: frm,
        success: function(data){
+       	console.log(data);
 	    	if(data == "OK") {
+	    		//console.log(data);
+				//alert(data);
 	          window.location.replace("index.php?accion=index&clase=success");
 	        }else{
 	        	//alert(data);
-	          window.location.replace("index.php?accion=index&clase=danger");
+	        	//console.log(data);
+	           window.location.replace("index.php?accion=index&clase=danger");
 	        }
-	       }
-       })
+	       },
+       });
 });
 
 function eliminar(id){
@@ -458,4 +461,22 @@ function cambiarModal(opcion){
         $('#rfc').val('');
         $('#rfc').focus();
 	}
+}
+
+function modificarEstado(id){
+	estado = $('#estadoActividad').val();
+	console.log(estado);
+		$(".loader").fadeIn("slow", function(){
+			$.ajax({
+				url:   'index.php?accion=actualizarEstado&id='+id+'&estado='+estado,
+    	    	type:  'post',
+    	    	success:  function (data) {
+    	    		if(data== 'OK') {
+    	    			window.location.replace("index.php?accion=index&clase=success");
+    	    		}
+    	    	},
+			});
+			$(".loader").fadeOut("slow"); 
+		});  
+
 }

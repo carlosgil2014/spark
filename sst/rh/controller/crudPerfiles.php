@@ -45,7 +45,6 @@ class Controller {
 					$perfiles = $this->varPerfil->listarEscolaridad();
 					include_once("alta.php");
 					break;
-
 				case "modificar":
 					$conocimientos = $this->varConocimientos->listar();
 					$puestos = $this->varPuestos->listar();
@@ -87,7 +86,6 @@ class Controller {
 							$_SESSION["spar_error"] = $resultado;
 						}
 					echo $resultado;
-					//$_SESSION["spar_error"] = "Se eliminó correctamente el perfil.";
 					break;
 
 				default:

@@ -229,7 +229,7 @@ if(!isset($_SESSION['spar_usuario']) || $permisos["Principal"] !== "1")
     <script src="../../../assets/js/bootstrap/bootstrap-select.min.js"></script>
     <!-- Funciones Generales -->
     <script src="../../../assets/js/funciones.js"></script>
-    <!-- Index Sims -->
+    <!-- Index Vacantes -->
     <script src="../../js/V1/vacantes/index.js"></script>
   </body>
 </html>

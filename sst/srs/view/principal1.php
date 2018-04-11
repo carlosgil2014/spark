@@ -302,7 +302,7 @@
 	                </form>
                     <div class="form-group col-lg-1" >
                         <label>&nbsp;</label>
-                        <button class="btn btn-primary btn-sm btnBuscar">Buscar</button>
+                        <button class="btn btn-primary btn-sm btnBuscar btn-block">a</button>
                     </div>
 	            </div>
                 <!-- /.row -->

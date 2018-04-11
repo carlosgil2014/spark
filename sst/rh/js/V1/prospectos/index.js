@@ -100,62 +100,6 @@ $(document).on("submit", "#formularioAgregar", function (e) {
 });
 
 
-/*function agregarFila(){
-	if ($('#diasTrabajados option:selected')=="") {
-		$('#entrada').hide();
-		$('#salida').hide();
-		$("#diasTrabajados").hide();		
-	}else{
-		$('#entrada').show();
-		$('#salida').show();
-		$("#telefonoExtension").attr("required","required");
-	}
-	diasTmp = [], opciones = "";
-	$('#diasTrabajados option:selected').each(function(i, obj) {
-		//concatena dias y this
-		dias.push($(this).val());
-	});
-	//elimina nodos duplicados
-
-	$.grep(diasSemana, function(el) {
-        if ($.inArray(el, dias) == -1) diasTmp.push(el);
-	});
-
-	for(var i = 0; i < diasTmp.length; i++){
-		opciones += "<option>" + diasTmp[i] + "</option> ";  
-	}
-	cajita = '<div class="form-group col-md-3"><div class="form-group"><label>Horarios</label><input type="text" name="horarioEntrada[]" class="form-control " value="'+$('#entrada').val()+'" readonly required></div></div>'; 
-	cajita += '<div class="form-group col-md-3"><div class="form-group"><label></label><input type="text" name="horarioSalida[]" class="form-control" value="'+$('#entrada').val()+'" readonly></div></div>';
-	cajita += '<div class="form-group col-md-5"><label class="control-label">Dias trabajados</label><input type="hidden" name="diasTrabajados2[]" value="'+$('#diasTrabajados').val()+'">"'+$('#diasTrabajados').val()+'"</div>';
-	cajita += '<div class="form-group col-md-1"><a><i class="fa fa-minus eliminarFila" style="cursor:pointer" agregarFila()  onclick="eliminarHorario(this,\''+$('#diasTrabajados').val()+'\');" ></i></a></div>';
-	cuadro = '<div class="form-group col-md-11 horarios">'+cajita+'</div>';
-	$("#prueba").append(cuadro);
-	$('.selectpicker').selectpicker({style: 'btn-success btn-sm',size: 4,noneSelectedText: 'Seleccionar un elemento', liveSearchPlaceholder:'Buscar',noneResultsText: '¡No existe el elemento buscado!',countSelectedText:'{0} elementos seleccionados',actionsBox:true,selectAllText: 'Seleccionar todos',deselectAllText: 'Deseleccionar todos'});		
-	$(".timepicker").timepicker({ showInputs: false });
-	// console.log(dias);
-	$("#diasTrabajados").html(opciones);
-	$("#diasTrabajados").selectpicker("refresh");
-}
-
-function eliminarHorario(elemento, diasTmp){
-	opciones = "";
-	$(".loader").fadeIn("fast", function(){
-		diasTmp = diasTmp.split(",");
-		for(var i = 0; i < diasTmp.length; i++){
-			index = dias.indexOf(diasTmp[i]);
-			console.log(index);
-			if (index > -1) {
-    			dias.splice(index, 1);
-			}
-			opciones += "<option>" + diasTmp[i] + "</option>";  
-		}
-		$("#diasTrabajados").append(opciones);
-		$("#diasTrabajados").selectpicker("refresh");
-	    $(elemento).closest('div.horarios').remove();  
-	    $(".loader").fadeOut("fast");
-	});
-}*/
-
 function modificar(id){
 	$.ajax({
    	 	url:   'index.php?accion=modificar&id='+id,
@@ -237,66 +181,6 @@ function eliminar(id){
 	    });
 	});	
 }
-
-
-/*function guardar(){
-	if($("input[name='horarioEntrada']").length > 0){
-		$(".loader").fadeIn("fast", function(){
-			$("input[name='sim']").each(function(i, obj) {
-				var tmp = $(this), tipoTmp = tmp.closest("td").next("td").find("input[name='tipo']").val();
-				$.ajax({
-			   	 	url: 'index.php?accion=guardar',
-				    data: {icc : tmp.val(), almacen : $("#almacen").val(), tipo : tipoTmp}, 
-				    type:  'post',
-				    success:  function (data) {
-				    	clase = "success";
-				    	if(data != "OK"){
-				    		clase = "danger";
-				    	}
-				    	else{
-				    		data = "Guardado";
-				    	}
-		    			tmp.closest("td").next("td").next("td").attr("class", clase);
-		    			tmp.closest("td").next("td").next("td").html(data);
-			    	},
-				}).done( function() {
-					// $(elemento).remove();
-				}).fail( function( jqXHR, textStatus, errorThrown ) {
-				  	if(jqXHR.status === 0) {
-						$("#div_alert_modal").show();
-						$("#p_alert_modal").html("No hay conexión a internet, verifique e intente nuevamente.");
-					}
-				});
-			});
-		    $(".loader").fadeOut("fast");
-		});
-	}
-	else{
-		$("#div_alert_modal").show();
-		$("#p_alert_modal").html("No hay datos para guardar.");
-	}
-};*/
-
-function diasSemana(dias){
- if(dias=='semana'){
- 	$('#lunes').prop('checked',true);
- 	$('#martes').prop('checked',true);
- 	$('#miercoles').prop('checked',true);
- 	$('#jueves').prop('checked',true);
- 	$('#viernes').prop('checked',true);
- 	$('#sabado').prop('checked',false);
- 	$('#domingo').prop('checked',false);
- }if(dias=='finSemana'){
- 	$('#sabado').prop('checked',true);
- 	$('#domingo').prop('checked',true);
- 	$('#lunes').prop('checked',false);
- 	$('#martes').prop('checked',false);
- 	$('#miercoles').prop('checked',false);
- 	$('#jueves').prop('checked',false);
- 	$('#viernes').prop('checked',false);
- }
-}
-
 
 
 

@@ -1,14 +1,14 @@
 var parametros = {
-          style: 'btn-info  btn-flat btn-sm',
-          size: '5',
-          noneSelectedText: 'Seleccionar un cliente', 
+          style: 'btn-success btn-sm btn-flat',
+          noneSelectedText: 'Seleccionar un elemento', 
           liveSearchPlaceholder:'Buscar',
-          noneResultsText: '¡No existe el cliente buscado!',
-          countSelectedText:'{0} Clientes seleccionados',
+          noneResultsText: '¡No existe el elemento buscado!',
+          countSelectedText:'{0} elementos seleccionados',
           actionsBox:true,
           selectAllText: 'Seleccionar todos',
           deselectAllText: 'Deseleccionar todos'
         }
+
 var formPrincipal = $("#formPrincipal"), divTablaPrincipal = $("#COPC"), tituloTablaPrincipal = $("#tituloTablaPrincipal"), estadoTemporal = "", idCotOrdPfTmp = 0;
 $(document).ready(function() {
     $('#clientes').selectpicker(parametros);
