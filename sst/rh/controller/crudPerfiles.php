@@ -25,6 +25,8 @@ class Controller {
 	{
 		$this->varSesion->ultimaActividad();
 		$datosUsuario = $this->varUsuario->datosUsuario($_SESSION["spar_usuario"]);
+		if(isset($datosUsuario["idUsuario"]))
+			$clientes = $this->varClientes->usuariosClientes($datosUsuario["idUsuario"]);
 
 		if(isset($_GET["accion"]))
 		{
@@ -40,16 +42,14 @@ class Controller {
 				case "alta":
 					$conocimientos = $this->varConocimientos->listar();
 					$puestos = $this->varPuestos->listar();
-					$clientes = $this->varClientes->listar();
+					//$clientes = $this->varClientes->listar();
 					$habilidades = $this->varHabilidades->listar();
 					$perfiles = $this->varPerfil->listarEscolaridad();
 					include_once("alta.php");
 					break;
-
 				case "modificar":
 					$conocimientos = $this->varConocimientos->listar();
 					$puestos = $this->varPuestos->listar();
-					$clientes = $this->varClientes->listar();
 					$habilidades = $this->varHabilidades->listar();
 					$escolaridades = $this->varPerfil->listarEscolaridad();
 					$perfil = $this->varPerfil->informacion($_GET["id"]);
@@ -62,12 +62,22 @@ class Controller {
 					break;
 
 				case "guardar":
+				if(!isset($_POST["conocimientos"])){ $_POST["conocimientos"] = NULL; }
+					if(!isset($_POST["imagen"])){ $_POST["imagen"] = NULL; }
+					if(!isset($_POST["habilidades"])){ $_POST["habilidades"] = NULL; }
+					if(!isset($_POST["evaluaciones"])){ $_POST["evaluaciones"] = NULL; }
+					if(!isset($_POST["paquetesLenguajes"])){ $_POST["paquetesLenguajes"] = NULL; }
 					$resultado = $this->varPerfil -> guardar($_POST["Datos"],$_POST["conocimientos"],$_POST["imagen"],$_POST["habilidades"],$_POST["evaluaciones"],$datosUsuario["idEmpleado"],$_POST["paquetesLenguajes"],$_POST["diasTrabajados"],$_POST["horariosEntrada"],$_POST["horariosSalida"]);
 					echo $resultado;
 					$_SESSION["spar_error"] = "Se agregó el perfil correctamente.";
 					break;
 
 				case "actualizar":
+					if(!isset($_POST["conocimientos"])){ $_POST["conocimientos"] = NULL; }
+					if(!isset($_POST["imagen"])){ $_POST["imagen"] = NULL; }
+					if(!isset($_POST["habilidades"])){ $_POST["habilidades"] = NULL; }
+					if(!isset($_POST["evaluaciones"])){ $_POST["evaluaciones"] = NULL; }
+					if(!isset($_POST["paquetesLenguajes"])){ $_POST["paquetesLenguajes"] = NULL; }
 					$resultado = $this->varPerfil->actualizar($_POST["Datos"],$_POST["conocimientos"],$_POST["imagen"],$_POST["habilidades"],$_POST["evaluaciones"],$datosUsuario["idEmpleado"],$_POST["paquetesLenguajes"],$_POST["diasTrabajados"],$_POST["horariosEntrada"],$_POST["horariosSalida"]);
 					if($resultado == "OK") {
 						$_SESSION["spar_error"] = "Se modificó el perfil correctamente.";	
@@ -75,7 +85,7 @@ class Controller {
 						$_SESSION["spar_error"] = $resultado;
 					}
 					echo $resultado;
-					break;
+				break;
 
 				case "eliminar":
 					$id = $_POST["id"];
@@ -87,7 +97,6 @@ class Controller {
 							$_SESSION["spar_error"] = $resultado;
 						}
 					echo $resultado;
-					//$_SESSION["spar_error"] = "Se eliminó correctamente el perfil.";
 					break;
 
 				default:

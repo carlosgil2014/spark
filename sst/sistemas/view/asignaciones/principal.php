@@ -96,6 +96,18 @@ if(!isset($_SESSION['spar_usuario']))
                   <h3 class="box-title">Asignaciones de líneas</h3>
                 </div>
                 <!-- /.box-header -->
+                <div class="box-body">
+                  <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-1 col-sm-4">
+                        <a style="cursor: pointer;" class="btn btn-success btn-block btn-flat btn-sm"  onclick="agregar()">Agregar</a>
+                      </div>
+                      <div class="col-md-2 col-sm-4">
+                        <a style="cursor: pointer;" class="btn btn-success btn-block btn-flat btn-sm"  onclick="agregarCliente()">Agregar por cuenta</a>
+                      </div>
+                    </div>
+                  </div>
+                </div> 
                 <div class="box-body table-responsive">
                   <?php if(!isset($_SESSION["spar_error"])){$estilo = "style='display:none;'";}else{$estilo = "";}?>
                   <div class="row">

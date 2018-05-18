@@ -2,10 +2,35 @@
   <div class="modal-content">
     <form id="formularioModificar" role="form">
     <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-hidden="true" >&times;</button>
+      <style>
+        .rectangular {
+          border: 0px;
+          border-radius: 0px;
+        }
+      </style> 
+      <div class="row">
+       <div class="col-lg-4"> 
       <h4 class="modal-title" id="myModalLabel"><b>Modificar solicitud de empleo</b></h4>
+      </div>
+      <div class="col-lg-3"> 
+        <select class="form-control input-sm selectpicker rectangular" name="Datos[estadoActividad]" id="estadoActividad">
+        <option <?php if($solicitudEmpleo['estado']=='Activa'){ echo 'selected';} ?> value="Activa">Activa</option>
+        <option <?php if($solicitudEmpleo['estado']=='Boletinada'){ echo 'selected';} ?> value="Boletinada">Boletinada</option>
+        <option <?php if($solicitudEmpleo['estado']=='Inactiva'){ echo 'selected';} ?> value="Inactiva">Inactiva</option>        
+        </select>
+      </div>
+      <div class="form-group col-md-2">
+        <button type="button" onclick="modificarEstado(<?php echo $solicitudEmpleo['idSolicitudEmpleo']; ?>);" class="btn btn-success btn-sm rectangular" id="actualizarEstado">Actualizar estado</button>
+      </div>
+      <div class="col-lg-3">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true" >&times;</button> 
+      </div>
+      </div>
       <div id="mensaje"></div> <div id="opcionSi" onclick="cambiarModal('si');"></div>
       <div id="opcionNo" onclick="cambiarModal('no');"></div>
+      <div class="form-grop col-md-3">
+
+      </div>
     </div>
     <div class="modal-body">
       <div class="row">
@@ -104,11 +129,11 @@
                       <div class="form-group col-md-4">
                         <label class="control-label">Experiencia de puesto</label>
                         <select class="form-control input-sm selectpicker" name="Datos[experienciaPuesto]" data-error="Es un campo obligatorio" required="required" id="experienciaPuesto">                           
-                          <option <?php if($solicitudEmpleo['experienciaPuesto']=='1'){echo 'selected';}  ?> value="ninguna">Ninguna</option>
-                          <option <?php if($solicitudEmpleo['experienciaPuesto']=='2'){echo 'selected';}  ?> value="6 meses">6 meses</option>
-                          <option <?php if($solicitudEmpleo['experienciaPuesto']=='3'){echo 'selected';}  ?> value="1 año">1 año</option>
-                          <option <?php if($solicitudEmpleo['experienciaPuesto']=='4'){echo 'selected';}  ?> value="2 años">2 años</option>
-                          <option <?php if($solicitudEmpleo['experienciaPuesto']=='5'){echo 'selected';}  ?> value="3 años o más">3 años o más</option>
+                          <option <?php if($solicitudEmpleo['experienciaPuesto']=='1'){echo 'selected';}  ?> value="1">Ninguna</option>
+                          <option <?php if($solicitudEmpleo['experienciaPuesto']=='2'){echo 'selected';}  ?> value="2">6 meses</option>
+                          <option <?php if($solicitudEmpleo['experienciaPuesto']=='3'){echo 'selected';}  ?> value="3">1 año</option>
+                          <option <?php if($solicitudEmpleo['experienciaPuesto']=='4'){echo 'selected';}  ?> value="4">2 años</option>
+                          <option <?php if($solicitudEmpleo['experienciaPuesto']=='5'){echo 'selected';}  ?> value="5">3 años o más</option>
                         </select>
                       </div>
                     </div>
@@ -145,7 +170,7 @@
                         <input type="number" class="form-control input-sm" min="18"  max="60" name="Datos[edadDatosPersonales]"   id="edadDatosPersonales" placeholder="18" value="<?php echo $solicitudEmpleo['edad']; ?>" tabindex="5">
                       </div>  
                       <div class="form-group col-md-2">
-                        <label class="control-label">código postal</label>
+                        <label class="control-label">Código postal</label>
                         <div class="input=-group">
                           <input type="number" id="codigoPostal" class="form-control input-sm" onchange="cp()" maxlength="5" class="form-control" name="Datos[cpDatosPersonales]"   placeholder="55500"  required value="<?php echo $solicitudEmpleo['cpDatosPersonales']; ?>" tabindex="6">
                         </div>
@@ -200,10 +225,10 @@
                       <div class="form-group col-md-2">
                         <label class="control-label">Talla</label>
                         <select class="form-control input-sm selectpicker" name="Datos[tallaDatosPersonales]" id="talla">
-                            <option <?php if($solicitudEmpleo['talla']=='Chica'){ echo 'selected';} ?> value="Chica">Chica</option>
-                            <option <?php if($solicitudEmpleo['talla']=='Mediana'){ echo 'selected';} ?> value="Mediana">Mediana</option>
-                            <option <?php if($solicitudEmpleo['talla']=='Grande'){ echo 'selected';} ?> value="Grande">Grande</option>
-                          </select>
+                          <option <?php if($solicitudEmpleo['talla']=='Chica'){ echo 'selected';} ?> value="Chica">Chica</option>
+                          <option <?php if($solicitudEmpleo['talla']=='Mediana'){ echo 'selected';} ?> value="Mediana">Mediana</option>
+                          <option <?php if($solicitudEmpleo['talla']=='Grande'){ echo 'selected';} ?> value="Grande">Grande</option>
+                        </select>
                       </div> 
                       <div class="form-group col-md-3">
                         <label class="control-label">Telefono de recados</label>
@@ -260,7 +285,7 @@
                             <th>#</th>
                             <th>Nombre completo</th>
                             <th>Direccion</th>
-                            <th>telefono</th>
+                            <th>Telefono</th>
                             <th>Ocupacion</th>
                           </tr>
                         </thead>
@@ -479,8 +504,8 @@
                       <?php $conocimientosEspecificos = explode(",", $solicitudEmpleo['conocimientosEspecificos']); ?>
                       <div class="form-group col-md-4">
                         <label class="control-label">Conocimientos</label>
-                        <select class="form-control input-sm selectpicker" multiple  name="conocimientos[]" data-error="Es un campo obligatorio" data-live-search="true" required id="conocimiento">
-                          <option data-hidden="true" selected></option>
+                        <select class="form-control input-sm selectpicker" multiple  name="conocimientos[]" data-error="Es un campo obligatorio" data-live-search="true" id="conocimiento">
+                          <option data-hidden="true" <?php if($conocimientosEspecificos[0] == '' && count($conocimientosEspecificos)<=1){ echo 'selected';}?> value="NULL"></option>
                           <?php foreach ($conocimientos as $conocimiento) {
                           ?>
                           <option  <?php if(in_array($conocimiento['idConocimiento'], $conocimientosEspecificos)){echo 'selected';}?> value="<?php echo $conocimiento['idConocimiento'] ?>"><?php echo $conocimiento['conocimiento'] ?></option>
@@ -491,7 +516,7 @@
                       <div class="form-group col-md-4">
                         <label class="control-label">Paquetes y/o lenguajes que domina</label>
                         <select class="form-control input-sm selectpicker" name="paquestesLenguajes[]" multiple data-error="Es un campo obligatorio" data-live-search="true" id="paquestesLenguajes">
-                          <option data-hidden="true" selected></option>
+                          <option data-hidden="true" <?php if($cadena[0] == '' && count($cadena)<=1){ echo 'selected';}?> value="NULL"></option>
                           <option  <?php if(in_array('Excel', $cadena)){echo 'selected';}?> value="Excel">Excel</option>
                           <option  <?php if(in_array('Power point', $cadena)){echo 'selected';}?> value="Power point">Power point</option>
                           <option  <?php if(in_array('Access', $cadena)){echo 'selected';}?> value="Access">Access</option>
@@ -503,7 +528,7 @@
                       <div class="form-group col-md-3">
                         <label class="control-label">Habilidades</label>
                         <select class="form-control input-sm selectpicker" name="habilidades[]" multiple data-error="Es un campo obligatorio" data-live-search="true"  id="habilidades">
-                          <option data-hidden="true" selected></option>
+                          <option data-hidden="true" <?php if($cadenaHabilidades[0] == '' && count($cadenaHabilidades)<=1){ echo 'selected';}?> value="NULL"></option>
                           <?php foreach ($habilidades as $habilidad) {?> 
                           <option <?php if(in_array($habilidad['idHabilidades'],$cadenaHabilidades)){ echo 'selected';} ?> value="<?php echo $habilidad['idHabilidades']; ?>"><?php echo $habilidad['habilidad']; ?></option>
                           <?php } ?>
@@ -524,6 +549,11 @@
                       </a>
                     </h4>
                   </div>
+                  <style>
+                    textarea {
+                    resize: none;
+                  }
+                  </style>
                   <div id="collapseEight" class="panel-collapse collapse" aria-expanded="false">
                     <div class="box-body">
                       <table class="table table-hover table-bordered table-responsive table-condensed text-center">
@@ -547,40 +577,40 @@
                           <tr>
                             <td>Experencia</td>
                             <td>  
-                                <select class="form-control input-sm selectpicker" name="Datos[fechaExperienciaLaboral1]" data-error="Es un campo obligatorio" required="required" id="experiencia">                           
-                                      <option <?php if($solicitudEmpleo['fecha1'] == '1'){ echo 'selected';} ?> value="1">Ninguna</option>
-                                      <option <?php if($solicitudEmpleo['fecha1'] == '2'){ echo 'selected';} ?> value="2">6 meses</option>
-                                      <option <?php if($solicitudEmpleo['fecha1'] == '3'){ echo 'selected';} ?> value="3">1 año</option>
-                                      <option <?php if($solicitudEmpleo['fecha1'] == '4'){ echo 'selected';} ?> value="4">2 años</option>
-                                      <option <?php if($solicitudEmpleo['fecha1'] == '5'){ echo 'selected';} ?> value="5">3 años o más</option>
-                                </select>
+                              <select class="form-control input-sm selectpicker" name="Datos[fechaExperienciaLaboral1]" data-error="Es un campo obligatorio" required="required" id="experiencia">                           
+                              <option <?php if($solicitudEmpleo['fecha1'] == '1'){ echo 'selected';} ?> value="1">Ninguna</option>
+                              <option <?php if($solicitudEmpleo['fecha1'] == '2'){ echo 'selected';} ?> value="2">6 meses</option>
+                              <option <?php if($solicitudEmpleo['fecha1'] == '3'){ echo 'selected';} ?> value="3">1 año</option>
+                              <option <?php if($solicitudEmpleo['fecha1'] == '4'){ echo 'selected';} ?> value="4">2 años</option>
+                              <option <?php if($solicitudEmpleo['fecha1'] == '5'){ echo 'selected';} ?> value="5">3 años o más</option>
+                              </select>
                             </td>
                             <td>
-                                <select class="form-control input-sm selectpicker" name="Datos[fechaExperienciaLaboral2]" data-error="Es un campo obligatorio" required="required" id="experiencia">                           
-                                      <option <?php if($solicitudEmpleo['fecha2'] == '1'){ echo 'selected';} ?> value="1">Ninguna</option>
-                                      <option <?php if($solicitudEmpleo['fecha2'] == '2'){ echo 'selected';} ?> value="2">6 meses</option>
-                                      <option <?php if($solicitudEmpleo['fecha2'] == '3'){ echo 'selected';} ?> value="3">1 año</option>
-                                      <option <?php if($solicitudEmpleo['fecha2'] == '4'){ echo 'selected';} ?> value="4">2 años</option>
-                                      <option <?php if($solicitudEmpleo['fecha2'] == '5'){ echo 'selected';} ?> value="5">3 años o más</option>
-                                </select>
+                              <select class="form-control input-sm selectpicker" name="Datos[fechaExperienciaLaboral2]" data-error="Es un campo obligatorio" required="required" id="experiencia">                           
+                                <option <?php if($solicitudEmpleo['fecha2'] == '1'){ echo 'selected';} ?> value="1">Ninguna</option>
+                                <option <?php if($solicitudEmpleo['fecha2'] == '2'){ echo 'selected';} ?> value="2">6 meses</option>
+                                <option <?php if($solicitudEmpleo['fecha2'] == '3'){ echo 'selected';} ?> value="3">1 año</option>
+                                <option <?php if($solicitudEmpleo['fecha2'] == '4'){ echo 'selected';} ?> value="4">2 años</option>
+                                <option <?php if($solicitudEmpleo['fecha2'] == '5'){ echo 'selected';} ?> value="5">3 años o más</option>
+                              </select>
                             </td>
                             <td>
-                                <select class="form-control input-sm selectpicker" name="Datos[fechaExperienciaLaboral3]" data-error="Es un campo obligatorio" required="required" id="experiencia">                           
-                                      <option <?php if($solicitudEmpleo['fecha3'] == '1'){ echo 'selected';} ?> value="1">Ninguna</option>
-                                      <option <?php if($solicitudEmpleo['fecha3'] == '2'){ echo 'selected';} ?> value="2">6 meses</option>
-                                      <option <?php if($solicitudEmpleo['fecha3'] == '3'){ echo 'selected';} ?> value="3">1 año</option>
-                                      <option <?php if($solicitudEmpleo['fecha3'] == '4'){ echo 'selected';} ?> value="4">2 años</option>
-                                      <option <?php if($solicitudEmpleo['fecha3'] == '5'){ echo 'selected';} ?> value="5">3 años o más</option>
-                                </select>
+                              <select class="form-control input-sm selectpicker" name="Datos[fechaExperienciaLaboral3]" data-error="Es un campo obligatorio" required="required" id="experiencia">                           
+                                <option <?php if($solicitudEmpleo['fecha3'] == '1'){ echo 'selected';} ?> value="1">Ninguna</option>
+                                <option <?php if($solicitudEmpleo['fecha3'] == '2'){ echo 'selected';} ?> value="2">6 meses</option>
+                                <option <?php if($solicitudEmpleo['fecha3'] == '3'){ echo 'selected';} ?> value="3">1 año</option>
+                                <option <?php if($solicitudEmpleo['fecha3'] == '4'){ echo 'selected';} ?> value="4">2 años</option>
+                                <option <?php if($solicitudEmpleo['fecha3'] == '5'){ echo 'selected';} ?> value="5">3 años o más</option>
+                              </select>
                             </td>
                             <td>
-                                <select class="form-control input-sm selectpicker" name="Datos[fechaExperienciaLaboral4]" data-error="Es un campo obligatorio" required="required" id="experiencia">                           
-                                      <option <?php if($solicitudEmpleo['fecha4'] == '1'){ echo 'selected';} ?> value="1">Ninguna</option>
-                                      <option <?php if($solicitudEmpleo['fecha4'] == '2'){ echo 'selected';} ?> value="2">6 meses</option>
-                                      <option <?php if($solicitudEmpleo['fecha4'] == '3'){ echo 'selected';} ?> value="3">1 año</option>
-                                      <option <?php if($solicitudEmpleo['fecha4'] == '4'){ echo 'selected';} ?> value="4">2 años</option>
-                                      <option <?php if($solicitudEmpleo['fecha4'] == '5'){ echo 'selected';} ?> value="5">3 años o más</option>
-                                </select>
+                              <select class="form-control input-sm selectpicker" name="Datos[fechaExperienciaLaboral4]" data-error="Es un campo obligatorio" required="required" id="experiencia">                           
+                                <option <?php if($solicitudEmpleo['fecha4'] == '1'){ echo 'selected';} ?> value="1">Ninguna</option>
+                                <option <?php if($solicitudEmpleo['fecha4'] == '2'){ echo 'selected';} ?> value="2">6 meses</option>
+                                <option <?php if($solicitudEmpleo['fecha4'] == '3'){ echo 'selected';} ?> value="3">1 año</option>
+                                <option <?php if($solicitudEmpleo['fecha4'] == '4'){ echo 'selected';} ?> value="4">2 años</option>
+                                <option <?php if($solicitudEmpleo['fecha4'] == '5'){ echo 'selected';} ?> value="5">3 años o más</option>
+                              </select>
                             </td>
                           </tr>
                           <tr>
@@ -656,7 +686,7 @@
                       <div class="form-grop col-md-3">
                         <label class="control-label">Promocion</label>
                         <select class="form-control input-sm selectpicker" data-live-search="true" name="promocion[]" multiple  id="promocion">
-                          <option data-hidden="true" selected></option>
+                          <option data-hidden="true" <?php if($clientePromocion[0] == '' && count($clientePromocion)<=1){ echo 'selected';}?> value="NULL"></option>
                           <?php
                           foreach ($clientes as $cliente) {
                             ?>
@@ -704,52 +734,9 @@
         <!-- /.col-md-12 -->
     </div>
     <div class="modal-footer">
-      <div id="mensaje"></div>
-      <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-      <button name="enviar" id="modificar" class="btn btn-success" >Modificar</button>
+      <button type="button" class="btn btn-default rectangular" data-dismiss="modal">Cerrar</button>
+      <button name="enviar" id="modificar" class="btn btn-success rectangular" >Modificar</button>
     </div>
     </form>
   </div>
 </div>
-
-<!--<div class="form-group col-md-2">
-      <div class="bootstrap-timepicker">
-          <label>Horario entrada</label>
-          <div class="input-group">
-            <input type="text" class="form-control timepicker"  id="entrada" name="horariosEntrada[]">
-            <div class="input-group-addon">
-              <i class="fa fa-clock-o"></i>
-            </div>
-          </div>
-      </div>
-    </div>
-    <div class="form-group col-md-2">
-      <div class="bootstrap-timepicker">
-          <label>Horario salida</label>
-          <div class="input-group">
-            <input type="text" class="form-control timepicker"  id="salida" name="horariosSalida[]">
-            <div class="input-group-addon">
-              <i class="fa fa-clock-o"></i>
-            </div>
-          </div>
-      </div>
-    </div>
-    <div class="form-group col-md-5">
-      <label class="control-label">Dias trabajdos</label>
-      <select class="form-control input-sm selectpicker"  name="diasTrabajados[]" multiple  id="diasTrabajados">
-        <option selected="selected" value="Lunes">Lunes</option>
-        <option selected="selected" value="Martes">Martes</option>
-        <option selected="selected" value="Miércoles">Miércoles</option>
-        <option selected="selected" value="Jueves">Jueves</option>
-        <option selected="selected" value="Viernes">Viernes</option>
-        <option value="Sábado">Sábado</option>
-        <option value="Domingo">Domingo</option>
-      </select>
-    </div>
-    <div class="form-group col-md-1">
-      <a><i class="fa fa-plus agregarFila"  style="cursor:pointer" onclick="agregarFila();" ></i></a>
-    </div>
-    <div id="prueba"></div>
-    -->
-
-

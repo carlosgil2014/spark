@@ -134,8 +134,7 @@
               </a>
               <ul class="treeview-menu">
                 <li><a href="view/prospectos/index.php?accion=index"><i class="fa fa-circle-o"></i> Vacante</a></li>
-                <li><a href="view/prospectos/index.php?accion=indexProcesar"><i class="fa fa-spinner"></i> Perfil</a></li>
-                <li><a href="view/prospectos/index.php?accion=indexProcesar"><i class="fa fa-spinner"></i> Solicitudes</a></li>
+                <li><a href="view/prospectos/index.php?accion=indexSolicitudes"><i class="fa fa-spinner"></i> Solicitudes</a></li>
               </ul>
             </li>
             <!--
@@ -253,6 +252,8 @@
     <script src="../assets/js/app.min.js"></script>
     <!-- Bootstrap select js -->
     <script src="../assets/js/bootstrap/bootstrap-select.min.js"></script>
+    <!-- Funciones Generales -->
+    <script src="../assets/js/funciones.js"></script>
     <!-- Index Módulo Administrativo -->
     <script src="js/V1/index.js"></script>
     <script>

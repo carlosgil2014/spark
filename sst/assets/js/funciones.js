@@ -104,11 +104,6 @@ function validarDecimalPositivo(elemento){
     //console.log(valor);
     if( isNaN(valor) || valor < 1){
         tmp.val("")
-    }else{
-        // var patron= /^[0-9]+([.])?([0-9]+)?$/;
-        // if (patron.test(valor)){
-        //     return true;
-        // }
     }
 }
 

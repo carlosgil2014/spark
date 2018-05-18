@@ -29,14 +29,9 @@
           </a>
         </td>
         <td class="text-center">
-          <a style="cursor: pointer;" onclick="modalCotizacion(<?php echo $cotizacion['id'];?>)">
-            <i class='fa fa-search'></i>
-          </a>
-        </td>
-        <td class="text-center">
           <?php 
           $estados = array("Por autorizar" => "<i class='fa fa-circle text-yellow'></i>", "Autorizada" => "<i class='fa fa-circle text-green'></i>", "Rechazada" => "<i class='fa fa-circle text-black'></i>", "Cancelada" => "<i class='fa fa-circle text-red'></i>",); 
-          if($resultados["cotizaciones"]["autorizar"] == 1 && $cotizacion["num"]["numOrd"] == 0 && $cotizacion["num"]["numPf"] == 0){
+          if(isset($permisosCotizaciones["Autorizar"]) && $permisosCotizaciones["Autorizar"] == 1 && $cotizacion["num"]["numOrd"] == 0 && $cotizacion["num"]["numPf"] == 0){
           ?>
           <select class="selectpicker text-center" onchange="cambiarEstado('<?php echo $cotizacion['id']?>', 'Cotizaciones', this, '<?php echo $cotizacion['fechaInicial']?>', '<?php echo $cotizacion['fechaFinal']?>','<?php echo $cotizacion['estado']?>');" data-width="50px" style="background-color:transparent" data-container="body">
             <option title="<i class='fa fa-circle text-yellow'></i>" <?if($cotizacion["estado"] == "Por autorizar") echo "selected";?> value="Por autorizar"> En revisión</option>
@@ -56,6 +51,11 @@
           <?php 
           }
           ?>
+        </td>
+        <td class="text-center">
+          <a style="cursor: pointer;" onclick="modalCotizacion(<?php echo $cotizacion['id'];?>)">
+            <i class='fa fa-search'></i>
+          </a>
         </td>
       </tr>
     <?php

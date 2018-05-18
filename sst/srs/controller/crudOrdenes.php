@@ -21,7 +21,7 @@ class Controller {
 		$this->varCotizacion = new cotizaciones();	
 		$this->varOrden = new orden();	
 		$this->varPrefactura = new prefacturas();	
-		$this->varPermiso = new permisos();
+		$this->varPermisos = new permisos();
 		$this->varConcepto = new conceptos();
     } 
 	
@@ -30,7 +30,7 @@ class Controller {
 		$this->varSesion->ultimaActividad();
 		if(isset($_SESSION["spar_usuario"])){
 			$datosUsuario = $this->varUsuario->datosUsuario($_SESSION["spar_usuario"]);
-			$permisos = array("cotizaciones" => 1, "ordenes" => 2, "prefacturas" => 3, "reportes" => 4, "estadodecuenta" => 5, "conceptos" => 6);
+			$permisosOrdenes = $this->varPermisos->listar("Ordenes", $datosUsuario["idUsuario"]);
 			$datosClientes = $this->varCliente->usuariosClientes($datosUsuario["idUsuario"]);
 			$idClientes = array();
 			foreach($datosClientes as $cliente){$idClientes[] = $cliente["idclientes"];}
@@ -160,7 +160,6 @@ class Controller {
 	    			$fechaInicio = new DateTime($resultadoOrden["fechaInicial"]);  
 	    			$fechaFin = new DateTime($resultadoOrden["fechaFinal"]);
 					$resultadoUsuario = $this->varUsuario->datosUsuario($resultadoOrden["realizo"]);
-					$permisosUsuario = $this->varPermiso->verificarPermiso($datosUsuario["idUsuario"],2);
 	    			$resultadoCotEspecifica = $this->varCotizacion->cotizacionEspecifica($conceptosOrden["idcotconcepto"]);
 	    			$resultadoPfEspecifica = $this->varPrefactura->prefacturaEspecifica($conceptosOrden["idpfconcepto"]);
 	    			$resultadoCotizacion = $this->varCotizacion->cotizacion($resultadoCotEspecifica["idcotizacion"]);

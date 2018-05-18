@@ -3,7 +3,7 @@
     <form id="formAgregar" method="POST" role="form" action="index.php?accion=guardar">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true" >&times;</button>
-        <h4 class="modal-title" id="myModalLabel"><b>Agregar Conocimiento</b></h4>
+        <h4 class="modal-title" id="myModalLabel"><b>Agregar conocimiento</b></h4>
       </div>
       <div class="modal-body">
         <div class="row">
@@ -11,12 +11,13 @@
             <label class="control-label">Conocimiento</label>
             <input type="text" name="conocimiento" class="form-control input-sm" required>
           </div>
+          <input type="hidden" name="usuario" id="usuario" value="<?php echo $datosUsuario['numEmpleado']; ?>">
         </div>
         <!-- /.col-md-12 -->
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cerrar</button>
-        <button type="submit" name="enviar" id="guardar" class="btn btn-success btn-sm">Guardar</button>
+        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" style="border-radius:0; border:0;">Cerrar</button>
+        <button type="submit" name="enviar" id="guardar" class="btn btn-success btn-sm" style="border-radius:0; border:0;">Guardar</button>
       </div> 
     </form>
   </div>

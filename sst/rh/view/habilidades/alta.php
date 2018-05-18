@@ -8,7 +8,7 @@
       <div class="modal-body">
         <div class="row">
           <div class="form-group col-md-12">
-            <label class="control-label">habilidad</label>
+            <label class="control-label">Habilidad</label>
             <input type="text" name="habilidad" class="form-control input-sm" required>
           </div>
           <input type="hidden" name="usuario" id="usuario" value="<?php echo $datosUsuario['numEmpleado']; ?>">
@@ -16,8 +16,8 @@
         <!-- /.col-md-12 -->
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cerrar</button>
-        <button type="submit" name="enviar" id="guardar" class="btn btn-success btn-sm">Guardar</button>
+        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" style="border-radius:0; border:0;">Cerrar</button>
+        <button type="submit" name="enviar" id="guardar" class="btn btn-success btn-sm" style="border-radius:0; border:0;">Guardar</button>
       </div> 
     </form>
   </div>

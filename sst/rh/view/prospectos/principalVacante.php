@@ -1,6 +1,6 @@
 <?php
 if(!isset($_SESSION['spar_usuario']))
-    header('Location: ../index.html');
+    header('Location: ../index.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -105,31 +105,34 @@ if(!isset($_SESSION['spar_usuario']))
                       </div>
                     </div>
                   </div>
-                  <form method="POST" action="index.php?accion=index">
-                    <div class="form-group col-md-5">
-                      <label class="control-label">Clientes</label>
-                          <select class="form-control input-sm selectpicker" data-style="btn-info btn-flat btn-sm" data-live-search="true" data-size="5" name="clientes[]" id="cliente" multiple="multiple" data-container="body"  data-live-search = "true" data-selected-text-format="count > 5"> 
-                            <?php
-                            foreach ($clientes as $cliente) {
-                            ?>
-                            <option value="<?php echo base64_encode($cliente['idclientes'])?>" <?php if(isset($tmpClientes)) if (in_array(base64_encode($cliente['idclientes']), array_column($tmpClientes, "idclientes"))) echo "selected";?>><?php echo $cliente["nombreComercial"];?></option>
-                            <?php 
-                            }
-                          ?> 
-                          </select>
-                    </div>
-                    <div class="form-group col-md-2">
-                      <label class="control-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                      <button  type="submit" class="btn btn-success btn-sm">Buscar</button>
-                    </div>
-                  </form>
+                  <div class="row">
+                    <form method="POST" action="index.php?accion=index">
+                      <div class="form-group col-md-5">
+                        <label class="control-label">Clientes</label>
+                            <select class="form-control input-sm selectpicker" data-style="btn-info btn-flat btn-sm" data-live-search="true" data-size="5" name="clientes[]" id="cliente" multiple="multiple" data-container="body"  data-live-search = "true" data-selected-text-format="count > 5"> 
+                              <?php
+                              foreach ($clientes as $cliente) {
+                              ?>
+                              <option value="<?php echo base64_encode($cliente['idclientes'])?>" <?php if(isset($tmpClientes)) if (in_array(base64_encode($cliente['idclientes']), array_column($tmpClientes, "idclientes"))) echo "selected";?>><?php echo $cliente["nombreComercial"];?></option>
+                              <?php 
+                              }
+                            ?> 
+                            </select>
+                      </div>
+                      <div class="form-group col-md-2">
+                        <label class="control-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                        <button  type="submit" class="btn btn-success btn-sm" style="border-radius:0; border:0;">Buscar</button>
+                      </div>
+                    </form>
+                  </div>  
                   <table id="tblProspectos" class="table table-bordered table-striped small">
                     <thead>
                       <tr>
+                        <th>Cliente</th>
                         <th>Solicitante</th>
                         <th>Perfil</th>
-                        <th>Cliente</th>
                         <th>Fecha de solicitud</th>
+                        <th>Estado</th>
                         <th></th>
                       </tr>
                     </thead>
@@ -138,10 +141,11 @@ if(!isset($_SESSION['spar_usuario']))
                     foreach($vacantes as $vacante){
                     ?>
                       <tr>
+                        <td><?php echo $vacante['nombreComercial'].'-'.str_pad($vacante['mes'], 2, "0", STR_PAD_LEFT).'-'.$vacante['anio'].'-'.str_pad($vacante['folio'], 3, "0", STR_PAD_LEFT);?></td>
                         <td><?php echo $vacante['solicitante']?></td>
                         <td><?php echo $vacante["nombrePerfil"]?></td>
-                        <td><?php echo $vacante["nombreComercial"]?></td>
                         <td><?php echo $vacante["fechaRegistro"]?></td>
+                        <td><?php echo $vacante["estado"]?></td>
                         <td class = "text-center">
                           <a style="cursor: pointer;" onclick="listarProspectos('<?php echo base64_encode($vacante['idPresupuesto']);?>','<?php echo base64_encode($vacante['idVacante']);?>');">
                             <i class="fa fa-users"></i>

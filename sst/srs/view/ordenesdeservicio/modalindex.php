@@ -27,7 +27,7 @@ if(date("d") <= 5){
           <?php   echo $tipo."-".$resultadoOrden['clave']?>-<?php echo $resultadoOrden['anio']?>-<?php echo $resultadoOrden['norden']?>
         </div>
         <?php 
-        if($resultadoOrden["fechaInicial"] < $fechaMinima && $permisosUsuario['autorizar'] == 1 && $resultadoOrden["estado"] != "Autorizada"){
+        if($resultadoOrden["fechaInicial"] < $fechaMinima && isset($permisosOrdenes["Autorizar"]) && $permisosOrdenes["Autorizar"] == 1 && $resultadoOrden["estado"] != "Autorizada"){
         ?>
         <div class="form-group col-md-4 col-sm-12 col-xs-12" id="div_nota" >
           <div class="alert alert-warning text-center" style="padding: 5px;">
@@ -38,7 +38,7 @@ if(date("d") <= 5){
         }
         ?>
         <div class="form-group <?php 
-        if($resultadoOrden["fechaInicial"] >= $fechaMinima || $permisosUsuario['autorizar'] != 1 || $resultadoOrden["estado"] == "Autorizada"){
+        if($resultadoOrden["fechaInicial"] >= $fechaMinima || !isset($permisosOrdenes["Autorizar"]) || $permisosOrdenes['Autorizar'] != 1 || $resultadoOrden["estado"] == "Autorizada"){
         ?> col-md-offset-4 <?php } ?> col-md-4 text-right hidden-sm hidden-xs">
           <?php echo $resultadoUsuario["nombre"];?>
         </div>
@@ -67,8 +67,8 @@ if(date("d") <= 5){
         <div class="form-group col-md-6 col-xs-12 text-right" id="divCfdi">
             <label>&nbsp;</label>
             <div>
-              <label class="radio-inline"> <input type="radio" name="ejecOr" class="ejec" value="ejecutandose" <?php if($resultadoOrden['ejecucion']=='ejecutandose'){ ?> checked <?php } if($permisosUsuario['poliza'] != 1){?> disabled <?php } ?> >Ejecutada</label>
-              <label class="radio-inline"><input type="radio" name="ejecOr" class="ejec" value="noejecutandose" <?php if($resultadoOrden['ejecucion']=='noejecutandose'){ ?> checked <?php }  if($permisosUsuario["poliza"] != 1 ){?> disabled <?php } ?> >No ejecutada</label>
+              <label class="radio-inline"> <input type="radio" name="ejecOr" class="ejec" value="ejecutandose" <?php if($resultadoOrden['ejecucion']=='ejecutandose'){ ?> checked <?php } if(!isset($permisosOrdenes["Polizas"]) || $permisosOrdenes['Polizas'] != 1){?> disabled <?php } ?> >Ejecutada</label>
+              <label class="radio-inline"><input type="radio" name="ejecOr" class="ejec" value="noejecutandose" <?php if($resultadoOrden['ejecucion']=='noejecutandose'){ ?> checked <?php }  if(!isset($permisosOrdenes["Polizas"]) || $permisosOrdenes['Polizas'] != 1){?> disabled <?php } ?> >No ejecutada</label>
             </div>
         </div>
        
@@ -99,7 +99,7 @@ if(date("d") <= 5){
         <div class="form-group col-md-1 col-xs-2 text-right">
           <label>&nbsp;</label>
           <?php
-          if($permisosUsuario['poliza'] == 1){
+          if(isset($permisosOrdenes["Polizas"]) && $permisosOrdenes['Polizas'] == 1){
           ?>
           <div>
             <button class="btn btn-success btn-flat btn-sm btnGenerar" value="<?php echo $resultadoOrden['idorden'];?>" id="asignarEjec" disabled><i class="fa fa-arrow-circle-right"></i></button>
@@ -199,7 +199,7 @@ if(date("d") <= 5){
     <button type="button" class="btn btn-success btn-sm btn-flat" id="modificarOrdenes" value="<?php echo $_POST['idOrden']?>" >Modificar</button>
     <?php 
     }
-    if($permisosUsuario['autorizar'] == 1 && $resultadoOrden["estado"]!="Autorizada") {
+    if(isset($permisosOrdenes["Autorizar"]) && $permisosOrdenes['Autorizar'] == 1 && $resultadoOrden["estado"]!="Autorizada") {
     ?>
       <button type="button" class="btn btn-success btn-sm btn-flat" id="autorizar" onclick="autorizarOrden('<?php echo $_POST["idOrden"]?>')" >Autorizar</button>
     <?php 

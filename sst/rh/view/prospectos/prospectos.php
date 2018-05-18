@@ -16,7 +16,7 @@
               <div class="form-group" id="div_alert_modal">
                 <div class="col-md-6 col-md-offset-3">
                   <div class="alert alert-danger" >
-                    <!-- <strong>¡Aviso!</strong> --> <a onclick="cerrar('div_alert_modal')" href="#" class="pull-right"><i class="fa fa-close"></i></a> 
+                    <a onclick="cerrar('div_alert_modal')" href="#" class="pull-right"><i class="fa fa-close"></i></a> 
                     <p id="p_alert_modal" class="text-center">No existen prospectos para esta vacante</p>
                   </div>
                 </div>
@@ -43,7 +43,7 @@
               ?>
               <tr>
                 <td><?php echo $prospecto['nombresDatosPersonales'].' '.$prospecto['apellidoPaternoDatosPersonales'].' '.$prospecto['apellidoMaternoDatosPersonales']?></td>
-                <td><?php echo $prospecto["sueldo"]?></td>
+                <td><?php echo $prospecto["sueldo"].' $'?></td>
                 <td><?php echo $prospecto["edad"]?></td>
                 <td><?php echo $prospecto["sexo"]?></td>
                 <td><?php echo $prospecto["escolaridad"]?></td>
@@ -70,9 +70,15 @@
       </div>
       <!-- /.col-md-12 -->
     </div>
+    <style>
+      .rectangular {
+        border: 0px;
+        border-radius: 0px;
+      }
+    </style>
     <div class="modal-footer">
       <div id="mensaje"></div>
-      <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      <button type="button" class="btn btn-default rectangular" data-dismiss="modal">Cerrar</button>
     </div>
     </form>
   </div>

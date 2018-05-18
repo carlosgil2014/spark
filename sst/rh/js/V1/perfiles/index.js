@@ -30,13 +30,11 @@ function agregar(){
     		$(".timepicker").timepicker({ showInputs: false, showMeridian: false});
     		$('.selectpicker').selectpicker(parametros);
     		$('#formAgregar').validator({focus:false});
-    		$('.decimal').numeric(",");
     	},
 	});
 	$("#modalPerfil").modal({backdrop: 'static', keyboard: false});
     $("#modalPerfil").modal("show");
 }
-
 
 $(document).on("submit", "#formularioAgregar", function (e) {
 	e.preventDefault();
@@ -56,7 +54,7 @@ $(document).on("submit", "#formularioAgregar", function (e) {
 	  	$('#mensaje').addClass('btn btn-danger').html('La edad mínima debe ser menor que la edad maxima.').show(50).delay(5000).hide(200);
 	    	return false;
 	  }
-      var frm= $(this).serialize();
+      var frm = $(this).serialize();
        $.ajax({
        type:"POST",
        url: 'index.php?accion=guardar',
@@ -77,7 +75,7 @@ function modificar(id){
 	    	type:  'post',
 	    success:  function (data) {
     		$("#modalPerfil").html(data);
-    		$('.selectpicker').selectpicker({style: 'btn-success btn-sm',size: 4,noneSelectedText: 'Seleccionar un elemento', liveSearchPlaceholder:'Buscar',noneResultsText: '¡No existe el elemento buscado!',countSelectedText:'{0} elementos seleccionados',actionsBox:true,selectAllText: 'Seleccionar todos',deselectAllText: 'Deseleccionar todos'});
+    		$('.selectpicker').selectpicker(parametros);
     		$('#formularioModificar').validator({focus:false});
     		$(".timepicker").timepicker({ showInputs: false, showMeridian: false});
     	},
@@ -85,7 +83,6 @@ function modificar(id){
 	$("#modalPerfil").modal({backdrop: 'static', keyboard: false});
     $("#modalPerfil").modal("show");
 }
-
 
 $(document).on("submit", "#formularioModificar", function (e) {
 	e.preventDefault();
@@ -112,8 +109,10 @@ $(document).on("submit", "#formularioModificar", function (e) {
        data: frm,
        success: function(data){
 	    	if(data == "OK") {
+	    		//alert(data);
 	          window.location.replace("index.php?accion=index&clase=success");
 	        }else{
+	        	//alert(data);
 	          window.location.replace("index.php?accion=index&clase=danger");
 	        }
 	       }
@@ -142,7 +141,7 @@ function eliminar(id){
 }
 
 function diasSemana(dias){
- if(dias=='semana'){
+	 if(dias == 'semana'){
  	$('#lunes').prop('checked',true);
  	$('#martes').prop('checked',true);
  	$('#miercoles').prop('checked',true);
@@ -150,7 +149,7 @@ function diasSemana(dias){
  	$('#viernes').prop('checked',true);
  	$('#sabado').prop('checked',false);
  	$('#domingo').prop('checked',false);
- }if(dias=='finSemana'){
+ }if(dias =='finSemana'){
  	$('#sabado').prop('checked',true);
  	$('#domingo').prop('checked',true);
  	$('#lunes').prop('checked',false);
@@ -159,5 +158,27 @@ function diasSemana(dias){
  	$('#jueves').prop('checked',false);
  	$('#viernes').prop('checked',false);
  }
+
 }
 
+
+/*
+
+ if($('input[name=diasSemana]:checked').attr('value') == 'semana'){
+ 	$('#lunes').prop('checked',true);
+ 	$('#martes').prop('checked',true);
+ 	$('#miercoles').prop('checked',true);
+ 	$('#jueves').prop('checked',true);
+ 	$('#viernes').prop('checked',true);
+ 	$('#sabado').prop('checked',false);
+ 	$('#domingo').prop('checked',false);
+ }if($('input[name=diasSemana]:checked').attr('value') =='finSemana'){
+ 	$('#sabado').prop('checked',true);
+ 	$('#domingo').prop('checked',true);
+ 	$('#lunes').prop('checked',false);
+ 	$('#martes').prop('checked',false);
+ 	$('#miercoles').prop('checked',false);
+ 	$('#jueves').prop('checked',false);
+ 	$('#viernes').prop('checked',false);
+ }
+*/

@@ -13,7 +13,7 @@ class presupuestos
 		// var_dump($clientes);
 		$tmpClientes = implode("','", array_map(function ($cliente){return $this->conexion -> real_escape_string(strip_tags(stripslashes(trim(base64_decode($cliente['idclientes'])))));}, $clientes));
 		$consulta="SELECT p.idPresupuesto, p.nombre, p.tipo, c.nombreComercial, pr.nombre AS proyecto, CONCAT(e.empleados_nombres, ' ', e.empleados_apellido_paterno, ' ', e.empleados_apellido_materno) AS elaborado, p.fechaRegistro FROM spartodo_rh.tblPresupuestos p LEFT JOIN tblClientes c ON p.idCliente = c.idclientes LEFT JOIN tblProyectos pr ON p.idProyecto = pr.idProyecto LEFT JOIN spar_empleados e ON p.idSolicitante = e.empleados_id WHERE p.idCliente IN ('$tmpClientes')";
-		// echo $consulta;
+		//echo $consulta;
 		$resultado = $this->conexion->query($consulta);
 		if($resultado){
 			while ($filaTmp = $resultado->fetch_assoc()) {

@@ -164,16 +164,15 @@ if(!isset($_SESSION['spar_usuario']))
                   <div class="row">&nbsp</div> 
 
                   <div class="row">
-                    <div class="col-lg-12 col-xs-12 table-responsive">
-                      <table class="table table-hover table-bordered table-condensed text-center">
+                    <div class="col-xs-12 table-responsive">
+                      <table id="filasRcg" class="table table-hover table-bordered table-condensed text-center">
                         <tbody>
                           <tr>
                             <th>Cantidad</th>
-                            <th>Precio Unit</th>
+                            <th>Descripcion</th>
+                            <th>Precio Unitario</th>
                             <th>Precio Total</th>
-                            <th>Subtotal</th>
-                            <th>IVA</th>
-                            <th>TOTAL</th>
+                            <th></th>
                           </tr>
                         </tbody>
                         <tbody id="filas">
@@ -183,8 +182,6 @@ if(!isset($_SESSION['spar_usuario']))
                               <td><input class="form-control input-sm text-center" name="Datos[factura][]" type="text"></td>
                               <td><input class="subtotal form-control input-sm text-center" name="Datos[subtotal][]" type="number" step="0.01" required=""></td>
                               <td><input class="impuestos form-control input-sm text-center" name="Datos[impuesto][]" type="number" step="0.01"></td>
-                              <td><input class="iva form-control input-sm text-center" name="Datos[iva][]" type="number" step="0.01"></td>
-                              <td><input class="total form-control input-sm text-center" type="number" step="0.01" readonly="" required=""></td>
                             </tr> 
                         </tbody>
                         <tbody>
@@ -193,11 +190,37 @@ if(!isset($_SESSION['spar_usuario']))
                             <td><input class="form-control input-sm text-center" id="iva" readonly="" value=""></td>
                             <td><input class="form-control input-sm text-center" id="iva" readonly="" value=""></td>
                             <td><input class="form-control input-sm text-center" id="subtotal" readonly="" value=""></td>
-                            <td><input class="form-control input-sm text-center" id="impuestos" readonly="" value=""></td>
-                            <td><input class="form-control input-sm text-center" id="iva" readonly="" value=""></td>
-                            
                           </tr>
-                          
+                          <tr>
+                            <td></td>
+                            <td></td>
+                            <td>
+                              Subtotal:
+                            </td>
+                            <td>
+                              <input type="text" class="form-control input-sm text-center" readonly="">
+                            </td>
+                          </tr>
+                          <tr>
+                            <td></td>
+                            <td></td>
+                            <td>
+                              I.V.A:
+                            </td>
+                            <td>
+                              <input type="text" class="form-control input-sm text-center" readonly="">
+                            </td>
+                          </tr>
+                          <tr>
+                            <td></td>
+                            <td></td>
+                            <td>
+                              Total:
+                            </td>
+                            <td>
+                              <input type="text" class="form-control input-sm text-center" readonly="">
+                            </td>
+                          </tr>
                         </tbody>
                       </table>
                     </div>
@@ -235,6 +258,6 @@ if(!isset($_SESSION['spar_usuario']))
     <!-- AdminLTE App -->
     <script src="../../../assets/js/app.min.js"></script>
     <!-- Index Módulo Administrativo -->
-    <script src="js/V1/index.js"></script>
+    <script src="../../js/V1/index.js"></script>
   </body>
 </html>

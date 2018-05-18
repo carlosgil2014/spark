@@ -7,7 +7,7 @@ if(!isset($_SESSION['spar_usuario']))
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="../../../assets/img/favicon.ico" type="image/x-icon" />
     <title>Módulo de Control de Recursos | Spar México</title>
     <meta http-equiv="cache-control" content="no-cache" />
     <meta http-equiv="expires" content="0" />
@@ -27,7 +27,8 @@ if(!isset($_SESSION['spar_usuario']))
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="../../../assets/css/_all-skins.min.css">
-
+    <!-- selected -->
+    <link rel="stylesheet" href="../../../assets/css/bootstrap/bootstrap-select.min.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -36,6 +37,9 @@ if(!isset($_SESSION['spar_usuario']))
     <![endif]-->
   </head>
   <body class="hold-transition skin-blue sidebar-mini">
+    <?php 
+      include_once("../../../view/includes/modalExpiracion.php");
+    ?>
     <div class="loader">
     </div>
     <div class="wrapper">
@@ -64,11 +68,6 @@ if(!isset($_SESSION['spar_usuario']))
           <ul class="sidebar-menu">
             <!-- <li class="header">Solicitudes</li> -->
             <li>
-              <a style="cursor: pointer;" onclick="agregar();"> 
-                <i class="fa fa-plus"></i> <span>Agregar</span>
-              </a>
-            </li>
-            <li>
               <a href="../../index.php?accion=index">
                 <i class="fa fa-arrow-left"></i> <span>Regresar</span>
               </a>
@@ -90,7 +89,14 @@ if(!isset($_SESSION['spar_usuario']))
                   <h3 class="box-title">Conocimientos/Principal</h3>
                 </div>
                 <!-- /.box-header -->
-                <div class="box-body table-responsive">
+                <div class="box-body">
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-1 col-sm-4">
+                        <button type="button" onclick="agregar();" class="btn btn-success btn-block btn-flat btn-sm">Agregar</button>
+                      </div>
+                    </div>
+                  </div>
                   <?php if(!isset($_SESSION["spar_error"])){$estilo = "style='display:none;'";}else{$estilo = "";}?>
                   <div class="row">
                     <div class="form-group" id="div_alert" <?php echo $estilo;?>>
@@ -102,37 +108,62 @@ if(!isset($_SESSION['spar_usuario']))
                       </div>
                     </div>
                   </div>
-                  <table id="tblconocimientos" class="table table-bordered table-striped small">
-                    <thead>
-                    <tr>
-                      <th>Conocimientos</th>
-                      <th></th>
-                      <!-- <th></th> -->
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php 
-                    foreach($conocimientos as $conocimiento){
-                    ?>
-                    <tr>
-                      <td><?php echo $conocimiento["conocimiento"]?></td>
-                      <td class = "text-center">
-                        <a style="cursor: pointer;" onclick="modificar('<?php echo $conocimiento['idConocimiento'];?>');">
-                          <i class="fa fa-pencil-square-o"></i>
-                        </a>
-                      </td>
-                      <!--                       
-                      <td class = "text-center">
-                        <a style="cursor: pointer;" onclick="eliminar('<?php echo $conocimiento['idConocimiento'];?>','<?php echo $conocimiento['conocimiento'];?>');">
-                          <i class="fa fa-trash-o text-red"></i>
-                        </a>
-                      </td>-->
-                    </tr>
-                    <?php
-                    }
-                    ?>
-                    </tbody>
-                  </table>
+                  <div class="row">
+                    <div class="table-responsive container-fluid">
+                      <table id="tblconocimientos" class="table table-bordered table-striped small">
+                        <thead>
+                        <tr>
+                          <th>Conocimientos</th>
+                          <th></th>
+                          <th></th>
+                          <!-- <th></th> -->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php 
+                        foreach($conocimientos as $conocimiento){
+                        ?>
+                        <tr>
+                          <td><?php echo $conocimiento["nombreConocimiento"]?></td>
+                          <td class = "text-center">
+                            <a style="cursor: pointer;" onclick="modificar('<?php echo $conocimiento['idConocimiento'];?>');">
+                              <i class="fa fa-pencil-square-o"></i>
+                            </a>
+                          </td>
+                          <td class = "text-center">
+                            <a style="cursor: pointer;" onclick="historial('<?php echo $conocimiento['idConocimiento'];?>');">
+                              <i class="fa fa-search text-habilidades"></i>
+                            </a>
+                          </td>
+                        </tr>
+                        <?php
+                        }
+                        ?>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                    <div class="modal fade" id="modalConocimiento" role="dialog">              
+                    </div>
+                    <!-- Modal Eliminar -->
+                    <div id="modalEliminar" class="modal fade" role="dialog">
+                      <div class="modal-dialog modal-sm">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Conocimiento/Eliminar</h4>
+                          </div>
+                          <div class="modal-body text-center">
+                          ¿Eliminar conocimiento <b id="conocimientoEliminar"></b>?
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" id="eliminar" class="btn btn-sm btn-danger" data-dismiss="modal">Continuar</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                 </div>
                 <!-- /.box-body -->
               </div>
@@ -151,27 +182,10 @@ if(!isset($_SESSION['spar_usuario']))
       <!-- Add the sidebar's background. This div must be placed
            immediately after the control sidebar -->
       <div class="control-sidebar-bg"></div>
-      <div class="modal fade" id="modalConocimiento" role="dialog">              
+      <div  id="modalPresupuesto" class="modal" tabindex="-1" role="dialog">              
       </div>
-      <!-- Modal Eliminar -->
-      <div id="modalEliminar" class="modal fade" role="dialog">
-        <div class="modal-dialog modal-sm">
-          <!-- Modal content-->
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title">Conocimiento/Eliminar</h4>
-            </div>
-            <div class="modal-body text-center">
-            ¿Eliminar conocimiento <b id="conocimientoEliminar"></b>?
-            </div>
-            <div class="modal-footer">
-              <button type="button" id="eliminar" class="btn btn-sm btn-danger" data-dismiss="modal">Continuar</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Modal Eliminar -->
+      <!-- Modal Principal -->
+      
     </div>
     <!-- ./wrapper -->
 

@@ -106,7 +106,7 @@
 
 		<button type="button" class="btn btn-default btn-sm btn-flat" data-dismiss="modal">Cerrar</button>
 		<?php
-		if($permisosUsuario["autorizar"] == 1 && $datosModalCotizacion["estado"] != "Autorizada") {
+		if(isset($permisosCotizaciones["Autorizar"]) && $permisosCotizaciones["Autorizar"] == 1 && $datosModalCotizacion["estado"] != "Autorizada") {
 		?>
 			<button type="button" class="btn btn-success btn-sm btn-flat" data-dismiss="modal" estado = "Autorizada" tabla="Cotizaciones" value="<?php echo $_POST["idCotizacion"]?>" >Autorizar</button>
 		<?php 

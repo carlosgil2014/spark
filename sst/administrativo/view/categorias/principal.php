@@ -184,26 +184,32 @@ else{
                     
                     <div class="tab-content">
                       <div class="tab-pane <?php echo $claseCategorias;?>" id="tab_1">
-                          
+                        <div class="box-body">
+                          <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-1 col-sm-4">
+                                <a class="btn btn-success btn-block btn-flat btn-sm" data-toggle="modal" data-dismiss="modal" onclick="agregarCategoria()">Agregar</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div> 
                         <table id="tblCategorias" class="table table-bordered table-striped">
                           <thead>
-                            <th>Categoria   <a  class="btn btn-success" data-toggle="modal" data-dismiss="modal" onclick="agregarCategoria()">Agregar</a></th>
-                            <th>Opciones</th>
+                            <th>Categoria</th>
+                            <th></th>
+                            <th></th>
                           </thead>
                           <tbody>
                           <?php 
                           foreach($categorias as $Categoria){
-                          $btnEdit='<a class="btn btn-primary" data-toggle="modal" data-target="#update" onclick="modificarCategoria('.$Categoria['idCategoria'].')">Editar</a>';
-                          $btnEliminar='<a class="btn btn-danger" href="javascript:eliminarCategoria('.$Categoria['idCategoria'].');">Eliminar</a>';                       
+                          $btnEdit='<a style="cursor: pointer;" data-toggle="modal" data-target="#update" onclick="modificarCategoria('.$Categoria['idCategoria'].')"><i class="fa fa-pencil-square-o"></i></a>';
+                          $btnEliminar='<a style="cursor: pointer;" href="javascript:eliminarCategoria('.$Categoria['idCategoria'].');"><i class="fa fa-trash-o text-red"></i></a>';                       
                           ?>                          
                           <tr>
                             <td><?php echo $Categoria["categoria"]?></td>
                          <?php
-                         echo
-                          '<td>
-                          '.$btnEdit.'
-                          '.$btnEliminar.'
-                         </td>'
+                         echo '<td>'.$btnEdit.'</td>';
+                         echo '<td>'.$btnEliminar.'</td>';
                          ?>
                           </tr>
                           <?php
@@ -214,28 +220,35 @@ else{
                       </div>
                       <!-- /.tab-pane -->
                       <div class="tab-pane <?php echo $claseSubcategorias;?>" id="tab_2">
+                        <div class="box-body">
+                          <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-1 col-sm-4">
+                                <a class="btn btn-success" data-toggle="modal" data-dismiss="modal" onclick="agregarSubCategoria()">Agregar</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div> 
                         <table id="tblSubcategorias" class="table table-bordered table-striped">
                           <thead>
-                            <th>Subcategoria  <a class="btn btn-success" data-toggle="modal" data-dismiss="modal" onclick="agregarSubCategoria()">Agregar</a></th>
+                            <th>Subcategoria</th>
                             <th>Categoria</th>
-                            <th>Opciones</th>
+                            <th></th>
+                            <th></th>
                           </thead>
                           <tbody>
                           <?php 
                           foreach($subcategorias as $subcategoria){
-                          $btnEdit='<a class="btn btn-primary" data-toggle="modal" data-target="#update" onclick="modificarSubCategoria('.$subcategoria['id'].')">Editar</a>';
-                          $btnEliminar='<a class="btn btn-danger" href="javascript:eliminarSubCategoria('.$subcategoria['id'].');">Eliminar</a>';                      
+                          $btnEdit='<a style="cursor: pointer;" data-toggle="modal" data-target="#update" onclick="modificarSubCategoria('.$subcategoria['id'].')"><i class="fa fa-pencil-square-o"></i></a>';
+                          $btnEliminar='<a style="cursor: pointer;" href="javascript:eliminarSubCategoria('.$subcategoria['id'].');"><i class="fa fa-trash-o text-red"></i></a>';                      
                           ?>
                       <tr>                   
                               
                           <td><?php echo $subcategoria["subcategoria"]?></td>
                           <td><?php echo $subcategoria["categoria"]?></td>
                            <?php
-                            echo
-                          '<td>
-                          '.$btnEdit.'
-                          '.$btnEliminar.'
-                         </td>'
+                           echo '<td>'.$btnEdit.'</td>';
+                           echo '<td>'.$btnEliminar.'</td>';
                          ?>                     
                     </tr>
                           <?php
@@ -247,18 +260,28 @@ else{
                       </div>
                       <!-- /.tab-pane -->
                       <div class="tab-pane <?php echo $claseProductos;?>" id="tab_3">
+                        <div class="box-body">
+                          <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-1 col-sm-4">
+                                <a class="btn btn-success" data-toggle="modal" data-dismiss="modal" onclick="agregarProducto()">Agregar</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div> 
                         <table id="tblProductos" class="table table-bordered table-striped">
                           <thead>
-                            <th>Producto   <a class="btn btn-success" data-toggle="modal" data-dismiss="modal" onclick="agregarProducto()">Agregar</a></th>
+                            <th>Producto</th>
                             <th>Categoria</th>
                             <th>Subcategoria</th>
-                            <th>Opciones</th>
+                            <th></th>
+                            <th></th>
                           </thead>
                           <tbody>
                           <?php 
                           foreach($productos as $producto){
-                          $btnEdit='<a class="btn btn-primary" data-toggle="modal" data-target="#update" onclick="modificarProducto('.$producto['idProducto'].')">Editar</a>';
-                          $btnEliminar='<a class="btn btn-danger" href="javascript:eliminarProducto('.$producto['idProducto'].');">Eliminar</a>';                       
+                          $btnEdit='<a style="cursor: pointer;" data-toggle="modal" data-target="#update" onclick="modificarProducto('.$producto['idProducto'].')"><i class="fa fa-pencil-square-o"></i></a>';
+                          $btnEliminar='<a style="cursor: pointer;" href="javascript:eliminarProducto('.$producto['idProducto'].');"><i class="fa fa-trash-o text-red"></i></a>';                       
                           ?>
                       <tr>                   
                               
@@ -266,11 +289,8 @@ else{
                           <td><?php echo $producto["categoria"]?></td>
                           <td><?php echo $producto["subcategoria"]?></td>
                           <?php
-                            echo
-                          '<td>
-                          '.$btnEdit.'
-                          '.$btnEliminar.'
-                         </td>'
+                          echo '<td>'.$btnEdit.'</td>';
+                          echo '<td>'.$btnEliminar.'</td>';
                          ?>  
                     </tr>
                           <?php
@@ -282,28 +302,35 @@ else{
                       <!-- /.tab-pane -->
                     </div>
                     <div class="tab-pane <?php echo $claseMarcas;?>" id="tab_4">
+                        <div class="box-body">
+                          <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-1 col-sm-4">
+                                <a class="btn btn-success" data-toggle="modal" data-dismiss="modal" onclick="agregarMarca()">Agregar</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div> 
                         <table id="tblMarcas" class="table table-bordered table-striped">
                           <thead>
                           <tr>
-                            <th>Marca  <a  class="btn btn-success" data-toggle="modal" data-dismiss="modal" onclick="agregarMarca()">Agregar</a></th>
-                            <th>Opciones</th>
+                            <th>Marca</th>
+                            <th></th>
+                            <th></th>
                           </tr>
                           </thead>
                           <tbody>
                           <?php 
                           foreach($marcas as $marca){
-                          $btnEdit='<a class="btn btn-primary" data-toggle="modal" data-target="#update" onclick="modificarMarca('.$marca['idmarca'].')">Editar</a>';
-                          $btnEliminar='<a class="btn btn-danger" href="javascript:eliminarMarca('.$marca['idmarca'].');">Eliminar</a>';                       
+                          $btnEdit='<a style="cursor: pointer;" data-toggle="modal" data-target="#update" onclick="modificarMarca('.$marca['idmarca'].')"><i class="fa fa-pencil-square-o"></i></a>';
+                          $btnEliminar='<a style="cursor: pointer;" href="javascript:eliminarMarca('.$marca['idmarca'].');"><i class="fa fa-trash-o text-red"></i></a>';                       
                           ?>
                       <tr>                   
                               
                           <td><?php echo $marca["marca"]?></td>
                           <?php
-                            echo
-                          '<td>
-                          '.$btnEdit.'
-                          '.$btnEliminar.'
-                         </td>'
+                          echo '<td>'.$btnEdit.'</td>';
+                          echo '<td>'.$btnEliminar.'</td>';
                          ?>  
                     </tr>
                           <?php
@@ -318,24 +345,21 @@ else{
                             <tr>
                             <th>Modelos   <a  class="btn btn-success" data-toggle="modal" data-dismiss="modal" onclick="agregarModelo()">Agregar</a></th>
                             <th>Marca</th>
-                            <th>Opciones</th>
+                            <th></th>
+                            <th></th>
                             </tr>
                             <tbody>
                               <?php 
                           foreach($modelos as $modelo){
-                          $btnEdit='<a class="btn btn-primary" data-toggle="modal" data-target="#update" onclick="modificarModelo('.$modelo['idModelo'].')">Editar</a>';
-                          $btnEliminar='<a class="btn btn-danger" href="javascript:eliminarModelo('.$modelo['idModelo'].');">Eliminar</a>';                       
+                          $btnEdit='<a style="cursor: pointer;" data-toggle="modal" data-target="#update" onclick="modificarModelo('.$modelo['idModelo'].')"><i class="fa fa-pencil-square-o"></i></a>';
+                          $btnEliminar='<a style="cursor: pointer;" href="javascript:eliminarModelo('.$modelo['idModelo'].');"><i class="fa fa-trash-o text-red"></i></a>';                       
                           ?>
-                      <tr>                   
-                              
+                      <tr>                      
                           <td><?php echo $modelo["modelo"]?></td>
                           <td><?php echo $modelo["marca"]?></td>
                           <?php
-                            echo
-                          '<td>
-                          '.$btnEdit.'
-                          '.$btnEliminar.'
-                         </td>'
+                          echo '<td>'.$btnEdit.'</td>';
+                          echo '<td>'.$btnEliminar.'</td>';
                          ?>  
                     </tr>
                           <?php

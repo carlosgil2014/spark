@@ -7,7 +7,7 @@ var progreso, parametros = {
 					actionsBox:true,
 					selectAllText: 'Seleccionar todos',
 					deselectAllText: 'Deseleccionar todos'
-				}
+				};
 
 $(function () {
 	variable = $("#div_alert");

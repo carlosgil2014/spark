@@ -21,7 +21,7 @@ class Controller {
 		$this->varCotizacion = new cotizaciones();	
 		$this->varOrden = new orden();	
 		$this->varPrefactura = new prefacturas();	
-		$this->varPermiso = new permisos();
+		$this->varPermisos = new permisos();
 		$this->varConcepto = new conceptos();
     } 
 	
@@ -30,7 +30,7 @@ class Controller {
 		$this->varSesion->ultimaActividad();
 		if(isset($_SESSION["spar_usuario"])){
 			$datosUsuario = $this->varUsuario->datosUsuario($_SESSION["spar_usuario"]);
-			$permisos = array("cotizaciones" => 1, "ordenes" => 2, "prefacturas" => 3, "reportes" => 4, "estadodecuenta" => 5, "conceptos" => 6);
+			$permisosPrefacturas = $this->varPermisos->listar("Prefacturas", $datosUsuario["idUsuario"]);
 			$datosClientes = $this->varCliente->usuariosClientes($datosUsuario["idUsuario"]);
 			$idClientes = array();
 			foreach($datosClientes as $cliente){$idClientes[] = $cliente["idclientes"];}
@@ -152,7 +152,6 @@ class Controller {
 					case 'modalIndexPf':
 						$idPrefactura = $_POST['idPrefactura'];
 					    $prefactura = $this->varPrefactura -> datosPrefacturas($idPrefactura);
-						$resultados = array("prefacturas" => $this->varPermiso -> verificarPermiso($datosUsuario["idUsuario"],3));
 						$resultadoUsuario = $this->varUsuario->datosUsuario($prefactura["realizo"]);
 					    if(is_array($prefactura) && is_array($datosClientes)){
 					    	$datosConceptos = $this->varPrefactura -> datosPrefacturasConceptos($idPrefactura);

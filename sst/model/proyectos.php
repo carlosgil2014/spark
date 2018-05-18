@@ -28,7 +28,7 @@ class proyectos
 			$idCliente = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim(base64_decode($idCliente)))));
    			$datos = array();
    			$consulta="SELECT p.idProyecto, p.nombre FROM tblProyectos p WHERE p.idCliente = '$idCliente' ORDER BY p.nombre";
-   			// echo $consulta;
+   			 echo $consulta;
 			$resultado = $this->conexion->query($consulta);
 			
 			if($resultado){

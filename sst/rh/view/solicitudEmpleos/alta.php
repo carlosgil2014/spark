@@ -84,9 +84,15 @@
                         <label class="control-label">Fecha de solicitud</label>
                         <input type="text" class="form-control input-sm" maxlength="6"  name="Datos[fechaSolicitud]"  id="fechaSolicitud" value="<?php echo date("Y")."-".date("m")."-".date("d");?>" readonly> 
                       </div>
+                      <style>
+                        .rectangular {
+                          border: 0px;
+                          border-radius: 0px;
+                        }
+                      </style>
                       <div class="form-group col-md-3">
                         <label class="control-label">Puesto</label>
-                        <select class="form-control requeridoPuesto input-sm selectpicker" data-live-search="true" name="Datos[puesto]" id="puesto">
+                        <select class="form-control requeridoPuesto input-sm selectpicker rectangular" data-live-search="true" name="Datos[puesto]" id="puesto">
                         <?php 
                         foreach ($puestos as $puesto){
                         ?>                            
@@ -102,7 +108,7 @@
                       </div>
                       <div class="form-group col-md-4">
                         <label class="control-label">Experiencia de puesto</label>
-                        <select class="form-control input-sm selectpicker" name="Datos[experienciaPuesto]" data-error="Es un campo obligatorio" required="required" id="experienciaPuesto">                           
+                        <select class="form-control input-sm selectpicker rectangular" name="Datos[experienciaPuesto]" data-error="Es un campo obligatorio" required="required" id="experienciaPuesto">                           
                           <option value="1">Ninguna</option>
                           <option value="2" selected="selected">6 meses</option>
                           <option value="3">1 año</option>
@@ -159,7 +165,7 @@
                       </div>
                       <div class="form-group col-md-4">
                         <label class="control-label">Colonia</label>
-                        <select class="form-control datosPersonales input-sm selectpicker" name="Datos[coloniaDatosPersonales]" data-live-search="true" id="colonias" required tabindex="8">
+                        <select class="form-control datosPersonales input-sm selectpicker rectangular" name="Datos[coloniaDatosPersonales]" data-live-search="true" id="colonias" required tabindex="8">
                         </select>
                       </div>
                       <div class="form-group col-md-5">
@@ -180,13 +186,13 @@
                       </div>
                       <div class="form-group col-md-3">
                         <label class="control-label">Estado civil</label>
-                        <select class="form-control input-sm selectpicker" name="Datos[estadoCivilDatosPersonales]"   id="estadoCivil" required>
-                            <option value="Casado/a">Casado/a</option>
-                            <option value="comprometido/a">Comprometido/a</option>
-                            <option value="Divorciado/a">Divorciado/a</option>
-                            <option value="Soltero/a" selected="selected">Soltero/a</option>
-                            <option value="Viudo/a">Viudo/a</option>
-                          </select>
+                        <select class="form-control input-sm selectpicker rectangular" name="Datos[estadoCivilDatosPersonales]"   id="estadoCivil" required>
+                          <option value="Casado/a">Casado/a</option>
+                          <option value="comprometido/a">Comprometido/a</option>
+                          <option value="Divorciado/a">Divorciado/a</option>
+                          <option value="Soltero/a" selected="selected">Soltero/a</option>
+                          <option value="Viudo/a">Viudo/a</option>
+                        </select>
                       </div>
                       <div class="form-group col-md-2">
                         <label class="control-label">Estatura</label>
@@ -194,11 +200,11 @@
                       </div>
                       <div class="form-group col-md-2">
                         <label class="control-label">Talla</label>
-                        <select class="form-control input-sm selectpicker" name="Datos[tallaDatosPersonales]"  ="" id="talla">
-                            <option value="Chica">Chica</option>
-                            <option value="Mediana" selected="selected">Mediana</option>
-                            <option value="Grande">Grande</option>
-                          </select>
+                        <select class="form-control input-sm selectpicker rectangular" name="Datos[tallaDatosPersonales]"  ="" id="talla">
+                          <option value="Chica">Chica</option>
+                          <option value="Mediana" selected="selected">Mediana</option>
+                          <option value="Grande">Grande</option>
+                        </select>
                       </div> 
                       <div class="form-group col-md-3">
                         <label class="control-label">Teléfono de recados</label>
@@ -231,7 +237,7 @@
                       </div>
                     <div class="form-group col-md-3">
                       <label class="control-label">Sexo</label>
-                      <select class="form-control input-sm selectpicker" name="Datos[sexo]" data-error="Es un campo obligatorio" required="required" id="sexo">
+                      <select class="form-control input-sm selectpicker rectangular" name="Datos[sexo]" data-error="Es un campo obligatorio" required="required" id="sexo">
                         <option value="Hombre">Hombre</option>
                         <option value="Mujer">Mujer</option>
                         <option value="Indistinto">Indistinto</option>
@@ -256,7 +262,7 @@
                             <th>#</th>
                             <th>Nombre completo</th>
                             <th>Direccion</th>
-                            <th>telefono</th>
+                            <th>Telefono</th>
                             <th>Ocupacion</th>
                           </tr>
                         </thead>
@@ -355,7 +361,7 @@
                     <div class="box-body">
                       <div class="form-group col-md-3">
                         <label class="control-label">Ultimo grado de estudios</label>
-                        <select class="form-control preparacionAcademica input-sm selectpicker" name="Datos[escolaridad]" data-live-search="true" id="escolaridad" required="required" tabindex="18">
+                        <select class="form-control preparacionAcademica input-sm selectpicker rectangular" name="Datos[escolaridad]" data-live-search="true" id="escolaridad" required="required" tabindex="18">
                               <?php 
                                 foreach ($escolaridades as $escolaridad){
                               ?>                            
@@ -474,7 +480,7 @@
                       </div>
                       <div class="form-group col-md-4">
                         <label class="control-label">Conocimientos especificos</label>
-                        <select class="form-control input-sm selectpicker" multiple  name="conocimientos[]" data-error="Es un campo obligatorio" data-live-search="true" required id="conocimiento">
+                        <select class="form-control input-sm selectpicker" multiple  name="conocimientos[] rectangular" data-error="Es un campo obligatorio" data-live-search="true" required id="conocimiento">
                           <option data-hidden="true" selected></option>
                           <?php foreach ($conocimientos as $conocimiento) {
                           ?>
@@ -483,8 +489,13 @@
                         </select>
                       </div>
                       <div class="form-group col-md-4">
+                        <label class="control-label"></label>
+                        <select>
+                        </select>
+                      </div>
+                      <div class="form-group col-md-4">
                         <label class="control-label">Paquetes y/o lenguajes que domina</label>
-                        <select class="form-control conocimientosGenerales input-sm selectpicker" name="paquestesLenguajes[]" multiple data-error="Es un campo obligatorio" data-live-search="true" id="paquestesLenguajes">
+                        <select class="form-control conocimientosGenerales input-sm selectpicker rectangular" name="paquestesLenguajes[]" multiple data-error="Es un campo obligatorio" data-live-search="true" id="paquestesLenguajes">
                           <option data-hidden="true" selected></option>
                           <option  value="Excel">Excel</option>
                           <option  value="Power point">Power point</option>
@@ -495,7 +506,7 @@
                       </div>
                       <div class="form-group col-md-3">
                         <label class="control-label">Habilidades</label>
-                        <select class="form-control input-sm selectpicker" name="habilidades[]" multiple data-error="Es un campo obligatorio" data-live-search="true"  id="habilidades">
+                        <select class="form-control input-sm selectpicker rectangular" name="habilidades[]" multiple data-error="Es un campo obligatorio" data-live-search="true"  id="habilidades">
                           <option data-hidden="true" selected></option>
                           <?php foreach ($habilidades as $habilidad) {?> 
                           <option value="<?php echo $habilidad['idHabilidades']; ?>"><?php echo $habilidad['habilidad']; ?></option>
@@ -519,6 +530,11 @@
                   </div>
                   <div id="collapseEight" class="panel-collapse collapse" aria-expanded="false">
                     <div class="box-body">
+                      <style>
+                      textarea {
+                        resize: none;
+                      }
+                      </style>
                       <table class="table table-hover table-bordered table-responsive table-condensed text-center">
                         <thead class="bg-primary">
                           <tr>
@@ -540,40 +556,40 @@
                           <tr>
                             <td>Experencia</td>
                             <td>  
-                                <select class="form-control input-sm selectpicker" name="Datos[fechaExperienciaLaboral1]" data-error="Es un campo obligatorio" required="required" id="experiencia">                           
-                                      <option value="1" selected="selected">Ninguna</option>
-                                      <option value="2">6 meses</option>
-                                      <option value="3">1 año</option>
-                                      <option value="4">2 años</option>
-                                      <option value="5">3 años o más</option>
-                                </select>
+                              <select class="form-control input-sm selectpicker rectangular" name="Datos[fechaExperienciaLaboral1]" data-error="Es un campo obligatorio" required="required" id="experiencia">                           
+                                <option value="1" selected="selected">Ninguna</option>
+                                <option value="2">6 meses</option>
+                                <option value="3">1 año</option>
+                                <option value="4">2 años</option>
+                                <option value="5">3 años o más</option>
+                              </select>
                             </td>
                             <td>
-                             <select class="form-control input-sm selectpicker" name="Datos[fechaExperienciaLaboral2]" data-error="Es un campo obligatorio" required="required" id="experiencia">                           
-                                      <option value="1" selected="selected">Ninguna</option>
-                                      <option value="2">6 meses</option>
-                                      <option value="3">1 año</option>
-                                      <option value="4">2 años</option>
-                                      <option value="5">3 años o más</option>
-                                </select>
+                             <select class="form-control input-sm selectpicker rectangular" name="Datos[fechaExperienciaLaboral2]" data-error="Es un campo obligatorio" required="required" id="experiencia">
+                                <option value="1" selected="selected">Ninguna</option>
+                                <option value="2">6 meses</option>
+                                <option value="3">1 año</option>
+                                <option value="4">2 años</option>
+                                <option value="5">3 años o más</option>
+                              </select>
                             </td>
                             <td>
-                             <select class="form-control input-sm selectpicker" name="Datos[fechaExperienciaLaboral3]" data-error="Es un campo obligatorio" required="required" id="experiencia">                           
-                                      <option value="1" selected="selected">Ninguna</option>
-                                      <option value="2">6 meses</option>
-                                      <option value="3">1 año</option>
-                                      <option value="4">2 años</option>
-                                      <option value="5">3 años o más</option>
-                                </select>
+                             <select class="form-control input-sm selectpicker rectangular" name="Datos[fechaExperienciaLaboral3]" data-error="Es un campo obligatorio" required="required" id="experiencia">                  
+                                <option value="1" selected="selected">Ninguna</option>
+                                <option value="2">6 meses</option>
+                                <option value="3">1 año</option>
+                                <option value="4">2 años</option>
+                                <option value="5">3 años o más</option>
+                              </select>
                             </td>
                             <td>
-                             <select class="form-control input-sm selectpicker" name="Datos[fechaExperienciaLaboral4]" data-error="Es un campo obligatorio" required="required" id="experiencia">                           
-                                      <option value="1" selected="selected">Ninguna</option>
-                                      <option value="2">6 meses</option>
-                                      <option value="3">1 año</option>
-                                      <option value="4">2 años</option>
-                                      <option value="5">3 años o más</option>
-                                </select>
+                             <select class="form-control input-sm selectpicker rectangular" name="Datos[fechaExperienciaLaboral4]" data-error="Es un campo obligatorio" required="required" id="experiencia">               
+                                <option value="1" selected="selected">Ninguna</option>
+                                <option value="2">6 meses</option>
+                                <option value="3">1 año</option>
+                                <option value="4">2 años</option>
+                                <option value="5">3 años o más</option>
+                              </select>
                             </td>
                           </tr>
                           <tr>
@@ -647,7 +663,7 @@
                       </div>
                       <div class="form-grop col-md-3">
                         <label class="control-label">Promocion</label>
-                        <select class="form-control input-sm selectpicker" data-live-search="true" name="promocion[]" multiple  id="promocion">
+                        <select class="form-control input-sm selectpicker rectangular" data-live-search="true" name="promocion[]" multiple  id="promocion">
                           <option data-hidden="true" selected></option>
                           <?php
                           foreach ($clientes as $cliente) {
@@ -695,49 +711,9 @@
         <!-- /.col-md-12 -->
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-      <button name="enviar" id="agregar" class="btn btn-success" >Agregar</button>
+      <button type="button" class="btn btn-default rectangular" data-dismiss="modal">Cerrar</button>
+      <button name="enviar" id="agregar" class="btn btn-success rectangular" >Agregar</button>
     </div>
     </form>
   </div>
 </div>
-
-<!--<div class="form-group col-md-2">
-      <div class="bootstrap-timepicker">
-          <label>Horario entrada</label>
-          <div class="input-group">
-            <input type="text" class="form-control timepicker"  id="entrada" name="horariosEntrada[]">
-            <div class="input-group-addon">
-              <i class="fa fa-clock-o"></i>
-            </div>
-          </div>
-      </div>
-    </div>
-    <div class="form-group col-md-2">
-      <div class="bootstrap-timepicker">
-          <label>Horario salida</label>
-          <div class="input-group">
-            <input type="text" class="form-control timepicker"  id="salida" name="horariosSalida[]">
-            <div class="input-group-addon">
-              <i class="fa fa-clock-o"></i>
-            </div>
-          </div>
-      </div>
-    </div>
-    <div class="form-group col-md-5">
-      <label class="control-label">Dias trabajdos</label>
-      <select class="form-control input-sm selectpicker"  name="diasTrabajados[]" multiple  id="diasTrabajados">
-        <option selected="selected" value="Lunes">Lunes</option>
-        <option selected="selected" value="Martes">Martes</option>
-        <option selected="selected" value="Miércoles">Miércoles</option>
-        <option selected="selected" value="Jueves">Jueves</option>
-        <option selected="selected" value="Viernes">Viernes</option>
-        <option value="Sábado">Sábado</option>
-        <option value="Domingo">Domingo</option>
-      </select>
-    </div>
-    <div class="form-group col-md-1">
-      <a><i class="fa fa-plus agregarFila"  style="cursor:pointer" onclick="agregarFila();" ></i></a>
-    </div>
-    <div id="prueba"></div>
-    -->

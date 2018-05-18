@@ -21,7 +21,7 @@ class Controller {
 		$this->varCotizacion = new cotizaciones();	
 		$this->varOrden = new orden();	
 		$this->varPrefactura = new prefacturas();	
-		$this->varPermiso = new permisos();
+		$this->varPermisos = new permisos();
 		$this->varConcepto = new conceptos();
     } 
 	
@@ -30,7 +30,7 @@ class Controller {
 		$this->varSesion->ultimaActividad();
 		if(isset($_SESSION["spar_usuario"])){
 			$datosUsuario = $this->varUsuario->datosUsuario($_SESSION["spar_usuario"]);
-			$permisos = array("cotizaciones" => 1, "ordenes" => 2, "prefacturas" => 3, "reportes" => 4, "estadodecuenta" => 5, "conceptos" => 6);
+			$permisosCotizaciones = $this->varPermisos->listar("Cotizaciones", $datosUsuario["idUsuario"]);
 			$datosClientes = $this->varCliente->usuariosClientes($datosUsuario["idUsuario"]);
 			$idClientes = array();
 			foreach($datosClientes as $cliente){$idClientes[] = $cliente["idclientes"];}
@@ -201,7 +201,6 @@ class Controller {
 								require_once("../model/permisos.php");
 								$usuario = $_SESSION["srs_usuario"];
 								$permiso = new permisos();
-								$permisoAutorizar = $permiso -> verificarPermiso($usuario,1);
 								$datosCotizacion = array ///Se agregan los datos de una cotizacion
 								(
 									"idCliente" => $_POST["idCmbCliente"],
@@ -213,7 +212,7 @@ class Controller {
 									"total" => $_SESSION['total2'],
 									"usuario" => $_SESSION['srs_usuario'],
 									"fechaElaboracion" => $fechaElaboracion,
-									"permisoAutorizar" => $permisoAutorizar["autorizar"]
+									"permisoAutorizar" => $permisoCotizaciones["autorizar"]
 								);
 								for($pos=1;$pos<=$_SESSION['contador'];$pos++) // Agrega en un array los conceptos de la cotización
 								{
@@ -291,7 +290,6 @@ class Controller {
 						$folioCotizacion = "COT-".$datosModalCotizacion['clave_cliente']."-".$datosModalCotizacion['anio']."-".$datosModalCotizacion['ncotizacion'];
 						$filaConceptosCot = $this->varCotizacion->listarConceptosCot($_POST["idCotizacion"]);
 						$sumaConceptos = $this->varCotizacion->sumaConceptosCot($_POST["idCotizacion"]);
-						$permisosUsuario = $this->varPermiso->verificarPermiso($datosUsuario["idUsuario"],1);
 						include_once('../../view/cotizaciones/modalindexcot.php');
 
 						break;

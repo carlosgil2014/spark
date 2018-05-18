@@ -10,7 +10,7 @@ class representantes
 
 	public function listar(){
 		$datos = array();
-		$consulta="SELECT e.empleados_id,e.empleados_nombres,e.empleados_apellido_paterno,e.empleados_apellido_materno,e.empleados_rfc,e.empleados_curp,e.empleados_correo,Es.nombre,r.region,e.codigoPostal FROM spar_empleados e LEFT JOIN tblEstados Es ON e.empleados_estado=Es.idestado INNER JOIN tblRegiones r ON Es.region=r.idRegion INNER JOIN spartodo_rh.tblPuestos p ON e.empleados_puesto=p.idPuesto WHERE p.idPuesto=164 and e.empleados_vigente=1";
+		$consulta="SELECT e.empleados_id,e.empleados_nombres,e.empleados_apellido_paterno,e.empleados_apellido_materno,e.empleados_rfc,e.empleados_curp,e.empleados_correo,Es.nombre,r.region FROM spar_empleados e LEFT JOIN tblEstados Es ON e.empleados_estado=Es.idestado INNER JOIN tblRegiones r ON Es.region=r.idRegion INNER JOIN spartodo_rh.tblPuestos p ON e.empleados_puesto=p.idPuesto WHERE p.idPuesto=164 and e.empleados_vigente=1";
 		$resultado = $this->conexion->query($consulta);
 		while ($filaTmp = $resultado->fetch_assoc()) {
 			$datos [] = $filaTmp;

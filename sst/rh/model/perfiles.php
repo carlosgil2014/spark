@@ -10,7 +10,7 @@ class perfiles
 
 	public function listar(){
 		$datos = array();
-		$consulta="SELECT p.idPerfil,p.fechaSolicitud, p.nombrePerfil, p.edad, p.sexo, p.escolaridad, p.estadoCivil, p.experiencia, p.imagen, p.talla, p.entrevistaCliente, p.conocimientosEspecificos, p.habilidades, p.evaluaciones,s.empleados_nombres,s.empleados_apellido_paterno,s.empleados_apellido_materno,cl.nombreComercial FROM spartodo_rh.tblPerfiles p left join spartodo_spar_bd.spar_empleados s on p.idSolicitante=s.empleados_id left join spartodo_spar_bd.tblClientes cl on cl.idclientes=p.idCliente";
+		$consulta="SELECT p.idPerfil,p.fechaSolicitud, p.nombrePerfil, p.edad, p.sexo, p.escolaridad, p.estadoCivil, p.experiencia, p.imagen, p.talla, p.entrevistaCliente, p.conocimientosEspecificos, p.habilidades, p.evaluaciones,s.empleados_nombres,s.empleados_apellido_paterno,s.empleados_apellido_materno,cl.nombreComercial,pto.nombre FROM spartodo_rh.tblPerfiles p left join spartodo_spar_bd.spar_empleados s on p.idSolicitante=s.empleados_id left join spartodo_spar_bd.tblClientes cl on cl.idclientes=p.idCliente left join spartodo_rh.tblPuestos pto on pto.idPuesto=p.idPuesto";
 		$resultado = $this->conexion->query($consulta);
 		if($resultado){
 			while ($filaTmp = $resultado->fetch_assoc()) {
@@ -58,7 +58,6 @@ class perfiles
 		}else{
 			$opcional = NULL;
 		}
-		
 
 		if(isset($diasTrabajados)){
 			$diasTrabajados1 = implode(",", $diasTrabajados);
@@ -203,19 +202,60 @@ class perfiles
 		}else{
 			$diasTrabajados1 = NULL;
 		}
-		if($paquetesLenguajes == ''){
-			$paqueteLenguaje = NULL;
+		if ( isset($habilidades) ){
+			if( in_array('NULL', $habilidades) ){
+				$array1 = array('NULL');
+				$x = array_diff($habilidades, $array1);
+				$habilidad = implode(",", $x);
+				$habilidad = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($habilidad))));
+			}else{
+				$habilidad = implode(",", $habilidades);
+				$habilidad = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($habilidad))));	
+			}
 		}else{
-			$paqueteLenguaje = implode(",", $paquetesLenguajes);
-			$paqueteLenguaje = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($paqueteLenguaje))));
+			$habilidad = NULL;
 		}
-		if($conocimientos == ''){
-			$conocimientos = NULL;
+		if ( isset($conocimientos) ){
+			if( in_array('NULL', $conocimientos) ){
+				$array2 = array('NULL');
+				$y = array_diff($conocimientos, $array2);
+				$conocimiento = implode(",", $y);
+				$conocimiento = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($conocimiento))));
+			}else{
+				$conocimiento = implode(",", $conocimientos);
+				$conocimiento = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($conocimiento))));	
+			}
 		}else{
-			$conocimientos = array_slice($conocimientos, 1); 
-			$conocimiento = implode(",", $conocimientos);
-			$conocimientos = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($conocimiento))));
-		}if(isset($horariosEntrada)){
+			$conocimiento = NULL;
+		}
+		if ( isset($paquetesLenguajes) ){
+			if( in_array('NULL', $paquetesLenguajes) ){
+				$array3 = array('NULL');
+				$z = array_diff($paquetesLenguajes, $array3);
+				$paquetesLenguaje = implode(",", $z);
+				$paquetesLenguaje = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($paquetesLenguaje))));
+			}else{
+				$paquetesLenguaje = implode(",", $paquetesLenguajes);
+				$paquetesLenguaje = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($paquetesLenguaje))));	
+			}
+		}else{
+			$paquetesLenguaje = NULL;
+		}
+
+		if ( isset($evaluaciones) ){
+			if( in_array('NULL', $evaluaciones) ){
+				$array4 = array('NULL');
+				$a = array_diff($evaluaciones, $array4);
+				$evaluacion = implode(",", $a);
+				$evaluacion = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($evaluacion))));
+			}else{
+				$evaluacion = implode(",", $evaluaciones);
+				$evaluacion = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($evaluacion))));	
+			}
+		}else{
+			$evaluacion = NULL;
+		}
+		if(isset($horariosEntrada)){
 			$entrada = implode(",", $horariosEntrada);
 			$horarioEntrada = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($entrada))));
 		}else{
@@ -230,17 +270,6 @@ class perfiles
 			$imagen = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($imagenDescripcion))));
 		}else{
 			$imagen = NULL;
-		}if($habilidades == ''){
-			$habilidad = NULL;
-		}else{
-			$habilidades = array_slice($habilidades, 1); 
-			$habilidad = implode(",", $habilidades);
-			$habilidad = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($habilidad))));
-		}if(isset($evaluaciones)){
-			$evaluacion1 = implode(",", $evaluaciones);
-			$evaluacion = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($evaluacion1))));
-		}else{
-			$evaluacion = NULL;
 		}
 		$errores = 0;
 		$errorResultado = "";
@@ -293,7 +322,8 @@ class perfiles
 		}
 
 		if($errores === 0){ 
-			$consulta = "UPDATE spartodo_rh.tblPerfiles a_b SET a_b.idPuesto='$puesto',a_b.idSolicitante=$idEmpleado,a_b.fechaSolicitud='$fechaSolicitud',a_b.nombrePerfil='$nombrePerfil',a_b.salario=$salario,a_b.edad=$edad,a_b.edadMaxima=$edadMaxima,a_b.sexo='$sexo',a_b.opcional='$opcional',a_b.escolaridad=$escolaridad,a_b.estadoCivil='$estadoCivil',a_b.diasTrabajados='$diasTrabajados1',a_b.horarioEntrada='$horarioEntrada',a_b.horarioSalida='$HorarioSalida',a_b.experiencia='$experiencia',a_b.imagen='$imagen',a_b.talla='$talla',a_b.entrevistaCliente='$entrevista',a_b.conocimientosEspecificos='$conocimientos',a_b.habilidades='$habilidad',a_b.evaluaciones='$evaluacion',a_b.paquetes='$paqueteLenguaje',a_b.ayudaAuto='$ayudaAuto',a_b.prestacionesLey='$prestaciones',a_b.idCliente=$cliente,a_b.uniforme='$uniforme' WHERE a_b.idperfil=$idPerfil";
+			$consulta = "UPDATE spartodo_rh.tblPerfiles a_b SET a_b.idPuesto='$puesto',a_b.idSolicitante=$idEmpleado,a_b.fechaSolicitud='$fechaSolicitud',a_b.nombrePerfil='$nombrePerfil',a_b.salario=$salario,a_b.edad=$edad,a_b.edadMaxima=$edadMaxima,a_b.sexo='$sexo',a_b.opcional='$opcional',a_b.escolaridad=$escolaridad,a_b.estadoCivil='$estadoCivil',a_b.diasTrabajados='$diasTrabajados1',a_b.horarioEntrada='$horarioEntrada',a_b.horarioSalida='$HorarioSalida',a_b.experiencia='$experiencia',a_b.imagen='$imagen',a_b.talla='$talla',a_b.entrevistaCliente='$entrevista',a_b.conocimientosEspecificos='$conocimiento',a_b.habilidades='$habilidad',a_b.evaluaciones='$evaluacion',a_b.paquetes='$paquetesLenguaje',a_b.ayudaAuto='$ayudaAuto',a_b.prestacionesLey='$prestaciones',a_b.idCliente=$cliente,a_b.uniforme='$uniforme' WHERE a_b.idperfil=$idPerfil";
+			//echo $consulta;
 			$resultado = $this->conexion->query($consulta);
 			if($resultado){
 			  	if($this->conexion->affected_rows === 1)

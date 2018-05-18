@@ -9,6 +9,7 @@ include_once("../../model/habilidades.php");
 include_once("../../model/perfiles.php");
 include_once("../../model/prospectos.php");
 include_once("../../model/vacantes.php");
+include_once("../../model/solicitudEmpleos.php");
 
 
 class Controller {
@@ -24,6 +25,7 @@ class Controller {
 		$this->varCliente = new clientes();
 		$this->varVacantes = new vacantes();
 		$this->varProspectos = new prospectos();
+		$this->varSolicitudes = new solicitudEmpleos();
     }
 	
 	public function principal()
@@ -39,37 +41,34 @@ class Controller {
 			{
 				case "index":
 					if (isset($_POST["clientes"])) {
-						$tmpClientes = array_map(function ($cliente) {return array("idclientes" => $cliente);}, $_POST["clientes"]);
+						$tmpClientes = array_map(
+							function ($cliente) 
+							{return array("idclientes" => $cliente);}
+							, $_POST["clientes"]);
 					}
 					else{
 						$tmpClientes = array_map(function ($cliente) {return array("idclientes" => base64_encode($cliente["idclientes"]));}, $clientes);
 					}
-					$vacantes = $this->varVacantes->listarVacantes($tmpClientes, base64_encode("Solicitada"));
-					
+					$busqueda = "Busqueda";
+					$Solicitada = "Solicitada";
+					$vacantes = $this->varVacantes->listarVacantesSolicitudBusquedas($tmpClientes, $Solicitada,$busqueda);
 					include_once("principalVacante.php");
 					if(isset($_SESSION["spar_error"]))
 						unset($_SESSION["spar_error"]);
 					break;
 
-				case "alta":
-					/*$conocimientos = $this->varConocimientos->listar();
-					$puestos = $this->varPuestos->listar();
-					$clientes = $this->varClientes->listar();
-					$habilidades = $this->varHabilidades->listar();
-					$perfiles = $this->varPerfil->listarEscolaridad();*/
-					include_once("alta.php");
+				case "indexSolicitudes":
+					$Solicitada = "Activa";
+					$solicitudes = $this->varProspectos->listarSolicitudPostuladas($Solicitada);
+					include_once("principalSolicitudes.php");
+					if(isset($_SESSION["spar_error"]))
+						unset($_SESSION["spar_error"]);
 					break;
 
 				case "listarProspectos":
-					/*$conocimientos = $this->varConocimientos->listar();
-					$puestos = $this->varPuestos->listar();
-					$clientes = $this->varClientes->listar();
-					$habilidades = $this->varHabilidades->listar();
-					$escolaridades = $this->varPerfil->listarEscolaridad();*/
-
 					$vacante = $this->varVacantes->informacionVacante($_POST["presupuesto"], $_POST["vacante"]);
 					$prospectos = $this->varProspectos->prospectos($vacante);
-					include_once("prospectos.php");
+					include_once("prospectos.php");					
 					break;
 
 				case "verMatch":
@@ -79,37 +78,23 @@ class Controller {
 					$conocimientos = $this->varConocimientos->listar();
 					$vacante = $this->varVacantes->informacionVacante($_POST["presupuesto"], $_POST["vacante"]);
 					$puntajes = $this->varProspectos->verMatch($vacante, $_POST["solicitudEmpleo"]);
-					// echo json_encode($vacante);
 					include_once("puntajes.php");
 					break;
 
-				case "guardar":
-					$resultado = $this->varPerfil -> guardar($_POST["Datos"],$_POST["conocimientos"],$_POST["imagen"],$_POST["habilidades"],$_POST["evaluaciones"],$datosUsuario["idEmpleado"],$_POST["paquetesLenguajes"],$_POST["diasTrabajados"],$_POST["horariosEntrada"],$_POST["horariosSalida"]);
-					echo $resultado;
-					$_SESSION["spar_error"] = "Se agregó el perfil correctamente.";
+				case "listarVacantesSolicitadas":
+					$datosSolicitud = base64_decode($_POST['solicitud']);
+					$vacantes = $this->varProspectos->validarSolictudVacante($datosSolicitud);
+					include_once("vacantes.php");
 					break;
 
-				case "actualizar":
-					$resultado = $this->varPerfil->actualizar($_POST["Datos"],$_POST["conocimientos"],$_POST["imagen"],$_POST["habilidades"],$_POST["evaluaciones"],$datosUsuario["idEmpleado"],$_POST["paquetesLenguajes"],$_POST["diasTrabajados"],$_POST["horariosEntrada"],$_POST["horariosSalida"]);
-					if($resultado == "OK") {
-						$_SESSION["spar_error"] = "Se modificó el perfil correctamente.";	
-					}else{
-						$_SESSION["spar_error"] = $resultado;
-					}
-					echo $resultado;
-					break;
-
-				case "eliminar":
-					$id = $_POST["id"];
-					$resultado = $this->varPerfil -> eliminar($id);
-						if ($resultado == "OK") {
-							$_SESSION["spar_error"] = "Registro eliminado correctamente.";	
-						}else{
-							$clase = "danger";
-							$_SESSION["spar_error"] = $resultado;
-						}
-					echo $resultado;
-					$_SESSION["spar_error"] = "Se eliminó correctamente el perfil.";
+				case "verMatch2":
+					$escolaridades = $this->varPerfil->listarEscolaridad();
+					$clientes = $this->varCliente->listar();
+					$habilidades = $this->varHabilidades->listar();
+					$conocimientos = $this->varConocimientos->listar();
+					$solicitudEmpleo = base64_decode($_POST['solicitudEmpleo']);
+					$matchPerfilSolicitud = $this->varProspectos->verMatch2(json_decode($solicitudEmpleo),base64_decode($_POST['idPerfil']));
+					include_once("puntajesVacantes.php");
 					break;
 
 				default:

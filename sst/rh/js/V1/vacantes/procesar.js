@@ -7,7 +7,7 @@ var parametros = {
 		actionsBox:true,
 		selectAllText: 'Seleccionar todos',
 		deselectAllText: 'Deseleccionar todos'
-	}
+	};
 
 $(function () {
 	variable = $("#div_alert");
@@ -102,4 +102,9 @@ function cancelarPostular(elemento, solicitud){
 	fila.append("<td><a style='cursor: pointer;' onclick='postular(this, \""+solicitud+"\");'><i class='fa fa-chevron-circle-right'></i></a></td>");
 	$("#tblSolicitudesModal").append("<tr>"+fila.html()+"</tr>");  
 	fila.remove();
+}
+
+function guardar(){
+
+	
 }

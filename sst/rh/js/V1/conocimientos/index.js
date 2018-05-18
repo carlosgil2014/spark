@@ -35,6 +35,19 @@ function modificar(id){
     $("#modalConocimiento").modal("show");
 }
 
+function historial(id){
+	$.ajax({
+   	 	url:   'index.php?accion=historial&id='+id,
+	    	type:  'post',
+	    success:  function (data) {
+    		$("#modalConocimiento").html(data);
+    		$('#formHistirial').validator({focus:false});
+
+    	},
+	});
+    $("#modalConocimiento").modal("show");
+}
+
 function eliminar(id, conocimiento){
 	$("#conocimientoEliminar").html(conocimiento);
 	$("#modalEliminar").unbind().modal({ backdrop: "static", keyboard: false }).one("click", "#eliminar", function (e) {

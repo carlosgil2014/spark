@@ -33,8 +33,8 @@
         </tr>
         <tr>
           <td>Sueldo</td>
-          <td><?php echo $vacante["salario"];?></td>
-          <td><?php echo $puntajes["sueldo"];?></td>
+          <td><?php echo $vacante["salario"].' $';?></td>
+          <td><?php echo $puntajes["sueldo"].' $';?></td>
           <td><?php echo $puntajes["puntaje"]["sueldo"];?></td>
         </tr>
         <tr>
@@ -50,7 +50,7 @@
             <?php foreach ($habilidades as $habilidad) { ?>
             <option <?php if( in_array($habilidad['idHabilidades'], $cadenaHabilidadesPuntuje) ){ echo 'selected'; } ?> disabled><?php echo $habilidad['habilidad'];?></option>
           <?php } ?></td>
-          <td><?php echo $english_format_number = number_format($puntajes["puntaje"]["habilidades"], 2, '.', ''); ?></td>
+          <td><?php echo $english_format_number = number_format($puntajes["puntaje"]["habilidades"], 1, '.', ''); ?></td>
         </tr>
         <tr>
           <td>Dias</td>

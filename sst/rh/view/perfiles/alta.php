@@ -13,7 +13,7 @@
               </div>
               <div class="form-group col-md-3">
                 <label class="control-label">Clientes</label>
-                <select class="form-control input-sm selectpicker" name="Datos[cliente]" data-live-search="true" required="required" id="escolaridad">
+                <select class="form-control input-sm selectpicker" name="Datos[cliente]" data-live-search="true" required="required" id="cliente">
                 <?php 
                   foreach ($clientes as $cliente){
                 ?>                            
@@ -73,7 +73,7 @@
                 </select>
               </div>
               <div class="form-group col-md-8">
-                <label class="control-label">Días trabajados  <i class="fa fa-pencil-square-o" onclick="diasSemana('semana');"></i> --- L-V ---<i class="fa fa-pencil-square-o" onclick="diasSemana('finSemana');"></i> --- S-D</label>
+                <label class="control-label">Días trabajados&nbsp;&nbsp;&nbsp;&nbsp;</label><input type="radio" name="dias"  id="semana" onclick="diasSemana('semana');" checked>L-V&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="dias" id="finSemana" onclick="diasSemana('finSemana');">S-D
                 <div>
                   <label class="checkbox-inline">
                     <input type="checkbox" name="diasTrabajados[]" class="flat-red" checked value="Lunes" id="lunes">
@@ -140,17 +140,17 @@
               <div class="form-group col-md-3">
                 <label class="control-label">Estado civil</label>
                 <select class="form-control input-sm selectpicker" name="Datos[estadoCivil]" data-error="Es un campo obligatorio" required="required" id="estadoCivil">
-                    <option value="Casado/a">Casado/a</option>
-                    <option value="Comprometido/a">Comprometido/a</option>
-                    <option value="Divorciado/a">Divorciado/a</option>
-                    <option value="Soltero/a" selected="selected">Soltero/a</option>
-                    <option value="Viudo/a">Viudo/a</option>
-                    <option value="Indistinto">Indistinto</option>
-                  </select>
+                  <option value="Casado/a">Casado/a</option>
+                  <option value="Comprometido/a">Comprometido/a</option>
+                  <option value="Divorciado/a">Divorciado/a</option>
+                  <option value="Soltero/a" selected="selected">Soltero/a</option>
+                  <option value="Viudo/a">Viudo/a</option>
+                  <option value="Indistinto">Indistinto</option>
+                </select>
               </div>
               <div class="form-group col-md-3">
                 <label class="control-label">Imagen</label>
-                  <select class="form-control input-sm selectpicker" name="imagen[]" multiple data-error="Es un campo obligatorio" data-live-search="true" required>                 
+                  <select class="form-control input-sm selectpicker" name="imagen[]" multiple data-error="Es un campo obligatorio" data-live-search="true" required>                
                     <option value="Presentable" selected="selected">Presentable</option>
                     <option value="Aseado" selected="selected">Aseado</option>
                     <option value="Traje">Traje</option>
@@ -163,10 +163,10 @@
               <div class="form-group col-md-3">
                 <label class="control-label">Talla</label>
                 <select class="form-control input-sm selectpicker" name="Datos[talla]" data-error="Es un campo obligatorio" required="required" id="talla">
-                      <option value="Indistinto">Indistinto</option>
-                      <option value="Chica">Chica</option>
-                      <option value="Mediana" selected="selected">Mediana</option>
-                      <option value="Grande">Grande</option>
+                    <option value="Indistinto">Indistinto</option>
+                    <option value="Chica">Chica</option>
+                    <option value="Mediana" selected="selected">Mediana</option>
+                    <option value="Grande">Grande</option>
                   </select>
               </div>
               <div class="form-group col-md-3">
@@ -186,8 +186,8 @@
               </div>
               <div class="form-group col-md-3">
                 <label class="control-label">Conocimientos específicos</label>
-                <select class="form-control input-sm selectpicker" multiple  name="conocimientos[]" data-error="Es un campo obligatorio" data-live-search="true" required id="conocimiento">
-                  <option data-hidden="true" selected></option>
+                <select class="form-control input-sm selectpicker" multiple  name="conocimientos[]" data-error="Es un campo obligatorio" data-live-search="true" id="conocimiento">
+                  <option data-hidden="true"></option>
                   <?php foreach ($conocimientos as $conocimiento) {
                   ?>
                   <option value="<?php echo $conocimiento['idConocimiento']; ?>"><?php echo $conocimiento['conocimiento']; ?></option>
@@ -196,8 +196,8 @@
               </div>
               <div class="form-group col-md-3">
                 <label class="control-label">Habilidades</label>
-                <select class="form-control input-sm selectpicker" name="habilidades[]" multiple data-error="Es un campo obligatorio" data-live-search="true"  id="habilidades">
-                  <option data-hidden="true" selected></option>
+                <select class="form-control input-sm selectpicker" name="habilidades[]" multiple data-error="Es un campo obligatorio" data-live-search="true" id="habilidades">
+                <option data-hidden="true"></option>
                   <?php foreach ($habilidades as $habilidad) {?> 
                   <option value="<?php echo $habilidad['idHabilidades']; ?>"><?php echo $habilidad['habilidad']; ?></option>
                   <?php } ?>
@@ -205,14 +205,16 @@
               </div> 
               <div class="form-group col-md-3">
                 <label class="control-label">Evaluaciones</label>
-                <select class="form-control input-sm selectpicker" name="evaluaciones[]" multiple data-error="Es un campo obligatorio" data-live-search="true" required id="evaluaciones">
+                <select class="form-control input-sm selectpicker" name="evaluaciones[]" multiple data-error="Es un campo obligatorio" data-live-search="true" id="evaluaciones">
+                  <option data-hidden="true"></option>
                   <option  value="Cleaver" selected="selected">Cleaver</option>
+                  <option  value="Personalidad" selected="selected">Personalidad</option>
                   <option  value="Personalidad" selected="selected">Personalidad</option>
                 </select>                
               </div>
               <div class="form-group col-md-3">
                 <label class="control-label">Paquetes o lenguajes</label>
-                <select class="form-control input-sm selectpicker" name="paquetesLenguajes[]" multiple data-error="Es un campo obligatorio" data-live-search="true" required id="paquetesLenguajes">
+                <select class="form-control input-sm selectpicker" name="paquetesLenguajes[]" multiple data-error="Es un campo obligatorio" data-live-search="true" id="paquetesLenguajes">
                   <option data-hidden="true"></option>
                   <option  value="Word" selected="selected">Word</option>
                   <option  value="Excel" selected="selected">Excel</option>
@@ -270,11 +272,17 @@
               </div>
             </div>
         <!-- /.col-md-12 -->
+    <style>
+      .rectangular {
+        border: 0px;
+        border-radius: 0px;
+      }
+    </style>
     </div>
     <div class="modal-footer">
       <div id="mensaje"></div>
-      <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-      <button name="enviar" id="agregar" class="btn btn-success" >Agregar</button>
+      <button type="button" id="cerrar" class="btn btn-default rectangular" data-dismiss="modal">Cerrar</button>
+      <button name="enviar" id="agregar" class="btn btn-success rectangular" >Agregar</button>
     </div>
     </form>
   </div>

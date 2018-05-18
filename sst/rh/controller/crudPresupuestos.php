@@ -51,6 +51,7 @@ class Controller {
 
 				case "cargarProyectos":
 					$proyectos = $this->varProyecto->cargarProyectos($_POST["cliente"]);
+					//var_dump($proyectos);
 					include_once("../../../administrativo/view/proyectos/cargarProyectos.php");
 					break;
 

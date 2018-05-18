@@ -7,7 +7,7 @@ if(!isset($_SESSION['spar_usuario']))
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="../../../assets/img/favicon.ico" type="image/x-icon" />
     <title>Módulo de Control de Recursos | Spar México</title>
     <meta http-equiv="cache-control" content="no-cache" />
     <meta http-equiv="expires" content="0" />
@@ -27,7 +27,8 @@ if(!isset($_SESSION['spar_usuario']))
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="../../../assets/css/_all-skins.min.css">
-
+    <!-- selected -->
+    <link rel="stylesheet" href="../../../assets/css/bootstrap/bootstrap-select.min.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -36,6 +37,9 @@ if(!isset($_SESSION['spar_usuario']))
     <![endif]-->
   </head>
   <body class="hold-transition skin-blue sidebar-mini">
+    <?php 
+      include_once("../../../view/includes/modalExpiracion.php");
+    ?>
     <div class="loader">
     </div>
     <div class="wrapper">
@@ -84,11 +88,15 @@ if(!isset($_SESSION['spar_usuario']))
                 <div class="box-header with-border">
                   <h3 class="box-title">Habilidades/Principal</h3>
                 </div>
-                <div class="btn-group">
-                  <button type="button" onclick="agregar();" class="btn btn-success">Agregar</button>
-                </div>
                 <!-- /.box-header -->
-                <div class="box-body table-responsive">
+                <div class="box-body">
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-1 col-sm-4">
+                        <button type="button" onclick="agregar();" class="btn btn-success btn-block btn-flat btn-sm">Agregar</button>
+                      </div>
+                    </div>
+                  </div>
                   <?php if(!isset($_SESSION["spar_error"])){$estilo = "style='display:none;'";}else{$estilo = "";}?>
                   <div class="row">
                     <div class="form-group" id="div_alert" <?php echo $estilo;?>>
@@ -100,10 +108,12 @@ if(!isset($_SESSION['spar_usuario']))
                       </div>
                     </div>
                   </div>
-                  <table id="tblHabilidades" class="table table-bordered table-striped small">
+                  <div class="row">
+                    <div class="table-responsive container-fluid">
+                      <table id="tblHabilidades" class="table table-bordered table-striped small">
                     <thead>
                     <tr>
-                      <th>habilidades</th>
+                      <th>Habilidades</th>
                       <th></th>
                       <th></th>
                     </tr>
@@ -119,7 +129,11 @@ if(!isset($_SESSION['spar_usuario']))
                           <i class="fa fa-pencil-square-o"></i>
                         </a>
                       </td>
-                      <td class = "text-center"><a style="cursor: pointer;"><i class="fa fa-search text-red"></i></a></td>
+                      <td class = "text-center">
+                        <a style="cursor: pointer;" onclick="historial('<?php echo $habilidad['idHabilidades'];?>');">
+                          <i class="fa fa-search text-blue"></i>
+                        </a>
+                      </td>
                       <!--                       
                       <td class = "text-center">
                         <a style="cursor: pointer;" onclick="eliminar('<?php echo $habilidad['idhabilidad'];?>','<?php echo $habilidad['habilidad'];?>');">
@@ -132,6 +146,29 @@ if(!isset($_SESSION['spar_usuario']))
                     ?>
                     </tbody>
                   </table>
+                    </div>
+                  </div>
+                  <div class="control-sidebar-bg"></div>
+                  <div class="modal fade" id="modalHabilidad" role="dialog">              
+                  </div>
+                  <!-- Modal Eliminar -->
+                  <div id="modalEliminar" class="modal fade" role="dialog">
+                    <div class="modal-dialog modal-sm">
+                      <!-- Modal content-->
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title">Habilidad/Eliminar</h4>
+                        </div>
+                        <div class="modal-body text-center">
+                        ¿Eliminar habilidad <b id="habilidadEliminar"></b>?
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" id="eliminar" class="btn btn-sm btn-danger" data-dismiss="modal">Continuar</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <!-- /.box-body -->
               </div>
@@ -150,27 +187,10 @@ if(!isset($_SESSION['spar_usuario']))
       <!-- Add the sidebar's background. This div must be placed
            immediately after the control sidebar -->
       <div class="control-sidebar-bg"></div>
-      <div class="modal fade" id="modalHabilidad" role="dialog">              
+      <div  id="modalPresupuesto" class="modal" tabindex="-1" role="dialog">              
       </div>
-      <!-- Modal Eliminar -->
-      <div id="modalEliminar" class="modal fade" role="dialog">
-        <div class="modal-dialog modal-sm">
-          <!-- Modal content-->
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title">Habilidad/Eliminar</h4>
-            </div>
-            <div class="modal-body text-center">
-            ¿Eliminar habilidad <b id="habilidadEliminar"></b>?
-            </div>
-            <div class="modal-footer">
-              <button type="button" id="eliminar" class="btn btn-sm btn-danger" data-dismiss="modal">Continuar</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Modal Eliminar -->
+      <!-- Modal Principal -->
+      
     </div>
     <!-- ./wrapper -->
 
@@ -187,7 +207,7 @@ if(!isset($_SESSION['spar_usuario']))
     <script src="../../../assets/js/app.min.js"></script>
     <!-- Funciones Generales -->
     <script src="../../../assets/js/funciones.js"></script>
-    <!-- Index habilidades -->
+    <!-- Index Conocimientos -->
     <script src="../../js/V1/habilidades/index.js"></script>
   </body>
 </html>

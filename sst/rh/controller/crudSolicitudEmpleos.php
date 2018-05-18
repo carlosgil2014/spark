@@ -50,6 +50,12 @@ class Controller {
 						include_once("alta.php");
 					break;
 
+				case "actualizarEstado":
+					$resultado = $this->varSolicitudEmpleo->actualizarEstado($_GET["id"],$_GET["estado"]);
+					$_SESSION["spar_error"] = "Se actualizo correctamente el estado.";
+					echo $resultado;
+					break;
+
 				case "modificar":
 					$varPuestos = new puestos();
 					$puestos = $varPuestos->listar(); 
@@ -64,7 +70,6 @@ class Controller {
 					$solicitudEmpleo = $this->varSolicitudEmpleo->informacion($_GET["id"]);
 					$codigoPostales = $this->varCodigoPostal->listarColonias($_GET["cp"]);
 					if(empty($solicitudEmpleo)){
-						//echo 'aaa';
 						header("Location: index.php?accion=index");
 					}
 					else{
@@ -79,9 +84,18 @@ class Controller {
 					break;
 
 				case "actualizar":
+						if(!isset($_POST["conocimientos"])){$_POST["conocimientos"] =NULL; }
+						if(!isset($_POST["paquestesLenguajes"])){$_POST["paquestesLenguajes"] =NULL; }
+						if(!isset($_POST["promocion"])){$_POST["promocion"] =NULL; }
+						if(!isset($_POST["habilidades"])){$_POST["habilidades"] =NULL; }
 						$resultado = $this->varSolicitudEmpleo->actualizar($_POST["Datos"],$_POST["diasTrabajados"],$_POST["paquestesLenguajes"],$_POST["promocion"],$_POST["conocimientos"],$_POST["habilidades"]);
+						$_SESSION["spar_error"] = $resultado;
+						if(isset($_SESSION["spar_error"]) && $_SESSION["spar_error"] === "OK") {
+						$_SESSION["spar_error"] = "Se modificó el perfil correctamente.";	
+						}else{
+							$_SESSION["spar_error"] = $resultado;
+						}
 						echo $resultado;
-						$_SESSION["spar_error"] = "Se modificó los datos correctamente.";
 					break;
 
 				case "eliminar":

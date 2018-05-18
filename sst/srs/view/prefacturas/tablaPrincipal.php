@@ -22,15 +22,10 @@
       <td><?php echo date_format(date_create($prefactura["fechaInicial"]),"d-m-Y"); ?></td>
       <td><?php echo "$".number_format($prefactura["total"],2); ?></td>
       <td><?php echo $prefactura["cfdi"]; ?></td>
-      <td class="text-center">
-        <a style="cursor: pointer;" onclick="modalPrefactura(<?php echo $prefactura['idprefactura'];?>)">
-          <i class='fa fa-search'></i>
-        </a>
-      </td>
       <td id="pfcl<?php echo $prefactura['idprefactura'];?>">
         <?php 
         $estados = array("Por facturar" => "<i class='fa fa-circle text-yellow'></i>", "Conciliado" => "<i class='fa fa-circle text-yellow'></i>", "Facturada" => "<i class='fa fa-circle text-green'></i>", "ConciliadoA" => "<i class='fa fa-circle text-green'></i>", "Rechazada" => "<i class='fa fa-circle text-black'></i>", "ConciliadoR" => "<i class='fa fa-circle text-black'></i>", "Cancelada" => "<i class='fa fa-circle text-red'></i>", "ConciliadoC" => "<i class='fa fa-circle text-red'></i>"); 
-        if($resultados["prefacturas"]["autorizar"] == 1 && strpos($prefactura["estado"], "Conciliado") !== false){
+        if(isset($permisosConciliaciones["Autorizar"]) && $permisosConciliaciones["Autorizar"] == 1 && strpos($prefactura["estado"], "Conciliado") !== false){
         ?>
         <select class="selectpicker text-center" onchange="cambiarEstado('<?php echo $prefactura['idprefactura']?>', 'Prefacturas', this, '<?php echo $prefactura['fechaInicial']?>', '0000-00-00','<?php echo $prefactura['estado']?>');" data-width="50px" style="background-color:transparent" data-container="body">
           <option title="<i class='fa fa-circle text-yellow'></i>" <?if($prefactura["estado"] == "Conciliado") echo "selected";?> value="Conciliado"> En revisión</option>
@@ -50,6 +45,11 @@
         <?php 
         }
         ?>
+      </td>
+      <td class="text-center">
+        <a style="cursor: pointer;" onclick="modalPrefactura(<?php echo $prefactura['idprefactura'];?>)">
+          <i class='fa fa-search'></i>
+        </a>
       </td>
     </tr>
     <?php

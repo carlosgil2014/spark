@@ -42,7 +42,7 @@
           			<input class="form-control input-sm" id="detalle" value="<?php echo $prefactura["detalle"];?>" readonly>
 				</div>
 				<?php 
-	    		if($resultados["prefacturas"]["cfdi"]==1){
+	    		if(isset($permisosPrefacturas["Facturar"]) && $permisosPrefacturas["Facturar"] == 1){
 				?>
 				<div class="form-group col-md-3 col-xs-6">
 					<label>Fecha Registrada</label>

@@ -35,12 +35,12 @@ class salarios
 		}
 	}
 
-		public function guardar($datos){
+	public function guardar($datos){
 
-			$cliente = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["cliente"]))));
-			$puesto = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["puesto"]))));
-			$estado = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["estado"]))));
-			$salario = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["salario"]))));
+		$cliente = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["cliente"]))));
+		$puesto = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["puesto"]))));
+		$estado = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["estado"]))));
+		$salario = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($datos["salario"]))));
 			
 
 		$errores = 0;

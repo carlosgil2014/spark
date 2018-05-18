@@ -1,6 +1,6 @@
 <?php
 if(!isset($_SESSION['spar_usuario']))
-    header('Location: ../index.html');
+    header('Location: ../index.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -90,10 +90,14 @@ if(!isset($_SESSION['spar_usuario']))
                 </div>
                 <!-- /.box-header -->
                 <div id="respuesta"></div>
-                  <div class="btn-group">
-                    <button type="button" onclick="agregar();" class="btn btn-success">Agregar</button>
-                  </div>
                 <div class="box-body">
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-1 col-sm-4">
+                        <button type="button" onclick="agregar();" class="btn btn-success btn-block btn-flat btn-sm">Agregar</button>
+                      </div>
+                    </div>
+                  </div>
                   <?php if(!isset($_SESSION["spar_error"])){$estilo = "style='display:none;'";}else{$estilo = "";}?>
                   <div class="row">
                     <div class="form-group" id="div_alert" <?php echo $estilo;?>>
@@ -109,12 +113,12 @@ if(!isset($_SESSION['spar_usuario']))
                     <div class="table-responsive container-fluid">
                       <table id="tblPerfiles" class="table table-bordered table-striped small">
                         <thead>
-                        <tr>
+                        <tr>                          
                           <th>Solicitante</th>
                           <th>Perfil</th>
                           <th>Fecha de Solicitud</th>
-                          <th>Cliente</th>
                           <th>Experiencia</th>
+                          <th>Puesto</th>
                           <th></th>
                           <th></th>
                         </tr>
@@ -124,10 +128,10 @@ if(!isset($_SESSION['spar_usuario']))
                         foreach($perfiles as $perfil){
                         ?>
                         <tr>
+                          
                           <td><?php echo ucwords(strtolower($perfil['empleados_nombres']))." ".ucwords(strtolower($perfil['empleados_apellido_paterno']))." ".$perfil['empleados_apellido_materno']?></td>
                           <td><?php echo $perfil['nombrePerfil'] ?></td>
                           <td><?php echo $perfil['fechaSolicitud'] ?></td>
-                          <td><?php echo $perfil['nombreComercial'] ?></td>
                           <td><?php if($perfil['experiencia'] == '1')
                           { echo 'Ninguna'; }
                           elseif($perfil['experiencia'] == '2'){
@@ -142,11 +146,13 @@ if(!isset($_SESSION['spar_usuario']))
                           elseif($perfil['experiencia'] == '5'){
                            echo '3 años o más'; 
                           }?></td>
+                          <td><?php echo $perfil['nombre']; ?></td>
                           <td class = "text-center">
                             <a style="cursor: pointer;" onclick="modificar('<?php echo $perfil['idPerfil'];?>');">
                               <i class="fa fa-pencil-square-o"></i>
                             </a>
                           </td>
+                          
                           <td class = "text-center">
                             <a style="cursor: pointer;" onclick="eliminar('<?php echo $perfil['idPerfil'];?>');">
                               <i class="fa fa-trash-o text-red"></i>

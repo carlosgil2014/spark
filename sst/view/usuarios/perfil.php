@@ -129,7 +129,7 @@ if(!isset($_SESSION['spar_usuario']))
                                 <input type="hidden" name="idUsuario" value="<?php echo $datosUsuario['idUsuario'];?>">
                                 <div class="form-group col-md-5">
                                   <label class="control-label">Foto de Perfil</label>
-                                  <input type="file" name="foto" class="form-control input-sm" value="<?php echo $datosUsuario['usuario'];?>" onchange="cargarFoto(this);">
+                                  <input type="file" name="foto" class="form-control input-sm" onchange="cargarFoto(this);">
                                   <div class="help-block with-errors">&nbsp;</div>
                                 </div>
                                 <div class="form-group col-md-4">

@@ -89,6 +89,15 @@ if(!isset($_SESSION['spar_usuario']))
                   <h3 class="box-title">Clientes/Principal</h3>
                 </div>
                 <!-- /.box-header -->
+                <div class="form-group">
+                  <div class="box-body">  
+                    <div class="row">
+                      <div class="col-md-1 col-sm-4">
+                        <a type="button" href="index.php?accion=alta" class="btn btn-success btn-block btn-flat btn-sm">Agregar</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <div class="box-body table-responsive">
                   <?php if(!isset($_SESSION["spar_error"])){$estilo = "style='display:none;'";}else{$estilo = "";}?>
                   <div class="form-group" id="div_alert" <?php echo $estilo;?>>
@@ -113,7 +122,7 @@ if(!isset($_SESSION['spar_usuario']))
                     foreach($clientes as $cliente){
                     ?>
                     <tr>
-                      <td><?php echo $cliente["razonSocial"]?></td>
+                      <td><?php echo $cliente["nombreComercial"]?></td>
                       <td><?php echo $cliente["rfc"]?></td>
                       <td><?php echo $cliente["nombreComercial"]?></td>
                       <td class = "text-center">

@@ -35,6 +35,19 @@ function modificar(id){
     $("#modalHabilidad").modal("show");
 }
 
+function historial(id){
+	$.ajax({
+   	 	url:   'index.php?accion=historial&id='+id,
+	    	type:  'post',
+	    success:  function (data) {
+    		$("#modalHabilidad").html(data);
+    		$('#formHistirial').validator({focus:false});
+
+    	},
+	});
+    $("#modalHabilidad").modal("show");
+}
+
 function eliminar(id, Habilidad){
 	$("#habilidadEliminar").html(habilidad);
 	$("#modalEliminar").unbind().modal({ backdrop: "static", keyboard: false }).one("click", "#eliminar", function (e) {

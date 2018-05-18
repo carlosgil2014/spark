@@ -10,7 +10,7 @@ class clientes
 
    		public function listar(){
    			$datos = array();
-   			$consulta="SELECT idclientes, nombreComercial ,cp FROM tblClientes c ORDER BY nombreComercial";
+   			$consulta="SELECT idclientes, nombreComercial FROM tblClientes c ORDER BY nombreComercial";
 			// echo $consulta;
 			$resultado = $this->conexion->query($consulta);
 			while ($filaTmp = $resultado->fetch_assoc()) {
@@ -24,10 +24,10 @@ class clientes
    			}
    		}
 
-   		public function usuariosClientes($idUsuario){
-			$idUsuario = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($idUsuario))));
+   		public function usuariosClientes($id){
+			$id = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($id))));
    			$datos = array();
-   			$consulta="SELECT c.idclientes, c.nombreComercial FROM tblClientes c LEFT JOIN tblUsuariosClientes uc ON c.idclientes = uc.idCliente WHERE uc.idUsuario = '$idUsuario' ORDER BY nombreComercial";
+   			$consulta="SELECT c.idclientes, c.nombreComercial FROM tblClientes c LEFT JOIN tblUsuariosClientes uc ON c.idclientes = uc.idCliente WHERE uc.idUsuario = '$id' ORDER BY nombreComercial";
 			// echo $consulta;
 			$resultado = $this->conexion->query($consulta);
 			
@@ -43,9 +43,9 @@ class clientes
    		}
    		
 
-   		public function informacion($idCliente){
-			$idCliente = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($idCliente))));
-   			$consulta="SELECT tipo, nombreComercial, calle, noInterior, noExterior, colonia, delegacion, pais, estado, cp, nombreContacto, telefonoContactoPrincipal, telefonoContactoSecundario, telefonoContactoOtro  FROM tblClientes c where c.idclientes= $idCliente limit 1";
+   		public function informacion($id){
+			$id = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($id))));
+   			$consulta="SELECT tipo, nombreComercial, calle, noInterior, noExterior, colonia, delegacion, pais, estado, cp, nombreContacto, telefonoContactoPrincipal, telefonoContactoSecundario, telefonoContactoOtro  FROM tblClientes c WHERE c.idclientes= '$id' LIMIT 1";
    			$resultado = $this->conexion->query($consulta);
 			if($resultado){
 				return $resultado->fetch_assoc();
