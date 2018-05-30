@@ -194,6 +194,54 @@ class vacantes
 		}
 	}
 
+	public function guardarPostulacion($solicitudes, $idVacantes){
+		$solicitud = array();
+		$vacante = array();
+		foreach ($solicitudes as $solicitudA){
+			$solicitud[] = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim(base64_decode($solicitudA)))));
+		}
+		foreach ($idVacantes as $idVacanteA){
+			$vacante[] = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim(base64_decode($idVacanteA)))));	
+		}
+		$cantidad = count($solicitud);
+		$actual = date("Y-m-d H:i:s");
+		$modificacion = date("Y-m-d H:i:s");
+
+		$errores = 0;
+		$errorResultado = "";
+		
+		if(empty($solicitud)) {
+			$errores ++;
+			$errorResultado .= "La solicitud no puede estar vacia.";
+		}
+		
+		if(empty($vacante)) {
+			$errores ++;
+			$errorResultado .= "La vacante no puede estar vacia.";
+		}
+
+		if($errores === 0){
+			$consulta = "";
+			for ($i = 0; $i < $cantidad; $i++) { 
+				$consulta .= "INSERT INTO spartodo_rh.tblVacantesPostuladas (idVacante,idSolicitudEmpleo,estado,fechaRegistro,fechaModificacion) SELECT * FROM (SELECT '$vacante[$i]' as idVacante, '$solicitud[$i]' as idSolicitudEmpleo,'Postulada' as estado,'$actual' as fechaRegistro,'$modificacion' as fechaModificacion) AS tmp WHERE NOT EXISTS (SELECT idSolicitudEmpleo FROM spartodo_rh.tblVacantesPostuladas WHERE idSolicitudEmpleo = '$solicitud[$i]') LIMIT 1; ";
+			}
+
+			if($this->conexion->multi_query($consulta) === TRUE) {
+				do {					
+				    if ($resultado = $this->conexion->store_result()) {
+				        $resultado->free();
+				    }
+				} while ($this->conexion->more_results() && $this->conexion->next_result());
+		  		return "OK";
+			} else {
+			    echo "Error: ".$this->conexion->error;
+			}
+		}
+		else{
+			return $errorResultado;
+		}
+	}
+
 	public function cancelar($idPresupuesto, $idVacante, $motivo, $idEmpleado){
 		$idPresupuesto = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim(base64_decode($idPresupuesto)))));
 		$idVacante = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim(base64_decode($idVacante)))));

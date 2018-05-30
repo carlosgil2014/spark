@@ -1091,9 +1091,10 @@ class solicitudEmpleos
 	}
 
 	public function busquedaSolicitudVacante($busqueda){
+		echo $busqueda;
 		$busqueda = $this->conexion -> real_escape_string(strip_tags(stripslashes(trim($busqueda))));
 		$datos = array();
-		$consulta="SELECT s.idSolicitudEmpleo, CONCAT(s.nombresDatosPersonales,' ', s.apellidoPaternoDatosPersonales, ' ', s.apellidoMaternoDatosPersonales) AS nombre, p.nombre AS puesto FROM spartodo_rh.tblSolicitudEmpleo s LEFT JOIN spartodo_rh.tblPuestos p ON s.puesto = p.idPuesto WHERE MATCH(s.nombresDatosPersonales, s.apellidoPaternoDatosPersonales, s.apellidoMaternoDatosPersonales, s.curp, s.rfc) AGAINST('$busqueda' IN NATURAL LANGUAGE MODE) LIMIT 10";
+		$consulta="SELECT s.idSolicitudEmpleo, CONCAT(s.nombresDatosPersonales,' ', s.apellidoPaternoDatosPersonales, ' ', s.apellidoMaternoDatosPersonales) AS nombre, p.nombre AS puesto FROM spartodo_rh.tblSolicitudEmpleo s LEFT JOIN spartodo_rh.tblPuestos p ON s.puesto = p.idPuesto left join spartodo_rh.tblAcademiaExperiencia ae ON ae.idSolicitudEmpleo=s.idSolicitudEmpleo LEFT JOIN spartodo_rh.tblEscolaridad es on es.idEscolaridad=ae.ultimoGradoEstudios WHERE MATCH(s.nombresDatosPersonales, s.apellidoPaternoDatosPersonales, s.apellidoMaternoDatosPersonales, s.curp, s.rfc) AGAINST('$busqueda' IN NATURAL LANGUAGE MODE) AND s.estado='Activa' and not EXISTS (SELECT idSolicitudEmpleo from spartodo_rh.tblVacantesPostuladas p where p.idSolicitudEmpleo=s.idSolicitudEmpleo) LIMIT 10";
 		$resultado = $this->conexion->query($consulta);
 		if($resultado){
 			while ($filaTmp = $resultado->fetch_assoc()) {

@@ -44,12 +44,12 @@ function procesar(presupuesto, vacante){
 	});
 }
 
-function buscar(){
+function buscar(idVacante){
 	busqueda = $.trim($("#busqueda").val());
 	if(busqueda !== ""){
 		$(".loader").fadeIn("fast", function(){
 			$.ajax({
-				data: {busqueda : busqueda},
+				data: {busqueda : busqueda,idVacante : idVacante},
 		   	 	url: 'index.php?accion=busqueda',
 			    type:  'post',
 			    success:  function (data) {
@@ -76,7 +76,7 @@ function buscar(){
 	}
 }
 
-function postular(elemento, solicitud){  
+function postular(elemento,solicitud,vacante){
 	tmp = $(elemento); fila = tmp.closest('tr'), repetido = 0;
 	$("input[name='solicitud']").each(function(i, obj) {
 		if($(this).val() == solicitud){
@@ -85,7 +85,7 @@ function postular(elemento, solicitud){
 	});
 	if(repetido == 0){
 		fila.find('td:last-child').remove();
-		fila.append("<td><input type='hidden' name='solicitud' value='"+solicitud+"'> <a style='cursor:pointer;' data-toggle='tooltip' onclick='cancelarPostular(this,\""+solicitud+"\");'><i class='fa fa-chevron-circle-left text-red'></i></a></td>");
+		fila.append("<td><input type='hidden' name='solicitud[]' value='"+solicitud+"'> <input type='hidden' name='idVacante[]' value='"+vacante+"'> <a style='cursor:pointer;' data-toggle='tooltip' onclick='cancelarPostular(this,\""+solicitud+"\",\""+vacante+"\");'><i class='fa fa-chevron-circle-left text-red'></i></a></td>");
 		$("#tblSolicitudesPostular").append("<tr>"+fila.html()+"</tr>");  
 		fila.remove();
 	}
@@ -96,15 +96,36 @@ function postular(elemento, solicitud){
 	}
 }
 
-function cancelarPostular(elemento, solicitud){ 
+function cancelarPostular(elemento, solicitud,vacante){ 
 	tmp = $(elemento); fila = tmp.closest('tr');
 	fila.find('td:last-child').remove();
-	fila.append("<td><a style='cursor: pointer;' onclick='postular(this, \""+solicitud+"\");'><i class='fa fa-chevron-circle-right'></i></a></td>");
+	fila.append("<td><a style='cursor: pointer;' onclick='postular(this, \""+solicitud+"\", \""+vacante+"\");'><i class='fa fa-chevron-circle-right'></i></a></td>");
 	$("#tblSolicitudesModal").append("<tr>"+fila.html()+"</tr>");  
 	fila.remove();
 }
 
-function guardar(){
-
-	
+function guardar(elemento){
+	var form = new FormData($("#guardar")[0]);
+	if($("input[name^='solicitud']").length > 0){
+		$(".loader").fadeIn("fast", function(){
+			$.ajax({
+				contentType: false,
+		       	type:"POST",
+		       	url: 'index.php?accion=guardarPostulacion',
+	   	 		data: form,
+	   	 		processData: false,
+	  			cache: false,
+		       	success: function(data){
+			    	if(data == "OK") {
+			          window.location.replace("index.php?accion=index&clase=success");
+			        }else{
+			          window.location.replace("index.php?accion=index&clase=danger");
+			        }
+		       }
+	       	});
+	    });
+	}else{
+		$("#div_alert_modal").show();
+		$("#p_alert_modal").html("No hay datos para guardar.");
+	}
 }

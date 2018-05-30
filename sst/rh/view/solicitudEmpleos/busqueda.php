@@ -14,7 +14,7 @@
         <td><?php echo $solicitud["nombre"];?></td>
         <td><?php echo $solicitud["puesto"];?></td>
         <td>
-          <a style="cursor: pointer;" onclick="postular(this, '<?php echo base64_encode($solicitud["idSolicitudEmpleo"]);?>');">
+          <a style="cursor: pointer;" onclick="postular(this,'<?php echo base64_encode($solicitud["idSolicitudEmpleo"]);?>','<?php echo $idVacante; ?>');">
             <i class="fa fa-chevron-circle-right"></i>
           </a>
         </td>

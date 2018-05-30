@@ -80,6 +80,16 @@ class Controller {
 					}
 					break;
 
+				case "guardarPostulacion":
+					if(isset($_SESSION["spar_usuario"])){
+						$resultado = $this->varVacantes->guardarPostulacion($_POST["solicitud"],$_POST["idVacante"]);
+						echo $resultado;
+					}
+					else{
+						echo "Expiró la sesión, actualice e inicie nuevamente.";
+					}
+					break;
+
 				case "modificar":
 					$presupuesto = $this->varVacantes->informacionVacantesPresupuesto($_POST["cliente"], $_POST["presupuesto"],100);
 					$filasVacantes = $this->varVacantes->informacionVacantes($_POST["cliente"], $_POST["presupuesto"], $_POST["perfil"], $_POST["puesto"], $_POST["fecha"]);
@@ -181,6 +191,7 @@ class Controller {
 					break;
 
 				case "busqueda":
+				 	$idVacante = $_POST["idVacante"];
 					$solicitudes = $this->varSolicitudes->busquedaSolicitudVacante($_POST["busqueda"]);
 					if(empty($solicitudes)){
 						echo "No existen datos.";

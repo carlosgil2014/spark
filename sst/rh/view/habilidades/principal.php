@@ -147,6 +147,56 @@ if(!isset($_SESSION['spar_usuario']))
                     </tbody>
                   </table>
                     </div>
+
+                    <table id='ejemplo1' class='table table-bordered table-striped'>
+    <thead>
+        <tr>
+            <th>Hora de entrega</th>
+            <th>Cliente</th>
+            <th>Dirección de obra</th>
+            <th>Fecha de entrega</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr id='head'>
+            <td>".$reg['hora']."</td>
+            <td>".$reg['cliente']."</td>
+            <td>".$reg['dir_obra']."<br/>".$reg['indicaciones']."</td>
+            <td>".$reg['fecha_entrega']."</td>
+            <td>        
+                <button class='btn btn-danger btn-sm' aria-label='Left Align'> Borrar</button>
+                <button class='btn btn-success btn-sm' aria-label='Left Align'> Editar</button></br>
+                <button id='btnModal'>Abrir modal</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<script>
+    var modal = document.getElementById('Modal');
+
+    var btn = document.getElementById("btnModal");
+
+    var span = document.getElementsByClassName("cerrar")[0];
+
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+
+
+
                   </div>
                   <div class="control-sidebar-bg"></div>
                   <div class="modal fade" id="modalHabilidad" role="dialog">              

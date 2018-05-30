@@ -43,7 +43,7 @@
                 <div class="input-group">
                   <input type="text" id="busqueda" class="form-control input-sm" placeholder="Apellidos, CURP, Nombres o RFC">
                   <span class="input-group-btn">
-                    <button type="button" class="btn btn-sm btn-flat btn-info" onclick="buscar();"><i class="fa fa-search"></i>
+                    <button type="button" class="btn btn-sm btn-flat btn-info" onclick="buscar('<?php echo base64_encode($vacante['idVacante']);?>');"><i class="fa fa-search"></i>
                     </button>
                   </span>
                 </div>
@@ -65,9 +65,11 @@
             </div>
             <div class="box-body" style="height: 250px; overflow-y: auto;">
               <div id="divSolicitudesPostular" class="table-responsive">
-                <table id="tblSolicitudesPostular" class="table table-bordered table-responsive table-condensed text-center small">
-                  
-                </table>
+                <form id="guardar">
+                  <table id="tblSolicitudesPostular" class="table table-bordered table-responsive table-condensed text-center small">
+                    
+                  </table>
+                </form>
               </div>
             </div>
             <!-- /.box-body -->

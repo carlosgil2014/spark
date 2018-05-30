@@ -45,7 +45,7 @@
         </div>
         <div class="form-group col-md-4">
           <label>Proyecto</label>
-          <select class="form-control selectpicker" id="proyecto" data-live-search="true" disabled required>
+          <select class="form-control selectpicker" id="proyectos" data-live-search="true" disabled required>
           </select>
           <div class="help-block with-errors"></div>
         </div>

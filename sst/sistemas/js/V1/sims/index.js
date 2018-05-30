@@ -73,6 +73,7 @@ function guardar(elemento){
 		$(".loader").fadeIn("fast", function(){
 			$("input[name='sim']").each(function(i, obj) {
 				var tmp = $(this), tipoTmp = tmp.closest("td").next("td").find("input[name='tipo']").val();
+				//console.log(tmp);
 				$.ajax({
 			   	 	url: 'index.php?accion=guardar',
 				    data: {icc : tmp.val(), almacen : $("#almacen").val(), tipo : tipoTmp}, 

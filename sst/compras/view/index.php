@@ -57,83 +57,36 @@ if(!isset($_SESSION['spar_usuario']))
           ?>
           <!-- Comienza barra de menus: : Estilos encontrados en Less -->
           <ul class="sidebar-menu">
-          <li class="treeview">
-          <a href="#">
-            <i class="fa fa-file-text-o"></i> <span>Requisiciones</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li>
+            
+            <li class="treeview">
               <a href="#">
-                <i class="fa fa-clipboard"></i>
-                <span>Crear requisición</span>
+                <i class="fa fa-file-text-o"></i> <span>Ordenes de Compra</span>
                 <span class="pull-right-container">
-                <span class="label label-primary pull-right">0</span>
+                  <i class="fa fa-angle-left pull-right"></i>
                 </span>
               </a>
-            </li>    
-            <li>
-              <a href="#">
-                <i class="fa fa-files-o"></i>
-                <span>Ver requisiciones</span>
-                <span class="pull-right-container">
-                <span class="label label-primary pull-right">0</span>
-                </span>
-              </a>
+              <ul class="treeview-menu">
+                <li>
+                  <a href="view/ordenCompra/index.php?accion=nuevaOrden">
+                    <i class="fa fa-clipboard"></i>
+                    <span>Crear orden de compra</span>
+                    <span class="pull-right-container">
+                    <span class="label label-primary pull-right">0</span>
+                    </span>
+                  </a>
+                </li>    
+                <li>
+                  <a href="view/ordenCompra/index.php?accion=">
+                    <i class="fa fa-files-o"></i>
+                    <span>Ver ordenes de compra</span>
+                    <span class="pull-right-container">
+                    <span class="label label-primary pull-right">0</span>
+                    </span>
+                  </a>
+                </li>
+              </ul>
             </li>
-          </ul>
-        </li>
-            <li><a href="#"><i class="fa fa-money"></i> Pagos</a></li>
-        
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-file-text-o"></i> <span>Ordenes de Compra</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li>
-              <a href="view/ordenCompra/index.php?accion=index">
-                <i class="fa fa-clipboard"></i>
-                <span>Crear orden de compra</span>
-                <span class="pull-right-container">
-                <span class="label label-primary pull-right">0</span>
-                </span>
-              </a>
-            </li>    
-            <li>
-              <a href="view/ordenCompra/index.php?accion=">
-                <i class="fa fa-files-o"></i>
-                <span>Ver ordenes de compra</span>
-                <span class="pull-right-container">
-                <span class="label label-primary pull-right">0</span>
-                </span>
-              </a>
-            </li>
-          </ul>
-        </li>
 
-            <li>
-              <a href="#">
-                <i class="fa fa-files-o"></i>
-                <span>Crear Compra</span>
-                <span class="pull-right-container">
-                <span class="label label-primary pull-right">0</span>
-                </span>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <i class="fa fa-files-o"></i>
-                <span>Ver Compras</span>
-                <span class="pull-right-container">
-                <span class="label label-primary pull-right">0</span>
-                </span>
-              </a>
-            </li>
             <li><a href="#"><i class="fa  fa-cloud-download"></i> Descarga Masiva</a></li>
             <li><a href="#"><i class="fa fa-indent"></i> Categorías de Compra</a></li>
             <li><a href="#"><i class="fa fa-usd"></i> Centro de Costos</a></li>
